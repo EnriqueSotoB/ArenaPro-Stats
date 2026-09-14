@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArenaPro Stats</title>
+  <meta name="description" content="Estadísticas de tiempos y puntos por evento y temporada — ArenaPro" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="" width="44" height="44" />
+      <div>
+        <p class="brand-name">ArenaPro</p>
+        <p class="brand-sub">Stats</p>
+      </div>
+    </div>
+    <p class="tagline">Tiempos y puntos · evento y temporada</p>
+  </header>
+
+  <main>
+    <section class="panel controls" aria-label="Controles">
+      <label class="field">
+        <span>Evento</span>
+        <select id="eventoSelect"></select>
+      </label>
+      <label class="field file-field">
+        <span>Probar export de Time</span>
+        <input id="fileInput" type="file" accept="application/json,.json" />
+      </label>
+      <p id="status" class="status" role="status"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="evento-heading">
+      <div class="section-head">
+        <div>
+          <h1 id="evento-heading">Resultados del evento</h1>
+          <p id="eventoMeta" class="meta"></p>
+        </div>
+      </div>
+      <div id="eventoTables" class="tables"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="temp-heading">
+      <div class="section-head">
+        <div>
+          <h2 id="temp-heading">Tabla de temporada</h2>
+          <p id="tempMeta" class="meta"></p>
+        </div>
+      </div>
+      <div id="tempTable" class="tables"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Alimenta con <code>arenapro-results</code> de Time · datos en <code>data/</code></p>
+  </footer>
+
+  <script src="js/app.js" type="module"></script>
+</body>
+</html>

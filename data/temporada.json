@@ -1,0 +1,53 @@
+{
+  "temporada": "2026",
+  "titulo": "Circuito demo ArenaPro",
+  "actualizadoEn": "2026-09-14T18:56:21.066Z",
+  "eventosContados": 2,
+  "standings": [
+    {
+      "competidorId": "comp_ana",
+      "nombre": "Ana Ruiz",
+      "equipo": "Rancho El Nogal",
+      "categoriaId": "cat_barriles_abierto",
+      "categoriaNombre": "Barriles Abierto",
+      "puntosTotales": 35,
+      "eventos": 2
+    },
+    {
+      "competidorId": "comp_luis",
+      "nombre": "Luis Mendoza",
+      "equipo": "Asociación Norte",
+      "categoriaId": "cat_barriles_abierto",
+      "categoriaNombre": "Barriles Abierto",
+      "puntosTotales": 35,
+      "eventos": 2
+    },
+    {
+      "competidorId": "comp_sofia",
+      "nombre": "Sofía Camargo",
+      "equipo": "Equipo Sierra",
+      "categoriaId": "cat_barriles_abierto",
+      "categoriaNombre": "Barriles Abierto",
+      "puntosTotales": 0,
+      "eventos": 1
+    },
+    {
+      "competidorId": "comp_diego",
+      "nombre": "Diego Vargas",
+      "equipo": "Charros Unidos",
+      "categoriaId": "cat_jineteos",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 38,
+      "eventos": 2
+    },
+    {
+      "competidorId": "comp_marco",
+      "nombre": "Marco Beltrán",
+      "equipo": "Rancho La Cruz",
+      "categoriaId": "cat_jineteos",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 26,
+      "eventos": 2
+    }
+  ]
+}
