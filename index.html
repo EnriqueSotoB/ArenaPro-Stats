@@ -6,60 +6,77 @@
   <title>ArenaPro Stats</title>
   <meta name="description" content="Estadísticas de tiempos y puntos por evento y temporada — ArenaPro" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="page-bg" aria-hidden="true"></div>
-
   <header class="topbar">
-    <div class="brand">
-      <img src="assets/logo.svg" alt="" width="44" height="44" />
-      <div>
-        <p class="brand-name">ArenaPro</p>
-        <p class="brand-sub">Stats</p>
-      </div>
-    </div>
-    <p class="tagline">Tiempos y puntos · evento y temporada</p>
+    <a class="brand" href="#temporada" aria-label="ArenaPro Stats — Temporada">
+      <img src="assets/logo.svg" alt="" width="40" height="40" />
+      <span class="brand-text">
+        <span class="brand-name">ArenaPro</span>
+        <span class="brand-sub">Stats</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <button type="button" class="nav-link" data-nav="temporada" id="navTemporada">Temporada</button>
+      <button type="button" class="nav-link" data-nav="eventos" id="navEventos">Eventos</button>
+    </nav>
   </header>
 
-  <main>
-    <section class="panel controls" aria-label="Controles">
-      <label class="field">
-        <span>Evento</span>
-        <select id="eventoSelect"></select>
-      </label>
-      <label class="field file-field">
-        <span>Probar export de Time</span>
-        <input id="fileInput" type="file" accept="application/json,.json" />
-      </label>
-      <p id="status" class="status" role="status"></p>
+  <main class="main">
+    <p id="status" class="status" role="status"></p>
+
+    <!-- TEMPORADA: hub por categoría -->
+    <section id="viewTemporadaHub" class="view" hidden>
+      <header class="page-head">
+        <h1 id="tempTitle">Temporada</h1>
+        <p id="tempMeta" class="meta"></p>
+      </header>
+      <div id="tempCards" class="card-grid"></div>
     </section>
 
-    <section class="panel" aria-labelledby="evento-heading">
-      <div class="section-head">
-        <div>
-          <h1 id="evento-heading">Resultados del evento</h1>
-          <p id="eventoMeta" class="meta"></p>
-        </div>
-      </div>
-      <div id="eventoTables" class="tables"></div>
+    <!-- TEMPORADA: ranking completo de una categoría -->
+    <section id="viewTemporadaRanking" class="view" hidden>
+      <header class="page-head">
+        <button type="button" class="btn-back" id="btnBackTemporada">← Temporada</button>
+        <h1 id="rankTitle">Ranking</h1>
+        <p id="rankMeta" class="meta"></p>
+      </header>
+      <div id="rankPodium" class="podium"></div>
+      <div id="rankTable" class="panel"></div>
     </section>
 
-    <section class="panel" aria-labelledby="temp-heading">
-      <div class="section-head">
-        <div>
-          <h2 id="temp-heading">Tabla de temporada</h2>
-          <p id="tempMeta" class="meta"></p>
-        </div>
+    <!-- EVENTOS: índice -->
+    <section id="viewEventosList" class="view" hidden>
+      <header class="page-head">
+        <h1>Eventos</h1>
+        <p class="meta">Resultados por rodeo · elige uno para ver categorías</p>
+      </header>
+      <div class="panel tools">
+        <label class="field">
+          <span>Probar export de Time</span>
+          <input id="fileInput" type="file" accept="application/json,.json" />
+        </label>
       </div>
-      <div id="tempTable" class="tables"></div>
+      <div id="eventosList" class="event-list"></div>
+    </section>
+
+    <!-- EVENTO: detalle -->
+    <section id="viewEventoDetail" class="view" hidden>
+      <header class="page-head">
+        <button type="button" class="btn-back" id="btnBackEventos">← Eventos</button>
+        <h1 id="eventoTitle">Evento</h1>
+        <p id="eventoMeta" class="meta"></p>
+      </header>
+      <div id="eventoPodium" class="podium"></div>
+      <div class="panel">
+        <div id="catTabs" class="tabs" role="tablist" aria-label="Categorías"></div>
+        <div id="eventoTable" class="tables"></div>
+      </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="footer">
     <p>Alimenta con <code>arenapro-results</code> de Time · datos en <code>data/</code></p>
   </footer>
 

@@ -1,17 +1,20 @@
 {
   "temporadaActiva": "2026",
   "titulo": "Circuito demo ArenaPro",
+  "cutLine": 2,
   "eventos": [
     {
       "id": "evt_demo_chihuahua",
       "nombre": "Rodeo Demo Chihuahua",
       "fecha": "2026-07-26",
+      "sede": "Chihuahua, Chih.",
       "file": "eventos/2026-07-26-rodeo-demo-chihuahua.json"
     },
     {
       "id": "evt_demo_durango",
       "nombre": "Rodeo Demo Durango",
       "fecha": "2026-08-16",
+      "sede": "Durango, Dgo.",
       "file": "eventos/2026-08-16-rodeo-demo-durango.json"
     }
   ]
