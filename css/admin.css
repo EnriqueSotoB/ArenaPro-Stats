@@ -1,0 +1,217 @@
+/* Admin / consola local — tokens ArenaPro */
+
+.tagline-admin {
+  margin: 0;
+  color: var(--sand);
+  font-size: 0.875rem;
+}
+
+.admin-main {
+  max-width: 720px;
+}
+
+.admin-banner {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 0.9375rem;
+}
+
+.admin-banner.is-ok {
+  border-color: var(--forest);
+  background: color-mix(in srgb, var(--forest) 8%, #fff);
+  color: var(--forest);
+  font-weight: 700;
+}
+
+.admin-banner.is-error {
+  border-color: var(--ochre);
+  background: color-mix(in srgb, var(--ochre) 16%, #fff);
+  color: var(--dark);
+  font-weight: 700;
+}
+
+.steps {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.step-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ochre);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-title-plain {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ochre);
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.375rem;
+  background: var(--forest);
+  color: var(--cream);
+  font-size: 0.875rem;
+}
+
+.dropzone {
+  margin-top: 0.75rem;
+  padding: 1.5rem 1rem;
+  border: 2px dashed var(--border);
+  border-radius: 0.5rem;
+  background: var(--cream);
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropzone.is-drag {
+  border-color: var(--forest);
+  background: color-mix(in srgb, var(--forest) 8%, var(--cream));
+}
+
+.dropzone-label {
+  margin: 0;
+  font-weight: 700;
+  color: var(--forest);
+}
+
+.dropzone-sub {
+  margin: 0.35rem 0;
+  color: var(--textsub);
+  font-size: 0.875rem;
+}
+
+.preview {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--sand);
+  font-size: 0.9375rem;
+}
+
+.empty-preview {
+  color: var(--textsub);
+  background: #fff;
+}
+
+.admin-field {
+  margin-top: 0.5rem;
+  max-width: 12rem;
+}
+
+.admin-field input {
+  font: inherit;
+  color: var(--dark);
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.admin-field input:focus {
+  outline: 2px solid var(--forest);
+  outline-offset: 1px;
+}
+
+.btn-primary,
+.btn-secondary,
+.link-btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  border-radius: 0.375rem;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--forest);
+  border: 1px solid var(--forest);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--forest) 90%, #000);
+}
+
+.btn-primary:disabled {
+  background: var(--sand);
+  border-color: var(--sand);
+  color: var(--textsub);
+  cursor: not-allowed;
+}
+
+.btn-secondary,
+.link-btn {
+  color: var(--forest);
+  background: transparent;
+  border: 1px solid var(--forest);
+}
+
+.btn-secondary:hover,
+.link-btn:hover {
+  background: color-mix(in srgb, var(--forest) 8%, transparent);
+}
+
+.file-btn {
+  cursor: pointer;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.eventos-mini {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.eventos-mini li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9375rem;
+}
+
+.eventos-mini li:last-child {
+  border-bottom: none;
+}
+
+.eventos-mini .ev-name {
+  font-weight: 700;
+  color: var(--forest);
+}
+
+.eventos-mini .ev-meta {
+  color: var(--textsub);
+  font-size: 0.875rem;
+}
