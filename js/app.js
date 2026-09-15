@@ -233,7 +233,7 @@ function renderTemporadaRanking(catId) {
     .filter(Boolean)
     .join(" · ");
 
-  els.rankPodium.innerHTML = renderPodium(
+  els.rankPodium.innerHTML = renderPodiumHtml(
     rows.slice(0, 3).map((r, i) => ({
       place: i + 1,
       name: r.nombre || r.competidorId || "—",
