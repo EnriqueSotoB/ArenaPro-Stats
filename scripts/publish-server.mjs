@@ -7,14 +7,21 @@
 import http from "node:http";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSync } from "node:fs";
 import { dirname, join, extname, relative } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { execFileSync } from "node:child_process";
-import { rebuildTemporada } from "./rebuild-temporada.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(SCRIPT_DIR, "..");
 const PAGES_URL = "https://enriquesotob.github.io/ArenaPro-Stats/";
+
+/** Recarga el script cada vez (evita rebuild viejo si el servidor sigue abierto). */
+async function runRebuild() {
+  const href = `${pathToFileURL(join(SCRIPT_DIR, "rebuild-temporada.mjs")).href}?t=${Date.now()}`;
+  const { rebuildTemporada } = await import(href);
+  return rebuildTemporada(ROOT);
+}
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -135,7 +142,7 @@ function getStatus() {
   };
 }
 
-function ingest({ evento, temporada }) {
+async function ingest({ evento, temporada }) {
   if (!evento || typeof evento !== "object") {
     const err = new Error("Falta el JSON del evento.");
     err.statusCode = 400;
@@ -190,7 +197,7 @@ function ingest({ evento, temporada }) {
   manifest.eventos.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
   saveManifest(manifest);
 
-  const rebuilt = rebuildTemporada(ROOT);
+  const rebuilt = await runRebuild();
 
   return {
     ok: true,
@@ -201,7 +208,7 @@ function ingest({ evento, temporada }) {
   };
 }
 
-function removeEvent({ id }) {
+async function removeEvent({ id }) {
   const eventId = id != null ? String(id).trim() : "";
   if (!eventId) {
     const err = new Error("Falta el id del evento.");
@@ -230,7 +237,7 @@ function removeEvent({ id }) {
 
   manifest.eventos.splice(idx, 1);
   saveManifest(manifest);
-  const rebuilt = rebuildTemporada(ROOT);
+  const rebuilt = await runRebuild();
 
   return {
     ok: true,
@@ -239,7 +246,7 @@ function removeEvent({ id }) {
   };
 }
 
-function syncWithRemote() {
+async function syncWithRemote() {
   const branch = git(["rev-parse", "--abbrev-ref", "HEAD"]);
   git(["fetch", "origin"]);
 
@@ -252,7 +259,7 @@ function syncWithRemote() {
     if (!inRebase && !/conflict/i.test(msg)) throw e;
 
     // Fuente de verdad local: regenerar acumulado y continuar el rebase.
-    rebuildTemporada(ROOT);
+    await runRebuild();
     try {
       git(["add", "--", "data"]);
       execFileSync("git", ["-c", "core.editor=true", "rebase", "--continue"], {
@@ -276,7 +283,7 @@ function syncWithRemote() {
   }
 }
 
-function publish() {
+async function publish() {
   const statusBefore = git(["status", "--porcelain", "--", "data"]);
   if (!statusBefore) {
     return { ok: true, published: false, message: "No hay cambios en data/ para publicar." };
@@ -300,7 +307,7 @@ function publish() {
   }
 
   // Evita "rejected (fetch first)" cuando el remoto avanzó (p. ej. Action viejo).
-  syncWithRemote();
+  await syncWithRemote();
   git(["push", "origin", "HEAD"]);
   return {
     ok: true,
@@ -358,26 +365,26 @@ const server = http.createServer(async (req, res) => {
 
     if (method === "POST" && url.pathname === "/api/ingest") {
       const body = await readJsonBody(req);
-      const result = ingest(body);
+      const result = await ingest(body);
       sendJson(res, 200, result);
       return;
     }
 
     if (method === "POST" && url.pathname === "/api/remove") {
       const body = await readJsonBody(req);
-      const result = removeEvent(body);
+      const result = await removeEvent(body);
       sendJson(res, 200, result);
       return;
     }
 
     if (method === "POST" && url.pathname === "/api/rebuild") {
-      const rebuilt = rebuildTemporada(ROOT);
+      const rebuilt = await runRebuild();
       sendJson(res, 200, { ok: true, rebuilt });
       return;
     }
 
     if (method === "POST" && url.pathname === "/api/publish") {
-      const result = publish();
+      const result = await publish();
       sendJson(res, 200, result);
       return;
     }

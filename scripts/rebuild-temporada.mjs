@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 /**
- * Regenera data/temporada.json sumando puntosCircuito por competidor y disciplina.
- * Una sola tabla por disciplina (Barriles, Team Roping, …), acumulando eventos.
- * Uso: node scripts/rebuild-temporada.mjs
- * También exporta rebuildTemporada(root) para publish-server.
+ * Regenera data/temporada.json sumando puntosCircuito por competidor y disciplina de circuito.
+ *
+ * Unificación (el nombre de categoría en Time puede variar):
+ *   "Barriles" / "Abierta" / "Barriles Abierto" / "Abierta Barriles" → Barriles
+ *   "Master" / "Masters" / "Master Barriles" (tipo Barriles)         → Barriles Masters
+ *   "TeamRoping" / "Abierta" (tipo TeamRoping)                      → Team Roping
+ *   "Masters" / "Team Roping Masters"                               → Team Roping Masters
+ *
+ * No usar categoriaId local:{n}: cambia en cada competencia.
  */
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -15,6 +20,7 @@ const defaultRoot = join(scriptDir, "..");
 /** Etiquetas de circuito (alineadas a Time / FMR). */
 const DISCIPLINA_LABEL = {
   Barriles: "Barriles",
+  BarrilesMasters: "Barriles Masters",
   LazoDeBecerro: "Lazo de Becerro",
   LazoEnFalso: "Lazo en Falso",
   AchatadaDeNovillos: "Achatada de Novillos",
@@ -25,19 +31,55 @@ const DISCIPLINA_LABEL = {
   JineteosDeToros: "Jineteos de Toros",
 };
 
+function normalizeText(s) {
+  return String(s || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function inferTipoFromNombre(nom) {
+  if (/barril/.test(nom)) return "Barriles";
+  if (/team\s*roping|teamroping/.test(nom)) return "TeamRoping";
+  if (/lazo de becerro|becerro/.test(nom)) return "LazoDeBecerro";
+  if (/lazo en falso/.test(nom)) return "LazoEnFalso";
+  if (/achatada/.test(nom)) return "AchatadaDeNovillos";
+  if (/pretal/.test(nom)) return "CaballoConPretal";
+  if (/montura/.test(nom)) return "CaballoConMontura";
+  if (/jineteo/.test(nom)) return "JineteosDeToros";
+  return "";
+}
+
 /**
- * Clave estable de disciplina para el circuito.
- * No usar categoriaId local:{n} — cambia en cada competencia de Time.
+ * Clave estable de disciplina de circuito.
+ * Abierta / Barriles / Barriles Abierto → misma cubeta.
+ * Master* → cubeta Masters de esa disciplina.
  */
 export function disciplinaKey(cat = {}) {
-  const tipo = String(cat.tipo || "").trim();
-  const nombre = String(cat.nombre || "");
-  // Masters a veces llega mal etiquetado como TeamRoping en el export.
-  if (/^TeamRoping$/i.test(tipo) && /master/i.test(nombre)) {
-    return "TeamRopingMasters";
+  let tipo = String(cat.tipo || "").trim();
+  const nom = normalizeText(cat.nombre);
+  const isMaster = /\bmasters?\b/.test(nom);
+
+  if (!tipo) tipo = inferTipoFromNombre(nom);
+
+  // Enum ya viene como Masters
+  if (tipo === "TeamRopingMasters") return "TeamRopingMasters";
+  if (tipo === "BarrilesMasters") return "BarrilesMasters";
+
+  if (tipo === "TeamRoping") {
+    return isMaster ? "TeamRopingMasters" : "TeamRoping";
   }
-  if (tipo) return tipo;
-  return "_";
+  if (tipo === "Barriles") {
+    return isMaster ? "BarrilesMasters" : "Barriles";
+  }
+
+  if (tipo && isMaster && !/Masters$/i.test(tipo)) {
+    return `${tipo}Masters`;
+  }
+
+  return tipo || "_";
 }
 
 export function disciplinaLabel(key) {
@@ -50,26 +92,16 @@ export function disciplinaLabel(key) {
 export function competitorKey(row) {
   const id = row.competidorId != null ? String(row.competidorId).trim() : "";
   if (id && !id.startsWith("local:")) return id;
-  const name = normalizeNombre(row.nombre);
+  const name = normalizeText(row.nombre).replace(/\s*\/\s*/g, "/");
   if (name) return `name:${name}`;
   if (id) return id;
   const ins = row.inscripcionId != null ? String(row.inscripcionId).trim() : "";
   return ins || "anon";
 }
 
-function normalizeNombre(n) {
-  return String(n || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/\s*\/\s*/g, "/")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 /**
  * @param {string} [root]
- * @returns {{ standings: number, eventosContados: number, temporada: string, outPath: string }}
+ * @returns {{ standings: number, eventosContados: number, temporada: string, outPath: string, disciplinas: string[] }}
  */
 export function rebuildTemporada(root = defaultRoot) {
   const manifestPath = join(root, "data", "manifest.json");
@@ -123,7 +155,6 @@ export function rebuildTemporada(root = defaultRoot) {
         equipo: item.equipo,
         disciplinaId: item.disciplinaId,
         disciplinaNombre: item.disciplinaNombre,
-        // Compat con UI anterior (agrupa por categoriaId).
         categoriaId: item.disciplinaId,
         categoriaNombre: item.disciplinaNombre,
         puntosTotales: 0,
