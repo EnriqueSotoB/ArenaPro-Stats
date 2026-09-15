@@ -11,6 +11,13 @@
       "file": "eventos/2026-07-26-rodeo-demo-chihuahua.json"
     },
     {
+      "id": "local:16",
+      "nombre": "RODEO JIMENEZ 2026",
+      "fecha": "2026-08-02",
+      "sede": "Arena Huejuquilla",
+      "file": "eventos/2026-08-02-rodeo-jimenez-2026.json"
+    },
+    {
       "id": "local:20",
       "nombre": "COUNTRY FEST 2026",
       "fecha": "2026-08-15",
