@@ -16,6 +16,13 @@
       "fecha": "2026-08-16",
       "sede": "Durango, Dgo.",
       "file": "eventos/2026-08-16-rodeo-demo-durango.json"
+    },
+    {
+      "id": "local:21",
+      "nombre": "RODEO CAMARGO 2026",
+      "fecha": "2026-09-06",
+      "sede": "Arena Santa Rosalia Camargo",
+      "file": "eventos/2026-09-06-rodeo-camargo-2026.json"
     }
   ]
 }

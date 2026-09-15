@@ -1,9 +1,387 @@
 {
   "temporada": "2026",
   "titulo": "Circuito demo ArenaPro",
-  "actualizadoEn": "2026-09-15T00:34:09.120Z",
-  "eventosContados": 2,
+  "actualizadoEn": "2026-09-15T01:26:30.438Z",
+  "eventosContados": 3,
   "standings": [
+    {
+      "competidorId": "local:1042",
+      "nombre": "ALEJANDRO TORRES / JOSE RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 182,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1035",
+      "nombre": "UBALDO SANDOVAL / PABLO CARDENAS",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 172,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1049",
+      "nombre": "RIGO NEVAREZ / CHUMEL PAEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 147,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1033",
+      "nombre": "EDGAR PANDO / SANTIAGO LUEVANO",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 127,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1037",
+      "nombre": "FRANCISCO DE LA TORRE Jr / FRANCISCO DE LA TORRE",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 122,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1046",
+      "nombre": "FERNANDO GAN / MIGUEL DE LA TORRE",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 102,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1032",
+      "nombre": "JOSE LUIS GONZALEZ / ARMANDO PEREZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 94.5,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1040",
+      "nombre": "ALVARO DE LA TORRE / ALVARO DE LA TORRE Jr",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 72.45454545454545,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1044",
+      "nombre": "VICTOR ESPARZA / FELIX HERNANDEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 52,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1038",
+      "nombre": "SERGIO RIVERA / EDUARDO CALDERON J",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 29.954545454545453,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1043",
+      "nombre": "JAVIER SOLIS / JUAN DOMINGUEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 12,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1050",
+      "nombre": "CHALE OCHOA / PELON VASQUEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 7.454545454545454,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1036",
+      "nombre": "MARLENE SALDIVAR / DON PONCHO RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 2.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1048",
+      "nombre": "ALFREDO PINON / LALITO MARQUEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 2.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1034",
+      "nombre": "JAVIER SEPULVEDA / DANIEL BAEZA",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 1.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1039",
+      "nombre": "CARLOS BANUELAS / ALONSO BECKMAN",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 1.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1041",
+      "nombre": "OMAR CHAVIRA / DANIEL RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 1.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1045",
+      "nombre": "EDGAR DEVORA / JESUS M PAEZ Sr",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 1.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1047",
+      "nombre": "SERBANDO GUTIERREZ Jr / JOSE E. GUTIERREZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 1.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1051",
+      "nombre": "GERARDO RODRIGUEZ / OSWALDO HERNANDEZ",
+      "equipo": "",
+      "categoriaId": "local:258",
+      "categoriaNombre": "Abierta",
+      "puntosTotales": 1.4545454545454546,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1054",
+      "nombre": "CHALE OCHOA",
+      "equipo": "",
+      "categoriaId": "local:259",
+      "categoriaNombre": "Achatada de Novillos",
+      "puntosTotales": 202,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1053",
+      "nombre": "CARLOS TOLEDO",
+      "equipo": "",
+      "categoriaId": "local:259",
+      "categoriaNombre": "Achatada de Novillos",
+      "puntosTotales": 106,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1055",
+      "nombre": "FERNANDO HERRERA",
+      "equipo": "",
+      "categoriaId": "local:259",
+      "categoriaNombre": "Achatada de Novillos",
+      "puntosTotales": 62,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1052",
+      "nombre": "SERGIO URRUTIA",
+      "equipo": "",
+      "categoriaId": "local:259",
+      "categoriaNombre": "Achatada de Novillos",
+      "puntosTotales": 17,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1065",
+      "nombre": "DANIELA MARTINEZ",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 187,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1068",
+      "nombre": "LUISA HERRERA",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 172,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1071",
+      "nombre": "ANDREA GONZALEZ",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 162,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1058",
+      "nombre": "PAMELA JIMENEZ",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 147,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1069",
+      "nombre": "MONICA FLORES",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 137,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1061",
+      "nombre": "PERY PRADO",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 82,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1062",
+      "nombre": "XIMENA SALCIDO",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 77,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1066",
+      "nombre": "PAULINA LOYA",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 62,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1072",
+      "nombre": "JHOSAYRA ARELLANO",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 57,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1060",
+      "nombre": "MARLENE SALDIVAR",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 17,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1057",
+      "nombre": "NASYERIH YEVERINO",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1059",
+      "nombre": "FLORENCIA HERNANDEZ",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1063",
+      "nombre": "GRETEL HERNANDEZ",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1064",
+      "nombre": "DEBANHY REZA",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1067",
+      "nombre": "CYTLALI BUSTILLOS",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1070",
+      "nombre": "SAYRA MORIEL",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1056",
+      "nombre": "ANNIE TREJO",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 0,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1073",
+      "nombre": "MARIANA ESCOBEDO",
+      "equipo": "",
+      "categoriaId": "local:260",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 0,
+      "eventos": 1
+    },
     {
       "competidorId": "comp_ana",
       "nombre": "Ana Ruiz",
@@ -32,6 +410,213 @@
       "eventos": 1
     },
     {
+      "competidorId": "local:1083",
+      "nombre": "YAEL RAMIREZ",
+      "equipo": "",
+      "categoriaId": "local:262",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 102,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1080",
+      "nombre": "DAVID DOMINGUEZ",
+      "equipo": "",
+      "categoriaId": "local:262",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 92,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1081",
+      "nombre": "VALENTIN RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:262",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 82,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1082",
+      "nombre": "SEBASTIAN RUIZ",
+      "equipo": "",
+      "categoriaId": "local:262",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1079",
+      "nombre": "JOSE CARLOS OCHOA",
+      "equipo": "",
+      "categoriaId": "local:262",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1084",
+      "nombre": "IVAN DOWZ",
+      "equipo": "",
+      "categoriaId": "local:262",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1077",
+      "nombre": "MARCO NUNEZ",
+      "equipo": "",
+      "categoriaId": "local:261",
+      "categoriaNombre": "Caballo con Pretal",
+      "puntosTotales": 102,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1076",
+      "nombre": "LANE GONZALEZ",
+      "equipo": "",
+      "categoriaId": "local:261",
+      "categoriaNombre": "Caballo con Pretal",
+      "puntosTotales": 92,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1075",
+      "nombre": "HECTOR GONZALEZ",
+      "equipo": "",
+      "categoriaId": "local:261",
+      "categoriaNombre": "Caballo con Pretal",
+      "puntosTotales": 82,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1078",
+      "nombre": "SAMUEL ACEVEZ",
+      "equipo": "",
+      "categoriaId": "local:261",
+      "categoriaNombre": "Caballo con Pretal",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1074",
+      "nombre": "JESUS GOMEZ",
+      "equipo": "",
+      "categoriaId": "local:261",
+      "categoriaNombre": "Caballo con Pretal",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1085",
+      "nombre": "LUIS QUINONEZ",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1086",
+      "nombre": "LEONEL SAENZ",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1087",
+      "nombre": "ALEJANDRO TISCARENO",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1088",
+      "nombre": "ANGEL FLORES",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1089",
+      "nombre": "RICARDO ESTRADA",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1090",
+      "nombre": "ARMANDO RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1091",
+      "nombre": "ALDO ACOSTA",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1092",
+      "nombre": "JOSE CARLOS OCHOA",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1093",
+      "nombre": "OSWALDO DOMINGUEZ",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1094",
+      "nombre": "AARON LEON",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1095",
+      "nombre": "HECTOR LERMA",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1096",
+      "nombre": "DIEGO CARRANZA",
+      "equipo": "",
+      "categoriaId": "local:263",
+      "categoriaNombre": "Jineteo de Toros",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
       "competidorId": "comp_diego",
       "nombre": "Diego Vargas",
       "equipo": "Charros Unidos",
@@ -48,6 +633,267 @@
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 26,
       "eventos": 2
+    },
+    {
+      "competidorId": "local:1021",
+      "nombre": "MIGUEL DE LA TORRE",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 192,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1023",
+      "nombre": "GERARDO REIMER",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 167,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1022",
+      "nombre": "OSWALDO HERNANDEZ",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 142,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1025",
+      "nombre": "EDUARDO CALDERON J",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 122,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1026",
+      "nombre": "ALVARO DE LA TORRE Jr",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 112,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1028",
+      "nombre": "SERGIO RIVERA",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 92,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1029",
+      "nombre": "MARIO HERRERA",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 37,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1027",
+      "nombre": "JORGE MEDINA",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 27,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1031",
+      "nombre": "ALVARO DE LA TORRE",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 27,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1024",
+      "nombre": "FRANCISCO SIMENTAL",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 2,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1030",
+      "nombre": "TOMAS JIMENEZ",
+      "equipo": "",
+      "categoriaId": "local:257",
+      "categoriaNombre": "Lazo de Becerro",
+      "puntosTotales": 1,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1110",
+      "nombre": "PAULINA RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 182,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1107",
+      "nombre": "PAULINA LOYA",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 172,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1113",
+      "nombre": "SELENE ITURRALDE",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 139.85714285714286,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1114",
+      "nombre": "MARY JOSE ROMERO",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 121.16666666666667,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1106",
+      "nombre": "LIZETH MINJARES",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 114.85714285714286,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1112",
+      "nombre": "GRETA KLASSEN",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 94.85714285714286,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1111",
+      "nombre": "MARLENE SALDIVAR",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 41.166666666666664,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1104",
+      "nombre": "DIANA DE LA TORRE",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 13.023809523809524,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1105",
+      "nombre": "MONICA FLORES",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 13.023809523809524,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1108",
+      "nombre": "ANA LIA FLORES",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 13.023809523809524,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1109",
+      "nombre": "PAULINA CHAIREZ",
+      "equipo": "",
+      "categoriaId": "local:265",
+      "categoriaNombre": "Lazo en Falso",
+      "puntosTotales": 13.023809523809524,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1097",
+      "nombre": "PEDRO PORRAS / ALDEMARO ARAGON",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 167,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1103",
+      "nombre": "CESAR BUSTAMANTE / PELON RAMOS",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 162,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1102",
+      "nombre": "JAIME PORRAS / OSCAR GARCIA",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 147,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1098",
+      "nombre": "MARIO VILLAREAL / GERARDO CHAVEZ",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 53.5,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1099",
+      "nombre": "GUILLERMO HERRERA / JORGE SOTO",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 53.5,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1100",
+      "nombre": "RAMON PARRA / TIBERIO RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 53.5,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1101",
+      "nombre": "JESUS MANUEL PAEZ SR / ALFONSO RODRIGUEZ",
+      "equipo": "",
+      "categoriaId": "local:264",
+      "categoriaNombre": "Master",
+      "puntosTotales": 53.5,
+      "eventos": 1
     }
   ]
 }
