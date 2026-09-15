@@ -37,10 +37,12 @@ export function buildEventoRanking(rows, cat) {
   for (const [key, comps] of Object.entries(byCompetidor)) {
     const sample = comps[0];
     const esPuntos = cat.tipo && /Jineteos|Montura|Pretal/i.test(cat.tipo);
-    const noTime = comps.some((r) => r.esNoTime);
     const tiempos = comps
       .filter((r) => r.tiempoOficial != null && !r.esNoTime)
       .map((r) => Number(r.tiempoOficial));
+    const tieneNt = comps.some((r) => r.esNoTime);
+    // Solo "No Time" total si no hay ningún tiempo oficial válido.
+    const noTime = !esPuntos && tiempos.length === 0 && (tieneNt || comps.every((r) => r.esNoTime || r.tiempoOficial == null));
     const puntosDisc = comps.map((r) => r.puntos).filter((p) => p != null).map(Number);
     const puntosCircuito = comps.map((r) => r.puntosCircuito).filter((p) => p != null).map(Number);
 
@@ -49,6 +51,7 @@ export function buildEventoRanking(rows, cat) {
       nombre: sample.nombre || sample.competidorId || "—",
       equipo: sample.equipo || "",
       noTime,
+      tieneNtParcial: tieneNt && tiempos.length > 0,
       mejorTiempo: tiempos.length ? Math.min(...tiempos) : null,
       sumaTiempos: tiempos.length ? tiempos.reduce((a, b) => a + b, 0) : null,
       puntosCalif: puntosDisc.length ? Math.max(...puntosDisc) : null,
@@ -66,6 +69,7 @@ export function buildEventoRanking(rows, cat) {
   }
 
   entries.sort((a, b) => {
+    // Sin tiempo válido al final; un NT en una sola vuelta no elimina al competidor.
     if (a.noTime !== b.noTime) return a.noTime ? 1 : -1;
     if (a.esPuntos) return (b.puntosCalif ?? -1) - (a.puntosCalif ?? -1);
     const ta = a.sumaTiempos ?? a.mejorTiempo;
@@ -98,12 +102,20 @@ export function rankingToPodiumItems(ranking) {
     place: r.lugar,
     name: r.nombre,
     sub: r.equipo || "",
-    value: r.noTime
-      ? "No Time"
-      : r.esPuntos
-        ? `${fmtNum(r.puntosCalif)} pts`
-        : fmtTime(r.sumaTiempos ?? r.mejorTiempo),
+    value: formatResultadoValor(r),
   }));
+}
+
+/** Tiempo / puntos para pódium y columna; respeta tiempos válidos aunque otra vuelta sea NT. */
+export function formatResultadoValor(r) {
+  if (r.esPuntos) {
+    if (r.puntosCalif == null) return "—";
+    return `${fmtNum(r.puntosCalif)} pts`;
+  }
+  if (r.noTime) return "No Time";
+  const t = r.sumaTiempos ?? r.mejorTiempo;
+  if (t == null) return "—";
+  return fmtTime(t);
 }
 
 export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) {
@@ -116,18 +128,22 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
     .map((r) => {
       const rowId = `ev-${r.lugar}-${r.competidorKey}`;
       const open = expandedRows.has(rowId);
-      const mark = r.noTime ? ` <span class="badge badge-nt">No Time</span>` : "";
-      const valor = r.noTime
-        ? "—"
-        : esPuntos
-          ? fmtNum(r.puntosCalif)
+      let mark = "";
+      if (r.noTime) mark = ` <span class="badge badge-nt">No Time</span>`;
+      else if (r.tieneNtParcial) mark = ` <span class="badge badge-nt">NT en vuelta</span>`;
+      const tiempoCelda = r.esPuntos
+        ? r.puntosCalif == null
+          ? "—"
+          : fmtNum(r.puntosCalif)
+        : r.noTime
+          ? "—"
           : fmtTime(r.sumaTiempos ?? r.mejorTiempo);
       const circ = r.puntosCircuito != null ? fmtNum(r.puntosCircuito) : "—";
       const main = `<tr class="is-expandable${open ? " is-open" : ""}" data-row="${escapeAttr(rowId)}" aria-expanded="${open}">
         <td class="num">${r.lugar}</td>
         <td>${escapeHtml(r.nombre)}${mark}</td>
         <td>${escapeHtml(r.equipo || "—")}</td>
-        <td class="num">${valor}</td>
+        <td class="num">${tiempoCelda}</td>
         <td class="num">${circ}</td>
       </tr>`;
       const detail = open
