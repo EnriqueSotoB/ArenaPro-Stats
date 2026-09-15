@@ -25,7 +25,6 @@ const els = {
   btnBackTemporada: document.getElementById("btnBackTemporada"),
   btnBackEventos: document.getElementById("btnBackEventos"),
   eventosList: document.getElementById("eventosList"),
-  fileInput: document.getElementById("fileInput"),
   eventoTitle: document.getElementById("eventoTitle"),
   eventoMeta: document.getElementById("eventoMeta"),
   eventoPodium: document.getElementById("eventoPodium"),
@@ -59,8 +58,6 @@ async function init() {
   els.btnBackTemporada.addEventListener("click", () => navigate("temporada"));
   els.btnBackEventos.addEventListener("click", () => navigate("eventos"));
   window.addEventListener("hashchange", () => applyRoute());
-
-  els.fileInput.addEventListener("change", onFilePreview);
 
   setStatus("");
   applyRoute();
@@ -289,18 +286,13 @@ function renderEventosList() {
 async function showEvento(eventoId) {
   setStatus("Cargando evento…");
   try {
-    let evento;
-    if (eventoId === "__preview__" && currentEvento?.eventoId === "__preview__") {
-      evento = currentEvento;
-    } else {
-      const entry = (manifest?.eventos || []).find((e) => e.id === eventoId);
-      if (!entry) throw new Error(`Evento no encontrado: ${eventoId}`);
-      if (!eventoCache.has(entry.file)) {
-        const raw = await fetchJson(`data/${entry.file}`);
-        eventoCache.set(entry.file, normalizeEvento(raw));
-      }
-      evento = eventoCache.get(entry.file);
+    const entry = (manifest?.eventos || []).find((e) => e.id === eventoId);
+    if (!entry) throw new Error(`Evento no encontrado: ${eventoId}`);
+    if (!eventoCache.has(entry.file)) {
+      const raw = await fetchJson(`data/${entry.file}`);
+      eventoCache.set(entry.file, normalizeEvento(raw));
     }
+    const evento = eventoCache.get(entry.file);
     currentEvento = evento;
     const cats = categoriesWithResults(evento);
     currentCatId = cats[0]?.id || null;
@@ -418,25 +410,6 @@ function wireExpandableRows() {
       renderEventoDetail(currentEvento, currentCatId);
     });
   });
-}
-
-async function onFilePreview() {
-  const file = els.fileInput.files?.[0];
-  if (!file) return;
-  try {
-    const text = await file.text();
-    const data = JSON.parse(text);
-    const evento = normalizeEvento(data, file.name);
-    evento.eventoId = "__preview__";
-    currentEvento = evento;
-    eventoCache.set("__preview__", evento);
-    const target = "#eventos/__preview__";
-    if (location.hash === target) await applyRoute();
-    else location.hash = target;
-    setStatus(`Vista previa local: ${file.name} (no se guarda en el repo)`);
-  } catch (err) {
-    setStatus(`No se pudo leer el archivo: ${err.message}`, true);
-  }
 }
 
 /* —— Domain helpers —— */

@@ -1,7 +1,19 @@
 /** Consola local admin — requiere publish-server.mjs */
 
+import {
+  normalizeEvento,
+  categoriesWithResults,
+  buildEventoRanking,
+  renderPodiumHtml,
+  rankingToPodiumItems,
+  renderEventoRankingTableHtml,
+  escapeHtml,
+} from "./event-model.js";
+
 let pendingEvento = null;
-let pendingFileName = "";
+let previewEvento = null;
+let previewCatId = null;
+const expandedRows = new Set();
 
 const els = {
   statusMeta: document.getElementById("statusMeta"),
@@ -10,6 +22,10 @@ const els = {
   fileInput: document.getElementById("fileInput"),
   fileInfo: document.getElementById("fileInfo"),
   preview: document.getElementById("preview"),
+  eventPreview: document.getElementById("eventPreview"),
+  previewPodium: document.getElementById("previewPodium"),
+  previewTabs: document.getElementById("previewTabs"),
+  previewTable: document.getElementById("previewTable"),
   temporadaInput: document.getElementById("temporadaInput"),
   btnIngest: document.getElementById("btnIngest"),
   btnPublish: document.getElementById("btnPublish"),
@@ -24,6 +40,12 @@ async function init() {
   wireDropzone();
   els.btnIngest.addEventListener("click", onIngest);
   els.btnPublish.addEventListener("click", onPublish);
+  els.temporadaInput.addEventListener("input", () => {
+    if (previewEvento) {
+      previewEvento.temporada = els.temporadaInput.value.trim();
+      renderMetaPreview(previewEvento);
+    }
+  });
   await refreshStatus();
 }
 
@@ -72,35 +94,87 @@ async function loadFile(file) {
     const text = await file.text();
     const data = JSON.parse(text);
     pendingEvento = data;
-    pendingFileName = file.name;
-    els.fileInfo.textContent = `Archivo: ${file.name}`;
-    renderPreview(data);
+    const evento = normalizeEvento(data, file.name);
     const temp =
       data.temporada ||
       els.temporadaInput.value ||
       (await fetchStatusSafe())?.temporadaActiva ||
       "";
     els.temporadaInput.value = temp;
+    evento.temporada = temp;
+    previewEvento = evento;
+    previewCatId = null;
+    expandedRows.clear();
+
+    els.fileInfo.textContent = `Archivo: ${file.name}`;
+    renderMetaPreview(evento);
+    renderEventPreview(evento, null);
     els.btnIngest.disabled = false;
-    showBanner(`Listo para agregar: ${data.nombreEvento || file.name}`, false);
+    showBanner(`Listo para agregar: ${evento.nombreEvento || file.name}`, false);
   } catch (err) {
     pendingEvento = null;
+    previewEvento = null;
     els.btnIngest.disabled = true;
     els.preview.classList.add("empty-preview");
     els.preview.textContent = "No se pudo leer el JSON.";
+    els.eventPreview.hidden = true;
     showBanner(err.message || String(err), true);
   }
 }
 
-function renderPreview(data) {
+function renderMetaPreview(evento) {
   els.preview.classList.remove("empty-preview");
   const lines = [
-    data.nombreEvento || data.eventoId || "Sin nombre",
-    [data.fecha, data.sede].filter(Boolean).join(" · "),
-    `${(data.resultados || []).length} filas de resultado`,
-    `${(data.categorias || []).length} categorías`,
-  ].filter(Boolean);
+    evento.nombreEvento || evento.eventoId || "Sin nombre",
+    [evento.fecha, evento.sede, evento.temporada ? `Temp. ${evento.temporada}` : ""]
+      .filter(Boolean)
+      .join(" · "),
+    `${(evento.resultados || []).length} filas · ${(evento.categorias || []).length} categorías`,
+  ];
   els.preview.innerHTML = lines.map((l) => `<div>${escapeHtml(l)}</div>`).join("");
+}
+
+function renderEventPreview(evento, catId) {
+  const cats = categoriesWithResults(evento);
+  if (!cats.length) {
+    els.eventPreview.hidden = true;
+    return;
+  }
+
+  els.eventPreview.hidden = false;
+  const activeId = catId || cats[0].id;
+  previewCatId = activeId;
+
+  els.previewTabs.innerHTML = cats
+    .map(
+      (c) =>
+        `<button type="button" class="tab${c.id === activeId ? " is-active" : ""}" data-cat="${escapeHtml(c.id)}">${escapeHtml(c.nombre)}</button>`
+    )
+    .join("");
+
+  els.previewTabs.querySelectorAll(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      expandedRows.clear();
+      renderEventPreview(evento, tab.getAttribute("data-cat"));
+    });
+  });
+
+  const cat = cats.find((c) => c.id === activeId) || cats[0];
+  const rows = (evento.resultados || []).filter((r) => (r.categoriaId || "_") === cat.id);
+  const ranking = buildEventoRanking(rows, cat);
+
+  els.previewPodium.innerHTML = renderPodiumHtml(rankingToPodiumItems(ranking));
+  els.previewTable.innerHTML = renderEventoRankingTableHtml(ranking, expandedRows);
+
+  els.previewTable.querySelectorAll("tr.is-expandable").forEach((tr) => {
+    tr.addEventListener("click", () => {
+      const id = tr.getAttribute("data-row");
+      if (!id || !previewEvento) return;
+      if (expandedRows.has(id)) expandedRows.delete(id);
+      else expandedRows.add(id);
+      renderEventPreview(previewEvento, previewCatId);
+    });
+  });
 }
 
 async function onIngest() {
@@ -123,9 +197,12 @@ async function onIngest() {
       false
     );
     pendingEvento = null;
-    pendingFileName = "";
+    previewEvento = null;
     els.fileInfo.textContent = "";
     els.fileInput.value = "";
+    els.eventPreview.hidden = true;
+    els.preview.classList.add("empty-preview");
+    els.preview.textContent = "Sin archivo cargado.";
     await refreshStatus();
   } catch (err) {
     showBanner(err.message || String(err), true);
@@ -216,12 +293,4 @@ function showBanner(msg, isError) {
   els.banner.textContent = msg || "";
   els.banner.classList.toggle("is-error", Boolean(isError));
   els.banner.classList.toggle("is-ok", Boolean(msg && !isError));
-}
-
-function escapeHtml(s) {
-  return String(s ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
 }

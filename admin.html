@@ -44,13 +44,19 @@
       </li>
 
       <li class="step panel" id="step2">
-        <h2 class="step-title"><span class="step-num">2</span> Confirmar temporada</h2>
-        <p class="meta">La temporada del circuito (no siempre es el año del calendario).</p>
+        <h2 class="step-title"><span class="step-num">2</span> Confirmar temporada y preview</h2>
+        <p class="meta">La temporada del circuito (no siempre es el año del calendario). Abajo ves cómo se verá el evento.</p>
         <div id="preview" class="preview empty-preview">Sin archivo cargado.</div>
         <label class="field admin-field">
           <span>Temporada</span>
           <input id="temporadaInput" type="text" inputmode="numeric" placeholder="2027" autocomplete="off" />
         </label>
+        <div id="eventPreview" class="event-preview" hidden>
+          <p class="preview-label">Vista previa (no publicada)</p>
+          <div id="previewPodium" class="podium"></div>
+          <div id="previewTabs" class="tabs" role="tablist" aria-label="Categorías"></div>
+          <div id="previewTable" class="tables"></div>
+        </div>
       </li>
 
       <li class="step panel" id="step3">

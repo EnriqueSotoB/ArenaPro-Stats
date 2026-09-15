@@ -407,37 +407,6 @@ body {
   white-space: nowrap;
 }
 
-.tools {
-  margin-bottom: 1rem;
-}
-
-.field {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.field span {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--olive);
-}
-
-.field input[type="file"],
-.field select {
-  font: inherit;
-  color: var(--dark);
-  background: #fff;
-  border: 1px solid var(--sand);
-  border-radius: 0.375rem;
-  padding: 0.5rem 0.75rem;
-}
-
-.field input[type="file"]:focus,
-.field select:focus {
-  outline: 2px solid var(--forest);
-  outline-offset: 1px;
-}
-
 /* —— Tabs —— */
 
 .tabs {

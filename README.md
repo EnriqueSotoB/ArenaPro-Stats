@@ -12,12 +12,12 @@ Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 2. En esta carpeta, doble clic en **`publicar.bat`** (o `node scripts/publish-server.mjs`)
 3. En el navegador (`admin.html`):
    - suelta el JSON
-   - confirma la **temporada** del circuito
+   - confirma la **temporada** y revisa el **preview** (pódium / categorías)
    - **Agregar a Stats**
    - **Publicar en GitHub Pages**
 4. Espera 1–2 min y abre https://enriquesotob.github.io/ArenaPro-Stats/
 
-La consola solo funciona en **localhost** (escribe el repo y hace `git push`). No uses `admin.html` desde Pages.
+La consola solo funciona en **localhost**. El sitio público en Pages es solo lectura (sin “probar export”).
 
 ## Ver el sitio en local
 
