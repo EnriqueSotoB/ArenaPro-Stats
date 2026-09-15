@@ -502,10 +502,13 @@ tbody tr.detail-row td {
   border-bottom: 1px solid var(--border);
 }
 
-td.num,
-th.num {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
+td .row-sub {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--textsub);
+  white-space: normal;
 }
 
 .delta {
