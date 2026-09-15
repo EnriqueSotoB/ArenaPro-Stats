@@ -4,13 +4,6 @@
   "cutLine": 2,
   "eventos": [
     {
-      "id": "evt_demo_chihuahua",
-      "nombre": "Rodeo Demo Chihuahua",
-      "fecha": "2026-07-26",
-      "sede": "Chihuahua, Chih.",
-      "file": "eventos/2026-07-26-rodeo-demo-chihuahua.json"
-    },
-    {
       "id": "local:16",
       "nombre": "RODEO JIMENEZ 2026",
       "fecha": "2026-08-02",
@@ -23,13 +16,6 @@
       "fecha": "2026-08-15",
       "sede": "Arena Complejo Avalos",
       "file": "eventos/2026-08-15-country-fest-2026.json"
-    },
-    {
-      "id": "evt_demo_durango",
-      "nombre": "Rodeo Demo Durango",
-      "fecha": "2026-08-16",
-      "sede": "Durango, Dgo.",
-      "file": "eventos/2026-08-16-rodeo-demo-durango.json"
     },
     {
       "id": "local:19",

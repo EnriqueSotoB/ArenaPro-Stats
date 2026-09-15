@@ -1,8 +1,8 @@
 {
   "temporada": "2026",
   "titulo": "Circuito demo ArenaPro",
-  "actualizadoEn": "2026-09-15T17:09:59.604Z",
-  "eventosContados": 6,
+  "actualizadoEn": "2026-09-15T17:16:42.845Z",
+  "eventosContados": 4,
   "standings": [
     {
       "competidorId": "local:554",
@@ -302,28 +302,6 @@
       "eventos": 3
     },
     {
-      "competidorId": "comp_ana",
-      "nombre": "Ana Ruiz",
-      "equipo": "Rancho El Nogal",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 35,
-      "eventos": 2
-    },
-    {
-      "competidorId": "comp_luis",
-      "nombre": "Luis Mendoza",
-      "equipo": "Asociación Norte",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 35,
-      "eventos": 2
-    },
-    {
       "competidorId": "local:532",
       "nombre": "Andrea Banuelos",
       "equipo": "",
@@ -599,17 +577,6 @@
       "eventos": 1
     },
     {
-      "competidorId": "comp_sofia",
-      "nombre": "Sofía Camargo",
-      "equipo": "Equipo Sierra",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 0,
-      "eventos": 1
-    },
-    {
       "competidorId": "local:1056",
       "nombre": "ANNIE TREJO",
       "equipo": "",
@@ -871,28 +838,6 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 103,
-      "eventos": 2
-    },
-    {
-      "competidorId": "comp_diego",
-      "nombre": "Diego Vargas",
-      "equipo": "Charros Unidos",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 38,
-      "eventos": 2
-    },
-    {
-      "competidorId": "comp_marco",
-      "nombre": "Marco Beltrán",
-      "equipo": "Rancho La Cruz",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 26,
       "eventos": 2
     },
     {
