@@ -7,7 +7,7 @@
 import http from "node:http";
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSync } from "node:fs";
 import { dirname, join, extname, relative } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
@@ -16,11 +16,62 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(SCRIPT_DIR, "..");
 const PAGES_URL = "https://enriquesotob.github.io/ArenaPro-Stats/";
 
-/** Recarga el script cada vez (evita rebuild viejo si el servidor sigue abierto). */
-async function runRebuild() {
-  const href = `${pathToFileURL(join(SCRIPT_DIR, "rebuild-temporada.mjs")).href}?t=${Date.now()}`;
-  const { rebuildTemporada } = await import(href);
-  return rebuildTemporada(ROOT);
+/** Siempre proceso Node nuevo: el import() en caliente NO invalida caché ESM en file://. */
+function runRebuild() {
+  const script = join(SCRIPT_DIR, "rebuild-temporada.mjs");
+  let stdout = "";
+  try {
+    stdout = execFileSync(process.execPath, [script], {
+      cwd: ROOT,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch (e) {
+    const detail = String(e.stderr || e.stdout || e.message || e).trim();
+    const err = new Error(`Falló regenerar temporada.json. ${detail}`);
+    err.statusCode = 500;
+    throw err;
+  }
+
+  const outPath = join(ROOT, "data", "temporada.json");
+  const payload = JSON.parse(readFileSync(outPath, "utf8"));
+  assertTemporadaCircuito(payload);
+  return {
+    standings: payload.standings?.length ?? 0,
+    eventosContados: payload.eventosContados ?? 0,
+    temporada: payload.temporada,
+    outPath,
+    disciplinas: [
+      ...new Set((payload.standings || []).map((s) => s.disciplinaId).filter(Boolean)),
+    ],
+    log: String(stdout || "").trim(),
+  };
+}
+
+/** No publicar acumulado agrupado por local:{id} / cat_* (rompe el circuito). */
+function assertTemporadaCircuito(payload) {
+  const bad = (payload.standings || []).filter((s) => {
+    const id = String(s.disciplinaId || s.categoriaId || "");
+    return !id || id.startsWith("local:") || id.startsWith("cat_") || id === "_";
+  });
+  if (bad.length) {
+    const sample = bad
+      .slice(0, 5)
+      .map((s) => s.disciplinaId || s.categoriaId)
+      .join(", ");
+    const err = new Error(
+      `temporada.json inválida: ${bad.length} filas sin disciplina de circuito (ej. ${sample}). Reinicia publicar.bat.`
+    );
+    err.statusCode = 500;
+    throw err;
+  }
+  if (!(payload.standings || []).some((s) => s.disciplinaId)) {
+    const err = new Error(
+      "temporada.json sin disciplinaId — el rebuild viejo sigue en memoria. Cierra y abre publicar.bat."
+    );
+    err.statusCode = 500;
+    throw err;
+  }
 }
 
 const MIME = {
@@ -197,7 +248,7 @@ async function ingest({ evento, temporada }) {
   manifest.eventos.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
   saveManifest(manifest);
 
-  const rebuilt = await runRebuild();
+  const rebuilt = runRebuild();
 
   return {
     ok: true,
@@ -208,7 +259,7 @@ async function ingest({ evento, temporada }) {
   };
 }
 
-async function removeEvent({ id }) {
+function removeEvent({ id }) {
   const eventId = id != null ? String(id).trim() : "";
   if (!eventId) {
     const err = new Error("Falta el id del evento.");
@@ -237,7 +288,7 @@ async function removeEvent({ id }) {
 
   manifest.eventos.splice(idx, 1);
   saveManifest(manifest);
-  const rebuilt = await runRebuild();
+  const rebuilt = runRebuild();
 
   return {
     ok: true,
@@ -259,7 +310,7 @@ async function syncWithRemote() {
     if (!inRebase && !/conflict/i.test(msg)) throw e;
 
     // Fuente de verdad local: regenerar acumulado y continuar el rebase.
-    await runRebuild();
+    runRebuild();
     try {
       git(["add", "--", "data"]);
       execFileSync("git", ["-c", "core.editor=true", "rebase", "--continue"], {
@@ -284,6 +335,9 @@ async function syncWithRemote() {
 }
 
 async function publish() {
+  // Siempre regenerar en proceso fresco antes de commitear (no confiar en ingest previo).
+  runRebuild();
+
   const statusBefore = git(["status", "--porcelain", "--", "data"]);
   if (!statusBefore) {
     return { ok: true, published: false, message: "No hay cambios en data/ para publicar." };
@@ -306,7 +360,6 @@ async function publish() {
     throw e;
   }
 
-  // Evita "rejected (fetch first)" cuando el remoto avanzó (p. ej. Action viejo).
   await syncWithRemote();
   git(["push", "origin", "HEAD"]);
   return {
@@ -372,13 +425,13 @@ const server = http.createServer(async (req, res) => {
 
     if (method === "POST" && url.pathname === "/api/remove") {
       const body = await readJsonBody(req);
-      const result = await removeEvent(body);
+      const result = removeEvent(body);
       sendJson(res, 200, result);
       return;
     }
 
     if (method === "POST" && url.pathname === "/api/rebuild") {
-      const rebuilt = await runRebuild();
+      const rebuilt = runRebuild();
       sendJson(res, 200, { ok: true, rebuilt });
       return;
     }

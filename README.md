@@ -9,13 +9,15 @@ Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 ## Publicar un evento (flujo demo — recomendado)
 
 1. En Time: **Exportar para Stats…**
-2. En esta carpeta, doble clic en **`publicar.bat`** (o `node scripts/publish-server.mjs`)
+2. En esta carpeta, doble clic en **`publicar.bat`** (cierra sola la instancia anterior del puerto 8787)
 3. En el navegador (`admin.html`):
    - suelta el JSON
    - confirma la **temporada** y revisa el **preview** (pódium / categorías)
    - **Agregar a Stats**
-   - **Publicar en GitHub Pages**
+   - **Publicar en GitHub Pages** (siempre regenera `temporada.json` en un proceso Node nuevo)
 4. Espera 1–2 min y abre https://enriquesotob.github.io/ArenaPro-Stats/
+
+La temporada une categorías por **disciplina de circuito** (p. ej. Abierta / Barriles Abierto → Barriles; Master → Barriles Masters). No uses ids `local:` del export.
 
 Para **quitar** un evento: en la lista “Eventos en el repo” → **Eliminar** → confirma → **Publicar**.
 

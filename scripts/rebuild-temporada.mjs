@@ -29,6 +29,7 @@ const DISCIPLINA_LABEL = {
   CaballoConPretal: "Caballo con Pretal",
   CaballoConMontura: "Caballo con Montura",
   JineteosDeToros: "Jineteos de Toros",
+  Polos: "Polos",
 };
 
 function normalizeText(s) {
@@ -182,6 +183,15 @@ export function rebuildTemporada(root = defaultRoot) {
         b.puntosTotales - a.puntosTotales
     ),
   };
+
+  if (payload.standings.some((s) => {
+    const id = String(s.disciplinaId || "");
+    return !id || id.startsWith("local:") || id.startsWith("cat_");
+  })) {
+    throw new Error(
+      "Rebuild produjo disciplinaId inválido (local:/cat_). Revisar disciplinaKey()."
+    );
+  }
 
   writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
 
