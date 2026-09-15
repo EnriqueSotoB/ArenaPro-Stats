@@ -211,6 +211,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
   gap: 0.35rem 1rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--border);
@@ -221,6 +222,14 @@
   border-bottom: none;
 }
 
+.eventos-mini .ev-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  min-width: 0;
+  flex: 1;
+}
+
 .eventos-mini .ev-name {
   font-weight: 700;
   color: var(--forest);
@@ -229,4 +238,25 @@
 .eventos-mini .ev-meta {
   color: var(--textsub);
   font-size: 0.875rem;
+}
+
+.btn-danger {
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--dark);
+  background: transparent;
+  border: 1px solid var(--ochre);
+  border-radius: 0.375rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-danger:hover {
+  background: color-mix(in srgb, var(--ochre) 18%, #fff);
+}
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
 }

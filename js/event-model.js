@@ -13,37 +13,88 @@ export function normalizeEvento(raw, fallbackName = "") {
     sede: raw.sede || meta.sede || "",
     categorias: Array.isArray(raw.categorias) ? raw.categorias : [],
     resultados: Array.isArray(raw.resultados) ? raw.resultados : [],
+    clasificacion: Array.isArray(raw.clasificacion) ? raw.clasificacion : [],
   };
 }
 
 export function categoriesWithResults(evento) {
   const catMap = Object.fromEntries((evento.categorias || []).map((c) => [c.id || "_", c]));
-  const ids = [...new Set((evento.resultados || []).map((r) => r.categoriaId || "_"))];
+  const fromClasif = (evento.clasificacion || [])
+    .filter((c) => (c.entradas || []).length > 0)
+    .map((c) => c.categoriaId || "_");
+  const fromRows = (evento.resultados || []).map((r) => r.categoriaId || "_");
+  const ids = [...new Set([...fromClasif, ...fromRows])];
   return ids.map((id) => {
     const c = catMap[id];
+    const block = (evento.clasificacion || []).find((x) => (x.categoriaId || "_") === id);
     return {
       id,
-      nombre: c?.nombre || (id === "_" ? "Sin categoría" : id),
-      tipo: c?.tipo || "",
-      numeroRondas: c?.numeroRondas,
+      nombre: c?.nombre || block?.nombre || (id === "_" ? "Sin categoría" : id),
+      tipo: c?.tipo || block?.tipo || "",
+      numeroRondas: c?.numeroRondas ?? block?.numeroRondas,
     };
   });
 }
 
-export function buildEventoRanking(rows, cat) {
+/**
+ * Ranking del evento: preferir `clasificacion[]` de Time (Final).
+ * Solo si falta (JSON viejo) se arma un fallback desde filas de resultados.
+ */
+export function buildEventoRanking(evento, cat) {
+  const fromClasif = rankingFromClasificacion(evento, cat);
+  if (fromClasif) return fromClasif;
+
+  const rows = (evento.resultados || []).filter((r) => (r.categoriaId || "_") === cat.id);
+  return rankingFromResultadosLegacy(rows, cat);
+}
+
+function rankingFromClasificacion(evento, cat) {
+  const block = (evento.clasificacion || []).find((c) => (c.categoriaId || "_") === cat.id);
+  if (!block?.entradas?.length) return null;
+
+  const esPuntos = isPuntosTipo(cat.tipo || block.tipo);
+  return block.entradas.map((e, i) => {
+    const detalle =
+      e.detalleVueltas ||
+      [e.t1 && `T1: ${e.t1}`, e.t2 && `T2: ${e.t2}`, e.t3 && `T3: ${e.t3}`].filter(Boolean).join(" · ");
+    const tieneNt = /\bNT\b/.test(detalle || "");
+    const tieneNp = /\bNP\b/.test(detalle || "");
+    const tiempoTotal = e.tiempoTotal != null ? Number(e.tiempoTotal) : null;
+    return {
+      competidorKey: e.competidorId || e.inscripcionId || e.nombre || `row-${i}`,
+      nombre: e.nombre || "—",
+      equipo: e.equipo || "",
+      lugar: e.lugar ?? null,
+      sinPosicion: !!e.sinPosicion,
+      noTime: !esPuntos && tieneNt && tiempoTotal == null,
+      tieneNtParcial: !esPuntos && tieneNt && tiempoTotal != null,
+      tieneNp,
+      tiempoCompleto: !!e.recorridoCompleto && tiempoTotal != null,
+      sumaTiempos: tiempoTotal,
+      tiempoTotal,
+      puntosCalif: e.puntos != null ? Number(e.puntos) : null,
+      puntosCircuito: e.puntosCircuito != null ? Number(e.puntosCircuito) : null,
+      esPuntos,
+      detalleVueltas: detalle,
+      desdeTime: true,
+    };
+  });
+}
+
+/** Fallback solo para paquetes antiguos sin `clasificacion[]`. */
+function rankingFromResultadosLegacy(rows, cat) {
   const byCompetidor = groupBy(rows, (r) => r.competidorId || r.inscripcionId || r.nombre || "anon");
   const entries = [];
   const rondasEsperadas = Math.max(1, Number(cat.numeroRondas) || 1);
 
   for (const [key, comps] of Object.entries(byCompetidor)) {
     const sample = comps[0];
-    const esPuntos = cat.tipo && /Jineteos|Montura|Pretal/i.test(cat.tipo);
+    const esPuntos = isPuntosTipo(cat.tipo);
     const tiempos = comps
       .filter((r) => r.tiempoOficial != null && !r.esNoTime)
       .map((r) => Number(r.tiempoOficial));
     const tieneNt = comps.some((r) => r.esNoTime);
     const noTime = !esPuntos && tiempos.length === 0;
-    // Total de tiempo solo si no hay NT y hay tiempos (recorrido usable para sumar).
     const tiempoCompleto = !esPuntos && !tieneNt && tiempos.length > 0;
     const puntosDisc = comps.map((r) => r.puntos).filter((p) => p != null).map(Number);
     const puntosCircuito = comps.map((r) => r.puntosCircuito).filter((p) => p != null).map(Number);
@@ -52,12 +103,12 @@ export function buildEventoRanking(rows, cat) {
       competidorKey: key,
       nombre: sample.nombre || sample.competidorId || "—",
       equipo: sample.equipo || "",
+      sinPosicion: false,
       noTime,
       tieneNtParcial: tieneNt && tiempos.length > 0,
       tiempoCompleto,
       mejorTiempo: tiempos.length ? Math.min(...tiempos) : null,
       sumaTiempos: tiempoCompleto ? tiempos.reduce((a, b) => a + b, 0) : null,
-      // Tiempos sueltos solo para detalle; no se usan para ordenar.
       tiemposParciales: !tiempoCompleto && tiempos.length ? tiempos : null,
       puntosCalif: puntosDisc.length ? Math.max(...puntosDisc) : null,
       puntosCircuito: puntosCircuito.length ? Math.max(...puntosCircuito) : null,
@@ -71,20 +122,12 @@ export function buildEventoRanking(rows, cat) {
           return r.vuelta;
         })
         .join(" · "),
+      desdeTime: false,
     });
   }
 
-  // Orden = lo que Time ya calculó (puntos de circuito FMR). No reinventar por suma de tiempos.
   entries.sort((a, b) => {
-    const pa = a.puntosCircuito;
-    const pb = b.puntosCircuito;
-    if (pa != null || pb != null) {
-      if (pa == null) return 1;
-      if (pb == null) return -1;
-      if (pb !== pa) return pb - pa;
-    }
     if (a.esPuntos) return (b.puntosCalif ?? -1) - (a.puntosCalif ?? -1);
-    // Empate sin circuito: solo entonces tiempo completo; incompletos abajo.
     if (a.tiempoCompleto !== b.tiempoCompleto) return a.tiempoCompleto ? -1 : 1;
     if (a.tiempoCompleto && b.tiempoCompleto) {
       return (a.sumaTiempos ?? 0) - (b.sumaTiempos ?? 0);
@@ -94,6 +137,10 @@ export function buildEventoRanking(rows, cat) {
   });
 
   return entries.map((e, i) => ({ ...e, lugar: i + 1 }));
+}
+
+function isPuntosTipo(tipo) {
+  return !!(tipo && /Jineteos|Montura|Pretal/i.test(tipo));
 }
 
 export function renderPodiumHtml(items) {
@@ -111,53 +158,58 @@ export function renderPodiumHtml(items) {
 }
 
 export function rankingToPodiumItems(ranking) {
-  return ranking.slice(0, 3).map((r) => ({
-    place: r.lugar,
-    name: r.nombre,
-    sub: r.equipo || "",
-    value: formatResultadoValor(r),
-  }));
+  return ranking
+    .filter((r) => !r.sinPosicion && r.lugar != null)
+    .slice(0, 3)
+    .map((r) => ({
+      place: r.lugar,
+      name: r.nombre,
+      sub: r.equipo || "",
+      value: formatResultadoValor(r),
+    }));
 }
 
-/** Tiempo / puntos para pódium; orden ya viene por puntosCircuito de Time. */
+/** Valor de pódium = resultado del evento (tiempo/puntos), no puntos de circuito. */
 export function formatResultadoValor(r) {
   if (r.esPuntos) {
     if (r.puntosCalif == null) return "—";
     return `${fmtNum(r.puntosCalif)} pts`;
   }
-  if (r.puntosCircuito != null) return `${fmtNum(r.puntosCircuito)} pts`;
-  if (r.tiempoCompleto && r.sumaTiempos != null) return fmtTime(r.sumaTiempos);
+  if (r.sumaTiempos != null || r.tiempoTotal != null) return fmtTime(r.sumaTiempos ?? r.tiempoTotal);
   if (r.noTime) return "No Time";
   return "—";
 }
 
 export function formatTiempoCelda(r) {
   if (r.esPuntos) return r.puntosCalif == null ? "—" : fmtNum(r.puntosCalif);
-  if (r.tiempoCompleto && r.sumaTiempos != null) return fmtTime(r.sumaTiempos);
+  if (r.sumaTiempos != null || r.tiempoTotal != null) return fmtTime(r.sumaTiempos ?? r.tiempoTotal);
   if (r.noTime) return "—";
-  // NT parcial: no inventar un total; el detalle por vuelta va bajo el nombre.
   return "—";
 }
 
 export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) {
   const esPuntos = ranking.some((r) => r.esPuntos);
+  const desdeTime = ranking.some((r) => r.desdeTime);
   const head = esPuntos
     ? `<th class="num">#</th><th>Competidor</th><th>Equipo</th><th class="num">Calif.</th><th class="num">Circuito</th>`
     : `<th class="num">#</th><th>Competidor</th><th>Equipo</th><th class="num">Tiempo</th><th class="num">Circuito</th>`;
 
   const body = ranking
-    .map((r) => {
-      const rowId = `ev-${r.lugar}-${r.competidorKey}`;
+    .map((r, i) => {
+      const lugarLabel = r.sinPosicion || r.lugar == null ? "—" : String(r.lugar);
+      const rowId = `ev-${lugarLabel}-${r.competidorKey}-${i}`;
       const open = expandedRows.has(rowId);
       let mark = "";
-      if (r.noTime) mark = ` <span class="badge badge-nt">No Time</span>`;
+      if (r.tieneNp || (r.sinPosicion && /\bNP\b/.test(r.detalleVueltas || "")))
+        mark = ` <span class="badge badge-nt">NP</span>`;
+      else if (r.noTime) mark = ` <span class="badge badge-nt">No Time</span>`;
       else if (r.tieneNtParcial) mark = ` <span class="badge badge-nt">NT en vuelta</span>`;
       const sub = r.detalleVueltas
         ? `<div class="row-sub">${escapeHtml(r.detalleVueltas)}</div>`
         : "";
       const circ = r.puntosCircuito != null ? fmtNum(r.puntosCircuito) : "—";
       const main = `<tr class="is-expandable${open ? " is-open" : ""}" data-row="${escapeAttr(rowId)}" aria-expanded="${open}">
-        <td class="num">${r.lugar}</td>
+        <td class="num">${lugarLabel}</td>
         <td>${escapeHtml(r.nombre)}${mark}${sub}</td>
         <td>${escapeHtml(r.equipo || "—")}</td>
         <td class="num">${formatTiempoCelda(r)}</td>
@@ -170,13 +222,17 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
     })
     .join("");
 
+  const note = desdeTime
+    ? "Clasificación final de Time (mismo orden que Resultados → Final). Toca una fila para más detalle."
+    : "Paquete sin clasificación de Time: orden aproximado. Reexporta desde Time para el orden oficial.";
+
   return `<div class="table-wrap">
     <table>
       <thead><tr>${head}</tr></thead>
       <tbody>${body || `<tr><td colspan="5">Sin filas</td></tr>`}</tbody>
     </table>
   </div>
-  <p class="cut-note">Orden por puntos de circuito (Time). Toca una fila para más detalle.</p>`;
+  <p class="cut-note">${note}</p>`;
 }
 
 export function groupBy(arr, keyFn) {

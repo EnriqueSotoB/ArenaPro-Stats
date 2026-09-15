@@ -8,6 +8,7 @@ import {
   rankingToPodiumItems,
   renderEventoRankingTableHtml,
   escapeHtml,
+  escapeAttr,
 } from "./event-model.js";
 
 let pendingEvento = null;
@@ -160,8 +161,7 @@ function renderEventPreview(evento, catId) {
   });
 
   const cat = cats.find((c) => c.id === activeId) || cats[0];
-  const rows = (evento.resultados || []).filter((r) => (r.categoriaId || "_") === cat.id);
-  const ranking = buildEventoRanking(rows, cat);
+  const ranking = buildEventoRanking(evento, cat);
 
   els.previewPodium.innerHTML = renderPodiumHtml(rankingToPodiumItems(ranking));
   els.previewTable.innerHTML = renderEventoRankingTableHtml(ranking, expandedRows);
@@ -274,17 +274,59 @@ async function refreshStatus() {
     els.eventosList.innerHTML = eventos.length
       ? eventos
           .map(
-            (e) => `<li>
-            <span class="ev-name">${escapeHtml(e.nombre || e.id)}</span>
-            <span class="ev-meta">${escapeHtml([e.fecha, e.sede].filter(Boolean).join(" · "))}</span>
+            (e) => `<li class="ev-row">
+            <div class="ev-info">
+              <span class="ev-name">${escapeHtml(e.nombre || e.id)}</span>
+              <span class="ev-meta">${escapeHtml([e.fecha, e.sede].filter(Boolean).join(" · "))}</span>
+            </div>
+            <button type="button" class="btn-danger btn-sm" data-remove="${escapeAttr(e.id)}">Eliminar</button>
           </li>`
           )
           .join("")
       : `<li class="ev-meta">Sin eventos aún.</li>`;
+
+    els.eventosList.querySelectorAll("[data-remove]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const eventId = btn.getAttribute("data-remove");
+        const nombre =
+          btn.closest("li")?.querySelector(".ev-name")?.textContent?.trim() || eventId;
+        onRemove(eventId, nombre);
+      });
+    });
   } catch {
     els.statusMeta.textContent =
       "No hay API. Ejecuta publicar.bat o: node scripts/publish-server.mjs";
     els.btnPublish.disabled = true;
+  }
+}
+
+async function onRemove(id, nombre) {
+  if (!id) return;
+  const label = nombre || id;
+  if (
+    !confirm(
+      `¿Eliminar "${label}"?\n\nSe borra el archivo y se actualiza la temporada. Luego publica para que desaparezca del sitio.`
+    )
+  ) {
+    return;
+  }
+
+  showBanner("Eliminando evento…", false);
+  try {
+    const res = await fetch("/api/remove", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "Error al eliminar");
+    showBanner(
+      `Eliminado: ${body.removed?.nombre || id}. Publica para actualizar el sitio.`,
+      false
+    );
+    await refreshStatus();
+  } catch (err) {
+    showBanner(err.message || String(err), true);
   }
 }
 

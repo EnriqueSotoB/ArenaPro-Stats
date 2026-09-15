@@ -1,12 +1,8 @@
 name: Rebuild temporada
 
+# Solo manual: el admin local (publicar.bat) ya regenera temporada.json.
+# El commit automático en cada push chocaba con el siguiente "Publicar".
 on:
-  push:
-    branches: [main]
-    paths:
-      - "data/eventos/**"
-      - "data/manifest.json"
-      - "scripts/rebuild-temporada.mjs"
   workflow_dispatch:
 
 permissions:

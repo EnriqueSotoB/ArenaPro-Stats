@@ -5,7 +5,7 @@
  * Solo escucha en 127.0.0.1 — no exponer a la red.
  */
 import http from "node:http";
-import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSync } from "node:fs";
 import { dirname, join, extname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -201,6 +201,81 @@ function ingest({ evento, temporada }) {
   };
 }
 
+function removeEvent({ id }) {
+  const eventId = id != null ? String(id).trim() : "";
+  if (!eventId) {
+    const err = new Error("Falta el id del evento.");
+    err.statusCode = 400;
+    throw err;
+  }
+
+  const manifest = loadManifest();
+  manifest.eventos = Array.isArray(manifest.eventos) ? manifest.eventos : [];
+  const idx = manifest.eventos.findIndex((e) => e.id === eventId);
+  if (idx < 0) {
+    const err = new Error(`No se encontró el evento "${eventId}".`);
+    err.statusCode = 404;
+    throw err;
+  }
+
+  const entry = manifest.eventos[idx];
+  const rel = String(entry.file || "").replace(/\\/g, "/");
+  if (rel && !rel.includes("..") && rel.startsWith("eventos/")) {
+    const absFile = join(ROOT, "data", ...rel.split("/"));
+    const relToRoot = relative(ROOT, absFile);
+    if (!relToRoot.startsWith("..") && existsSync(absFile) && statSync(absFile).isFile()) {
+      unlinkSync(absFile);
+    }
+  }
+
+  manifest.eventos.splice(idx, 1);
+  saveManifest(manifest);
+  const rebuilt = rebuildTemporada(ROOT);
+
+  return {
+    ok: true,
+    removed: entry,
+    rebuilt,
+  };
+}
+
+function syncWithRemote() {
+  const branch = git(["rev-parse", "--abbrev-ref", "HEAD"]);
+  git(["fetch", "origin"]);
+
+  const rebaseMerge = join(ROOT, ".git", "rebase-merge");
+  try {
+    git(["pull", "--rebase", "origin", branch]);
+  } catch (e) {
+    const inRebase = existsSync(rebaseMerge);
+    const msg = String(e.stderr || e.message || e);
+    if (!inRebase && !/conflict/i.test(msg)) throw e;
+
+    // Fuente de verdad local: regenerar acumulado y continuar el rebase.
+    rebuildTemporada(ROOT);
+    try {
+      git(["add", "--", "data"]);
+      execFileSync("git", ["-c", "core.editor=true", "rebase", "--continue"], {
+        cwd: ROOT,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        env: { ...process.env, GIT_EDITOR: "true" },
+      });
+    } catch (e2) {
+      try {
+        git(["rebase", "--abort"]);
+      } catch {
+        /* ignore */
+      }
+      const err = new Error(
+        `No se pudo sincronizar con GitHub. ${String(e2.stderr || e2.message || e2).trim()}`
+      );
+      err.statusCode = 409;
+      throw err;
+    }
+  }
+}
+
 function publish() {
   const statusBefore = git(["status", "--porcelain", "--", "data"]);
   if (!statusBefore) {
@@ -224,6 +299,8 @@ function publish() {
     throw e;
   }
 
+  // Evita "rejected (fetch first)" cuando el remoto avanzó (p. ej. Action viejo).
+  syncWithRemote();
   git(["push", "origin", "HEAD"]);
   return {
     ok: true,
@@ -282,6 +359,13 @@ const server = http.createServer(async (req, res) => {
     if (method === "POST" && url.pathname === "/api/ingest") {
       const body = await readJsonBody(req);
       const result = ingest(body);
+      sendJson(res, 200, result);
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/remove") {
+      const body = await readJsonBody(req);
+      const result = removeEvent(body);
       sendJson(res, 200, result);
       return;
     }

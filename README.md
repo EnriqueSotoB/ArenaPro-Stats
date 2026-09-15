@@ -17,6 +17,8 @@ Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
    - **Publicar en GitHub Pages**
 4. Espera 1–2 min y abre https://enriquesotob.github.io/ArenaPro-Stats/
 
+Para **quitar** un evento: en la lista “Eventos en el repo” → **Eliminar** → confirma → **Publicar**.
+
 La consola solo funciona en **localhost**. El sitio público en Pages es solo lectura (sin “probar export”).
 
 ## Ver el sitio en local

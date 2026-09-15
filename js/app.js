@@ -353,8 +353,7 @@ function renderEventoDetail(evento, catId) {
   });
 
   const cat = cats.find((c) => c.id === activeId) || cats[0];
-  const rows = (evento.resultados || []).filter((r) => (r.categoriaId || "_") === cat.id);
-  const ranking = buildEventoRanking(rows, cat);
+  const ranking = buildEventoRanking(evento, cat);
 
   els.eventoPodium.innerHTML = renderPodiumHtml(rankingToPodiumItems(ranking));
 
