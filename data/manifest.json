@@ -18,6 +18,13 @@
       "file": "eventos/2026-08-16-rodeo-demo-durango.json"
     },
     {
+      "id": "local:19",
+      "nombre": "RODEO ZOOTECNIA 2026",
+      "fecha": "2026-08-30",
+      "sede": "Arena de rodeo zootecnia",
+      "file": "eventos/2026-08-30-rodeo-zootecnia-2026.json"
+    },
+    {
       "id": "local:21",
       "nombre": "RODEO CAMARGO 2026",
       "fecha": "2026-09-06",
