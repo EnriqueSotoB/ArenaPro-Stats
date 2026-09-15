@@ -1,7 +1,7 @@
 {
   "temporada": "2026",
   "titulo": "Circuito demo ArenaPro",
-  "actualizadoEn": "2026-09-15T01:37:51.502Z",
+  "actualizadoEn": "2026-09-15T01:40:46.970Z",
   "eventosContados": 3,
   "standings": [
     {
@@ -194,21 +194,12 @@
       "eventos": 1
     },
     {
-      "competidorId": "local:1053",
-      "nombre": "CARLOS TOLEDO",
-      "equipo": "",
-      "categoriaId": "local:259",
-      "categoriaNombre": "Achatada de Novillos",
-      "puntosTotales": 106,
-      "eventos": 1
-    },
-    {
       "competidorId": "local:1055",
       "nombre": "FERNANDO HERRERA",
       "equipo": "",
       "categoriaId": "local:259",
       "categoriaNombre": "Achatada de Novillos",
-      "puntosTotales": 62,
+      "puntosTotales": 152,
       "eventos": 1
     },
     {
@@ -218,6 +209,15 @@
       "categoriaId": "local:259",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 17,
+      "eventos": 1
+    },
+    {
+      "competidorId": "local:1053",
+      "nombre": "CARLOS TOLEDO",
+      "equipo": "",
+      "categoriaId": "local:259",
+      "categoriaNombre": "Achatada de Novillos",
+      "puntosTotales": 16,
       "eventos": 1
     },
     {
