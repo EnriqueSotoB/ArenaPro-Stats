@@ -90,12 +90,22 @@ function navigate(section, id) {
 
 function parseRoute() {
   const raw = (location.hash || "#temporada").replace(/^#/, "");
-  const [section, id] = raw.split("/");
+  const slash = raw.indexOf("/");
+  const section = slash < 0 ? raw : raw.slice(0, slash);
+  const idPart = slash < 0 ? "" : raw.slice(slash + 1);
+  let id = null;
+  if (idPart) {
+    try {
+      id = decodeURIComponent(idPart);
+    } catch {
+      id = idPart;
+    }
+  }
   if (section === "eventos") {
-    return { section: "eventos", id: id ? decodeURIComponent(id) : null };
+    return { section: "eventos", id };
   }
   if (section === "temporada") {
-    return { section: "temporada", id: id ? decodeURIComponent(id) : null };
+    return { section: "temporada", id };
   }
   return { section: "temporada", id: null };
 }
@@ -153,10 +163,19 @@ function renderTemporadaHub() {
     return;
   }
 
-  const byCat = groupBy(data.standings, (s) => s.categoriaId || s.categoriaNombre || "_");
-  const cards = Object.entries(byCat).map(([catId, rows]) => {
+  const byCat = groupBy(
+    data.standings,
+    (s) => s.disciplinaId || s.categoriaId || s.categoriaNombre || "_"
+  );
+  const cards = Object.entries(byCat)
+    .sort((a, b) => {
+      const na = a[1][0]?.disciplinaNombre || a[1][0]?.categoriaNombre || a[0];
+      const nb = b[1][0]?.disciplinaNombre || b[1][0]?.categoriaNombre || b[0];
+      return String(na).localeCompare(String(nb), "es");
+    })
+    .map(([catId, rows]) => {
     const sorted = [...rows].sort((a, b) => (b.puntosTotales ?? 0) - (a.puntosTotales ?? 0));
-    const nombre = sorted[0]?.categoriaNombre || catId;
+    const nombre = sorted[0]?.disciplinaNombre || sorted[0]?.categoriaNombre || catId;
     const top = sorted.slice(0, TOP_CARD);
     const list = top
       .map(
@@ -188,20 +207,22 @@ function renderTemporadaHub() {
 
 function renderTemporadaRanking(catId) {
   const rows = (temporada?.standings || [])
-    .filter((s) => (s.categoriaId || s.categoriaNombre || "_") === catId)
+    .filter(
+      (s) => (s.disciplinaId || s.categoriaId || s.categoriaNombre || "_") === catId
+    )
     .sort((a, b) => (b.puntosTotales ?? 0) - (a.puntosTotales ?? 0));
 
   if (!rows.length) {
     els.rankTitle.textContent = "Ranking";
-    els.rankMeta.textContent = "Categoría no encontrada";
+    els.rankMeta.textContent = "Disciplina no encontrada";
     els.rankPodium.innerHTML = "";
-    els.rankTable.innerHTML = `<p class="empty">No hay datos para esta categoría.</p>`;
+    els.rankTable.innerHTML = `<p class="empty">No hay datos para esta disciplina.</p>`;
     return;
   }
 
   const cut = Number(manifest?.cutLine) > 0 ? Number(manifest.cutLine) : null;
   const leaderPts = rows[0]?.puntosTotales ?? 0;
-  const nombre = rows[0].categoriaNombre || catId;
+  const nombre = rows[0].disciplinaNombre || rows[0].categoriaNombre || catId;
 
   els.rankTitle.textContent = nombre;
   els.rankMeta.textContent = [
