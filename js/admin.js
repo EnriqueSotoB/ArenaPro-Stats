@@ -10,9 +10,16 @@ import {
   escapeHtml,
   escapeAttr,
 } from "./event-model.js";
+import {
+  buildDefaultEdits,
+  aplicarStatsEdits,
+  listEditableFilas,
+  upsertFilaEdit,
+} from "../scripts/lib/stats-edits.mjs";
 
 let pendingEvento = null;
-let previewEvento = null;
+/** @type {ReturnType<typeof buildDefaultEdits>|null} */
+let pendingEdits = null;
 let previewCatId = null;
 const expandedRows = new Set();
 
@@ -23,6 +30,11 @@ const els = {
   fileInput: document.getElementById("fileInput"),
   fileInfo: document.getElementById("fileInfo"),
   preview: document.getElementById("preview"),
+  warningsBox: document.getElementById("warningsBox"),
+  cherryPick: document.getElementById("cherryPick"),
+  cherryPickList: document.getElementById("cherryPickList"),
+  editPanel: document.getElementById("editPanel"),
+  editTable: document.getElementById("editTable"),
   eventPreview: document.getElementById("eventPreview"),
   previewPodium: document.getElementById("previewPodium"),
   previewTabs: document.getElementById("previewTabs"),
@@ -42,10 +54,7 @@ async function init() {
   els.btnIngest.addEventListener("click", onIngest);
   els.btnPublish.addEventListener("click", onPublish);
   els.temporadaInput.addEventListener("input", () => {
-    if (previewEvento) {
-      previewEvento.temporada = els.temporadaInput.value.trim();
-      renderMetaPreview(previewEvento);
-    }
+    if (pendingEvento) refreshPreviewUi();
   });
   await refreshStatus();
 }
@@ -94,7 +103,6 @@ async function loadFile(file) {
   try {
     const text = await file.text();
     const data = JSON.parse(text);
-    pendingEvento = data;
     const evento = normalizeEvento(data, file.name);
     const temp =
       data.temporada ||
@@ -103,24 +111,69 @@ async function loadFile(file) {
       "";
     els.temporadaInput.value = temp;
     evento.temporada = temp;
-    previewEvento = evento;
+
+    pendingEvento = evento;
+    pendingEdits = buildDefaultEdits(evento);
     previewCatId = null;
     expandedRows.clear();
 
     els.fileInfo.textContent = `Archivo: ${file.name}`;
-    renderMetaPreview(evento);
-    renderEventPreview(evento, null);
-    els.btnIngest.disabled = false;
-    showBanner(`Listo para agregar: ${evento.nombreEvento || file.name}`, false);
+    refreshPreviewUi();
+    showBanner(`Listo para revisar: ${evento.nombreEvento || file.name}`, false);
   } catch (err) {
-    pendingEvento = null;
-    previewEvento = null;
-    els.btnIngest.disabled = true;
-    els.preview.classList.add("empty-preview");
-    els.preview.textContent = "No se pudo leer el JSON.";
-    els.eventPreview.hidden = true;
+    resetPending();
     showBanner(err.message || String(err), true);
   }
+}
+
+function resetPending() {
+  pendingEvento = null;
+  pendingEdits = null;
+  previewCatId = null;
+  expandedRows.clear();
+  els.btnIngest.disabled = true;
+  els.fileInfo.textContent = "";
+  els.fileInput.value = "";
+  els.preview.classList.add("empty-preview");
+  els.preview.textContent = "Sin archivo cargado.";
+  els.warningsBox.hidden = true;
+  els.cherryPick.hidden = true;
+  els.editPanel.hidden = true;
+  els.eventPreview.hidden = true;
+}
+
+function getAppliedEvento() {
+  if (!pendingEvento || !pendingEdits) return null;
+  const applied = aplicarStatsEdits(pendingEvento, pendingEdits);
+  applied.temporada = els.temporadaInput.value.trim() || applied.temporada;
+  return applied;
+}
+
+function refreshPreviewUi() {
+  if (!pendingEvento || !pendingEdits) {
+    resetPending();
+    return;
+  }
+
+  const applied = getAppliedEvento();
+  renderMetaPreview(applied);
+  renderWarnings(applied);
+  renderCherryPick();
+  const included = pendingEdits.categoriasIncluidas || [];
+  els.btnIngest.disabled = included.length === 0;
+
+  if (!included.length) {
+    els.editPanel.hidden = true;
+    els.eventPreview.hidden = true;
+    return;
+  }
+
+  if (!previewCatId || !included.includes(String(previewCatId))) {
+    previewCatId = included[0];
+  }
+
+  renderEditPanel(previewCatId);
+  renderEventPreview(applied, previewCatId);
 }
 
 function renderMetaPreview(evento) {
@@ -130,9 +183,166 @@ function renderMetaPreview(evento) {
     [evento.fecha, evento.sede, evento.temporada ? `Temp. ${evento.temporada}` : ""]
       .filter(Boolean)
       .join(" · "),
-    `${(evento.resultados || []).length} filas · ${(evento.categorias || []).length} categorías`,
+    `${(evento.resultados || []).length} filas · ${(evento.categorias || []).length} categorías incluidas`,
   ];
   els.preview.innerHTML = lines.map((l) => `<div>${escapeHtml(l)}</div>`).join("");
+}
+
+function renderWarnings(evento) {
+  const warnings = clientWarnings(evento);
+  if (!warnings.length) {
+    els.warningsBox.hidden = true;
+    els.warningsBox.innerHTML = "";
+    return;
+  }
+  els.warningsBox.hidden = false;
+  els.warningsBox.innerHTML = `<strong>Avisos de validación</strong><ul>${warnings
+    .map((w) => `<li>${escapeHtml(w)}</li>`)
+    .join("")}</ul>`;
+}
+
+/** Avisos livianos en browser (sin importar módulos Node del rebuild). */
+function clientWarnings(evento) {
+  const warnings = [];
+  const schema = Number(evento?.schemaVersion);
+  let entradas = 0;
+  let sinMonto = 0;
+  let noEntero = 0;
+  for (const bloque of evento?.clasificacion || []) {
+    for (const ent of bloque.entradas || []) {
+      entradas += 1;
+      if (ent.montoGanado == null || ent.montoGanado === "") {
+        sinMonto += 1;
+        continue;
+      }
+      const n = Number(ent.montoGanado);
+      if (!Number.isFinite(n) || !Number.isInteger(n)) noEntero += 1;
+    }
+  }
+  if (Number.isFinite(schema) && schema >= 2) {
+    if (entradas === 0) {
+      warnings.push(
+        "schemaVersion ≥ 2 pero no hay entradas en clasificacion para validar montoGanado."
+      );
+    } else if (sinMonto > 0) {
+      warnings.push(
+        `${sinMonto} entrada(s) de clasificación sin montoGanado (schemaVersion ≥ 2).`
+      );
+    }
+    if (noEntero > 0) {
+      warnings.push(`${noEntero} monto(s) no son enteros MXN.`);
+    }
+  } else if (entradas > 0 && sinMonto === entradas) {
+    warnings.push(
+      "Ninguna entrada de clasificación trae montoGanado (ok en schema 1; requerido en schema 2)."
+    );
+  }
+  if (!(evento?.categorias || []).length) {
+    warnings.push("El evento aplicado no tiene categorías incluidas.");
+  }
+  return warnings;
+}
+
+function renderCherryPick() {
+  const cats = pendingEvento?.categorias || [];
+  if (!cats.length) {
+    els.cherryPick.hidden = true;
+    return;
+  }
+  els.cherryPick.hidden = false;
+  const included = new Set(pendingEdits.categoriasIncluidas || []);
+
+  els.cherryPickList.innerHTML = cats
+    .map((c) => {
+      const id = String(c.id);
+      const checked = included.has(id) ? "checked" : "";
+      return `<label class="cherry-item">
+        <input type="checkbox" data-cat-id="${escapeAttr(id)}" ${checked} />
+        <span>${escapeHtml(c.nombre || id)} <span class="meta">(${escapeHtml(c.tipo || "—")})</span></span>
+      </label>`;
+    })
+    .join("");
+
+  els.cherryPickList.querySelectorAll("input[data-cat-id]").forEach((input) => {
+    input.addEventListener("change", () => {
+      const id = input.getAttribute("data-cat-id");
+      const set = new Set(pendingEdits.categoriasIncluidas || []);
+      if (input.checked) set.add(id);
+      else set.delete(id);
+      pendingEdits.categoriasIncluidas = [...set];
+      refreshPreviewUi();
+    });
+  });
+}
+
+function renderEditPanel(catId) {
+  const rows = listEditableFilas(pendingEvento, catId, pendingEdits);
+  els.editPanel.hidden = false;
+  if (!rows.length) {
+    els.editTable.innerHTML = `<p class="meta">Sin filas editables en esta categoría.</p>`;
+    return;
+  }
+
+  els.editTable.innerHTML = `<table class="edit-table">
+    <thead>
+      <tr>
+        <th>Incluir</th>
+        <th>Nombre</th>
+        <th>Pts circuito</th>
+        <th>$ MXN</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows
+        .map((r) => {
+          const excl = r.excluir;
+          return `<tr class="${excl ? "is-excluded" : ""}" data-key="${escapeAttr(r.key)}">
+            <td><input type="checkbox" data-field="incluir" ${excl ? "" : "checked"} /></td>
+            <td><input type="text" data-field="nombre" value="${escapeAttr(r.nombre)}" /></td>
+            <td><input type="number" data-field="puntosCircuito" step="1" value="${r.puntosCircuito ?? ""}" /></td>
+            <td><input type="number" data-field="montoGanado" step="1" value="${r.montoGanado ?? ""}" /></td>
+          </tr>`;
+        })
+        .join("")}
+    </tbody>
+  </table>`;
+
+  els.editTable.querySelectorAll("tr[data-key]").forEach((tr) => {
+    const key = tr.getAttribute("data-key");
+    tr.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("change", () => {
+        const field = input.getAttribute("data-field");
+        if (field === "incluir") {
+          upsertFilaEdit(pendingEdits, key, { excluir: !input.checked });
+          tr.classList.toggle("is-excluded", !input.checked);
+        } else if (field === "nombre") {
+          upsertFilaEdit(pendingEdits, key, { nombre: input.value });
+        } else if (field === "puntosCircuito") {
+          const v = input.value === "" ? null : Number(input.value);
+          upsertFilaEdit(pendingEdits, key, { puntosCircuito: v });
+        } else if (field === "montoGanado") {
+          const v = input.value === "" ? null : Number(input.value);
+          upsertFilaEdit(pendingEdits, key, { montoGanado: v });
+        }
+        refreshPreviewOnly();
+      });
+    });
+  });
+}
+
+/** Actualiza meta/warnings/podium sin rearmar inputs (evita perder foco). */
+function refreshPreviewOnly() {
+  if (!pendingEvento || !pendingEdits) return;
+  const applied = getAppliedEvento();
+  renderMetaPreview(applied);
+  renderWarnings(applied);
+  const included = pendingEdits.categoriasIncluidas || [];
+  els.btnIngest.disabled = included.length === 0;
+  if (!included.length) {
+    els.eventPreview.hidden = true;
+    return;
+  }
+  renderEventPreview(applied, previewCatId);
 }
 
 function renderEventPreview(evento, catId) {
@@ -156,7 +366,8 @@ function renderEventPreview(evento, catId) {
   els.previewTabs.querySelectorAll(".tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       expandedRows.clear();
-      renderEventPreview(evento, tab.getAttribute("data-cat"));
+      previewCatId = tab.getAttribute("data-cat");
+      refreshPreviewUi();
     });
   });
 
@@ -169,16 +380,20 @@ function renderEventPreview(evento, catId) {
   els.previewTable.querySelectorAll("tr.is-expandable").forEach((tr) => {
     tr.addEventListener("click", () => {
       const id = tr.getAttribute("data-row");
-      if (!id || !previewEvento) return;
+      if (!id) return;
       if (expandedRows.has(id)) expandedRows.delete(id);
       else expandedRows.add(id);
-      renderEventPreview(previewEvento, previewCatId);
+      refreshPreviewUi();
     });
   });
 }
 
 async function onIngest() {
-  if (!pendingEvento) return;
+  if (!pendingEvento || !pendingEdits) return;
+  if (!(pendingEdits.categoriasIncluidas || []).length) {
+    showBanner("Selecciona al menos una categoría.", true);
+    return;
+  }
   els.btnIngest.disabled = true;
   showBanner("Agregando evento…", false);
   try {
@@ -188,21 +403,20 @@ async function onIngest() {
       body: JSON.stringify({
         evento: pendingEvento,
         temporada: els.temporadaInput.value.trim(),
+        statsEdits: pendingEdits,
       }),
     });
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "Error al agregar");
+    const warn =
+      body.warnings?.length
+        ? ` Avisos: ${body.warnings.join(" · ")}`
+        : "";
     showBanner(
-      `Agregado: ${body.entry?.nombre || body.file}. Temporada ${body.temporada}. Ya puedes publicar.`,
+      `Agregado: ${body.entry?.nombre || body.file}. Temporada ${body.temporada}.${warn} Ya puedes publicar.`,
       false
     );
-    pendingEvento = null;
-    previewEvento = null;
-    els.fileInfo.textContent = "";
-    els.fileInput.value = "";
-    els.eventPreview.hidden = true;
-    els.preview.classList.add("empty-preview");
-    els.preview.textContent = "Sin archivo cargado.";
+    resetPending();
     await refreshStatus();
   } catch (err) {
     showBanner(err.message || String(err), true);

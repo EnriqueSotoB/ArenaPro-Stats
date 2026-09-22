@@ -45,12 +45,25 @@
 
       <li class="step panel" id="step2">
         <h2 class="step-title"><span class="step-num">2</span> Confirmar temporada y preview</h2>
-        <p class="meta">La temporada del circuito (no siempre es el año del calendario). Abajo ves cómo se verá el evento.</p>
+        <p class="meta">La temporada del circuito (no siempre es el año del calendario). Elige categorías, corrige filas si hace falta y revisa el preview.</p>
         <div id="preview" class="preview empty-preview">Sin archivo cargado.</div>
         <label class="field admin-field">
           <span>Temporada</span>
           <input id="temporadaInput" type="text" inputmode="numeric" placeholder="2027" autocomplete="off" />
         </label>
+
+        <div id="warningsBox" class="warnings-box" hidden></div>
+
+        <div id="cherryPick" class="cherry-pick" hidden>
+          <p class="preview-label">Categorías a incluir (cherry-pick)</p>
+          <div id="cherryPickList" class="cherry-pick-list"></div>
+        </div>
+
+        <div id="editPanel" class="edit-panel" hidden>
+          <p class="preview-label">Edición manual de la categoría activa</p>
+          <div id="editTable" class="edit-table-wrap"></div>
+        </div>
+
         <div id="eventPreview" class="event-preview" hidden>
           <p class="preview-label">Vista previa (no publicada)</p>
           <div id="previewPodium" class="podium"></div>
