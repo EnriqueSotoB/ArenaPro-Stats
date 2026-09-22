@@ -1,7 +1,7 @@
 {
   "temporada": "2027",
   "titulo": "FMR Tour 2027",
-  "actualizadoEn": "2026-09-22T18:10:17.832Z",
+  "actualizadoEn": "2026-09-22T22:17:30.161Z",
   "eventosContados": 4,
   "standings": [
     {
@@ -3488,5 +3488,6 @@
       "dineroTotal": 0,
       "eventos": 2
     }
-  ]
+  ],
+  "allAround": []
 }
