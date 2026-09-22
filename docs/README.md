@@ -11,7 +11,7 @@ Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branc
 1. Lee **[Decisiones de producto](./00-decisiones-producto.md)** (fuente de verdad de negocio).
 2. Lee **[Prácticas de ingeniería](./01-practicas-ingenieria.md)** antes de tocar código.
 3. Revisa **[Contratos de datos](./02-contratos-datos.md)** (Time ↔ Stats).
-4. Configura la URL pública: **[Dominio GitHub Pages](./03-dominio-pages.md)** (`stats.arenapro.mx`).
+4. Configura la URL pública: **[Dominio GitHub Pages](./03-dominio-pages.md)** (`estadisticas.arenapro.mx`).
 5. Trabaja **un sprint a la vez** siguiendo la carpeta [`sprints/`](./sprints/).
 6. Al cerrar un sprint: PR → review → merge a `develop` (nunca commits directos en `main`).
 7. Antes de lanzar: **[Checklist de lanzamiento](./checklist-lanzamiento.md)**.
@@ -46,7 +46,8 @@ Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branc
 | Suite de tests | **No existe** (Sprint 0 la crea) |
 | Branding FMR Tour 2027 | Pendiente (hoy “Circuito demo”) |
 
-Sitio actual: https://enriquesotob.github.io/ArenaPro-Stats/
+Sitio oficial: https://estadisticas.arenapro.mx/  
+(legacy Pages: https://enriquesotob.github.io/ArenaPro-Stats/)
 
 ---
 

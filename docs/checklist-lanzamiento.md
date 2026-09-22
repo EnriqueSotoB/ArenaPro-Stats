@@ -38,7 +38,7 @@ Completar **antes** del PR `develop` → `main`.
 - [ ] Persona de respaldo entrenada (30 min)
 - [ ] Ensayo de publish completo en staging/`develop` o local
 - [ ] URL Pages verificada tras merge a `main`
-- [ ] Dominio custom `stats.arenapro.mx` (o el acordado) con HTTPS — ver [03-dominio-pages.md](./03-dominio-pages.md)
+- [ ] Dominio custom `estadisticas.arenapro.mx` con HTTPS — ver [03-dominio-pages.md](./03-dominio-pages.md)
 - [ ] Links ops/README apuntan al dominio ArenaPro, no solo a `github.io`
 - [ ] Tag release opcional `v1.0.0-fmr-2027`
 

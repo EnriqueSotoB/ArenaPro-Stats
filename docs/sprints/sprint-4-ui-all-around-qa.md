@@ -112,7 +112,7 @@ Archivos: `index.html`, `js/app.js`, `css/styles.css`.
 1. PR `sprint/4-…` → `develop`.
 2. Completar `docs/checklist-lanzamiento.md`.
 3. PR `develop` → `main`.
-4. Verificar https://enriquesotob.github.io/ArenaPro-Stats/
+4. Verificar https://estadisticas.arenapro.mx/
 5. Tag opcional: `v1.0.0-fmr-2027`
 
 ```bash

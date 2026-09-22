@@ -15,12 +15,13 @@ import {
   buildDefaultEdits,
 } from "./lib/stats-edits.mjs";
 import { appendAlias } from "./lib/alias-store.mjs";
+import { parseExcelEvento } from "./lib/excel-evento.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(SCRIPT_DIR, "..");
-const PAGES_URL = "https://enriquesotob.github.io/ArenaPro-Stats/";
+const PAGES_URL = "https://estadisticas.arenapro.mx/";
 
 /** Siempre proceso Node nuevo: el import() en caliente NO invalida caché ESM en file://. */
 function runRebuild() {
@@ -82,13 +83,14 @@ function assertTemporadaCircuito(payload) {
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
   ".mjs": "text/javascript; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".ico": "image/x-icon",
+  ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 };
 
 function assertLocal(req) {
@@ -105,10 +107,20 @@ function assertLocal(req) {
 }
 
 function readJsonBody(req) {
+  return readRawBody(req).then((buf) => {
+    try {
+      const raw = buf.toString("utf8");
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      throw Object.assign(new Error("JSON inválido."), { statusCode: 400 });
+    }
+  });
+}
+
+function readRawBody(req, max = 12 * 1024 * 1024) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
-    const max = 8 * 1024 * 1024;
     req.on("data", (c) => {
       size += c.length;
       if (size > max) {
@@ -118,14 +130,7 @@ function readJsonBody(req) {
       }
       chunks.push(c);
     });
-    req.on("end", () => {
-      try {
-        const raw = Buffer.concat(chunks).toString("utf8");
-        resolve(raw ? JSON.parse(raw) : {});
-      } catch {
-        reject(Object.assign(new Error("JSON inválido."), { statusCode: 400 }));
-      }
-    });
+    req.on("end", () => resolve(Buffer.concat(chunks)));
     req.on("error", reject);
   });
 }
@@ -455,6 +460,23 @@ const server = http.createServer(async (req, res) => {
 
     if (method === "GET" && url.pathname === "/api/status") {
       sendJson(res, 200, getStatus());
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/parse-excel") {
+      const buf = await readRawBody(req);
+      if (!buf.length) {
+        sendJson(res, 400, { ok: false, error: "Archivo Excel vacío." });
+        return;
+      }
+      const evento = await parseExcelEvento(buf);
+      const validation = validateEvento(evento);
+      sendJson(res, 200, {
+        ok: true,
+        evento,
+        errors: validation.errors || [],
+        warnings: validation.warnings || [],
+      });
       return;
     }
 
