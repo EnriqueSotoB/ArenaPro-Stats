@@ -29,3 +29,19 @@ export function splitMoneyMxn(total) {
   const heeler = n - header;
   return { header, heeler };
 }
+
+/**
+ * Formato público MXN sin decimales.
+ * Separador de miles fijo `,` (independiente de ICU/locale del runtime).
+ * @param {unknown} n
+ * @returns {string} p.ej. `$12,500` o `—`
+ */
+export function fmtMxn(n) {
+  if (n == null || n === "") return "—";
+  const x = Number(n);
+  if (!Number.isFinite(x)) return "—";
+  const entero = Math.trunc(x);
+  const sign = entero < 0 ? "-" : "";
+  const digits = String(Math.abs(entero)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return `${sign}$${digits}`;
+}

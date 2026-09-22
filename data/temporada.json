@@ -1,8 +1,8 @@
 {
   "temporada": "2027",
   "titulo": "FMR Tour 2027",
-  "actualizadoEn": "2026-09-22T18:10:17.832Z",
-  "eventosContados": 4,
+  "actualizadoEn": "2026-09-22T22:22:31.207Z",
+  "eventosContados": 5,
   "standings": [
     {
       "competidorKey": "name:chale ochoa",
@@ -213,6 +213,19 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:luisa herrera",
+      "competidorId": "local:526",
+      "nombre": "LUISA HERRERA",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 400,
+      "dineroTotal": 0,
+      "eventos": 5
+    },
+    {
       "competidorKey": "name:diana laura pando",
       "competidorId": "local:530",
       "nombre": "Diana Laura Pando",
@@ -224,19 +237,6 @@
       "puntosTotales": 366,
       "dineroTotal": 0,
       "eventos": 3
-    },
-    {
-      "competidorKey": "name:luisa herrera",
-      "competidorId": "local:526",
-      "nombre": "LUISA HERRERA",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 328,
-      "dineroTotal": 0,
-      "eventos": 4
     },
     {
       "competidorKey": "name:florencia hernandez",
@@ -291,6 +291,19 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:julia meraz",
+      "competidorId": "local:1317",
+      "nombre": "JULIA MERAZ",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 102,
+      "dineroTotal": 5022,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:ximena salcido",
       "competidorId": "local:536",
       "nombre": "XIMENA SALCIDO",
@@ -304,6 +317,19 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:adriana olivas",
+      "competidorId": "local:1286",
+      "nombre": "ADRIANA OLIVAS",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 92,
+      "dineroTotal": 3348,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:anette palacios",
       "competidorId": "local:911",
       "nombre": "ANETTE PALACIOS",
@@ -313,6 +339,19 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 87,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:sofia olivas",
+      "competidorId": "local:1285",
+      "nombre": "SOFIA OLIVAS",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 82,
       "dineroTotal": 0,
       "eventos": 1
     },
@@ -333,6 +372,19 @@
       "competidorKey": "name:sayuri leyva",
       "competidorId": "local:521",
       "nombre": "Sayuri Leyva",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 62,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:nayeli flores",
+      "competidorId": "local:1314",
+      "nombre": "NAYELI FLORES",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -460,6 +512,19 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:selene iturralde",
+      "competidorId": "local:519",
+      "nombre": "SELENE ITURRALDE",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 6,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
       "competidorKey": "name:alejandra soto",
       "competidorId": "local:535",
       "nombre": "Alejandra Soto",
@@ -471,19 +536,6 @@
       "puntosTotales": 6,
       "dineroTotal": 0,
       "eventos": 3
-    },
-    {
-      "competidorKey": "name:selene iturralde",
-      "competidorId": "local:519",
-      "nombre": "SELENE ITURRALDE",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 4,
-      "dineroTotal": 0,
-      "eventos": 2
     },
     {
       "competidorKey": "name:annie valeria trejo",
@@ -502,6 +554,19 @@
       "competidorKey": "name:brenda trevizo",
       "competidorId": "local:898",
       "nombre": "Brenda Trevizo",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 4,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:valeria herrera",
+      "competidorId": "local:915",
+      "nombre": "VALERIA HERRERA",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -629,19 +694,6 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:valeria herrera",
-      "competidorId": "local:915",
-      "nombre": "VALERIA HERRERA",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 1
-    },
-    {
       "competidorKey": "name:myrka ortega",
       "competidorId": "local:777",
       "nombre": "Myrka Ortega",
@@ -671,6 +723,32 @@
       "competidorKey": "name:nasyerih yeverino",
       "competidorId": "local:1057",
       "nombre": "NASYERIH YEVERINO",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:gaby garcia",
+      "competidorId": "local:1318",
+      "nombre": "GABY GARCIA",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:susy hernandez",
+      "competidorId": "local:1283",
+      "nombre": "SUSY HERNANDEZ",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -754,9 +832,22 @@
       "disciplinaNombre": "Caballo con Montura",
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 307,
+      "puntosTotales": 409,
+      "dineroTotal": 5760,
+      "eventos": 5
+    },
+    {
+      "competidorKey": "name:david dominguez",
+      "competidorId": "local:581",
+      "nombre": "DAVID DOMINGUEZ",
+      "equipo": "",
+      "disciplinaId": "CaballoConMontura",
+      "disciplinaNombre": "Caballo con Montura",
+      "categoriaId": "CaballoConMontura",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 278,
       "dineroTotal": 0,
-      "eventos": 4
+      "eventos": 5
     },
     {
       "competidorKey": "name:sebastian ruiz",
@@ -772,19 +863,6 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:david dominguez",
-      "competidorId": "local:581",
-      "nombre": "DAVID DOMINGUEZ",
-      "equipo": "",
-      "disciplinaId": "CaballoConMontura",
-      "disciplinaNombre": "Caballo con Montura",
-      "categoriaId": "CaballoConMontura",
-      "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 186,
-      "dineroTotal": 0,
-      "eventos": 4
-    },
-    {
       "competidorKey": "name:valentin rodriguez",
       "competidorId": "local:1012",
       "nombre": "VALENTIN RODRIGUEZ",
@@ -793,9 +871,22 @@
       "disciplinaNombre": "Caballo con Montura",
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 155,
+      "puntosTotales": 156,
       "dineroTotal": 0,
-      "eventos": 3
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:josue magdaleno",
+      "competidorId": "local:584",
+      "nombre": "JOSUE MAGDALENO",
+      "equipo": "",
+      "disciplinaId": "CaballoConMontura",
+      "disciplinaNombre": "Caballo con Montura",
+      "categoriaId": "CaballoConMontura",
+      "categoriaNombre": "Caballo con Montura",
+      "puntosTotales": 4,
+      "dineroTotal": 0,
+      "eventos": 4
     },
     {
       "competidorKey": "name:ivan dowz",
@@ -809,19 +900,6 @@
       "puntosTotales": 3,
       "dineroTotal": 0,
       "eventos": 4
-    },
-    {
-      "competidorKey": "name:josue magdaleno",
-      "competidorId": "local:584",
-      "nombre": "Josue Magdaleno",
-      "equipo": "",
-      "disciplinaId": "CaballoConMontura",
-      "disciplinaNombre": "Caballo con Montura",
-      "categoriaId": "CaballoConMontura",
-      "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 3,
-      "dineroTotal": 0,
-      "eventos": 3
     },
     {
       "competidorKey": "name:jose carlos ochoa",
@@ -988,9 +1066,35 @@
       "disciplinaNombre": "Jineteos de Toros",
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 103,
+      "puntosTotales": 104,
       "dineroTotal": 0,
-      "eventos": 2
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:luis macias",
+      "competidorId": "local:1300",
+      "nombre": "LUIS MACIAS",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 102,
+      "dineroTotal": 6858,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:fernando mendoza",
+      "competidorId": "local:1298",
+      "nombre": "FERNANDO MENDOZA",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 92,
+      "dineroTotal": 4572,
+      "eventos": 1
     },
     {
       "competidorKey": "name:ricardo estrada",
@@ -1001,9 +1105,9 @@
       "disciplinaNombre": "Jineteos de Toros",
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 4,
+      "puntosTotales": 5,
       "dineroTotal": 0,
-      "eventos": 4
+      "eventos": 5
     },
     {
       "competidorKey": "name:angel flores",
@@ -1027,14 +1131,27 @@
       "disciplinaNombre": "Jineteos de Toros",
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 3,
+      "puntosTotales": 4,
       "dineroTotal": 0,
-      "eventos": 4
+      "eventos": 5
     },
     {
       "competidorKey": "name:oswaldo dominguez",
       "competidorId": "local:998",
       "nombre": "OSWALDO DOMINGUEZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 3,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:diego carranza",
+      "competidorId": "local:999",
+      "nombre": "DIEGO CARRANZA",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1100,19 +1217,6 @@
       "competidorKey": "name:heriberto sarmiento",
       "competidorId": "local:599",
       "nombre": "Heriberto Sarmiento",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:diego carranza",
-      "competidorId": "local:999",
-      "nombre": "DIEGO CARRANZA",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1305,9 +1409,87 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:bryan medina",
+      "competidorId": "local:1296",
+      "nombre": "BRYAN MEDINA",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:manuel sandoval",
+      "competidorId": "local:1303",
+      "nombre": "MANUEL SANDOVAL",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:bryan pena",
+      "competidorId": "local:1304",
+      "nombre": "BRYAN PEÑA",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:ruben hernandez",
+      "competidorId": "local:1305",
+      "nombre": "RUBEN HERNANDEZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:elias ortiz",
+      "competidorId": "local:1306",
+      "nombre": "ELIAS ORTIZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:kevin hernandez",
       "competidorId": "local:1002",
       "nombre": "KEVIN HERNANDEZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 0,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:daniel gonzalez",
+      "competidorId": "local:1313",
+      "nombre": "DANIEL GONZALEZ",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1864,6 +2046,19 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:alvaro de la torre",
+      "competidorId": null,
+      "nombre": "ALVARO DE LA TORRE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 333.45454545454544,
+      "dineroTotal": 6750,
+      "eventos": 4
+    },
+    {
       "competidorKey": "name:javier sepulveda",
       "competidorId": null,
       "nombre": "JAVIER SEPULVEDA",
@@ -1890,19 +2085,6 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:alvaro de la torre",
-      "competidorId": null,
-      "nombre": "ALVARO DE LA TORRE",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Team Roping — Headers",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Team Roping — Headers",
-      "puntosTotales": 231.45454545454544,
-      "dineroTotal": 0,
-      "eventos": 3
-    },
-    {
       "competidorKey": "name:jose luis gonzalez",
       "competidorId": null,
       "nombre": "JOSE LUIS GONZALEZ",
@@ -1914,6 +2096,19 @@
       "puntosTotales": 223.5,
       "dineroTotal": 0,
       "eventos": 3
+    },
+    {
+      "competidorKey": "name:bandis gutierrez",
+      "competidorId": null,
+      "nombre": "BANDIS GUTIERREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 212.84615384615384,
+      "dineroTotal": 4500,
+      "eventos": 2
     },
     {
       "competidorKey": "name:fco de la torre jr",
@@ -2020,19 +2215,6 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:bandis gutierrez",
-      "competidorId": null,
-      "nombre": "Bandis Gutierrez",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Team Roping — Headers",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Team Roping — Headers",
-      "puntosTotales": 120.84615384615384,
-      "dineroTotal": 0,
-      "eventos": 1
-    },
-    {
       "competidorKey": "name:pedro wiebe",
       "competidorId": null,
       "nombre": "Pedro Wiebe",
@@ -2083,6 +2265,19 @@
       "puntosTotales": 89,
       "dineroTotal": 0,
       "eventos": 2
+    },
+    {
+      "competidorKey": "name:humberto rios",
+      "competidorId": null,
+      "nombre": "HUMBERTO RIOS",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 82,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:sergio rivera",
@@ -2176,6 +2371,19 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:gael sigala",
+      "competidorId": null,
+      "nombre": "GAEL SIGALA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 19.5,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
       "competidorKey": "name:javier solis",
       "competidorId": null,
       "nombre": "JAVIER SOLIS",
@@ -2187,6 +2395,45 @@
       "puntosTotales": 18.846153846153847,
       "dineroTotal": 0,
       "eventos": 3
+    },
+    {
+      "competidorKey": "name:kevin flores",
+      "competidorId": null,
+      "nombre": "KEVIN FLORES",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alvarito de la torre",
+      "competidorId": null,
+      "nombre": "ALVARITO DE LA TORRE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alex torres",
+      "competidorId": null,
+      "nombre": "ALEX TORRES",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:edgar devora",
@@ -2436,19 +2683,6 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:gael sigala",
-      "competidorId": null,
-      "nombre": "Gael Sigala",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Team Roping — Headers",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Team Roping — Headers",
-      "puntosTotales": 1,
-      "dineroTotal": 0,
-      "eventos": 1
-    },
-    {
       "competidorKey": "name:alan salazar",
       "competidorId": null,
       "nombre": "Alan Salazar",
@@ -2483,9 +2717,9 @@
       "disciplinaNombre": "Team Roping — Heelers",
       "categoriaId": "TeamRopingHeeler",
       "categoriaNombre": "Team Roping — Heelers",
-      "puntosTotales": 576.8461538461538,
+      "puntosTotales": 595.3461538461538,
       "dineroTotal": 0,
-      "eventos": 4
+      "eventos": 5
     },
     {
       "competidorKey": "name:miguel de la torre",
@@ -2496,9 +2730,9 @@
       "disciplinaNombre": "Team Roping — Heelers",
       "categoriaId": "TeamRopingHeeler",
       "categoriaNombre": "Team Roping — Heelers",
-      "puntosTotales": 443,
-      "dineroTotal": 0,
-      "eventos": 4
+      "puntosTotales": 545,
+      "dineroTotal": 6750,
+      "eventos": 5
     },
     {
       "competidorKey": "name:lalito marquez",
@@ -2748,6 +2982,19 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:balito gutierrez",
+      "competidorId": null,
+      "nombre": "BALITO GUTIERREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 92,
+      "dineroTotal": 4500,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:irving ortega",
       "competidorId": null,
       "nombre": "Irving Ortega",
@@ -2759,6 +3006,19 @@
       "puntosTotales": 89,
       "dineroTotal": 0,
       "eventos": 2
+    },
+    {
+      "competidorKey": "name:joel holguin",
+      "competidorId": null,
+      "nombre": "JOEL HOLGUIN",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 82,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:eduardo calderon j",
@@ -2850,6 +3110,45 @@
       "puntosTotales": 23,
       "dineroTotal": 0,
       "eventos": 2
+    },
+    {
+      "competidorKey": "name:chucky",
+      "competidorId": null,
+      "nombre": "CHUCKY",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:buba nevarez",
+      "competidorId": null,
+      "nombre": "BUBA NEVAREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:lalo calderon jr",
+      "competidorId": null,
+      "nombre": "LALO CALDERON JR",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:juan dominguez",
@@ -3488,5 +3787,6 @@
       "dineroTotal": 0,
       "eventos": 2
     }
-  ]
+  ],
+  "allAround": []
 }

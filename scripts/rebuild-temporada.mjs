@@ -18,6 +18,7 @@ import {
   resolveCompetitorKey,
 } from "./lib/competitor-aliases.mjs";
 import { toMontoEntero } from "./lib/money.mjs";
+import { buildAllAround } from "./lib/all-around.mjs";
 import {
   expandTeamRopingRow,
   isTeamRopingBase,
@@ -257,17 +258,20 @@ export function rebuildTemporada(root = defaultRoot) {
     }
   }
 
+  const standingsList = [...standings.values()].sort(
+    (a, b) =>
+      String(a.disciplinaNombre).localeCompare(String(b.disciplinaNombre), "es") ||
+      b.puntosTotales - a.puntosTotales ||
+      b.dineroTotal - a.dineroTotal
+  );
+
   const payload = {
     temporada: manifest.temporadaActiva || "2026",
     titulo: manifest.titulo || "Temporada",
     actualizadoEn: new Date().toISOString(),
     eventosContados: eventos.length,
-    standings: [...standings.values()].sort(
-      (a, b) =>
-        String(a.disciplinaNombre).localeCompare(String(b.disciplinaNombre), "es") ||
-        b.puntosTotales - a.puntosTotales ||
-        b.dineroTotal - a.dineroTotal
-    ),
+    standings: standingsList,
+    allAround: buildAllAround(standingsList),
   };
 
   if (payload.standings.some((s) => {

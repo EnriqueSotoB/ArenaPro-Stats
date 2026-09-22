@@ -4,6 +4,7 @@ import {
   TEAM_ROPING_MONEY_SPLIT,
   splitMoneyMxn,
   toMontoEntero,
+  fmtMxn,
 } from "../../scripts/lib/money.mjs";
 
 describe("toMontoEntero", () => {
@@ -13,6 +14,16 @@ describe("toMontoEntero", () => {
     assert.equal(toMontoEntero(12.9), 12);
     assert.equal(toMontoEntero(-5), 0);
     assert.equal(toMontoEntero("8000"), 8000);
+  });
+});
+
+describe("fmtMxn", () => {
+  it("formatea montos MXN sin decimales", () => {
+    assert.equal(fmtMxn(12500), "$12,500");
+    assert.equal(fmtMxn(0), "$0");
+    assert.equal(fmtMxn(null), "—");
+    assert.equal(fmtMxn(""), "—");
+    assert.equal(fmtMxn(12.9), "$12");
   });
 });
 
