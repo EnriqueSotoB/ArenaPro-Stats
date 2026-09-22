@@ -1,5 +1,7 @@
 /** Lógica compartida de evento (sitio público + preview en admin). */
 
+import { fmtMxn } from "../scripts/lib/money.mjs";
+
 export function normalizeEvento(raw, fallbackName = "") {
   const meta = raw.meta || {};
   return {
@@ -214,7 +216,7 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
       const circ = r.puntosCircuito != null ? fmtNum(r.puntosCircuito) : "—";
       const dinero =
         tieneDinero
-          ? `<td class="num">${r.montoGanado != null ? fmtNum(r.montoGanado) : "—"}</td>`
+          ? `<td class="num">${r.montoGanado != null ? fmtMxn(r.montoGanado) : "—"}</td>`
           : "";
       const main = `<tr class="is-expandable${open ? " is-open" : ""}" data-row="${escapeAttr(rowId)}" aria-expanded="${open}">
         <td class="num">${lugarLabel}</td>
