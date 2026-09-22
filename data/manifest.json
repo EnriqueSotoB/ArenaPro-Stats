@@ -32,6 +32,13 @@
       "fecha": "2026-09-06",
       "sede": "Arena Santa Rosalia Camargo",
       "file": "eventos/2026-09-06-rodeo-camargo-2026.json"
+    },
+    {
+      "id": "local:27",
+      "nombre": "TRUCKMANIA FEST 2026",
+      "fecha": "2026-09-20",
+      "sede": "Arena Complejo Avalos",
+      "file": "eventos/2026-09-20-truckmania-fest-2026.json"
     }
   ]
 }
