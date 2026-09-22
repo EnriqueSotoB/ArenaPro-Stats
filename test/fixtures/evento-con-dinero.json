@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "exportedAt": "2027-02-01T12:00:00.000Z",
+  "source": "time",
+  "eventoId": "local:fixture-dinero",
+  "nombreEvento": "Fixture Dinero",
+  "fecha": "2027-02-01",
+  "sede": "Arena Test",
+  "temporada": "2027",
+  "categorias": [
+    {
+      "id": "local:cat-barriles",
+      "nombre": "Abierta",
+      "tipo": "Barriles",
+      "numeroRondas": 1
+    },
+    {
+      "id": "local:cat-lazo",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "numeroRondas": 1
+    }
+  ],
+  "resultados": [],
+  "clasificacion": [
+    {
+      "categoriaId": "local:cat-barriles",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": "local:r1",
+          "nombre": "Rider Uno",
+          "puntosCircuito": 100,
+          "montoGanado": 8000
+        },
+        {
+          "lugar": 2,
+          "competidorId": "local:r2",
+          "nombre": "Rider Dos",
+          "puntosCircuito": 80,
+          "montoGanado": 4000
+        }
+      ]
+    },
+    {
+      "categoriaId": "local:cat-lazo",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": "local:r1",
+          "nombre": "Rider Uno",
+          "puntosCircuito": 90,
+          "montoGanado": 5000
+        },
+        {
+          "lugar": 2,
+          "competidorId": "local:r3",
+          "nombre": "Rider Tres",
+          "puntosCircuito": 70,
+          "montoGanado": 2500
+        }
+      ]
+    }
+  ]
+}

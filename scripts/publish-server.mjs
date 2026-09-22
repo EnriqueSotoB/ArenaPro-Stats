@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSyn
 import { dirname, join, extname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
+import { validateEvento } from "./lib/validate-evento.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
@@ -200,6 +201,15 @@ async function ingest({ evento, temporada }) {
     throw err;
   }
 
+  const validation = validateEvento(evento);
+  if (!validation.ok) {
+    const err = new Error(validation.errors.join(" "));
+    err.statusCode = 400;
+    err.errors = validation.errors;
+    err.warnings = validation.warnings;
+    throw err;
+  }
+
   const temp =
     (temporada != null && String(temporada).trim()) ||
     (evento.temporada != null && String(evento.temporada).trim()) ||
@@ -256,6 +266,7 @@ async function ingest({ evento, temporada }) {
     entry,
     temporada: temp,
     rebuilt,
+    warnings: validation.warnings,
   };
 }
 
@@ -451,7 +462,12 @@ const server = http.createServer(async (req, res) => {
   } catch (e) {
     const status = e.statusCode || 500;
     const message = e.stderr ? String(e.stderr).trim() || e.message : e.message || String(e);
-    sendJson(res, status, { ok: false, error: message });
+    sendJson(res, status, {
+      ok: false,
+      error: message,
+      ...(Array.isArray(e.errors) ? { errors: e.errors } : {}),
+      ...(Array.isArray(e.warnings) ? { warnings: e.warnings } : {}),
+    });
   }
 });
 

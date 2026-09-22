@@ -10,9 +10,13 @@
  *
  * No usar categoriaId local:{n}: cambia en cada competencia.
  */
-import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  buildAliasMap,
+  resolveCompetitorKey,
+} from "./lib/competitor-aliases.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = join(scriptDir, "..");
@@ -107,9 +111,19 @@ export function competitorKey(row) {
 export function rebuildTemporada(root = defaultRoot) {
   const manifestPath = join(root, "data", "manifest.json");
   const outPath = join(root, "data", "temporada.json");
+  const aliasesPath = join(root, "data", "competidor-aliases.json");
 
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
   const eventos = manifest.eventos || [];
+
+  let aliasMap = new Map();
+  if (existsSync(aliasesPath)) {
+    try {
+      aliasMap = buildAliasMap(JSON.parse(readFileSync(aliasesPath, "utf8")));
+    } catch {
+      aliasMap = new Map();
+    }
+  }
 
   /** @type {Map<string, object>} */
   const standings = new Map();
@@ -129,7 +143,7 @@ export function rebuildTemporada(root = defaultRoot) {
         tipo: "",
       };
       const discId = disciplinaKey(cat);
-      const compKey = competitorKey(row);
+      const compKey = resolveCompetitorKey(row, aliasMap, competitorKey);
       if (!compKey || compKey === "anon") continue;
 
       const pts = row.puntosCircuito != null ? Number(row.puntosCircuito) : 0;
@@ -151,6 +165,7 @@ export function rebuildTemporada(root = defaultRoot) {
     for (const item of seen.values()) {
       const sk = `${item.competidorKey}::${item.disciplinaId}`;
       const cur = standings.get(sk) || {
+        competidorKey: item.competidorKey,
         competidorId: item.competidorId,
         nombre: item.nombre,
         equipo: item.equipo,
@@ -165,6 +180,7 @@ export function rebuildTemporada(root = defaultRoot) {
       cur.eventos += 1;
       cur.nombre = item.nombre || cur.nombre;
       cur.equipo = item.equipo || cur.equipo;
+      cur.competidorKey = item.competidorKey;
       if (item.competidorId && !String(item.competidorId).startsWith("local:")) {
         cur.competidorId = item.competidorId;
       }
