@@ -1,7 +1,9 @@
 {
   "temporadaActiva": "2027",
-  "titulo": "Circuito demo ArenaPro",
-  "cutLine": 2,
+  "titulo": "FMR Tour 2027",
+  "cutLine": null,
+  "cutLineVisible": false,
+  "cutLinePorDisciplina": {},
   "eventos": [
     {
       "id": "local:16",
