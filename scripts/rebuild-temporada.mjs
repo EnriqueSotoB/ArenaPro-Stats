@@ -17,6 +17,11 @@ import {
   buildAliasMap,
   resolveCompetitorKey,
 } from "./lib/competitor-aliases.mjs";
+import { toMontoEntero } from "./lib/money.mjs";
+import {
+  expandTeamRopingRow,
+  isTeamRopingBase,
+} from "./lib/team-roping.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = join(scriptDir, "..");
@@ -30,6 +35,10 @@ const DISCIPLINA_LABEL = {
   AchatadaDeNovillos: "Achatada de Novillos",
   TeamRoping: "Team Roping",
   TeamRopingMasters: "Team Roping Masters",
+  TeamRopingHeader: "Team Roping — Headers",
+  TeamRopingHeeler: "Team Roping — Heelers",
+  TeamRopingMastersHeader: "Team Roping Masters — Headers",
+  TeamRopingMastersHeeler: "Team Roping Masters — Heelers",
   CaballoConPretal: "Caballo con Pretal",
   CaballoConMontura: "Caballo con Montura",
   JineteosDeToros: "Jineteos de Toros",
@@ -105,6 +114,48 @@ export function competitorKey(row) {
 }
 
 /**
+ * Filas a agregar: preferir clasificacion[]; si no hay entradas, usar resultados[].
+ * @param {object} ev
+ * @returns {object[]}
+ */
+export function collectEventRows(ev) {
+  const fromClasif = [];
+  for (const bloque of ev.clasificacion || []) {
+    for (const ent of bloque.entradas || []) {
+      fromClasif.push({
+        ...ent,
+        categoriaId: ent.categoriaId || bloque.categoriaId,
+      });
+    }
+  }
+  if (fromClasif.length) return fromClasif;
+  return Array.isArray(ev.resultados) ? ev.resultados : [];
+}
+
+/**
+ * @param {object} row
+ * @param {object} cat
+ * @returns {object[]}
+ */
+export function rowsForStanding(row, cat) {
+  const baseDisc = disciplinaKey(cat);
+  if (isTeamRopingBase(baseDisc)) {
+    return expandTeamRopingRow(row, baseDisc);
+  }
+  return [
+    {
+      ...row,
+      disciplinaId: baseDisc,
+      montoGanado: toMontoEntero(row.montoGanado),
+      puntosCircuito:
+        row.puntosCircuito != null && Number.isFinite(Number(row.puntosCircuito))
+          ? Number(row.puntosCircuito)
+          : 0,
+    },
+  ];
+}
+
+/**
  * @param {string} [root]
  * @returns {{ standings: number, eventosContados: number, temporada: string, outPath: string, disciplinas: string[] }}
  */
@@ -133,32 +184,48 @@ export function rebuildTemporada(root = defaultRoot) {
     const ev = JSON.parse(readFileSync(file, "utf8"));
     const catMap = Object.fromEntries((ev.categorias || []).map((c) => [c.id, c]));
 
-    /** Por evento: un renglón por competidor+disciplina (máx puntosCircuito del inscrito). */
+    /** Por evento: un renglón por competidor+disciplina (máx puntos / máx dinero). */
     const seen = new Map();
 
-    for (const row of ev.resultados || []) {
-      const cat = catMap[row.categoriaId] || {
-        id: row.categoriaId,
-        nombre: row.categoriaId,
+    for (const raw of collectEventRows(ev)) {
+      const cat = catMap[raw.categoriaId] || {
+        id: raw.categoriaId,
+        nombre: raw.categoriaId,
         tipo: "",
       };
-      const discId = disciplinaKey(cat);
-      const compKey = resolveCompetitorKey(row, aliasMap, competitorKey);
-      if (!compKey || compKey === "anon") continue;
 
-      const pts = row.puntosCircuito != null ? Number(row.puntosCircuito) : 0;
-      const eventKey = `${compKey}::${discId}`;
-      const prev = seen.get(eventKey);
-      if (!prev || pts > prev.puntos) {
-        seen.set(eventKey, {
-          competidorKey: compKey,
-          competidorId: row.competidorId || null,
-          nombre: row.nombre || row.competidorId || "—",
-          equipo: row.equipo || "",
-          disciplinaId: discId,
-          disciplinaNombre: disciplinaLabel(discId),
-          puntos: pts,
-        });
+      for (const row of rowsForStanding(raw, cat)) {
+        const discId = row.disciplinaId || disciplinaKey(cat);
+        const compKey = resolveCompetitorKey(row, aliasMap, competitorKey);
+        if (!compKey || compKey === "anon") continue;
+
+        const pts =
+          row.puntosCircuito != null && Number.isFinite(Number(row.puntosCircuito))
+            ? Number(row.puntosCircuito)
+            : 0;
+        const dinero = toMontoEntero(row.montoGanado);
+        const eventKey = `${compKey}::${discId}`;
+        const prev = seen.get(eventKey);
+        if (!prev) {
+          seen.set(eventKey, {
+            competidorKey: compKey,
+            competidorId: row.competidorId || null,
+            nombre: row.nombre || row.competidorId || "—",
+            equipo: row.equipo || "",
+            disciplinaId: discId,
+            disciplinaNombre: disciplinaLabel(discId),
+            puntos: pts,
+            dinero,
+          });
+        } else {
+          prev.puntos = Math.max(prev.puntos, pts);
+          prev.dinero = Math.max(prev.dinero, dinero);
+          prev.nombre = row.nombre || prev.nombre;
+          prev.equipo = row.equipo || prev.equipo;
+          if (row.competidorId && !String(row.competidorId).startsWith("local:")) {
+            prev.competidorId = row.competidorId;
+          }
+        }
       }
     }
 
@@ -174,9 +241,11 @@ export function rebuildTemporada(root = defaultRoot) {
         categoriaId: item.disciplinaId,
         categoriaNombre: item.disciplinaNombre,
         puntosTotales: 0,
+        dineroTotal: 0,
         eventos: 0,
       };
       cur.puntosTotales += item.puntos;
+      cur.dineroTotal += item.dinero;
       cur.eventos += 1;
       cur.nombre = item.nombre || cur.nombre;
       cur.equipo = item.equipo || cur.equipo;
@@ -196,7 +265,8 @@ export function rebuildTemporada(root = defaultRoot) {
     standings: [...standings.values()].sort(
       (a, b) =>
         String(a.disciplinaNombre).localeCompare(String(b.disciplinaNombre), "es") ||
-        b.puntosTotales - a.puntosTotales
+        b.puntosTotales - a.puntosTotales ||
+        b.dineroTotal - a.dineroTotal
     ),
   };
 

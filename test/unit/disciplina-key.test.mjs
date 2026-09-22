@@ -34,5 +34,11 @@ describe("disciplinaLabel", () => {
     assert.equal(disciplinaLabel("Barriles"), "Barriles");
     assert.equal(disciplinaLabel("TeamRopingMasters"), "Team Roping Masters");
     assert.equal(disciplinaLabel("LazoDeBecerro"), "Lazo de Becerro");
+    assert.equal(disciplinaLabel("TeamRopingHeader"), "Team Roping — Headers");
+    assert.equal(disciplinaLabel("TeamRopingHeeler"), "Team Roping — Heelers");
+    assert.equal(
+      disciplinaLabel("TeamRopingMastersHeader"),
+      "Team Roping Masters — Headers"
+    );
   });
 });

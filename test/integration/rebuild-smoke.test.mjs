@@ -65,5 +65,7 @@ describe("rebuildTemporada (smoke)", () => {
     assert.equal(uno.puntosTotales, 100);
     assert.equal(dos.puntosTotales, 80);
     assert.equal(uno.eventos, 1);
+    assert.equal(uno.dineroTotal, 0);
+    assert.equal(dos.dineroTotal, 0);
   });
 });
