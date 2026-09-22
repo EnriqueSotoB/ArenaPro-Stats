@@ -1,7 +1,7 @@
 {
   "temporada": "2027",
   "titulo": "FMR Tour 2027",
-  "actualizadoEn": "2026-09-22T18:03:41.844Z",
+  "actualizadoEn": "2026-09-22T18:10:17.832Z",
   "eventosContados": 4,
   "standings": [
     {
@@ -14,6 +14,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 708.8333333333333,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -26,6 +27,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 513.8333333333334,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -38,6 +40,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 493.66666666666663,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -50,6 +53,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 282.66666666666663,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -62,6 +66,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 261.6666666666667,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -74,6 +79,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 156.66666666666666,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -86,6 +92,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 137.83333333333334,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -98,6 +105,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 114.83333333333333,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -110,6 +118,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 74.83333333333334,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -122,6 +131,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 66.5,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -134,6 +144,7 @@
       "categoriaId": "AchatadaDeNovillos",
       "categoriaNombre": "Achatada de Novillos",
       "puntosTotales": 22.666666666666668,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -146,6 +157,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 658,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -158,6 +170,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 573,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -170,6 +183,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 523,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -182,6 +196,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 488,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -194,6 +209,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 433,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -206,6 +222,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 366,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -218,6 +235,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 328,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -230,6 +248,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 233,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -242,6 +261,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 163,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -254,6 +274,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 138,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -266,6 +287,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 126,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -278,6 +300,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 99,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -290,6 +313,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 87,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -302,6 +326,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 66,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -314,6 +339,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 62,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -326,6 +352,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 36,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -338,6 +365,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 34,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -350,6 +378,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 32,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -362,6 +391,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 19,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -374,6 +404,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 12,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -386,6 +417,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 12,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -398,6 +430,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 11,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -410,6 +443,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 7,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -422,6 +456,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 6,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -434,6 +469,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 6,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -446,18 +482,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 4,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:brenda trevizo",
-      "competidorId": "local:898",
-      "nombre": "Brenda Trevizo",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 4,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -470,6 +495,20 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 4,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:brenda trevizo",
+      "competidorId": "local:898",
+      "nombre": "Brenda Trevizo",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 4,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -482,6 +521,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 4,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -494,6 +534,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -506,6 +547,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -518,6 +560,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -530,18 +573,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:melissa chavez",
-      "competidorId": "local:905",
-      "nombre": "MELISSA CHAVEZ",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -554,6 +586,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -566,18 +599,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:valeria herrera",
-      "competidorId": "local:915",
-      "nombre": "VALERIA HERRERA",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -590,6 +612,33 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:melissa chavez",
+      "competidorId": "local:905",
+      "nombre": "MELISSA CHAVEZ",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:valeria herrera",
+      "competidorId": "local:915",
+      "nombre": "VALERIA HERRERA",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -602,6 +651,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -614,6 +664,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -626,6 +677,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -638,6 +690,7 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 0,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -650,6 +703,7 @@
       "categoriaId": "BarrilesMasters",
       "categoriaNombre": "Barriles Masters",
       "puntosTotales": 202,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -662,6 +716,7 @@
       "categoriaId": "BarrilesMasters",
       "categoriaNombre": "Barriles Masters",
       "puntosTotales": 137,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -674,6 +729,7 @@
       "categoriaId": "BarrilesMasters",
       "categoriaNombre": "Barriles Masters",
       "puntosTotales": 47,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -686,6 +742,7 @@
       "categoriaId": "BarrilesMasters",
       "categoriaNombre": "Barriles Masters",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -698,6 +755,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 307,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -710,6 +768,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 187,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -722,6 +781,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 186,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -734,6 +794,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 155,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -746,6 +807,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -758,6 +820,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -770,6 +833,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -782,6 +846,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -794,6 +859,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -806,6 +872,7 @@
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
       "puntosTotales": 0,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -818,6 +885,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 197,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -830,6 +898,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 194,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -842,6 +911,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 186,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -854,6 +924,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 102,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -866,6 +937,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -878,6 +950,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -890,6 +963,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -902,6 +976,7 @@
       "categoriaId": "CaballoConPretal",
       "categoriaNombre": "Caballo con Pretal",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -914,6 +989,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 103,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -926,6 +1002,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 4,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -938,6 +1015,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 4,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -950,6 +1028,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -962,6 +1041,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -974,6 +1054,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 3,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -986,6 +1067,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -998,6 +1080,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1010,6 +1093,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1022,6 +1106,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1034,6 +1119,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1046,6 +1132,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1058,6 +1145,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1070,6 +1158,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1082,6 +1171,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1094,6 +1184,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1106,6 +1197,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1118,6 +1210,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1130,6 +1223,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1142,6 +1236,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1154,6 +1249,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1166,6 +1262,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1178,6 +1275,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1190,6 +1288,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1202,6 +1301,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1214,6 +1314,7 @@
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 0,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1226,6 +1327,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 513,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -1238,6 +1340,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 373,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -1250,6 +1353,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 360,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1262,6 +1366,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 358,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -1274,6 +1379,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 306,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1286,6 +1392,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 305,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1298,6 +1405,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 286,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1310,6 +1418,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 275,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1322,6 +1431,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 220,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1334,6 +1444,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 214,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1346,6 +1457,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 115,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1358,6 +1470,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 114,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1370,6 +1483,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 103,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1382,6 +1496,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 95,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1394,6 +1509,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 85,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
@@ -1406,6 +1522,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 82,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1418,6 +1535,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 67,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -1430,6 +1548,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 62,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1442,6 +1561,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 36,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
@@ -1454,6 +1574,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 13,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1466,6 +1587,7 @@
       "categoriaId": "LazoDeBecerro",
       "categoriaNombre": "Lazo de Becerro",
       "puntosTotales": 1,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1478,6 +1600,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 374,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1490,6 +1613,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 317.57142857142856,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1502,6 +1626,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 185.42857142857144,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1514,6 +1639,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 176.85714285714286,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1526,6 +1652,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 156.73809523809524,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1538,6 +1665,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 156.73809523809524,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1550,6 +1678,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 145.02380952380952,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1562,6 +1691,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 115.02380952380952,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1574,6 +1704,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 114.85714285714286,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1586,6 +1717,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 45.023809523809526,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1598,6 +1730,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 30.571428571428573,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1610,6 +1743,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 17.595238095238095,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
@@ -1622,6 +1756,7 @@
       "categoriaId": "LazoEnFalso",
       "categoriaNombre": "Lazo en Falso",
       "puntosTotales": 4.571428571428571,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1634,6 +1769,7 @@
       "categoriaId": "Polos",
       "categoriaNombre": "Polos",
       "puntosTotales": 192,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1646,6 +1782,7 @@
       "categoriaId": "Polos",
       "categoriaNombre": "Polos",
       "puntosTotales": 182,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1658,6 +1795,7 @@
       "categoriaId": "Polos",
       "categoriaNombre": "Polos",
       "puntosTotales": 132,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1670,6 +1808,7 @@
       "categoriaId": "Polos",
       "categoriaNombre": "Polos",
       "puntosTotales": 42,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
@@ -1682,919 +1821,1672 @@
       "categoriaId": "Polos",
       "categoriaNombre": "Polos",
       "puntosTotales": 2,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:alejandro torres/jose rodriguez",
-      "competidorId": "local:565",
-      "nombre": "ALEJANDRO TORRES / JOSE RODRIGUEZ",
+      "competidorKey": "name:alejandro torres",
+      "competidorId": null,
+      "nombre": "ALEJANDRO TORRES",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 576.8461538461538,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
-      "competidorKey": "name:fernando gan/miguel de la torre",
-      "competidorId": "local:568",
-      "nombre": "FERNANDO GAN / MIGUEL DE LA TORRE",
+      "competidorKey": "name:fernando gan",
+      "competidorId": null,
+      "nombre": "FERNANDO GAN",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 443,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
-      "competidorKey": "name:alfredo pinon/lalito marquez",
-      "competidorId": "local:561",
-      "nombre": "ALFREDO PINON / LALITO MARQUEZ",
+      "competidorKey": "name:edgar pando",
+      "competidorId": null,
+      "nombre": "EDGAR PANDO",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 358,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:javier sepulveda",
+      "competidorId": null,
+      "nombre": "JAVIER SEPULVEDA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 237.45454545454547,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:alfredo pinon",
+      "competidorId": null,
+      "nombre": "ALFREDO PINON",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 232.3006993006993,
+      "dineroTotal": 0,
       "eventos": 4
     },
     {
-      "competidorKey": "name:alvaro de la torre/alvaro de la torre jr",
-      "competidorId": "local:964",
-      "nombre": "ALVARO DE LA TORRE / ALVARO DE LA TORRE Jr",
+      "competidorKey": "name:alvaro de la torre",
+      "competidorId": null,
+      "nombre": "ALVARO DE LA TORRE",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 231.45454545454544,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:edgar pando/santiago luevano",
-      "competidorId": "local:956",
-      "nombre": "EDGAR PANDO / SANTIAGO LUEVANO",
+      "competidorKey": "name:jose luis gonzalez",
+      "competidorId": null,
+      "nombre": "JOSE LUIS GONZALEZ",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 201,
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 223.5,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:fco de la torre jr/fco de la torre",
-      "competidorId": "local:960",
-      "nombre": "Fco de la Torre JR / Fco de la Torre",
+      "competidorKey": "name:fco de la torre jr",
+      "competidorId": null,
+      "nombre": "Fco de la Torre JR",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 199,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:javier sepulveda/daniel baeza",
-      "competidorId": "local:567",
-      "nombre": "JAVIER SEPULVEDA / DANIEL BAEZA",
+      "competidorKey": "name:adrian ferreiro",
+      "competidorId": null,
+      "nombre": "Adrian Ferreiro",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 190.45454545454547,
-      "eventos": 3
-    },
-    {
-      "competidorKey": "name:adrian ferreiro/jaime anchondo",
-      "competidorId": "local:573",
-      "nombre": "Adrian Ferreiro / Jaime Anchondo",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 190,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:servando gutierrez jr/jose e gutierrez",
-      "competidorId": "local:819",
-      "nombre": "Servando Gutierrez Jr / Jose E Gutierrez",
+      "competidorKey": "name:servando gutierrez jr",
+      "competidorId": null,
+      "nombre": "Servando Gutierrez Jr",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 177,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:ubaldo sandoval/pablo cardenas",
-      "competidorId": "local:1035",
-      "nombre": "UBALDO SANDOVAL / PABLO CARDENAS",
+      "competidorKey": "name:ubaldo sandoval",
+      "competidorId": null,
+      "nombre": "UBALDO SANDOVAL",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 172,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:jeronimo venegas/carlos alderete",
-      "competidorId": "local:564",
-      "nombre": "Jeronimo Venegas / Carlos Alderete",
+      "competidorKey": "name:jeronimo venegas",
+      "competidorId": null,
+      "nombre": "Jeronimo Venegas",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 161,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:edgar pando/ubaldo sandoval",
-      "competidorId": "local:578",
-      "nombre": "Edgar Pando / Ubaldo Sandoval",
+      "competidorKey": "name:rigo nevarez",
+      "competidorId": null,
+      "nombre": "RIGO NEVAREZ",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 157,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:rigo nevarez/chumel paez",
-      "competidorId": "local:1049",
-      "nombre": "RIGO NEVAREZ / CHUMEL PAEZ",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 147,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:jose luis gonzalez/alonso grajeda",
-      "competidorId": "local:978",
-      "nombre": "Jose Luis Gonzalez / Alonso Grajeda",
+      "competidorKey": "name:chale ochoa",
+      "competidorId": null,
+      "nombre": "CHALE OCHOA",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 129,
-      "eventos": 2
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 132.3006993006993,
+      "dineroTotal": 0,
+      "eventos": 4
     },
     {
-      "competidorKey": "name:francisco de la torre jr/francisco de la torre",
-      "competidorId": "local:1037",
-      "nombre": "FRANCISCO DE LA TORRE Jr / FRANCISCO DE LA TORRE",
+      "competidorKey": "name:francisco de la torre jr",
+      "competidorId": null,
+      "nombre": "FRANCISCO DE LA TORRE Jr",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 122,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:bandis gutierrez/jose gutierrez",
-      "competidorId": "local:570",
-      "nombre": "Bandis Gutierrez / Jose Gutierrez",
+      "competidorKey": "name:bandis gutierrez",
+      "competidorId": null,
+      "nombre": "Bandis Gutierrez",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 120.84615384615384,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:pedro wiebe/eduardo calderon f",
-      "competidorId": "local:955",
-      "nombre": "Pedro Wiebe / Eduardo Calderon F",
+      "competidorKey": "name:pedro wiebe",
+      "competidorId": null,
+      "nombre": "Pedro Wiebe",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 119,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:oscar villalobos/miguel nunez",
-      "competidorId": "local:965",
-      "nombre": "Oscar Villalobos / Miguel Nunez",
+      "competidorKey": "name:oscar villalobos",
+      "competidorId": null,
+      "nombre": "Oscar Villalobos",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 109,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:chale ochoa/pelon vazquez",
-      "competidorId": "local:575",
-      "nombre": "Chale Ochoa / Pelon Vazquez",
+      "competidorKey": "name:carlos barragan",
+      "competidorId": null,
+      "nombre": "Carlos Barragan",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 105.84615384615384,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:carlos barragan/omar romero",
-      "competidorId": "local:571",
-      "nombre": "Carlos Barragan / Omar Romero",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 97,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:jose luis gonzalez/armando perez",
-      "competidorId": "local:1032",
-      "nombre": "JOSE LUIS GONZALEZ / ARMANDO PEREZ",
+      "competidorKey": "name:luis loya",
+      "competidorId": null,
+      "nombre": "Luis Loya",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 94.5,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:luis loya/irving ortega",
-      "competidorId": "local:980",
-      "nombre": "Luis Loya / Irving Ortega",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 89,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:rigoberto nevarez/chumel paez",
-      "competidorId": "local:966",
-      "nombre": "Rigoberto Nevarez / Chumel Paez",
+      "competidorKey": "name:sergio rivera",
+      "competidorId": null,
+      "nombre": "SERGIO RIVERA",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 67.95454545454545,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:rigoberto nevarez",
+      "competidorId": null,
+      "nombre": "Rigoberto Nevarez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 54,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:victor esparza/felix hernandez",
-      "competidorId": "local:969",
-      "nombre": "VICTOR ESPARZA / FELIX HERNANDEZ",
+      "competidorKey": "name:victor esparza",
+      "competidorId": null,
+      "nombre": "VICTOR ESPARZA",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 53,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:mauricio avila/eduardo calderon j",
-      "competidorId": "local:576",
-      "nombre": "Mauricio Avila / Eduardo Calderon J",
+      "competidorKey": "name:mauricio avila",
+      "competidorId": null,
+      "nombre": "Mauricio Avila",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 47.84615384615385,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:javier sepulveda/ubaldo sandoval",
-      "competidorId": "local:983",
-      "nombre": "Javier Sepulveda / Ubaldo Sandoval",
+      "competidorKey": "name:omar ramirez",
+      "competidorId": null,
+      "nombre": "Omar Ramirez",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 47,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:sergio rivera/alejandro loya",
-      "competidorId": "local:975",
-      "nombre": "Sergio Rivera / Alejandro Loya",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 38,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:omar ramirez/gerardo trujillo",
-      "competidorId": "local:974",
-      "nombre": "Omar Ramirez / Gerardo Trujillo",
+      "competidorKey": "name:jose luis vallez",
+      "competidorId": null,
+      "nombre": "Jose Luis Vallez",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 37,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:jose luis vallez/antonio espinoza",
-      "competidorId": "local:572",
-      "nombre": "Jose Luis Vallez / Antonio Espinoza",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 30.846153846153847,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:sergio rivera/eduardo calderon j",
-      "competidorId": "local:1038",
-      "nombre": "SERGIO RIVERA / EDUARDO CALDERON J",
+      "competidorKey": "name:enrique artalejo",
+      "competidorId": null,
+      "nombre": "Enrique Artalejo",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 29.954545454545453,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:chale ochoa/pelon vasquez",
-      "competidorId": "local:961",
-      "nombre": "CHALE OCHOA / PELON VASQUEZ",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 26.454545454545453,
-      "eventos": 3
-    },
-    {
-      "competidorKey": "name:enrique artalejo/luis ruiz",
-      "competidorId": "local:970",
-      "nombre": "Enrique Artalejo / Luis Ruiz",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 23,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:edgar devora/jesus manuel paez sr",
-      "competidorId": "local:976",
-      "nombre": "Edgar Devora / Jesus Manuel Paez Sr",
+      "competidorKey": "name:javier solis",
+      "competidorId": null,
+      "nombre": "JAVIER SOLIS",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 13,
-      "eventos": 2
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 18.846153846153847,
+      "dineroTotal": 0,
+      "eventos": 3
     },
     {
-      "competidorKey": "name:jose luis porras/jaime porras",
-      "competidorId": "local:579",
-      "nombre": "Jose Luis Porras / Jaime Porras",
+      "competidorKey": "name:edgar devora",
+      "competidorId": null,
+      "nombre": "EDGAR DEVORA",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 14.454545454545455,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:jose luis porras",
+      "competidorId": null,
+      "nombre": "Jose Luis Porras",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 12.846153846153847,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:gerardo trujillo/luis delgado jr",
-      "competidorId": "local:816",
-      "nombre": "Gerardo Trujillo / Luis Delgado Jr",
+      "competidorKey": "name:gerardo trujillo",
+      "competidorId": null,
+      "nombre": "Gerardo Trujillo",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 12,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:javier solis/juan dominguez",
-      "competidorId": "local:1043",
-      "nombre": "JAVIER SOLIS / JUAN DOMINGUEZ",
+      "competidorKey": "name:luis guerra",
+      "competidorId": null,
+      "nombre": "Luis Guerra",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 12,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:luis guerra/jesus silva",
-      "competidorId": "local:563",
-      "nombre": "Luis Guerra / Jesus Silva",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 10.846153846153847,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:emmanuel banuelos/fernando perez",
-      "competidorId": "local:569",
-      "nombre": "Emmanuel Banuelos / Fernando Perez",
+      "competidorKey": "name:emmanuel banuelos",
+      "competidorId": null,
+      "nombre": "Emmanuel Banuelos",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 5.846153846153846,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:felix hernandez/victor esparza",
-      "competidorId": "local:574",
-      "nombre": "Felix Hernandez / Victor Esparza",
+      "competidorKey": "name:felix hernandez",
+      "competidorId": null,
+      "nombre": "Felix Hernandez",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:juan cisneros/alan gardea",
-      "competidorId": "local:566",
-      "nombre": "Juan Cisneros / Alan Gardea",
+      "competidorKey": "name:juan cisneros",
+      "competidorId": null,
+      "nombre": "Juan Cisneros",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:javier solis/gael sigala",
-      "competidorId": "local:562",
-      "nombre": "Javier Solis / Gael Sigala",
+      "competidorKey": "name:gerardo holguin",
+      "competidorId": null,
+      "nombre": "Gerardo Holguin",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:gerardo holguin/gerardo parolari",
-      "competidorId": "local:577",
-      "nombre": "Gerardo Holguin / Gerardo Parolari",
+      "competidorKey": "name:marlene saldivar",
+      "competidorId": null,
+      "nombre": "MARLENE SALDIVAR",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 4.846153846153846,
-      "eventos": 1
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 4.454545454545455,
+      "dineroTotal": 0,
+      "eventos": 2
     },
     {
-      "competidorKey": "name:marlene saldivar/don poncho rodriguez",
-      "competidorId": "local:1036",
-      "nombre": "MARLENE SALDIVAR / DON PONCHO RODRIGUEZ",
+      "competidorKey": "name:carlos banuelas",
+      "competidorId": null,
+      "nombre": "CARLOS BANUELAS",
       "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
       "puntosTotales": 2.4545454545454546,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:luis baeza/daniel baeza",
-      "competidorId": "local:967",
-      "nombre": "Luis Baeza / Daniel Baeza",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 2,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:javier solis/fernando gonzalez",
-      "competidorId": "local:982",
-      "nombre": "Javier Solis / Fernando Gonzalez",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 2,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:pablo cardenas/ubaldo sandoval",
-      "competidorId": "local:820",
-      "nombre": "Pablo Cardenas / Ubaldo Sandoval",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 2,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:marlene saldivar/luis mario saldivar",
-      "competidorId": "local:838",
-      "nombre": "Marlene Saldivar / Luis Mario Saldivar",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 2,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:carlos banuelas/alonso beckman",
-      "competidorId": "local:1039",
-      "nombre": "CARLOS BANUELAS / ALONSO BECKMAN",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1.4545454545454546,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:omar chavira/daniel rodriguez",
-      "competidorId": "local:1041",
-      "nombre": "OMAR CHAVIRA / DANIEL RODRIGUEZ",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1.4545454545454546,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:edgar devora/jesus m paez sr",
-      "competidorId": "local:1045",
-      "nombre": "EDGAR DEVORA / JESUS M PAEZ Sr",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1.4545454545454546,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:serbando gutierrez jr/jose e. gutierrez",
-      "competidorId": "local:1047",
-      "nombre": "SERBANDO GUTIERREZ Jr / JOSE E. GUTIERREZ",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1.4545454545454546,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:gerardo rodriguez/oswaldo hernandez",
-      "competidorId": "local:1051",
-      "nombre": "GERARDO RODRIGUEZ / OSWALDO HERNANDEZ",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1.4545454545454546,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:tito santiesteban/ramon enriquez",
-      "competidorId": "local:958",
-      "nombre": "Tito Santiesteban / Ramon Enriquez",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:carlos banuelas/jesus sandoval",
-      "competidorId": "local:963",
-      "nombre": "Carlos Banuelas / Jesus Sandoval",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:homero lozoya/juan dominguez",
-      "competidorId": "local:972",
-      "nombre": "Homero Lozoya / Juan Dominguez",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:oswaldo hernandez jr/junior hernandez",
-      "competidorId": "local:977",
-      "nombre": "Oswaldo Hernandez Jr / Junior Hernandez",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:alejandro saenz/humberto diaz",
-      "competidorId": "local:984",
-      "nombre": "Alejandro Saenz / Humberto Diaz",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:gael sigala/eduardo calderon j",
-      "competidorId": "local:823",
-      "nombre": "Gael Sigala / Eduardo Calderon J",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:alan salazar/joel delgado",
-      "competidorId": "local:828",
-      "nombre": "Alan Salazar / Joel Delgado",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:omar ramirez/oscar garcia jr",
-      "competidorId": "local:835",
-      "nombre": "Omar Ramirez / Oscar Garcia Jr",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:victor h banuelos/juan dominguez",
-      "competidorId": "local:837",
-      "nombre": "Victor H Banuelos / Juan Dominguez",
-      "equipo": "",
-      "disciplinaId": "TeamRoping",
-      "disciplinaNombre": "Team Roping",
-      "categoriaId": "TeamRoping",
-      "categoriaNombre": "Team Roping",
-      "puntosTotales": 1,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:pedro porras/aldemaro aragon",
-      "competidorId": "local:993",
-      "nombre": "PEDRO PORRAS / ALDEMARO ARAGON",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 455.2857142857143,
-      "eventos": 3
-    },
-    {
-      "competidorKey": "name:guillermo herrera/jorge soto",
-      "competidorId": "local:986",
-      "nombre": "GUILLERMO HERRERA / JORGE SOTO",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 213.91071428571428,
-      "eventos": 3
-    },
-    {
-      "competidorKey": "name:jaime torres/oscar garcia",
-      "competidorId": "local:989",
-      "nombre": "Jaime Torres / Oscar Garcia",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 207.125,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:cesar bustamante/pelon ramos",
-      "competidorId": "local:992",
-      "nombre": "CESAR BUSTAMANTE / PELON RAMOS",
+      "competidorKey": "name:luis baeza",
+      "competidorId": null,
+      "nombre": "Luis Baeza",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 191.41071428571428,
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:pablo cardenas",
+      "competidorId": null,
+      "nombre": "Pablo Cardenas",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:omar chavira",
+      "competidorId": null,
+      "nombre": "OMAR CHAVIRA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:serbando gutierrez jr",
+      "competidorId": null,
+      "nombre": "SERBANDO GUTIERREZ Jr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:gerardo rodriguez",
+      "competidorId": null,
+      "nombre": "GERARDO RODRIGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:tito santiesteban",
+      "competidorId": null,
+      "nombre": "Tito Santiesteban",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:homero lozoya",
+      "competidorId": null,
+      "nombre": "Homero Lozoya",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:oswaldo hernandez jr",
+      "competidorId": null,
+      "nombre": "Oswaldo Hernandez Jr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alejandro saenz",
+      "competidorId": null,
+      "nombre": "Alejandro Saenz",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:gael sigala",
+      "competidorId": null,
+      "nombre": "Gael Sigala",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alan salazar",
+      "competidorId": null,
+      "nombre": "Alan Salazar",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:victor h banuelos",
+      "competidorId": null,
+      "nombre": "Victor H Banuelos",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Team Roping — Headers",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Team Roping — Headers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:jose rodriguez",
+      "competidorId": null,
+      "nombre": "JOSE RODRIGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 576.8461538461538,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:miguel de la torre",
+      "competidorId": null,
+      "nombre": "MIGUEL DE LA TORRE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 443,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:lalito marquez",
+      "competidorId": null,
+      "nombre": "LALITO MARQUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 232.3006993006993,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:alvaro de la torre jr",
+      "competidorId": null,
+      "nombre": "ALVARO DE LA TORRE Jr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 231.45454545454544,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:gamaliel salazar/ramon enriquez",
-      "competidorId": "local:884",
-      "nombre": "Gamaliel Salazar / Ramon Enriquez",
+      "competidorKey": "name:ubaldo sandoval",
+      "competidorId": null,
+      "nombre": "Ubaldo Sandoval",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 206,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:chumel paez",
+      "competidorId": null,
+      "nombre": "CHUMEL PAEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 201,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:santiago luevano",
+      "competidorId": null,
+      "nombre": "SANTIAGO LUEVANO",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 201,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:fco de la torre",
+      "competidorId": null,
+      "nombre": "Fco de la Torre",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 199,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:daniel baeza",
+      "competidorId": null,
+      "nombre": "DANIEL BAEZA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 192.45454545454547,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:jaime anchondo",
+      "competidorId": null,
+      "nombre": "Jaime Anchondo",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 190,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:jose e gutierrez",
+      "competidorId": null,
+      "nombre": "Jose E Gutierrez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
       "puntosTotales": 177,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:mario villareal/gerardo chavez",
-      "competidorId": "local:994",
-      "nombre": "MARIO VILLAREAL / GERARDO CHAVEZ",
+      "competidorKey": "name:pablo cardenas",
+      "competidorId": null,
+      "nombre": "PABLO CARDENAS",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 175.78571428571428,
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 172,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:carlos alderete",
+      "competidorId": null,
+      "nombre": "Carlos Alderete",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 161,
+      "dineroTotal": 0,
       "eventos": 3
     },
     {
-      "competidorKey": "name:jesus manuel paez sr/alfonso rodriguez",
-      "competidorId": "local:891",
-      "nombre": "JESUS MANUEL PAEZ SR / ALFONSO RODRIGUEZ",
+      "competidorKey": "name:alonso grajeda",
+      "competidorId": null,
+      "nombre": "Alonso Grajeda",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 129,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:francisco de la torre",
+      "competidorId": null,
+      "nombre": "FRANCISCO DE LA TORRE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 122,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:jose gutierrez",
+      "competidorId": null,
+      "nombre": "Jose Gutierrez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 120.84615384615384,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:eduardo calderon f",
+      "competidorId": null,
+      "nombre": "Eduardo Calderon F",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 119,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:miguel nunez",
+      "competidorId": null,
+      "nombre": "Miguel Nunez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 109,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:pelon vazquez",
+      "competidorId": null,
+      "nombre": "Pelon Vazquez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 105.84615384615384,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:omar romero",
+      "competidorId": null,
+      "nombre": "Omar Romero",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 97,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:armando perez",
+      "competidorId": null,
+      "nombre": "ARMANDO PEREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 94.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:irving ortega",
+      "competidorId": null,
+      "nombre": "Irving Ortega",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 89,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:eduardo calderon j",
+      "competidorId": null,
+      "nombre": "EDUARDO CALDERON J",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 78.8006993006993,
+      "dineroTotal": 0,
+      "eventos": 4
+    },
+    {
+      "competidorKey": "name:felix hernandez",
+      "competidorId": null,
+      "nombre": "FELIX HERNANDEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 53,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:alejandro loya",
+      "competidorId": null,
+      "nombre": "Alejandro Loya",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 38,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:gerardo trujillo",
+      "competidorId": null,
+      "nombre": "Gerardo Trujillo",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 37,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:antonio espinoza",
+      "competidorId": null,
+      "nombre": "Antonio Espinoza",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 30.846153846153847,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:pelon vasquez",
+      "competidorId": null,
+      "nombre": "PELON VASQUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 26.454545454545453,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:luis ruiz",
+      "competidorId": null,
+      "nombre": "Luis Ruiz",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 23,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:juan dominguez",
+      "competidorId": null,
+      "nombre": "JUAN DOMINGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 14,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:jesus manuel paez sr",
+      "competidorId": null,
+      "nombre": "Jesus Manuel Paez Sr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 13,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:jaime porras",
+      "competidorId": null,
+      "nombre": "Jaime Porras",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 12.846153846153847,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:luis delgado jr",
+      "competidorId": null,
+      "nombre": "Luis Delgado Jr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 12,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:jesus silva",
+      "competidorId": null,
+      "nombre": "Jesus Silva",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 10.846153846153847,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:fernando perez",
+      "competidorId": null,
+      "nombre": "Fernando Perez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 5.846153846153846,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:victor esparza",
+      "competidorId": null,
+      "nombre": "Victor Esparza",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alan gardea",
+      "competidorId": null,
+      "nombre": "Alan Gardea",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:gael sigala",
+      "competidorId": null,
+      "nombre": "Gael Sigala",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:gerardo parolari",
+      "competidorId": null,
+      "nombre": "Gerardo Parolari",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 4.846153846153846,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:don poncho rodriguez",
+      "competidorId": null,
+      "nombre": "DON PONCHO RODRIGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 2.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:fernando gonzalez",
+      "competidorId": null,
+      "nombre": "Fernando Gonzalez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:luis mario saldivar",
+      "competidorId": null,
+      "nombre": "Luis Mario Saldivar",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alonso beckman",
+      "competidorId": null,
+      "nombre": "ALONSO BECKMAN",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:daniel rodriguez",
+      "competidorId": null,
+      "nombre": "DANIEL RODRIGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:jesus m paez sr",
+      "competidorId": null,
+      "nombre": "JESUS M PAEZ Sr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:jose e. gutierrez",
+      "competidorId": null,
+      "nombre": "JOSE E. GUTIERREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:oswaldo hernandez",
+      "competidorId": null,
+      "nombre": "OSWALDO HERNANDEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1.4545454545454546,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:ramon enriquez",
+      "competidorId": null,
+      "nombre": "Ramon Enriquez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:jesus sandoval",
+      "competidorId": null,
+      "nombre": "Jesus Sandoval",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:junior hernandez",
+      "competidorId": null,
+      "nombre": "Junior Hernandez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:humberto diaz",
+      "competidorId": null,
+      "nombre": "Humberto Diaz",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:joel delgado",
+      "competidorId": null,
+      "nombre": "Joel Delgado",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:oscar garcia jr",
+      "competidorId": null,
+      "nombre": "Oscar Garcia Jr",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Team Roping — Heelers",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Team Roping — Heelers",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:pedro porras",
+      "competidorId": null,
+      "nombre": "PEDRO PORRAS",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 455.2857142857143,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:guillermo herrera",
+      "competidorId": null,
+      "nombre": "GUILLERMO HERRERA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 213.91071428571428,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:jaime torres",
+      "competidorId": null,
+      "nombre": "Jaime Torres",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 207.125,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:ramon parra",
+      "competidorId": null,
+      "nombre": "RAMON PARRA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 199.625,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:cesar bustamante",
+      "competidorId": null,
+      "nombre": "CESAR BUSTAMANTE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 191.41071428571428,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:gamaliel salazar",
+      "competidorId": null,
+      "nombre": "Gamaliel Salazar",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 177,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:mario villareal",
+      "competidorId": null,
+      "nombre": "MARIO VILLAREAL",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 175.78571428571428,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:jesus manuel paez sr",
+      "competidorId": null,
+      "nombre": "JESUS MANUEL PAEZ SR",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
       "puntosTotales": 165.5,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:servando gutierrez/othon rios",
-      "competidorId": "local:885",
-      "nombre": "Servando Gutierrez / Othon Rios",
+      "competidorKey": "name:servando gutierrez",
+      "competidorId": null,
+      "nombre": "Servando Gutierrez",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
       "puntosTotales": 147,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:jaime porras/oscar garcia",
-      "competidorId": "local:1102",
-      "nombre": "JAIME PORRAS / OSCAR GARCIA",
+      "competidorKey": "name:jaime porras",
+      "competidorId": null,
+      "nombre": "JAIME PORRAS",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
       "puntosTotales": 147,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:ramon parra/erasmo ortega",
-      "competidorId": "local:987",
-      "nombre": "Ramon Parra / Erasmo Ortega",
+      "competidorKey": "name:jesus manuel paez",
+      "competidorId": null,
+      "nombre": "Jesus Manuel Paez",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 140.125,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:jesus manuel paez/alfonso rodriguez",
-      "competidorId": "local:985",
-      "nombre": "Jesus Manuel Paez / Alfonso Rodriguez",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
       "puntosTotales": 125.125,
+      "dineroTotal": 0,
       "eventos": 1
     },
     {
-      "competidorKey": "name:ricardo santana/balo hernandez",
-      "competidorId": "local:990",
-      "nombre": "Ricardo Santana / Balo Hernandez",
+      "competidorKey": "name:ricardo santana",
+      "competidorId": null,
+      "nombre": "Ricardo Santana",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
       "puntosTotales": 70.41071428571428,
+      "dineroTotal": 0,
       "eventos": 2
     },
     {
-      "competidorKey": "name:ramon parra/tiberio rodriguez",
-      "competidorId": "local:893",
-      "nombre": "RAMON PARRA / TIBERIO RODRIGUEZ",
+      "competidorKey": "name:gamaliel barrera",
+      "competidorId": null,
+      "nombre": "Gamaliel Barrera",
       "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 23.410714285714285,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:hector villagran",
+      "competidorId": null,
+      "nombre": "Hector Villagran",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeader",
+      "disciplinaNombre": "Team Roping Masters — Headers",
+      "categoriaId": "TeamRopingMastersHeader",
+      "categoriaNombre": "Team Roping Masters — Headers",
+      "puntosTotales": 23.410714285714285,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:aldemaro aragon",
+      "competidorId": null,
+      "nombre": "ALDEMARO ARAGON",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 455.2857142857143,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:oscar garcia",
+      "competidorId": null,
+      "nombre": "OSCAR GARCIA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 354.125,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:alfonso rodriguez",
+      "competidorId": null,
+      "nombre": "ALFONSO RODRIGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 290.625,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:jorge soto",
+      "competidorId": null,
+      "nombre": "JORGE SOTO",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 213.91071428571428,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:ramon enriquez",
+      "competidorId": null,
+      "nombre": "Ramon Enriquez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 200.41071428571428,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:pelon ramos",
+      "competidorId": null,
+      "nombre": "PELON RAMOS",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 191.41071428571428,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:gerardo chavez",
+      "competidorId": null,
+      "nombre": "GERARDO CHAVEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 175.78571428571428,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:othon rios",
+      "competidorId": null,
+      "nombre": "Othon Rios",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 147,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:erasmo ortega",
+      "competidorId": null,
+      "nombre": "Erasmo Ortega",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 140.125,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:balo hernandez",
+      "competidorId": null,
+      "nombre": "Balo Hernandez",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
+      "puntosTotales": 70.41071428571428,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:tiberio rodriguez",
+      "competidorId": null,
+      "nombre": "TIBERIO RODRIGUEZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Team Roping Masters — Heelers",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Team Roping Masters — Heelers",
       "puntosTotales": 59.5,
+      "dineroTotal": 0,
       "eventos": 2
-    },
-    {
-      "competidorKey": "name:gamaliel barrera/ramon enriquez",
-      "competidorId": "local:988",
-      "nombre": "Gamaliel Barrera / Ramon Enriquez",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 23.410714285714285,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:hector villagran/erasmo ortega",
-      "competidorId": "local:991",
-      "nombre": "Hector Villagran / Erasmo Ortega",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMasters",
-      "disciplinaNombre": "Team Roping Masters",
-      "categoriaId": "TeamRopingMasters",
-      "categoriaNombre": "Team Roping Masters",
-      "puntosTotales": 23.410714285714285,
-      "eventos": 1
     }
   ]
 }
