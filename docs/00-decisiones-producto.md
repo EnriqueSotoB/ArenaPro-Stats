@@ -113,5 +113,17 @@ Flujo: automático por defecto, humano en el loop cuando haga falta.
 3. ¿Nombre exacto en UI: “FMR Tour 2027” vs variante con sponsor?
 4. ¿Masters de TR también Headers/Heelers separados? (asumimos **sí**)
 
+### Estado coordinación Time (Sprint 1)
+
+| Ítem | Estado |
+|------|--------|
+| Checklist export enviado/revisado (`02-contratos-datos.md` §9) | **Pendiente** — compartir con equipo Time |
+| `montoGanado` en export | Pendiente confirmación |
+| TR header/heeler o dúo `"A / B"` | Pendiente confirmación |
+| Split dinero TR 50/50 | Provisional en Stats; **confirmar con organizadores** |
+
+Cuando haya respuesta, actualizar esta sección y abrir commit:  
+`docs: registrar respuesta Time sobre dinero y team roping`.
+
 Cuando se cierren, actualizar este archivo y abrir un commit:  
 `docs: actualizar decisión X en FMR Tour 2027`.
