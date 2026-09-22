@@ -15,6 +15,7 @@ import {
   escapeAttr,
   fmtNum,
 } from "./event-model.js";
+import { getCutLine } from "../scripts/lib/cut-line.mjs";
 
 const MANIFEST_URL = "data/manifest.json";
 const TEMPORADA_URL = "data/temporada.json";
@@ -220,7 +221,7 @@ function renderTemporadaRanking(catId) {
     return;
   }
 
-  const cut = Number(manifest?.cutLine) > 0 ? Number(manifest.cutLine) : null;
+  const cut = getCutLine(manifest, catId);
   const leaderPts = rows[0]?.puntosTotales ?? 0;
   const nombre = rows[0].disciplinaNombre || rows[0].categoriaNombre || catId;
 

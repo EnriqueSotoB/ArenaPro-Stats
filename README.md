@@ -3,6 +3,8 @@
 Página estática de **estadísticas** (evento + temporada) con la marca ArenaPro.
 Publicada en GitHub Pages; se alimenta con JSON de Time (**Exportar para Stats…**).
 
+**Plan FMR Tour 2027:** ver [`docs/README.md`](./docs/README.md) (sprints, tests, dominio `stats.arenapro.mx`).
+
 Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 (paleta forest / ochre / sand / cream / dark + derivados; tipografía app Arial; barra `forest`).
 
