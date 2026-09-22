@@ -1,10 +1,11 @@
 {
   "temporada": "2027",
   "titulo": "FMR Tour 2027",
-  "actualizadoEn": "2026-09-22T17:49:50.343Z",
+  "actualizadoEn": "2026-09-22T18:03:41.844Z",
   "eventosContados": 4,
   "standings": [
     {
+      "competidorKey": "name:chale ochoa",
       "competidorId": "local:554",
       "nombre": "CHALE OCHOA",
       "equipo": "",
@@ -16,6 +17,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:sergio urrutia",
       "competidorId": "local:559",
       "nombre": "SERGIO URRUTIA",
       "equipo": "",
@@ -27,6 +29,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:fernando herrera",
       "competidorId": "local:556",
       "nombre": "FERNANDO HERRERA",
       "equipo": "",
@@ -38,6 +41,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:gael saenz",
       "competidorId": "local:560",
       "nombre": "Gael Saenz",
       "equipo": "",
@@ -49,6 +53,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:alvaro villalba",
       "competidorId": "local:557",
       "nombre": "Alvaro Villalba",
       "equipo": "",
@@ -60,6 +65,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:carlos toledo",
       "competidorId": "local:553",
       "nombre": "CARLOS TOLEDO",
       "equipo": "",
@@ -71,6 +77,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:francisco alarcon",
       "competidorId": "local:558",
       "nombre": "Francisco Alarcon",
       "equipo": "",
@@ -82,6 +89,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:rodrigo longoria",
       "competidorId": "local:928",
       "nombre": "Rodrigo Longoria",
       "equipo": "",
@@ -93,6 +101,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:alejandro grajeda",
       "competidorId": "local:934",
       "nombre": "Alejandro Grajeda",
       "equipo": "",
@@ -104,6 +113,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:luis muniz",
       "competidorId": "local:555",
       "nombre": "Luis Muniz",
       "equipo": "",
@@ -115,6 +125,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:edson vyeira",
       "competidorId": "local:552",
       "nombre": "Edson Vyeira",
       "equipo": "",
@@ -126,6 +137,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:daniela martinez",
       "competidorId": "local:517",
       "nombre": "DANIELA MARTINEZ",
       "equipo": "",
@@ -137,6 +149,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:pery prado",
       "competidorId": "local:528",
       "nombre": "PERY PRADO",
       "equipo": "",
@@ -148,6 +161,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:pamela jimenez",
       "competidorId": "local:516",
       "nombre": "PAMELA JIMENEZ",
       "equipo": "",
@@ -159,6 +173,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:monica flores",
       "competidorId": "local:523",
       "nombre": "MONICA FLORES",
       "equipo": "",
@@ -170,6 +185,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:andrea gonzalez",
       "competidorId": "local:531",
       "nombre": "ANDREA GONZALEZ",
       "equipo": "",
@@ -181,6 +197,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:diana laura pando",
       "competidorId": "local:530",
       "nombre": "Diana Laura Pando",
       "equipo": "",
@@ -192,6 +209,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:luisa herrera",
       "competidorId": "local:526",
       "nombre": "LUISA HERRERA",
       "equipo": "",
@@ -203,6 +221,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:florencia hernandez",
       "competidorId": "local:534",
       "nombre": "FLORENCIA HERNANDEZ",
       "equipo": "",
@@ -214,6 +233,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:marlene saldivar",
       "competidorId": "local:520",
       "nombre": "MARLENE SALDIVAR",
       "equipo": "",
@@ -225,6 +245,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:jhosayra arellano",
       "competidorId": "local:529",
       "nombre": "JHOSAYRA ARELLANO",
       "equipo": "",
@@ -236,6 +257,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:dayanara pando",
       "competidorId": "local:514",
       "nombre": "Dayanara Pando",
       "equipo": "",
@@ -247,6 +269,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:ximena salcido",
       "competidorId": "local:536",
       "nombre": "XIMENA SALCIDO",
       "equipo": "",
@@ -258,6 +281,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:anette palacios",
       "competidorId": "local:911",
       "nombre": "ANETTE PALACIOS",
       "equipo": "",
@@ -269,6 +293,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:paulina loya",
       "competidorId": "local:908",
       "nombre": "PAULINA LOYA",
       "equipo": "",
@@ -280,6 +305,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:sayuri leyva",
       "competidorId": "local:521",
       "nombre": "Sayuri Leyva",
       "equipo": "",
@@ -291,6 +317,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:debanhy reza",
       "competidorId": "local:527",
       "nombre": "DEBANHY REZA",
       "equipo": "",
@@ -302,6 +329,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:andrea banuelos",
       "competidorId": "local:532",
       "nombre": "Andrea Banuelos",
       "equipo": "",
@@ -313,6 +341,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:andrea achaval",
       "competidorId": "local:900",
       "nombre": "ANDREA ACHAVAL",
       "equipo": "",
@@ -324,6 +353,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:luisana carbajal",
       "competidorId": "local:902",
       "nombre": "Luisana Carbajal",
       "equipo": "",
@@ -335,6 +365,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:paulina romero",
       "competidorId": "local:522",
       "nombre": "Paulina Romero",
       "equipo": "",
@@ -346,6 +377,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:marcela ochoa",
       "competidorId": "local:910",
       "nombre": "MARCELA OCHOA",
       "equipo": "",
@@ -357,6 +389,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:cytlali bustillos",
       "competidorId": "local:533",
       "nombre": "CYTLALI BUSTILLOS",
       "equipo": "",
@@ -368,6 +401,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:cristina jurado",
       "competidorId": "local:906",
       "nombre": "CRISTINA JURADO",
       "equipo": "",
@@ -379,6 +413,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:sayra moriel",
       "competidorId": "local:525",
       "nombre": "SAYRA MORIEL",
       "equipo": "",
@@ -390,6 +425,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:alejandra soto",
       "competidorId": "local:535",
       "nombre": "Alejandra Soto",
       "equipo": "",
@@ -401,6 +437,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:selene iturralde",
       "competidorId": "local:519",
       "nombre": "SELENE ITURRALDE",
       "equipo": "",
@@ -412,6 +449,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:brenda trevizo",
       "competidorId": "local:898",
       "nombre": "Brenda Trevizo",
       "equipo": "",
@@ -423,6 +461,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:annie valeria trejo",
       "competidorId": "local:917",
       "nombre": "Annie Valeria Trejo",
       "equipo": "",
@@ -434,6 +473,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:gretel hernandez",
       "competidorId": "local:922",
       "nombre": "GRETEL HERNANDEZ",
       "equipo": "",
@@ -445,6 +485,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:mariana escobedo",
       "competidorId": "local:515",
       "nombre": "MARIANA ESCOBEDO",
       "equipo": "",
@@ -456,6 +497,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:ashley jaquez",
       "competidorId": "local:518",
       "nombre": "Ashley Jaquez",
       "equipo": "",
@@ -467,6 +509,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:gretel valdez",
       "competidorId": "local:524",
       "nombre": "Gretel Valdez",
       "equipo": "",
@@ -478,6 +521,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:gabriela prieto",
       "competidorId": "local:904",
       "nombre": "GABRIELA PRIETO",
       "equipo": "",
@@ -489,6 +533,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:melissa chavez",
       "competidorId": "local:905",
       "nombre": "MELISSA CHAVEZ",
       "equipo": "",
@@ -500,6 +545,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:emily palacios",
       "competidorId": "local:907",
       "nombre": "EMILY PALACIOS",
       "equipo": "",
@@ -511,6 +557,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:dulce santiesteban",
       "competidorId": "local:909",
       "nombre": "DULCE SANTIESTEBAN",
       "equipo": "",
@@ -522,6 +569,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:valeria herrera",
       "competidorId": "local:915",
       "nombre": "VALERIA HERRERA",
       "equipo": "",
@@ -533,6 +581,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:citlaly bustillos",
       "competidorId": "local:919",
       "nombre": "CITLALY BUSTILLOS",
       "equipo": "",
@@ -544,6 +593,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:myrka ortega",
       "competidorId": "local:777",
       "nombre": "Myrka Ortega",
       "equipo": "",
@@ -555,6 +605,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:elizabath vega",
       "competidorId": "local:790",
       "nombre": "Elizabath Vega",
       "equipo": "",
@@ -566,6 +617,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:nasyerih yeverino",
       "competidorId": "local:1057",
       "nombre": "NASYERIH YEVERINO",
       "equipo": "",
@@ -577,6 +629,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:annie trejo",
       "competidorId": "local:1056",
       "nombre": "ANNIE TREJO",
       "equipo": "",
@@ -588,6 +641,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:daniela martinez",
       "competidorId": "local:923",
       "nombre": "Daniela Martinez",
       "equipo": "",
@@ -599,6 +653,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:clara ruiz",
       "competidorId": "local:925",
       "nombre": "Clara Ruiz",
       "equipo": "",
@@ -610,6 +665,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:pery prado",
       "competidorId": "local:924",
       "nombre": "Pery Prado",
       "equipo": "",
@@ -621,6 +677,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:patricia ortega",
       "competidorId": "local:926",
       "nombre": "Patricia Ortega",
       "equipo": "",
@@ -632,6 +689,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:yael ramirez",
       "competidorId": "local:580",
       "nombre": "YAEL RAMIREZ",
       "equipo": "",
@@ -643,6 +701,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:sebastian ruiz",
       "competidorId": "local:583",
       "nombre": "SEBASTIAN RUIZ",
       "equipo": "",
@@ -654,6 +713,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:david dominguez",
       "competidorId": "local:581",
       "nombre": "DAVID DOMINGUEZ",
       "equipo": "",
@@ -665,6 +725,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:valentin rodriguez",
       "competidorId": "local:1012",
       "nombre": "VALENTIN RODRIGUEZ",
       "equipo": "",
@@ -676,6 +737,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:ivan dowz",
       "competidorId": "local:582",
       "nombre": "IVAN DOWZ",
       "equipo": "",
@@ -687,6 +749,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:josue magdaleno",
       "competidorId": "local:584",
       "nombre": "Josue Magdaleno",
       "equipo": "",
@@ -698,6 +761,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:jose carlos ochoa",
       "competidorId": "local:1009",
       "nombre": "JOSE CARLOS OCHOA",
       "equipo": "",
@@ -709,6 +773,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:jose medina",
       "competidorId": "local:1010",
       "nombre": "JOSE MEDINA",
       "equipo": "",
@@ -720,6 +785,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:fernando hernandez",
       "competidorId": "local:1015",
       "nombre": "FERNANDO HERNANDEZ",
       "equipo": "",
@@ -731,6 +797,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:johan de la cruz",
       "competidorId": "local:867",
       "nombre": "Johan de la Cruz",
       "equipo": "",
@@ -742,6 +809,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:lane gonzalez",
       "competidorId": "local:585",
       "nombre": "LANE GONZALEZ",
       "equipo": "",
@@ -753,6 +821,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:marcos nunez",
       "competidorId": "local:1018",
       "nombre": "Marcos Nunez",
       "equipo": "",
@@ -764,6 +833,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:hector gonzalez",
       "competidorId": "local:586",
       "nombre": "HECTOR GONZALEZ",
       "equipo": "",
@@ -775,6 +845,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:marco nunez",
       "competidorId": "local:1077",
       "nombre": "MARCO NUNEZ",
       "equipo": "",
@@ -786,6 +857,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jesus gomez",
       "competidorId": "local:587",
       "nombre": "JESUS GOMEZ",
       "equipo": "",
@@ -797,6 +869,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:diego aceves",
       "competidorId": "local:588",
       "nombre": "DIEGO ACEVES",
       "equipo": "",
@@ -808,6 +881,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:samuel acevez",
       "competidorId": "local:1078",
       "nombre": "SAMUEL ACEVEZ",
       "equipo": "",
@@ -819,6 +893,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:diego acevez",
       "competidorId": "local:863",
       "nombre": "Diego Acevez",
       "equipo": "",
@@ -830,6 +905,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:aldo acosta",
       "competidorId": "local:1005",
       "nombre": "ALDO ACOSTA",
       "equipo": "",
@@ -841,6 +917,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:ricardo estrada",
       "competidorId": "local:593",
       "nombre": "RICARDO ESTRADA",
       "equipo": "",
@@ -852,6 +929,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:angel flores",
       "competidorId": "local:595",
       "nombre": "ANGEL FLORES",
       "equipo": "",
@@ -863,6 +941,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:armando rodriguez",
       "competidorId": "local:597",
       "nombre": "ARMANDO RODRIGUEZ",
       "equipo": "",
@@ -874,6 +953,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:oswaldo dominguez",
       "competidorId": "local:998",
       "nombre": "OSWALDO DOMINGUEZ",
       "equipo": "",
@@ -885,6 +965,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:hector lerma",
       "competidorId": "local:1006",
       "nombre": "HECTOR LERMA",
       "equipo": "",
@@ -896,6 +977,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:alejandro tiscareno",
       "competidorId": "local:589",
       "nombre": "ALEJANDRO TISCARENO",
       "equipo": "",
@@ -907,6 +989,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:lucio morales",
       "competidorId": "local:590",
       "nombre": "LUCIO MORALES",
       "equipo": "",
@@ -918,6 +1001,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:manuel hernandez",
       "competidorId": "local:596",
       "nombre": "Manuel Hernandez",
       "equipo": "",
@@ -929,6 +1013,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:heriberto sarmiento",
       "competidorId": "local:599",
       "nombre": "Heriberto Sarmiento",
       "equipo": "",
@@ -940,6 +1025,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:diego carranza",
       "competidorId": "local:999",
       "nombre": "DIEGO CARRANZA",
       "equipo": "",
@@ -951,6 +1037,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:jose carlos ochoa",
       "competidorId": "local:1000",
       "nombre": "JOSE CARLOS OCHOA",
       "equipo": "",
@@ -962,6 +1049,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:luis quinonez",
       "competidorId": "local:872",
       "nombre": "LUIS QUINONEZ",
       "equipo": "",
@@ -973,6 +1061,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:aaron leon",
       "competidorId": "local:874",
       "nombre": "AARON LEON",
       "equipo": "",
@@ -984,6 +1073,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:saul dominguez",
       "competidorId": "local:591",
       "nombre": "SAUL DOMINGUEZ",
       "equipo": "",
@@ -995,6 +1085,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:zaid macias",
       "competidorId": "local:592",
       "nombre": "ZAID MACIAS",
       "equipo": "",
@@ -1006,6 +1097,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:derek arellano",
       "competidorId": "local:594",
       "nombre": "DEREK ARELLANO",
       "equipo": "",
@@ -1017,6 +1109,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jimmy ruiz",
       "competidorId": "local:598",
       "nombre": "JIMMY RUIZ",
       "equipo": "",
@@ -1028,6 +1121,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:job sanchez",
       "competidorId": "local:600",
       "nombre": "JOB SANCHEZ",
       "equipo": "",
@@ -1039,6 +1133,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:alexis aguirre",
       "competidorId": "local:1001",
       "nombre": "ALEXIS AGUIRRE",
       "equipo": "",
@@ -1050,6 +1145,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:alejandro lopez",
       "competidorId": "local:1004",
       "nombre": "ALEJANDRO LOPEZ",
       "equipo": "",
@@ -1061,6 +1157,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:issack meraz",
       "competidorId": "local:879",
       "nombre": "Issack Meraz",
       "equipo": "",
@@ -1072,6 +1169,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jaime guillen",
       "competidorId": "local:880",
       "nombre": "Jaime Guillen",
       "equipo": "",
@@ -1083,6 +1181,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:angel vyeria",
       "competidorId": "local:881",
       "nombre": "Angel Vyeria",
       "equipo": "",
@@ -1094,6 +1193,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:leonel saenz",
       "competidorId": "local:1086",
       "nombre": "LEONEL SAENZ",
       "equipo": "",
@@ -1105,6 +1205,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:kevin hernandez",
       "competidorId": "local:1002",
       "nombre": "KEVIN HERNANDEZ",
       "equipo": "",
@@ -1116,6 +1217,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:oswaldo hernandez",
       "competidorId": "local:551",
       "nombre": "OSWALDO HERNANDEZ",
       "equipo": "",
@@ -1127,6 +1229,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:jorge medina",
       "competidorId": "local:544",
       "nombre": "JORGE MEDINA",
       "equipo": "",
@@ -1138,6 +1241,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:gerardo reimer",
       "competidorId": "local:940",
       "nombre": "GERARDO REIMER",
       "equipo": "",
@@ -1149,6 +1253,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:miguel de la torre",
       "competidorId": "local:545",
       "nombre": "MIGUEL DE LA TORRE",
       "equipo": "",
@@ -1160,6 +1265,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:sergio rivera",
       "competidorId": "local:946",
       "nombre": "SERGIO RIVERA",
       "equipo": "",
@@ -1171,6 +1277,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:eduardo calderon j",
       "competidorId": "local:543",
       "nombre": "EDUARDO CALDERON J",
       "equipo": "",
@@ -1182,6 +1289,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:mario herrera",
       "competidorId": "local:936",
       "nombre": "MARIO HERRERA",
       "equipo": "",
@@ -1193,6 +1301,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:alvaro de la torre jr",
       "competidorId": "local:954",
       "nombre": "ALVARO DE LA TORRE Jr",
       "equipo": "",
@@ -1204,6 +1313,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:jose luis porras",
       "competidorId": "local:542",
       "nombre": "Jose Luis Porras",
       "equipo": "",
@@ -1215,6 +1325,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:irving ortega",
       "competidorId": "local:941",
       "nombre": "Irving Ortega",
       "equipo": "",
@@ -1226,6 +1337,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:gael sigala",
       "competidorId": "local:547",
       "nombre": "Gael Sigala",
       "equipo": "",
@@ -1237,6 +1349,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:mauricio avila",
       "competidorId": "local:549",
       "nombre": "MAURICIO AVILA",
       "equipo": "",
@@ -1248,6 +1361,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:alberto carbajal",
       "competidorId": "local:944",
       "nombre": "Alberto Carbajal",
       "equipo": "",
@@ -1259,6 +1373,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:alvaro de la torre",
       "competidorId": "local:943",
       "nombre": "ALVARO DE LA TORRE",
       "equipo": "",
@@ -1270,6 +1385,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:jaime porras",
       "competidorId": "local:548",
       "nombre": "Jaime Porras",
       "equipo": "",
@@ -1281,6 +1397,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:luis baeza",
       "competidorId": "local:945",
       "nombre": "LUIS BAEZA",
       "equipo": "",
@@ -1292,6 +1409,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:francisco simental",
       "competidorId": "local:546",
       "nombre": "FRANCISCO SIMENTAL",
       "equipo": "",
@@ -1303,6 +1421,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:eduardo calderon jaquez",
       "competidorId": "local:799",
       "nombre": "Eduardo Calderon Jaquez",
       "equipo": "",
@@ -1314,6 +1433,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:tomas jimenez",
       "competidorId": "local:550",
       "nombre": "TOMAS JIMENEZ",
       "equipo": "",
@@ -1325,6 +1445,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:eduardo calderon f",
       "competidorId": "local:938",
       "nombre": "Eduardo Calderon F",
       "equipo": "",
@@ -1336,6 +1457,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:jaime anchondo",
       "competidorId": "local:797",
       "nombre": "Jaime Anchondo",
       "equipo": "",
@@ -1347,6 +1469,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:paulina rodriguez",
       "competidorId": "local:858",
       "nombre": "PAULINA RODRIGUEZ",
       "equipo": "",
@@ -1358,6 +1481,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:paulina loya",
       "competidorId": "local:849",
       "nombre": "PAULINA LOYA",
       "equipo": "",
@@ -1369,6 +1493,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:greta klassen",
       "competidorId": "local:851",
       "nombre": "GRETA KLASSEN",
       "equipo": "",
@@ -1380,6 +1505,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:selene iturralde",
       "competidorId": "local:848",
       "nombre": "SELENE ITURRALDE",
       "equipo": "",
@@ -1391,6 +1517,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:marlene saldivar",
       "competidorId": "local:853",
       "nombre": "MARLENE SALDIVAR",
       "equipo": "",
@@ -1402,6 +1529,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:mary jose romero",
       "competidorId": "local:857",
       "nombre": "MARY JOSE ROMERO",
       "equipo": "",
@@ -1413,6 +1541,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:ana lia flores",
       "competidorId": "local:854",
       "nombre": "ANA LIA FLORES",
       "equipo": "",
@@ -1424,6 +1553,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:monica flores",
       "competidorId": "local:856",
       "nombre": "MONICA FLORES",
       "equipo": "",
@@ -1435,6 +1565,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:lizeth minjares",
       "competidorId": "local:1106",
       "nombre": "LIZETH MINJARES",
       "equipo": "",
@@ -1446,6 +1577,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:diana de la torre",
       "competidorId": "local:850",
       "nombre": "DIANA DE LA TORRE",
       "equipo": "",
@@ -1457,6 +1589,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:anyie chavez",
       "competidorId": "local:859",
       "nombre": "Anyie Chavez",
       "equipo": "",
@@ -1468,6 +1601,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:paulina chairez",
       "competidorId": "local:855",
       "nombre": "PAULINA CHAIREZ",
       "equipo": "",
@@ -1479,6 +1613,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:lizeth minjarez",
       "competidorId": "local:852",
       "nombre": "Lizeth Minjarez",
       "equipo": "",
@@ -1490,6 +1625,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:frida flores",
       "competidorId": "local:540",
       "nombre": "Frida Flores",
       "equipo": "",
@@ -1501,6 +1637,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:sayuri leyva",
       "competidorId": "local:539",
       "nombre": "Sayuri Leyva",
       "equipo": "",
@@ -1512,6 +1649,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:gabriela gonzalez",
       "competidorId": "local:541",
       "nombre": "Gabriela Gonzalez",
       "equipo": "",
@@ -1523,6 +1661,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:selene iturralde",
       "competidorId": "local:537",
       "nombre": "Selene Iturralde",
       "equipo": "",
@@ -1534,6 +1673,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jhosayra arellano",
       "competidorId": "local:538",
       "nombre": "Jhosayra Arellano",
       "equipo": "",
@@ -1545,6 +1685,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:alejandro torres/jose rodriguez",
       "competidorId": "local:565",
       "nombre": "ALEJANDRO TORRES / JOSE RODRIGUEZ",
       "equipo": "",
@@ -1556,6 +1697,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:fernando gan/miguel de la torre",
       "competidorId": "local:568",
       "nombre": "FERNANDO GAN / MIGUEL DE LA TORRE",
       "equipo": "",
@@ -1567,6 +1709,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:alfredo pinon/lalito marquez",
       "competidorId": "local:561",
       "nombre": "ALFREDO PINON / LALITO MARQUEZ",
       "equipo": "",
@@ -1578,6 +1721,7 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:alvaro de la torre/alvaro de la torre jr",
       "competidorId": "local:964",
       "nombre": "ALVARO DE LA TORRE / ALVARO DE LA TORRE Jr",
       "equipo": "",
@@ -1589,6 +1733,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:edgar pando/santiago luevano",
       "competidorId": "local:956",
       "nombre": "EDGAR PANDO / SANTIAGO LUEVANO",
       "equipo": "",
@@ -1600,6 +1745,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:fco de la torre jr/fco de la torre",
       "competidorId": "local:960",
       "nombre": "Fco de la Torre JR / Fco de la Torre",
       "equipo": "",
@@ -1611,6 +1757,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:javier sepulveda/daniel baeza",
       "competidorId": "local:567",
       "nombre": "JAVIER SEPULVEDA / DANIEL BAEZA",
       "equipo": "",
@@ -1622,6 +1769,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:adrian ferreiro/jaime anchondo",
       "competidorId": "local:573",
       "nombre": "Adrian Ferreiro / Jaime Anchondo",
       "equipo": "",
@@ -1633,6 +1781,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:servando gutierrez jr/jose e gutierrez",
       "competidorId": "local:819",
       "nombre": "Servando Gutierrez Jr / Jose E Gutierrez",
       "equipo": "",
@@ -1644,6 +1793,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:ubaldo sandoval/pablo cardenas",
       "competidorId": "local:1035",
       "nombre": "UBALDO SANDOVAL / PABLO CARDENAS",
       "equipo": "",
@@ -1655,6 +1805,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jeronimo venegas/carlos alderete",
       "competidorId": "local:564",
       "nombre": "Jeronimo Venegas / Carlos Alderete",
       "equipo": "",
@@ -1666,6 +1817,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:edgar pando/ubaldo sandoval",
       "competidorId": "local:578",
       "nombre": "Edgar Pando / Ubaldo Sandoval",
       "equipo": "",
@@ -1677,6 +1829,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:rigo nevarez/chumel paez",
       "competidorId": "local:1049",
       "nombre": "RIGO NEVAREZ / CHUMEL PAEZ",
       "equipo": "",
@@ -1688,6 +1841,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jose luis gonzalez/alonso grajeda",
       "competidorId": "local:978",
       "nombre": "Jose Luis Gonzalez / Alonso Grajeda",
       "equipo": "",
@@ -1699,6 +1853,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:francisco de la torre jr/francisco de la torre",
       "competidorId": "local:1037",
       "nombre": "FRANCISCO DE LA TORRE Jr / FRANCISCO DE LA TORRE",
       "equipo": "",
@@ -1710,6 +1865,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:bandis gutierrez/jose gutierrez",
       "competidorId": "local:570",
       "nombre": "Bandis Gutierrez / Jose Gutierrez",
       "equipo": "",
@@ -1721,6 +1877,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:pedro wiebe/eduardo calderon f",
       "competidorId": "local:955",
       "nombre": "Pedro Wiebe / Eduardo Calderon F",
       "equipo": "",
@@ -1732,6 +1889,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:oscar villalobos/miguel nunez",
       "competidorId": "local:965",
       "nombre": "Oscar Villalobos / Miguel Nunez",
       "equipo": "",
@@ -1743,6 +1901,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:chale ochoa/pelon vazquez",
       "competidorId": "local:575",
       "nombre": "Chale Ochoa / Pelon Vazquez",
       "equipo": "",
@@ -1754,6 +1913,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:carlos barragan/omar romero",
       "competidorId": "local:571",
       "nombre": "Carlos Barragan / Omar Romero",
       "equipo": "",
@@ -1765,6 +1925,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jose luis gonzalez/armando perez",
       "competidorId": "local:1032",
       "nombre": "JOSE LUIS GONZALEZ / ARMANDO PEREZ",
       "equipo": "",
@@ -1776,6 +1937,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:luis loya/irving ortega",
       "competidorId": "local:980",
       "nombre": "Luis Loya / Irving Ortega",
       "equipo": "",
@@ -1787,6 +1949,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:rigoberto nevarez/chumel paez",
       "competidorId": "local:966",
       "nombre": "Rigoberto Nevarez / Chumel Paez",
       "equipo": "",
@@ -1798,6 +1961,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:victor esparza/felix hernandez",
       "competidorId": "local:969",
       "nombre": "VICTOR ESPARZA / FELIX HERNANDEZ",
       "equipo": "",
@@ -1809,6 +1973,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:mauricio avila/eduardo calderon j",
       "competidorId": "local:576",
       "nombre": "Mauricio Avila / Eduardo Calderon J",
       "equipo": "",
@@ -1820,6 +1985,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:javier sepulveda/ubaldo sandoval",
       "competidorId": "local:983",
       "nombre": "Javier Sepulveda / Ubaldo Sandoval",
       "equipo": "",
@@ -1831,6 +1997,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:sergio rivera/alejandro loya",
       "competidorId": "local:975",
       "nombre": "Sergio Rivera / Alejandro Loya",
       "equipo": "",
@@ -1842,6 +2009,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:omar ramirez/gerardo trujillo",
       "competidorId": "local:974",
       "nombre": "Omar Ramirez / Gerardo Trujillo",
       "equipo": "",
@@ -1853,6 +2021,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jose luis vallez/antonio espinoza",
       "competidorId": "local:572",
       "nombre": "Jose Luis Vallez / Antonio Espinoza",
       "equipo": "",
@@ -1864,6 +2033,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:sergio rivera/eduardo calderon j",
       "competidorId": "local:1038",
       "nombre": "SERGIO RIVERA / EDUARDO CALDERON J",
       "equipo": "",
@@ -1875,6 +2045,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:chale ochoa/pelon vasquez",
       "competidorId": "local:961",
       "nombre": "CHALE OCHOA / PELON VASQUEZ",
       "equipo": "",
@@ -1886,6 +2057,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:enrique artalejo/luis ruiz",
       "competidorId": "local:970",
       "nombre": "Enrique Artalejo / Luis Ruiz",
       "equipo": "",
@@ -1897,6 +2069,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:edgar devora/jesus manuel paez sr",
       "competidorId": "local:976",
       "nombre": "Edgar Devora / Jesus Manuel Paez Sr",
       "equipo": "",
@@ -1908,6 +2081,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:jose luis porras/jaime porras",
       "competidorId": "local:579",
       "nombre": "Jose Luis Porras / Jaime Porras",
       "equipo": "",
@@ -1919,6 +2093,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:gerardo trujillo/luis delgado jr",
       "competidorId": "local:816",
       "nombre": "Gerardo Trujillo / Luis Delgado Jr",
       "equipo": "",
@@ -1930,6 +2105,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:javier solis/juan dominguez",
       "competidorId": "local:1043",
       "nombre": "JAVIER SOLIS / JUAN DOMINGUEZ",
       "equipo": "",
@@ -1941,6 +2117,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:luis guerra/jesus silva",
       "competidorId": "local:563",
       "nombre": "Luis Guerra / Jesus Silva",
       "equipo": "",
@@ -1952,6 +2129,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:emmanuel banuelos/fernando perez",
       "competidorId": "local:569",
       "nombre": "Emmanuel Banuelos / Fernando Perez",
       "equipo": "",
@@ -1963,6 +2141,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:felix hernandez/victor esparza",
       "competidorId": "local:574",
       "nombre": "Felix Hernandez / Victor Esparza",
       "equipo": "",
@@ -1974,6 +2153,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:juan cisneros/alan gardea",
       "competidorId": "local:566",
       "nombre": "Juan Cisneros / Alan Gardea",
       "equipo": "",
@@ -1985,6 +2165,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:javier solis/gael sigala",
       "competidorId": "local:562",
       "nombre": "Javier Solis / Gael Sigala",
       "equipo": "",
@@ -1996,6 +2177,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:gerardo holguin/gerardo parolari",
       "competidorId": "local:577",
       "nombre": "Gerardo Holguin / Gerardo Parolari",
       "equipo": "",
@@ -2007,6 +2189,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:marlene saldivar/don poncho rodriguez",
       "competidorId": "local:1036",
       "nombre": "MARLENE SALDIVAR / DON PONCHO RODRIGUEZ",
       "equipo": "",
@@ -2018,6 +2201,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:luis baeza/daniel baeza",
       "competidorId": "local:967",
       "nombre": "Luis Baeza / Daniel Baeza",
       "equipo": "",
@@ -2029,6 +2213,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:javier solis/fernando gonzalez",
       "competidorId": "local:982",
       "nombre": "Javier Solis / Fernando Gonzalez",
       "equipo": "",
@@ -2040,6 +2225,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:pablo cardenas/ubaldo sandoval",
       "competidorId": "local:820",
       "nombre": "Pablo Cardenas / Ubaldo Sandoval",
       "equipo": "",
@@ -2051,6 +2237,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:marlene saldivar/luis mario saldivar",
       "competidorId": "local:838",
       "nombre": "Marlene Saldivar / Luis Mario Saldivar",
       "equipo": "",
@@ -2062,6 +2249,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:carlos banuelas/alonso beckman",
       "competidorId": "local:1039",
       "nombre": "CARLOS BANUELAS / ALONSO BECKMAN",
       "equipo": "",
@@ -2073,6 +2261,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:omar chavira/daniel rodriguez",
       "competidorId": "local:1041",
       "nombre": "OMAR CHAVIRA / DANIEL RODRIGUEZ",
       "equipo": "",
@@ -2084,6 +2273,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:edgar devora/jesus m paez sr",
       "competidorId": "local:1045",
       "nombre": "EDGAR DEVORA / JESUS M PAEZ Sr",
       "equipo": "",
@@ -2095,6 +2285,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:serbando gutierrez jr/jose e. gutierrez",
       "competidorId": "local:1047",
       "nombre": "SERBANDO GUTIERREZ Jr / JOSE E. GUTIERREZ",
       "equipo": "",
@@ -2106,6 +2297,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:gerardo rodriguez/oswaldo hernandez",
       "competidorId": "local:1051",
       "nombre": "GERARDO RODRIGUEZ / OSWALDO HERNANDEZ",
       "equipo": "",
@@ -2117,6 +2309,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:tito santiesteban/ramon enriquez",
       "competidorId": "local:958",
       "nombre": "Tito Santiesteban / Ramon Enriquez",
       "equipo": "",
@@ -2128,6 +2321,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:carlos banuelas/jesus sandoval",
       "competidorId": "local:963",
       "nombre": "Carlos Banuelas / Jesus Sandoval",
       "equipo": "",
@@ -2139,6 +2333,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:homero lozoya/juan dominguez",
       "competidorId": "local:972",
       "nombre": "Homero Lozoya / Juan Dominguez",
       "equipo": "",
@@ -2150,6 +2345,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:oswaldo hernandez jr/junior hernandez",
       "competidorId": "local:977",
       "nombre": "Oswaldo Hernandez Jr / Junior Hernandez",
       "equipo": "",
@@ -2161,6 +2357,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:alejandro saenz/humberto diaz",
       "competidorId": "local:984",
       "nombre": "Alejandro Saenz / Humberto Diaz",
       "equipo": "",
@@ -2172,6 +2369,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:gael sigala/eduardo calderon j",
       "competidorId": "local:823",
       "nombre": "Gael Sigala / Eduardo Calderon J",
       "equipo": "",
@@ -2183,6 +2381,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:alan salazar/joel delgado",
       "competidorId": "local:828",
       "nombre": "Alan Salazar / Joel Delgado",
       "equipo": "",
@@ -2194,6 +2393,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:omar ramirez/oscar garcia jr",
       "competidorId": "local:835",
       "nombre": "Omar Ramirez / Oscar Garcia Jr",
       "equipo": "",
@@ -2205,6 +2405,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:victor h banuelos/juan dominguez",
       "competidorId": "local:837",
       "nombre": "Victor H Banuelos / Juan Dominguez",
       "equipo": "",
@@ -2216,6 +2417,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:pedro porras/aldemaro aragon",
       "competidorId": "local:993",
       "nombre": "PEDRO PORRAS / ALDEMARO ARAGON",
       "equipo": "",
@@ -2227,6 +2429,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:guillermo herrera/jorge soto",
       "competidorId": "local:986",
       "nombre": "GUILLERMO HERRERA / JORGE SOTO",
       "equipo": "",
@@ -2238,6 +2441,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:jaime torres/oscar garcia",
       "competidorId": "local:989",
       "nombre": "Jaime Torres / Oscar Garcia",
       "equipo": "",
@@ -2249,6 +2453,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:cesar bustamante/pelon ramos",
       "competidorId": "local:992",
       "nombre": "CESAR BUSTAMANTE / PELON RAMOS",
       "equipo": "",
@@ -2260,6 +2465,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:gamaliel salazar/ramon enriquez",
       "competidorId": "local:884",
       "nombre": "Gamaliel Salazar / Ramon Enriquez",
       "equipo": "",
@@ -2271,6 +2477,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:mario villareal/gerardo chavez",
       "competidorId": "local:994",
       "nombre": "MARIO VILLAREAL / GERARDO CHAVEZ",
       "equipo": "",
@@ -2282,6 +2489,7 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:jesus manuel paez sr/alfonso rodriguez",
       "competidorId": "local:891",
       "nombre": "JESUS MANUEL PAEZ SR / ALFONSO RODRIGUEZ",
       "equipo": "",
@@ -2293,6 +2501,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:servando gutierrez/othon rios",
       "competidorId": "local:885",
       "nombre": "Servando Gutierrez / Othon Rios",
       "equipo": "",
@@ -2304,6 +2513,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jaime porras/oscar garcia",
       "competidorId": "local:1102",
       "nombre": "JAIME PORRAS / OSCAR GARCIA",
       "equipo": "",
@@ -2315,6 +2525,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:ramon parra/erasmo ortega",
       "competidorId": "local:987",
       "nombre": "Ramon Parra / Erasmo Ortega",
       "equipo": "",
@@ -2326,6 +2537,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:jesus manuel paez/alfonso rodriguez",
       "competidorId": "local:985",
       "nombre": "Jesus Manuel Paez / Alfonso Rodriguez",
       "equipo": "",
@@ -2337,6 +2549,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:ricardo santana/balo hernandez",
       "competidorId": "local:990",
       "nombre": "Ricardo Santana / Balo Hernandez",
       "equipo": "",
@@ -2348,6 +2561,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:ramon parra/tiberio rodriguez",
       "competidorId": "local:893",
       "nombre": "RAMON PARRA / TIBERIO RODRIGUEZ",
       "equipo": "",
@@ -2359,6 +2573,7 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:gamaliel barrera/ramon enriquez",
       "competidorId": "local:988",
       "nombre": "Gamaliel Barrera / Ramon Enriquez",
       "equipo": "",
@@ -2370,6 +2585,7 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:hector villagran/erasmo ortega",
       "competidorId": "local:991",
       "nombre": "Hector Villagran / Erasmo Ortega",
       "equipo": "",
