@@ -104,9 +104,36 @@ function wireDropzone() {
 
 async function loadFile(file) {
   try {
-    const text = await file.text();
-    const data = JSON.parse(text);
+    const isExcel = /\.xlsx$/i.test(file.name);
+    let data;
+    if (isExcel) {
+      els.fileInfo.textContent = `Leyendo Excel: ${file.name}…`;
+      const buf = await file.arrayBuffer();
+      const res = await fetch("/api/parse-excel", {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+        body: buf,
+      });
+      const body = await res.json();
+      if (!res.ok || !body.ok) {
+        throw new Error(body.error || `No se pudo leer el Excel (${res.status})`);
+      }
+      data = body.evento;
+    } else {
+      const text = await file.text();
+      data = JSON.parse(text);
+    }
+
     const evento = normalizeEvento(data, file.name);
+    evento.source = data.source || evento.source;
+    evento.schemaVersion = data.schemaVersion ?? evento.schemaVersion;
+    evento.clasificacion = data.clasificacion || evento.clasificacion;
+    evento.resultados = data.resultados || evento.resultados;
+    evento.categorias = data.categorias || evento.categorias;
+
     const temp =
       data.temporada ||
       els.temporadaInput.value ||
@@ -120,7 +147,8 @@ async function loadFile(file) {
     previewCatId = null;
     expandedRows.clear();
 
-    els.fileInfo.textContent = `Archivo: ${file.name}`;
+    const srcLabel = evento.source === "manual" ? "Excel manual" : "Time";
+    els.fileInfo.textContent = `Archivo: ${file.name} · ${srcLabel}`;
     refreshPreviewUi();
     showBanner(`Listo para revisar: ${evento.nombreEvento || file.name}`, false);
   } catch (err) {

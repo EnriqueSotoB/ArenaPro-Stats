@@ -6,9 +6,13 @@
   "description": "Estadísticas públicas FMR Tour / ArenaPro Stats",
   "scripts": {
     "test": "node scripts/run-tests.mjs",
-    "rebuild": "node scripts/rebuild-temporada.mjs"
+    "rebuild": "node scripts/rebuild-temporada.mjs",
+    "plantilla": "node scripts/build-plantilla-excel.mjs"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
   }
 }
