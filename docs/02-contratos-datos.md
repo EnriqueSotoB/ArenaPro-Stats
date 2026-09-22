@@ -2,6 +2,11 @@
 
 Documento para alinear **ArenaPro Time** (export) y **ArenaPro Stats** (ingest + rebuild + UI).
 
+**Contrato canónico en Time:**  
+`ArenaPro-TimeManagement/docs/contratos/CONTRATO_EXPORT_STATS.md` (schemaVersion **2**).
+
+Este archivo resume el consumo en Stats; si hay conflicto, manda el contrato de Time.
+
 ---
 
 ## 1. Flujo

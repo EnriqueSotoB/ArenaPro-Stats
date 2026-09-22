@@ -10,6 +10,11 @@ import { dirname, join, extname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { validateEvento } from "./lib/validate-evento.mjs";
+import {
+  aplicarStatsEdits,
+  buildDefaultEdits,
+} from "./lib/stats-edits.mjs";
+import { appendAlias } from "./lib/alias-store.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
@@ -194,14 +199,22 @@ function getStatus() {
   };
 }
 
-async function ingest({ evento, temporada }) {
+async function ingest({ evento, temporada, statsEdits }) {
   if (!evento || typeof evento !== "object") {
     const err = new Error("Falta el JSON del evento.");
     err.statusCode = 400;
     throw err;
   }
 
-  const validation = validateEvento(evento);
+  // Quitar statsEdits embebidos del export crudo; se reaplica limpio.
+  const { statsEdits: _embedded, ...rawEvento } = evento;
+  const edits =
+    statsEdits && typeof statsEdits === "object"
+      ? statsEdits
+      : buildDefaultEdits(rawEvento);
+  const applied = aplicarStatsEdits(rawEvento, edits);
+
+  const validation = validateEvento(applied);
   if (!validation.ok) {
     const err = new Error(validation.errors.join(" "));
     err.statusCode = 400;
@@ -212,32 +225,32 @@ async function ingest({ evento, temporada }) {
 
   const temp =
     (temporada != null && String(temporada).trim()) ||
-    (evento.temporada != null && String(evento.temporada).trim()) ||
+    (applied.temporada != null && String(applied.temporada).trim()) ||
     loadManifest().temporadaActiva ||
     String(new Date().getFullYear());
 
-  evento.temporada = temp;
-  if (!evento.nombreEvento && evento.eventoId) {
-    evento.nombreEvento = String(evento.eventoId);
+  applied.temporada = temp;
+  if (!applied.nombreEvento && applied.eventoId) {
+    applied.nombreEvento = String(applied.eventoId);
   }
 
   const fecha =
-    evento.fecha ||
-    (evento.exportedAt ? String(evento.exportedAt).slice(0, 10) : "") ||
+    applied.fecha ||
+    (applied.exportedAt ? String(applied.exportedAt).slice(0, 10) : "") ||
     new Date().toISOString().slice(0, 10);
-  evento.fecha = fecha;
+  applied.fecha = fecha;
 
   const id =
-    (evento.eventoId && String(evento.eventoId).trim()) ||
-    `evt_${fecha}_${safeSlug(evento.nombreEvento)}`;
-  evento.eventoId = id;
+    (applied.eventoId && String(applied.eventoId).trim()) ||
+    `evt_${fecha}_${safeSlug(applied.nombreEvento)}`;
+  applied.eventoId = id;
 
-  const fileName = `${fecha}-${safeSlug(evento.nombreEvento)}.json`;
+  const fileName = `${fecha}-${safeSlug(applied.nombreEvento)}.json`;
   const relFile = `eventos/${fileName}`;
   const absDir = join(ROOT, "data", "eventos");
   mkdirSync(absDir, { recursive: true });
   const absFile = join(absDir, fileName);
-  writeFileSync(absFile, JSON.stringify(evento, null, 2) + "\n", "utf8");
+  writeFileSync(absFile, JSON.stringify(applied, null, 2) + "\n", "utf8");
 
   const manifest = loadManifest();
   manifest.temporadaActiva = temp;
@@ -245,9 +258,9 @@ async function ingest({ evento, temporada }) {
 
   const entry = {
     id,
-    nombre: evento.nombreEvento || id,
+    nombre: applied.nombreEvento || id,
     fecha,
-    sede: evento.sede || "",
+    sede: applied.sede || "",
     file: relFile,
   };
 
@@ -267,7 +280,25 @@ async function ingest({ evento, temporada }) {
     temporada: temp,
     rebuilt,
     warnings: validation.warnings,
+    statsEdits: applied.statsEdits || null,
   };
+}
+
+function loadAliasesDoc() {
+  const path = join(ROOT, "data", "competidor-aliases.json");
+  if (!existsSync(path)) return { version: 1, aliases: [] };
+  return JSON.parse(readFileSync(path, "utf8"));
+}
+
+function saveAliasesDoc(doc) {
+  const path = join(ROOT, "data", "competidor-aliases.json");
+  writeFileSync(path, JSON.stringify(doc, null, 2) + "\n", "utf8");
+}
+
+function addAlias(body) {
+  const next = appendAlias(loadAliasesDoc(), body || {});
+  saveAliasesDoc(next);
+  return { ok: true, aliases: next.aliases, count: next.aliases.length };
 }
 
 function removeEvent({ id }) {
@@ -430,6 +461,19 @@ const server = http.createServer(async (req, res) => {
     if (method === "POST" && url.pathname === "/api/ingest") {
       const body = await readJsonBody(req);
       const result = await ingest(body);
+      sendJson(res, 200, result);
+      return;
+    }
+
+    if (method === "GET" && url.pathname === "/api/aliases") {
+      const doc = loadAliasesDoc();
+      sendJson(res, 200, { ok: true, ...doc });
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/aliases") {
+      const body = await readJsonBody(req);
+      const result = addAlias(body);
       sendJson(res, 200, result);
       return;
     }

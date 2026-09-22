@@ -74,6 +74,7 @@ function rankingFromClasificacion(evento, cat) {
       tiempoTotal,
       puntosCalif: e.puntos != null ? Number(e.puntos) : null,
       puntosCircuito: e.puntosCircuito != null ? Number(e.puntosCircuito) : null,
+      montoGanado: e.montoGanado != null ? Number(e.montoGanado) : null,
       esPuntos,
       detalleVueltas: detalle,
       desdeTime: true,
@@ -112,6 +113,7 @@ function rankingFromResultadosLegacy(rows, cat) {
       tiemposParciales: !tiempoCompleto && tiempos.length ? tiempos : null,
       puntosCalif: puntosDisc.length ? Math.max(...puntosDisc) : null,
       puntosCircuito: puntosCircuito.length ? Math.max(...puntosCircuito) : null,
+      montoGanado: null,
       esPuntos,
       rondasEsperadas,
       detalleVueltas: comps
@@ -190,9 +192,11 @@ export function formatTiempoCelda(r) {
 export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) {
   const esPuntos = ranking.some((r) => r.esPuntos);
   const desdeTime = ranking.some((r) => r.desdeTime);
+  const tieneDinero = ranking.some((r) => r.montoGanado != null && Number(r.montoGanado) > 0);
   const head = esPuntos
-    ? `<th class="num">#</th><th>Competidor</th><th>Equipo</th><th class="num">Calif.</th><th class="num">Circuito</th>`
-    : `<th class="num">#</th><th>Competidor</th><th>Equipo</th><th class="num">Tiempo</th><th class="num">Circuito</th>`;
+    ? `<th class="num">#</th><th>Competidor</th><th>Equipo</th><th class="num">Calif.</th><th class="num">Circuito</th>${tieneDinero ? `<th class="num">$</th>` : ""}`
+    : `<th class="num">#</th><th>Competidor</th><th>Equipo</th><th class="num">Tiempo</th><th class="num">Circuito</th>${tieneDinero ? `<th class="num">$</th>` : ""}`;
+  const cols = tieneDinero ? 6 : 5;
 
   const body = ranking
     .map((r, i) => {
@@ -208,15 +212,20 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
         ? `<div class="row-sub">${escapeHtml(r.detalleVueltas)}</div>`
         : "";
       const circ = r.puntosCircuito != null ? fmtNum(r.puntosCircuito) : "—";
+      const dinero =
+        tieneDinero
+          ? `<td class="num">${r.montoGanado != null ? fmtNum(r.montoGanado) : "—"}</td>`
+          : "";
       const main = `<tr class="is-expandable${open ? " is-open" : ""}" data-row="${escapeAttr(rowId)}" aria-expanded="${open}">
         <td class="num">${lugarLabel}</td>
         <td>${escapeHtml(r.nombre)}${mark}${sub}</td>
         <td>${escapeHtml(r.equipo || "—")}</td>
         <td class="num">${formatTiempoCelda(r)}</td>
         <td class="num">${circ}</td>
+        ${dinero}
       </tr>`;
       const detail = open
-        ? `<tr class="detail-row"><td colspan="5">${escapeHtml(r.detalleVueltas || "Sin detalle de vueltas")}</td></tr>`
+        ? `<tr class="detail-row"><td colspan="${cols}">${escapeHtml(r.detalleVueltas || "Sin detalle de vueltas")}</td></tr>`
         : "";
       return main + detail;
     })
@@ -229,7 +238,7 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
   return `<div class="table-wrap">
     <table>
       <thead><tr>${head}</tr></thead>
-      <tbody>${body || `<tr><td colspan="5">Sin filas</td></tr>`}</tbody>
+      <tbody>${body || `<tr><td colspan="${cols}">Sin filas</td></tr>`}</tbody>
     </table>
   </div>
   <p class="cut-note">${note}</p>`;
