@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Estadísticas públicas FMR Tour / ArenaPro Stats",
   "scripts": {
-    "test": "node --test \"test/**/*.test.mjs\"",
+    "test": "node scripts/run-tests.mjs",
     "rebuild": "node scripts/rebuild-temporada.mjs"
   },
   "engines": {
