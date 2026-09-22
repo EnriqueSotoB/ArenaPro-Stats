@@ -21,52 +21,49 @@ describe("AmarreDeChiva", () => {
 });
 
 describe("excel-evento", () => {
-  /** @type {string} */
-  let xlsxPath;
   /** @type {Buffer} */
   let filledBuffer;
 
   before(async () => {
     const root = mkdtempSync(join(tmpdir(), "arenapro-xlsx-"));
-    xlsxPath = join(root, "evento.xlsx");
+    const xlsxPath = join(root, "evento.xlsx");
     const wb = await buildPlantillaWorkbook();
 
     const ev = wb.getWorksheet("Evento");
-    ev.getCell(1, 2).value = "Rodeo Manual Test";
-    ev.getCell(2, 2).value = "2027-04-01";
-    ev.getCell(3, 2).value = "Arena Test";
-    ev.getCell(4, 2).value = "2027";
+    ev.getCell(3, 3).value = "Rodeo Manual Test";
+    ev.getCell(4, 3).value = "2027-04-01";
+    ev.getCell(5, 3).value = "Arena Test";
+    ev.getCell(6, 3).value = "2027";
 
+    // Header fila 6, datos desde 7. Columnas B=2 …
     const barriles = wb.getWorksheet("Barriles");
-    // clear example row and write real data at row 6
-    barriles.getRow(6).values = [];
-    barriles.getCell(6, 1).value = 1;
-    barriles.getCell(6, 2).value = "Rider Uno";
-    barriles.getCell(6, 4).value = 100;
-    barriles.getCell(6, 5).value = 8000;
-    barriles.getCell(6, 8).value = 14.32;
-    barriles.getCell(6, 9).value = 15.1;
+    barriles.getCell(7, 2).value = 1;
+    barriles.getCell(7, 3).value = "Rider Uno";
+    barriles.getCell(7, 5).value = 100;
+    barriles.getCell(7, 6).value = 8000;
+    barriles.getCell(7, 9).value = 14.32;
+    barriles.getCell(7, 10).value = 15.1;
 
-    barriles.getCell(7, 1).value = 2;
-    barriles.getCell(7, 2).value = "Rider Solo";
-    barriles.getCell(7, 4).value = 80;
-    barriles.getCell(7, 5).value = 4000;
-    barriles.getCell(7, 8).value = "NT";
-    barriles.getCell(7, 9).value = 12.5;
+    barriles.getCell(8, 2).value = 2;
+    barriles.getCell(8, 3).value = "Rider Solo";
+    barriles.getCell(8, 5).value = 80;
+    barriles.getCell(8, 6).value = 4000;
+    barriles.getCell(8, 9).value = "NT";
+    barriles.getCell(8, 10).value = 12.5;
 
     const tr = wb.getWorksheet("Team Roping");
-    tr.getCell(6, 1).value = 1;
-    tr.getCell(6, 2).value = "Alpha / Beta";
-    tr.getCell(6, 4).value = 90;
-    tr.getCell(6, 5).value = 10001;
-    tr.getCell(6, 8).value = 7.45;
+    tr.getCell(7, 2).value = 1;
+    tr.getCell(7, 3).value = "Alpha / Beta";
+    tr.getCell(7, 5).value = 90;
+    tr.getCell(7, 6).value = 10001;
+    tr.getCell(7, 9).value = 7.45;
 
     const chiva = wb.getWorksheet("Amarre de Chiva");
-    chiva.getCell(6, 1).value = 1;
-    chiva.getCell(6, 2).value = "Chiva Rider";
-    chiva.getCell(6, 4).value = 50;
-    chiva.getCell(6, 5).value = 2000;
-    chiva.getCell(6, 8).value = 9.1;
+    chiva.getCell(7, 2).value = 1;
+    chiva.getCell(7, 3).value = "Chiva Rider";
+    chiva.getCell(7, 5).value = 50;
+    chiva.getCell(7, 6).value = 2000;
+    chiva.getCell(7, 9).value = 9.1;
 
     await wb.xlsx.writeFile(xlsxPath);
     filledBuffer = readFileSync(xlsxPath);
@@ -84,6 +81,7 @@ describe("excel-evento", () => {
     assert.equal(barriles.entradas.length, 2);
     const uno = barriles.entradas[0];
     assert.equal(uno.nombre, "Rider Uno");
+    assert.equal(uno.lugar, 1);
     assert.equal(uno.montoGanado, 8000);
     assert.equal(uno.puntosCircuito, 100);
     assert.equal(uno.t1, "14.32");
