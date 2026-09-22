@@ -47,12 +47,14 @@ const els = {
   pagesLink: document.getElementById("pagesLink"),
   dirtyNote: document.getElementById("dirtyNote"),
   eventosList: document.getElementById("eventosList"),
+  btnDownloadPlantilla: document.getElementById("btnDownloadPlantilla"),
 };
 
 init().catch((err) => showBanner(err.message || String(err), true));
 
 async function init() {
   wireDropzone();
+  els.btnDownloadPlantilla?.addEventListener("click", onDownloadPlantilla);
   els.btnIngest.addEventListener("click", onIngest);
   els.btnPublish.addEventListener("click", onPublish);
   els.temporadaInput.addEventListener("input", () => {
@@ -100,6 +102,60 @@ function wireDropzone() {
     const file = els.fileInput.files?.[0];
     if (file) loadFile(file);
   });
+}
+
+const PLANTILLA_URL = "/templates/evento-manual.xlsx";
+const PLANTILLA_NAME = "evento-manual.xlsx";
+
+async function onDownloadPlantilla() {
+  try {
+    const res = await fetch(PLANTILLA_URL);
+    if (!res.ok) throw new Error(`No se pudo obtener la plantilla (${res.status})`);
+    const buf = await res.arrayBuffer();
+
+    if (typeof window.showSaveFilePicker === "function") {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: PLANTILLA_NAME,
+          types: [
+            {
+              description: "Excel",
+              accept: {
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+                  ".xlsx",
+                ],
+              },
+            },
+          ],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(buf);
+        await writable.close();
+        showBanner(`Plantilla guardada: ${handle.name}`, false);
+        return;
+      } catch (err) {
+        if (err?.name === "AbortError") return; // usuario canceló
+        // sigue al fallback
+      }
+    }
+
+    // Fallback: descarga clásica (el navegador decide carpeta / Guardar como)
+    const blob = new Blob([buf], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = PLANTILLA_NAME;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    showBanner("Plantilla descargada. Si no pregunta carpeta, revisa Descargas.", false);
+  } catch (err) {
+    showBanner(err.message || String(err), true);
+  }
 }
 
 async function loadFile(file) {

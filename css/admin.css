@@ -6,6 +6,22 @@
   font-size: 0.875rem;
 }
 
+button.link-like {
+  font: inherit;
+  font-weight: 700;
+  color: var(--forest);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.link-like:hover {
+  color: var(--ochre);
+}
+
 .event-preview {
   margin-top: 1rem;
   padding-top: 1rem;
