@@ -296,8 +296,19 @@
   margin-top: 1rem;
 }
 
+.edit-search-field {
+  max-width: 22rem;
+  margin-bottom: 0.35rem;
+}
+
+.edit-search-meta {
+  margin: 0 0 0.5rem;
+}
+
 .edit-table-wrap {
   overflow-x: auto;
+  max-height: 28rem;
+  overflow-y: auto;
 }
 
 .edit-table {

@@ -34,6 +34,8 @@ const els = {
   cherryPick: document.getElementById("cherryPick"),
   cherryPickList: document.getElementById("cherryPickList"),
   editPanel: document.getElementById("editPanel"),
+  editSearch: document.getElementById("editSearch"),
+  editSearchMeta: document.getElementById("editSearchMeta"),
   editTable: document.getElementById("editTable"),
   eventPreview: document.getElementById("eventPreview"),
   previewPodium: document.getElementById("previewPodium"),
@@ -56,6 +58,7 @@ async function init() {
   els.temporadaInput.addEventListener("input", () => {
     if (pendingEvento) refreshPreviewUi();
   });
+  els.editSearch.addEventListener("input", () => applyEditSearchFilter());
   await refreshStatus();
 }
 
@@ -139,6 +142,9 @@ function resetPending() {
   els.warningsBox.hidden = true;
   els.cherryPick.hidden = true;
   els.editPanel.hidden = true;
+  els.editSearch.value = "";
+  els.editSearch.disabled = false;
+  els.editSearchMeta.hidden = true;
   els.eventPreview.hidden = true;
 }
 
@@ -280,9 +286,13 @@ function renderEditPanel(catId) {
   els.editPanel.hidden = false;
   if (!rows.length) {
     els.editTable.innerHTML = `<p class="meta">Sin filas editables en esta categoría.</p>`;
+    els.editSearch.value = "";
+    els.editSearch.disabled = true;
+    els.editSearchMeta.hidden = true;
     return;
   }
 
+  els.editSearch.disabled = false;
   els.editTable.innerHTML = `<table class="edit-table">
     <thead>
       <tr>
@@ -296,7 +306,8 @@ function renderEditPanel(catId) {
       ${rows
         .map((r) => {
           const excl = r.excluir;
-          return `<tr class="${excl ? "is-excluded" : ""}" data-key="${escapeAttr(r.key)}">
+          const search = normalizeSearch(r.nombre);
+          return `<tr class="${excl ? "is-excluded" : ""}" data-key="${escapeAttr(r.key)}" data-search="${escapeAttr(search)}">
             <td><input type="checkbox" data-field="incluir" ${excl ? "" : "checked"} /></td>
             <td><input type="text" data-field="nombre" value="${escapeAttr(r.nombre)}" /></td>
             <td><input type="number" data-field="puntosCircuito" step="1" value="${r.puntosCircuito ?? ""}" /></td>
@@ -317,6 +328,8 @@ function renderEditPanel(catId) {
           tr.classList.toggle("is-excluded", !input.checked);
         } else if (field === "nombre") {
           upsertFilaEdit(pendingEdits, key, { nombre: input.value });
+          tr.setAttribute("data-search", normalizeSearch(input.value));
+          applyEditSearchFilter();
         } else if (field === "puntosCircuito") {
           const v = input.value === "" ? null : Number(input.value);
           upsertFilaEdit(pendingEdits, key, { puntosCircuito: v });
@@ -328,6 +341,44 @@ function renderEditPanel(catId) {
       });
     });
   });
+
+  applyEditSearchFilter();
+}
+
+function normalizeSearch(text) {
+  return String(text || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+/** Filtra filas de edición por nombre (sin rearmar la tabla). */
+function applyEditSearchFilter() {
+  const q = normalizeSearch(els.editSearch.value);
+  const rows = [...els.editTable.querySelectorAll("tr[data-key]")];
+  if (!rows.length) {
+    els.editSearchMeta.hidden = true;
+    return;
+  }
+
+  let visible = 0;
+  for (const tr of rows) {
+    const hay = !q || (tr.getAttribute("data-search") || "").includes(q);
+    tr.hidden = !hay;
+    if (hay) visible += 1;
+  }
+
+  if (!q) {
+    els.editSearchMeta.hidden = true;
+    return;
+  }
+
+  els.editSearchMeta.hidden = false;
+  els.editSearchMeta.textContent =
+    visible === 0
+      ? `Ningún competidor coincide con “${els.editSearch.value.trim()}”.`
+      : `Mostrando ${visible} de ${rows.length}`;
 }
 
 /** Actualiza meta/warnings/podium sin rearmar inputs (evita perder foco). */
