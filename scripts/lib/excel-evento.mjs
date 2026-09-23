@@ -735,10 +735,7 @@ function cellText(cell) {
 export function normalizeFechaYmd(v) {
   if (v == null || v === "") return "";
   if (v instanceof Date && !Number.isNaN(v.getTime())) {
-    const y = v.getFullYear();
-    const m = String(v.getMonth() + 1).padStart(2, "0");
-    const d = String(v.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
+    return v.toISOString().slice(0, 10);
   }
   if (typeof v === "number" && Number.isFinite(v) && v > 20000 && v < 80000) {
     // Serial Excel (días desde 1899-12-30), aproximación UTC.
@@ -749,10 +746,7 @@ export function normalizeFechaYmd(v) {
   if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
   const parsed = new Date(s);
   if (!Number.isNaN(parsed.getTime()) && /[a-z]{3}|GMT|\d{1,2}:\d{2}/i.test(s)) {
-    const y = parsed.getFullYear();
-    const m = String(parsed.getMonth() + 1).padStart(2, "0");
-    const d = String(parsed.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
+    return parsed.toISOString().slice(0, 10);
   }
   return "";
 }

@@ -66,11 +66,12 @@ describe("columnas por disciplina", () => {
 
   it("normalizeFechaYmd limpia Date de Excel y strings basura", () => {
     assert.equal(normalizeFechaYmd("2026-09-19"), "2026-09-19");
-    assert.equal(normalizeFechaYmd(new Date(2026, 8, 19)), "2026-09-19");
+    assert.equal(normalizeFechaYmd(new Date(Date.UTC(2026, 8, 19))), "2026-09-19");
+    // 19 Sep 18:00 GMT-0600 = 20 Sep 00:00 UTC
     const ugly =
       "Sat Sep 19 2026 18:00:00 GMT-0600 (Central Standard Time)";
-    assert.equal(normalizeFechaYmd(ugly), "2026-09-19");
-    assert.ok(!normalizeFechaYmd(ugly).includes(":"));
+    assert.equal(normalizeFechaYmd(ugly), "2026-09-20");
+    assert.match(normalizeFechaYmd(ugly), /^\d{4}-\d{2}-\d{2}$/);
   });
 });
 
