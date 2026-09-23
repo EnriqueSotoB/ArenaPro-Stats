@@ -30,14 +30,14 @@
 
     <ol class="steps">
       <li class="step panel" id="step1">
-        <h2 class="step-title"><span class="step-num">1</span> Cargar export de Time</h2>
-        <p class="meta">Arrastra el JSON de <strong>Exportar para Stats…</strong> o elige el archivo.</p>
-        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Zona para soltar archivo JSON">
+        <h2 class="step-title"><span class="step-num">1</span> Cargar Time o plantilla Excel</h2>
+        <p class="meta">Arrastra el JSON de <strong>Exportar para Stats…</strong> o la plantilla Excel manual. <button type="button" class="link-like" id="btnDownloadPlantilla">Descargar plantilla Excel</button></p>
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Zona para soltar archivo JSON o Excel">
           <p class="dropzone-label">Suelta el archivo aquí</p>
-          <p class="dropzone-sub">o</p>
+          <p class="dropzone-sub">JSON de Time · Excel manual (.xlsx)</p>
           <label class="btn-secondary file-btn">
             Elegir archivo
-            <input id="fileInput" type="file" accept="application/json,.json" hidden />
+            <input id="fileInput" type="file" accept="application/json,.json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx" hidden />
           </label>
         </div>
         <p id="fileInfo" class="meta"></p>
@@ -45,12 +45,36 @@
 
       <li class="step panel" id="step2">
         <h2 class="step-title"><span class="step-num">2</span> Confirmar temporada y preview</h2>
-        <p class="meta">La temporada del circuito (no siempre es el año del calendario). Abajo ves cómo se verá el evento.</p>
+        <p class="meta">La temporada del circuito (no siempre es el año del calendario). Elige categorías, corrige filas si hace falta y revisa el preview.</p>
         <div id="preview" class="preview empty-preview">Sin archivo cargado.</div>
         <label class="field admin-field">
           <span>Temporada</span>
           <input id="temporadaInput" type="text" inputmode="numeric" placeholder="2027" autocomplete="off" />
         </label>
+
+        <div id="warningsBox" class="warnings-box" hidden></div>
+
+        <div id="cherryPick" class="cherry-pick" hidden>
+          <p class="preview-label">Categorías a incluir (cherry-pick)</p>
+          <div id="cherryPickList" class="cherry-pick-list"></div>
+        </div>
+
+        <div id="editPanel" class="edit-panel" hidden>
+          <p class="preview-label">Edición manual de la categoría activa</p>
+          <label class="field admin-field edit-search-field">
+            <span>Buscar</span>
+            <input
+              id="editSearch"
+              type="search"
+              placeholder="Filtrar por nombre…"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+          <p id="editSearchMeta" class="meta edit-search-meta" hidden></p>
+          <div id="editTable" class="edit-table-wrap"></div>
+        </div>
+
         <div id="eventPreview" class="event-preview" hidden>
           <p class="preview-label">Vista previa (no publicada)</p>
           <div id="previewPodium" class="podium"></div>
@@ -70,7 +94,7 @@
         <p class="meta">Commit y push a GitHub. Pages se actualiza sola en 1–2 minutos.</p>
         <div class="btn-row">
           <button type="button" class="btn-primary" id="btnPublish" disabled>Publicar en GitHub Pages</button>
-          <a id="pagesLink" class="btn-secondary link-btn" href="https://enriquesotob.github.io/ArenaPro-Stats/" target="_blank" rel="noopener">Ver sitio público</a>
+          <a id="pagesLink" class="btn-secondary link-btn" href="https://estadisticas.arenapro.mx/" target="_blank" rel="noopener">Ver sitio público</a>
         </div>
         <p id="dirtyNote" class="meta"></p>
       </li>

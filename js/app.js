@@ -15,10 +15,13 @@ import {
   escapeAttr,
   fmtNum,
 } from "./event-model.js";
+import { getCutLine } from "../scripts/lib/cut-line.mjs";
+import { fmtMxn } from "../scripts/lib/money.mjs";
 
 const MANIFEST_URL = "data/manifest.json";
 const TEMPORADA_URL = "data/temporada.json";
 const TOP_CARD = 5;
+const ALL_AROUND_ID = "__all-around";
 
 const els = {
   status: document.getElementById("status"),
@@ -31,6 +34,8 @@ const els = {
   tempTitle: document.getElementById("tempTitle"),
   tempMeta: document.getElementById("tempMeta"),
   tempCards: document.getElementById("tempCards"),
+  allAroundPanel: document.getElementById("allAroundPanel"),
+  allAroundList: document.getElementById("allAroundList"),
   rankTitle: document.getElementById("rankTitle"),
   rankMeta: document.getElementById("rankMeta"),
   rankPodium: document.getElementById("rankPodium"),
@@ -43,6 +48,10 @@ const els = {
   eventoPodium: document.getElementById("eventoPodium"),
   catTabs: document.getElementById("catTabs"),
   eventoTable: document.getElementById("eventoTable"),
+  hubMetricPuntos: document.getElementById("hubMetricPuntos"),
+  hubMetricDinero: document.getElementById("hubMetricDinero"),
+  rankMetricPuntos: document.getElementById("rankMetricPuntos"),
+  rankMetricDinero: document.getElementById("rankMetricDinero"),
 };
 
 /** @type {any} */
@@ -57,6 +66,8 @@ let currentEvento = null;
 let currentCatId = null;
 /** @type {Set<string>} */
 const expandedRows = new Set();
+/** @type {"puntos"|"dinero"} */
+let metricMode = "puntos";
 
 init().catch((err) => setStatus(err.message || String(err), true));
 
@@ -70,10 +81,41 @@ async function init() {
   els.navEventos.addEventListener("click", () => navigate("eventos"));
   els.btnBackTemporada.addEventListener("click", () => navigate("temporada"));
   els.btnBackEventos.addEventListener("click", () => navigate("eventos"));
+  wireMetricToggle(els.hubMetricPuntos, els.hubMetricDinero);
+  wireMetricToggle(els.rankMetricPuntos, els.rankMetricDinero);
   window.addEventListener("hashchange", () => applyRoute());
 
   setStatus("");
   applyRoute();
+}
+
+function wireMetricToggle(btnPts, btnDinero) {
+  if (!btnPts || !btnDinero) return;
+  btnPts.addEventListener("click", () => setMetricMode("puntos"));
+  btnDinero.addEventListener("click", () => setMetricMode("dinero"));
+}
+
+function setMetricMode(mode) {
+  metricMode = mode === "dinero" ? "dinero" : "puntos";
+  syncMetricButtons();
+  const route = parseRoute();
+  if (route.section === "temporada") {
+    if (route.id) renderTemporadaRanking(route.id);
+    else renderTemporadaHub();
+  }
+}
+
+function syncMetricButtons() {
+  for (const btn of [
+    els.hubMetricPuntos,
+    els.hubMetricDinero,
+    els.rankMetricPuntos,
+    els.rankMetricDinero,
+  ]) {
+    if (!btn) continue;
+    const isDinero = btn.dataset.metric === "dinero";
+    btn.classList.toggle("is-active", metricMode === "dinero" ? isDinero : !isDinero);
+  }
 }
 
 function navigate(section, id) {
@@ -114,6 +156,7 @@ async function applyRoute() {
   const route = parseRoute();
   hideAllViews();
   expandedRows.clear();
+  syncMetricButtons();
 
   els.navTemporada.classList.toggle("is-active", route.section === "temporada");
   els.navEventos.classList.toggle("is-active", route.section === "eventos");
@@ -145,6 +188,19 @@ function hideAllViews() {
   els.viewEventoDetail.hidden = true;
 }
 
+function metricValue(row) {
+  return metricMode === "dinero" ? Number(row.dineroTotal) || 0 : Number(row.puntosTotales) || 0;
+}
+
+function formatMetric(row) {
+  if (metricMode === "dinero") return fmtMxn(row.dineroTotal ?? 0);
+  return `${fmtNum(row.puntosTotales)} pts`;
+}
+
+function sortByMetric(rows) {
+  return [...rows].sort((a, b) => metricValue(b) - metricValue(a));
+}
+
 /* —— Temporada hub —— */
 
 function renderTemporadaHub() {
@@ -157,6 +213,8 @@ function renderTemporadaHub() {
   ]
     .filter(Boolean)
     .join(" · ");
+
+  renderAllAroundHub();
 
   if (!data?.standings?.length) {
     els.tempCards.innerHTML = `<p class="empty">Sin acumulado. Ejecuta <code>node scripts/rebuild-temporada.mjs</code>.</p>`;
@@ -174,20 +232,20 @@ function renderTemporadaHub() {
       return String(na).localeCompare(String(nb), "es");
     })
     .map(([catId, rows]) => {
-    const sorted = [...rows].sort((a, b) => (b.puntosTotales ?? 0) - (a.puntosTotales ?? 0));
-    const nombre = sorted[0]?.disciplinaNombre || sorted[0]?.categoriaNombre || catId;
-    const top = sorted.slice(0, TOP_CARD);
-    const list = top
-      .map(
-        (r, i) => `<li>
+      const sorted = sortByMetric(rows);
+      const nombre = sorted[0]?.disciplinaNombre || sorted[0]?.categoriaNombre || catId;
+      const top = sorted.slice(0, TOP_CARD);
+      const list = top
+        .map(
+          (r, i) => `<li>
         <span class="place">${i + 1}</span>
         <span class="name">${escapeHtml(r.nombre || r.competidorId || "—")}</span>
-        <span class="pts">${fmtNum(r.puntosTotales)}</span>
+        <span class="pts">${escapeHtml(formatMetric(r))}</span>
       </li>`
-      )
-      .join("");
+        )
+        .join("");
 
-    return `<button type="button" class="cat-card" data-cat="${escapeAttr(catId)}">
+      return `<button type="button" class="cat-card" data-cat="${escapeAttr(catId)}">
       <div class="cat-card-head">
         <h2 class="cat-card-title">${escapeHtml(nombre)}</h2>
         <span class="cat-card-count">${sorted.length} ranked</span>
@@ -195,7 +253,7 @@ function renderTemporadaHub() {
       <ol class="cat-card-list">${list}</ol>
       <span class="cat-card-cta">Ver ranking completo →</span>
     </button>`;
-  });
+    });
 
   els.tempCards.innerHTML = cards.join("");
   els.tempCards.querySelectorAll(".cat-card").forEach((btn) => {
@@ -203,14 +261,117 @@ function renderTemporadaHub() {
   });
 }
 
+function renderAllAroundHub() {
+  const rows = temporada?.allAround || [];
+  if (!els.allAroundPanel || !els.allAroundList) return;
+  if (!rows.length) {
+    els.allAroundPanel.hidden = true;
+    els.allAroundList.innerHTML = "";
+    return;
+  }
+  els.allAroundPanel.hidden = false;
+  const top = rows.slice(0, TOP_CARD);
+  const list = top
+    .map(
+      (r, i) => `<li>
+      <span class="place">${i + 1}</span>
+      <span class="name">${escapeHtml(r.nombre || "—")}</span>
+      <span class="pts">${escapeHtml(fmtMxn(r.dineroTotal))}</span>
+    </li>`
+    )
+    .join("");
+  const discNote = top[0]
+    ? `<p class="meta">${escapeHtml(
+        (top[0].detalle || [])
+          .map((d) => d.disciplinaNombre || d.disciplinaId)
+          .join(" · ")
+      )}</p>`
+    : "";
+  els.allAroundList.innerHTML = `
+    <ol class="cat-card-list">${list}</ol>
+    ${discNote}
+    <button type="button" class="cat-card-cta all-around-cta" id="btnAllAround">Ver ranking All-Around →</button>
+  `;
+  els.allAroundList.querySelector("#btnAllAround")?.addEventListener("click", () =>
+    navigate("temporada", ALL_AROUND_ID)
+  );
+}
+
 /* —— Temporada ranking —— */
 
+function renderAllAroundRanking() {
+  const rows = temporada?.allAround || [];
+  // All-Around es siempre por dinero
+  if (els.rankMetricPuntos) els.rankMetricPuntos.parentElement.hidden = true;
+  els.rankTitle.textContent = "All-Around Cowboy";
+  els.rankMeta.textContent = [
+    temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
+    `${rows.length} clasificados`,
+    "Cobro en ≥2 disciplinas",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
+  if (!rows.length) {
+    els.rankPodium.innerHTML = "";
+    els.rankTable.innerHTML = `<p class="empty">Nadie califica aún al All-Around (se requiere dinero en 2+ disciplinas).</p>`;
+    return;
+  }
+
+  els.rankPodium.innerHTML = renderPodiumHtml(
+    rows.slice(0, 3).map((r, i) => ({
+      place: i + 1,
+      name: r.nombre || "—",
+      sub: `${(r.disciplinasConDinero || []).length} disciplinas`,
+      value: fmtMxn(r.dineroTotal),
+    }))
+  );
+
+  const body = rows
+    .map((r, i) => {
+      const discs = (r.detalle || [])
+        .map((d) => `${d.disciplinaNombre || d.disciplinaId}: ${fmtMxn(d.dinero)}`)
+        .join(" · ");
+      return `<tr>
+        <td class="num">${i + 1}</td>
+        <td>${escapeHtml(r.nombre || "—")}<div class="row-sub">${escapeHtml(discs)}</div></td>
+        <td class="num">${(r.disciplinasConDinero || []).length}</td>
+        <td class="num">${escapeHtml(fmtMxn(r.dineroTotal))}</td>
+      </tr>`;
+    })
+    .join("");
+
+  els.rankTable.innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Competidor</th>
+            <th class="num">Disc.</th>
+            <th class="num">Dinero</th>
+          </tr>
+        </thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+    <p class="cut-note">All-Around de temporada: suma del dinero ganado solo en disciplinas con cobro. Header y Heeler cuentan como disciplinas distintas.</p>`;
+}
+
 function renderTemporadaRanking(catId) {
-  const rows = (temporada?.standings || [])
-    .filter(
+  if (els.rankMetricPuntos?.parentElement) {
+    els.rankMetricPuntos.parentElement.hidden = catId === ALL_AROUND_ID;
+  }
+  if (catId === ALL_AROUND_ID) {
+    renderAllAroundRanking();
+    return;
+  }
+
+  const rows = sortByMetric(
+    (temporada?.standings || []).filter(
       (s) => (s.disciplinaId || s.categoriaId || s.categoriaNombre || "_") === catId
     )
-    .sort((a, b) => (b.puntosTotales ?? 0) - (a.puntosTotales ?? 0));
+  );
 
   if (!rows.length) {
     els.rankTitle.textContent = "Ranking";
@@ -220,14 +381,15 @@ function renderTemporadaRanking(catId) {
     return;
   }
 
-  const cut = Number(manifest?.cutLine) > 0 ? Number(manifest.cutLine) : null;
-  const leaderPts = rows[0]?.puntosTotales ?? 0;
+  const cut = metricMode === "puntos" ? getCutLine(manifest, catId) : null;
+  const leaderVal = metricValue(rows[0]);
   const nombre = rows[0].disciplinaNombre || rows[0].categoriaNombre || catId;
 
   els.rankTitle.textContent = nombre;
   els.rankMeta.textContent = [
     temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
     `${rows.length} competidores`,
+    metricMode === "dinero" ? "Por dinero ganado" : "Por puntos",
     cut ? `Cut #${cut}` : "",
   ]
     .filter(Boolean)
@@ -238,14 +400,15 @@ function renderTemporadaRanking(catId) {
       place: i + 1,
       name: r.nombre || r.competidorId || "—",
       sub: r.equipo || "",
-      value: `${fmtNum(r.puntosTotales)} pts`,
+      value: formatMetric(r),
     }))
   );
 
+  const valueHeader = metricMode === "dinero" ? "Dinero" : "Puntos";
   const body = rows
     .map((r, i) => {
       const lugar = i + 1;
-      const delta = leaderPts - (r.puntosTotales ?? 0);
+      const delta = leaderVal - metricValue(r);
       const cutClass = cut && lugar === cut ? " is-cut-line" : "";
       const badge =
         cut && lugar <= cut
@@ -253,13 +416,19 @@ function renderTemporadaRanking(catId) {
           : cut && lugar === cut + 1
             ? `<span class="badge badge-out">Bubble</span>`
             : "";
+      const deltaDisplay =
+        lugar === 1
+          ? "—"
+          : metricMode === "dinero"
+            ? `−${fmtMxn(delta)}`
+            : `−${fmtNum(delta)}`;
       return `<tr class="${cutClass}">
         <td class="num">${lugar}</td>
         <td>${escapeHtml(r.nombre || r.competidorId || "—")} ${badge}</td>
         <td>${escapeHtml(r.equipo || "—")}</td>
         <td class="num">${r.eventos ?? "—"}</td>
-        <td class="num">${fmtNum(r.puntosTotales)}</td>
-        <td class="num delta">${lugar === 1 ? "—" : `−${fmtNum(delta)}`}</td>
+        <td class="num">${escapeHtml(formatMetric(r))}</td>
+        <td class="num delta">${deltaDisplay}</td>
       </tr>`;
     })
     .join("");
@@ -278,7 +447,7 @@ function renderTemporadaRanking(catId) {
             <th>Competidor</th>
             <th>Equipo</th>
             <th class="num">Eventos</th>
-            <th class="num">Puntos</th>
+            <th class="num">${valueHeader}</th>
             <th class="num">Δ líder</th>
           </tr>
         </thead>

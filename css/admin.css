@@ -6,6 +6,22 @@
   font-size: 0.875rem;
 }
 
+button.link-like {
+  font: inherit;
+  font-weight: 700;
+  color: var(--forest);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.link-like:hover {
+  color: var(--ochre);
+}
+
 .event-preview {
   margin-top: 1rem;
   padding-top: 1rem;
@@ -259,4 +275,95 @@
 
 .btn-sm {
   padding: 0.35rem 0.75rem;
+}
+
+.warnings-box {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--ochre);
+  background: color-mix(in srgb, var(--ochre) 12%, #fff);
+  font-size: 0.875rem;
+}
+
+.warnings-box ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.cherry-pick {
+  margin-top: 1rem;
+}
+
+.cherry-pick-list {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.cherry-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--dark);
+}
+
+.edit-panel {
+  margin-top: 1rem;
+}
+
+.edit-search-field {
+  max-width: 22rem;
+  margin-bottom: 0.35rem;
+}
+
+.edit-search-meta {
+  margin: 0 0 0.5rem;
+}
+
+.edit-table-wrap {
+  overflow-x: auto;
+  max-height: 28rem;
+  overflow-y: auto;
+}
+
+.edit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.edit-table th,
+.edit-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.4rem 0.35rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.edit-table th {
+  color: var(--olive);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.edit-table input[type="text"],
+.edit-table input[type="number"] {
+  width: 100%;
+  min-width: 4.5rem;
+  font: inherit;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid var(--sand);
+  border-radius: 0.25rem;
+  background: #fff;
+}
+
+.edit-table input:focus {
+  outline: 2px solid var(--forest);
+  outline-offset: 1px;
+}
+
+.edit-table .is-excluded {
+  opacity: 0.45;
 }

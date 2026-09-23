@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2027-01-01T00:00:00.000Z",
+  "source": "time",
+  "eventoId": "local:test-1",
+  "nombreEvento": "Evento Fixture Mini",
+  "fecha": "2027-01-01",
+  "sede": "Arena Test",
+  "temporada": "2027",
+  "categorias": [
+    {
+      "id": "local:cat-barriles",
+      "nombre": "Abierta",
+      "tipo": "Barriles",
+      "numeroRondas": 1
+    }
+  ],
+  "resultados": [
+    {
+      "inscripcionId": "local:r1",
+      "competidorId": "local:r1",
+      "categoriaId": "local:cat-barriles",
+      "nombre": "Rider Uno",
+      "equipo": "",
+      "vuelta": 1,
+      "puntosCircuito": 100
+    },
+    {
+      "inscripcionId": "local:r2",
+      "competidorId": "local:r2",
+      "categoriaId": "local:cat-barriles",
+      "nombre": "Rider Dos",
+      "equipo": "",
+      "vuelta": 1,
+      "puntosCircuito": 80
+    }
+  ],
+  "clasificacion": []
+}

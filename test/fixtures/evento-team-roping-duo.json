@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 2,
+  "exportedAt": "2027-02-15T12:00:00.000Z",
+  "source": "time",
+  "eventoId": "local:fixture-tr",
+  "nombreEvento": "Fixture Team Roping Duo",
+  "fecha": "2027-02-15",
+  "sede": "Arena Test",
+  "temporada": "2027",
+  "categorias": [
+    {
+      "id": "local:cat-tr",
+      "nombre": "Abierta",
+      "tipo": "TeamRoping",
+      "numeroRondas": 1
+    }
+  ],
+  "resultados": [],
+  "clasificacion": [
+    {
+      "categoriaId": "local:cat-tr",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": "local:tr1",
+          "nombre": "Header Alpha / Heeler Beta",
+          "puntosCircuito": 100,
+          "montoGanado": 10001
+        },
+        {
+          "lugar": 2,
+          "competidorId": "local:tr2",
+          "nombre": "Carlos Ruiz / Ana Lopez",
+          "puntosCircuito": 80,
+          "montoGanado": 5000
+        }
+      ]
+    }
+  ]
+}
