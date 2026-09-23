@@ -37,10 +37,10 @@ Completar **antes** del PR `develop` → `main`.
 - [x] Runbook: Time/Excel → `publicar.bat` → cherry-pick/edits → Agregar → Publicar
 - [ ] Persona de respaldo entrenada (30 min)
 - [x] Ensayo de publish / ingest Excel en local
-- [ ] URL Pages verificada tras merge a `main`
-- [x] Dominio custom `estadisticas.arenapro.mx` (DNS + `CNAME` en repo) — confirmar HTTPS en Pages tras merge
+- [x] URL Pages verificada tras merge a `main`
+- [x] Dominio custom `estadisticas.arenapro.mx` (DNS + `CNAME` en repo) — confirmar HTTPS en Pages si aún no está Enforce
 - [x] Links ops/README apuntan al dominio ArenaPro
-- [ ] Tag release opcional `v1.0.0-fmr-2027`
+- [x] Tag release `v1.0.0-fmr-2027`
 
 ## Comunicación
 

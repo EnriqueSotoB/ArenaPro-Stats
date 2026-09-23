@@ -18,7 +18,7 @@
 - [x] Mobile usable (tablas con scroll).
 - [x] `npm test` verde; meta acumulada ≥ 40 tests (aprox.).
 - [x] Checklist de lanzamiento completado (ítems técnicos; spot-checks humanos pendientes).
-- [ ] PR sprint → `develop`, luego `develop` → `main`.
+- [x] PR sprint → `develop`, luego `develop` → `main`.
 
 ---
 

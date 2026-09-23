@@ -45,7 +45,7 @@ Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branc
 | Evento manual (Excel) | Listo |
 | Suite de tests + CI | Listo |
 | Branding FMR Tour 2027 | Listo |
-| Release `develop` → `main` | En curso |
+| Release `develop` → `main` | **Hecho** (`v1.0.0-fmr-2027`) |
 
 Sitio oficial: https://estadisticas.arenapro.mx/  
 (legacy Pages: https://enriquesotob.github.io/ArenaPro-Stats/)
