@@ -11,9 +11,11 @@ import {
   sheetKind,
   columnsForKind,
   ntEquivalente,
+  normalizeFechaYmd,
 } from "../../scripts/lib/excel-evento.mjs";
 import { validateEvento } from "../../scripts/lib/validate-evento.mjs";
 import { disciplinaKey, disciplinaLabel } from "../../scripts/rebuild-temporada.mjs";
+import { expandTeamRopingRow } from "../../scripts/lib/team-roping.mjs";
 
 describe("AmarreDeChiva", () => {
   it("tiene label e inferencia por nombre", () => {
@@ -31,11 +33,22 @@ describe("columnas por disciplina", () => {
     assert.ok(!keys.includes("rol"));
   });
 
-  it("teamRoping trae rol y rondas, sin calificación", () => {
+  it("teamRoping trae cabecero/pialador y rondas, sin rol ni calificación", () => {
     const keys = columnsForKind("teamRoping").map((c) => c.key);
-    assert.ok(keys.includes("rol"));
+    assert.ok(keys.includes("cabecero"));
+    assert.ok(keys.includes("pialador"));
     assert.ok(keys.includes("r1"));
+    assert.ok(!keys.includes("rol"));
     assert.ok(!keys.includes("calif"));
+    assert.ok(!keys.includes("nombre"));
+  });
+
+  it("solo 2 hojas TR (abierta + masters)", () => {
+    const tr = DISCIPLINA_SHEETS.filter((d) => /^TeamRoping/i.test(d.tipo));
+    assert.deepEqual(
+      tr.map((d) => d.tipo),
+      ["TeamRoping", "TeamRopingMasters"]
+    );
   });
 
   it("puntos solo calificación, sin rondas", () => {
@@ -49,6 +62,15 @@ describe("columnas por disciplina", () => {
   it("NT equivalente 60 general y 120 en achatada", () => {
     assert.equal(ntEquivalente("Barriles"), 60);
     assert.equal(ntEquivalente("AchatadaDeNovillos"), 120);
+  });
+
+  it("normalizeFechaYmd limpia Date de Excel y strings basura", () => {
+    assert.equal(normalizeFechaYmd("2026-09-19"), "2026-09-19");
+    assert.equal(normalizeFechaYmd(new Date(2026, 8, 19)), "2026-09-19");
+    const ugly =
+      "Sat Sep 19 2026 18:00:00 GMT-0600 (Central Standard Time)";
+    assert.equal(normalizeFechaYmd(ugly), "2026-09-19");
+    assert.ok(!normalizeFechaYmd(ugly).includes(":"));
   });
 });
 
@@ -89,12 +111,13 @@ describe("excel-evento", () => {
     barriles.getCell(9, 6).value = 1000;
     barriles.getCell(9, 7).value = 60; // = NT
 
+    // TR: B lugar, C cabecero, D pialador, F pts, G dinero, H r1
     const tr = wb.getWorksheet("Team Roping");
-    // TR: + Rol en G → r1 en H
     tr.getCell(7, 2).value = 1;
-    tr.getCell(7, 3).value = "Alpha / Beta";
-    tr.getCell(7, 5).value = 90;
-    tr.getCell(7, 6).value = 10001;
+    tr.getCell(7, 3).value = "Alpha";
+    tr.getCell(7, 4).value = "Beta";
+    tr.getCell(7, 6).value = 90;
+    tr.getCell(7, 7).value = 10001;
     tr.getCell(7, 8).value = 7.45;
 
     const achatada = wb.getWorksheet("Achatada de Novillos");
@@ -146,6 +169,16 @@ describe("excel-evento", () => {
     const tr = evento.clasificacion.find((c) => c.tipo === "TeamRoping");
     assert.ok(tr);
     assert.equal(tr.entradas[0].nombre, "Alpha / Beta");
+    assert.equal(tr.entradas[0].headerNombre, "Alpha");
+    assert.equal(tr.entradas[0].heelerNombre, "Beta");
+    assert.ok(!tr.entradas[0].rol);
+
+    const roles = expandTeamRopingRow(tr.entradas[0], "TeamRoping");
+    assert.equal(roles.length, 2);
+    assert.equal(roles[0].disciplinaId, "TeamRopingHeader");
+    assert.equal(roles[0].nombre, "Alpha");
+    assert.equal(roles[1].disciplinaId, "TeamRopingHeeler");
+    assert.equal(roles[1].nombre, "Beta");
 
     const jin = evento.clasificacion.find((c) => c.tipo === "JineteosDeToros");
     assert.ok(jin);
@@ -154,6 +187,27 @@ describe("excel-evento", () => {
 
     const v = validateEvento(evento);
     assert.equal(v.ok, true);
+  });
+
+  it("teamRoping acepta fila solo con Cabecero+Pialador", async () => {
+    const wb = await buildPlantillaWorkbook();
+    const ev = wb.getWorksheet("Evento");
+    ev.getCell(3, 3).value = "Solo TR";
+    ev.getCell(4, 3).value = "2027-05-01";
+    const tr = wb.getWorksheet("Team Roping");
+    // limpia ejemplo (fila 7) y pone dúo sin lugar/tiempos/pts
+    for (let c = 2; c <= 12; c++) tr.getCell(7, c).value = null;
+    tr.getCell(8, 3).value = "Juan";
+    tr.getCell(8, 4).value = "Pedro";
+    const dir = mkdtempSync(join(tmpdir(), "arenapro-tr-only-"));
+    const out = join(dir, "solo-tr.xlsx");
+    await wb.xlsx.writeFile(out);
+    const evento = await parseExcelEvento(readFileSync(out));
+    const block = evento.clasificacion.find((c) => c.tipo === "TeamRoping");
+    assert.ok(block);
+    assert.equal(block.entradas[0].nombre, "Juan / Pedro");
+    assert.equal(block.entradas[0].headerNombre, "Juan");
+    assert.equal(block.entradas[0].heelerNombre, "Pedro");
   });
 
   it("escribe plantilla reutilizable", async () => {

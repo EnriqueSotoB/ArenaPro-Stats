@@ -15,7 +15,7 @@ import {
   buildDefaultEdits,
 } from "./lib/stats-edits.mjs";
 import { appendAlias } from "./lib/alias-store.mjs";
-import { parseExcelEvento } from "./lib/excel-evento.mjs";
+import { parseExcelEvento, normalizeFechaYmd } from "./lib/excel-evento.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
@@ -240,8 +240,8 @@ async function ingest({ evento, temporada, statsEdits }) {
   }
 
   const fecha =
-    applied.fecha ||
-    (applied.exportedAt ? String(applied.exportedAt).slice(0, 10) : "") ||
+    normalizeFechaYmd(applied.fecha) ||
+    normalizeFechaYmd(applied.exportedAt) ||
     new Date().toISOString().slice(0, 10);
   applied.fecha = fecha;
 

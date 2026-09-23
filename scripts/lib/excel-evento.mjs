@@ -5,7 +5,10 @@
 import ExcelJS from "exceljs";
 import { toMontoEntero } from "./money.mjs";
 
-/** @type {Array<{ sheet: string, tipo: string, defaultRondas: number }>} */
+/**
+ * @type {Array<{ sheet: string, tipo: string, defaultRondas: number }>}
+ * Team Roping: 2 hojas (abierta / masters) → rebuild parte a Header + Heeler (= 4 tablas).
+ */
 export const DISCIPLINA_SHEETS = [
   { sheet: "Barriles", tipo: "Barriles", defaultRondas: 2 },
   { sheet: "Barriles Masters", tipo: "BarrilesMasters", defaultRondas: 2 },
@@ -39,18 +42,25 @@ export function sheetKind(tipo) {
  */
 export function columnsForKind(kind) {
   /** @type {Array<{ key: string, label: string, width: number }>} */
-  const cols = [
-    { key: "lugar", label: "Lugar (puesto final)", width: 16 },
-    { key: "nombre", label: "Nombre del competidor", width: 28 },
+  const cols = [{ key: "lugar", label: "Lugar (puesto final)", width: 16 }];
+
+  if (kind === "teamRoping") {
+    cols.push(
+      { key: "cabecero", label: "Cabecero", width: 26 },
+      { key: "pialador", label: "Pialador", width: 26 }
+    );
+  } else {
+    cols.push({ key: "nombre", label: "Nombre del competidor", width: 28 });
+  }
+
+  cols.push(
     { key: "equipo", label: "Equipo", width: 14 },
     { key: "pts", label: "Puntos de circuito", width: 16 },
-    { key: "dinero", label: "Dinero ganado (MXN)", width: 18 },
-  ];
+    { key: "dinero", label: "Dinero ganado (MXN)", width: 18 }
+  );
+
   if (kind === "puntos") {
     cols.push({ key: "calif", label: "Calificación (pts)", width: 16 });
-  }
-  if (kind === "teamRoping") {
-    cols.push({ key: "rol", label: "Rol TR", width: 12 });
   }
   if (kind === "tiempo" || kind === "teamRoping") {
     cols.push(
@@ -60,10 +70,7 @@ export function columnsForKind(kind) {
       { key: "total", label: "Total tiempos", width: 14 }
     );
   }
-  cols.push(
-    { key: "fuera", label: "¿No clasificó? (DNF/DSQ)", width: 20 },
-    { key: "notas", label: "Notas", width: 28 }
-  );
+  cols.push({ key: "notas", label: "Notas", width: 28 });
   return cols;
 }
 
@@ -108,7 +115,8 @@ export function eventoFromWorkbook(workbook) {
   }
 
   const nombreEvento = meta.nombreEvento || "Evento manual";
-  const fecha = meta.fecha || new Date().toISOString().slice(0, 10);
+  const fecha =
+    normalizeFechaYmd(meta.fecha) || new Date().toISOString().slice(0, 10);
   const slug = slugify(`${fecha}-${nombreEvento}`).slice(0, 48);
 
   return {
@@ -149,8 +157,10 @@ function readEventoMeta(ws) {
     const value = cellText(row.getCell(3)) || cellText(row.getCell(2));
     if (!label) return;
     if (label.includes("nombre") && label.includes("evento")) out.nombreEvento = value;
-    else if (label.includes("fecha")) out.fecha = value;
-    else if (label.includes("sede")) out.sede = value;
+    else if (label.includes("fecha")) {
+      const raw = rawCellValue(row.getCell(3)) ?? rawCellValue(row.getCell(2));
+      out.fecha = normalizeFechaYmd(raw) || cellText(row.getCell(3)) || cellText(row.getCell(2));
+    } else if (label.includes("sede")) out.sede = value;
     else if (label.includes("temporada")) out.temporada = value;
   });
   return out;
@@ -161,7 +171,10 @@ function findHeaderRow(ws) {
   ws.eachRow((row, rowNumber) => {
     if (found) return;
     const map = mapHeaderRow(row);
-    if (map.nombre && (map.lugar || map.ronda1 || map.puntosCircuito || map.califPts)) {
+    if (
+      (map.nombre || map.cabecero || map.pialador) &&
+      (map.lugar || map.ronda1 || map.puntosCircuito || map.califPts)
+    ) {
       found = { rowNumber, map };
     }
   });
@@ -169,9 +182,9 @@ function findHeaderRow(ws) {
 }
 
 function parseDisciplinaSheet(ws, def, catIndex) {
+  const kind = sheetKind(def.tipo);
   let nombreCategoria = def.sheet;
-  let numeroRondas =
-    sheetKind(def.tipo) === "puntos" ? 1 : def.defaultRondas;
+  let numeroRondas = kind === "puntos" ? 1 : def.defaultRondas;
   const headerInfo = findHeaderRow(ws);
   if (!headerInfo) return null;
   const { rowNumber: headerRow, map: h } = headerInfo;
@@ -192,9 +205,35 @@ function parseDisciplinaSheet(ws, def, catIndex) {
   const entradas = [];
   ws.eachRow((row, rowNumber) => {
     if (rowNumber <= headerRow) return;
-    if (!h.nombre) return;
-    const nombre = cellText(row.getCell(h.nombre));
-    if (!nombre || /^ejemplo\b/i.test(nombre) || nombre.length > 80) return;
+
+    const cabecero = h.cabecero ? cellText(row.getCell(h.cabecero)) : "";
+    const pialador = h.pialador ? cellText(row.getCell(h.pialador)) : "";
+    let nombre = h.nombre ? cellText(row.getCell(h.nombre)) : "";
+
+    if (kind === "teamRoping") {
+      // Una fila = dúo; rebuild parte a Header + Heeler.
+      if (cabecero && pialador) {
+        nombre = `${cabecero} / ${pialador}`;
+      } else if (cabecero && cabecero.includes("/")) {
+        nombre = cabecero;
+        const pair = cabecero.split("/").map((p) => p.trim()).filter(Boolean);
+        if (pair.length >= 2) {
+          // permite pegar "Cabecero / Pialador" solo en la columna Cabecero
+        }
+      } else {
+        nombre = cabecero || pialador || nombre;
+      }
+    }
+
+    if (
+      !nombre ||
+      /^ejemplo\b/i.test(nombre) ||
+      /^ejemplo\b/i.test(cabecero) ||
+      /^ejemplo\b/i.test(pialador) ||
+      nombre.length > 120
+    ) {
+      return;
+    }
 
     const lugarRaw = h.lugar ? cellText(row.getCell(h.lugar)) : "";
     const lugar = lugarRaw === "" ? null : Number(lugarRaw);
@@ -206,7 +245,6 @@ function parseDisciplinaSheet(ws, def, catIndex) {
       ? toMontoEntero(rawCellValue(row.getCell(h.dineroMxn)))
       : 0;
     const puntos = h.califPts ? toNumOrNull(rawCellValue(row.getCell(h.califPts))) : null;
-    const rol = h.rol ? normalizeRol(cellText(row.getCell(h.rol))) : "";
     const ntEq = ntEquivalente(def.tipo);
     const t1 = h.ronda1 ? roundCell(rawCellValue(row.getCell(h.ronda1)), ntEq) : null;
     const t2 = h.ronda2 ? roundCell(rawCellValue(row.getCell(h.ronda2)), ntEq) : null;
@@ -214,18 +252,26 @@ function parseDisciplinaSheet(ws, def, catIndex) {
     const totalExplicit = h.total
       ? roundCell(rawCellValue(row.getCell(h.total)), ntEq)
       : null;
-    const sinPosicion = h.fuera ? truthy(cellText(row.getCell(h.fuera))) : false;
     const notas = h.notas ? cellText(row.getCell(h.notas)) : "";
+
+    // TR: con Cabecero+Pialador (o dúo con /) ya cuenta, aunque falte lugar/tiempo.
+    const trDuoCompleto =
+      kind === "teamRoping" &&
+      ((cabecero && pialador) || (nombre && nombre.includes("/")));
 
     const tieneSenal =
       Number.isFinite(lugar) ||
-      t1 != null ||
-      t2 != null ||
-      t3 != null ||
+      isValidRoundSignal(t1) ||
+      isValidRoundSignal(t2) ||
+      isValidRoundSignal(t3) ||
       (puntosCircuito != null && puntosCircuito !== 0) ||
       montoGanado > 0 ||
-      (puntos != null && puntos !== 0);
+      (puntos != null && puntos !== 0) ||
+      trDuoCompleto;
     if (!tieneSenal) return;
+
+    // Sin lugar = no clasificó (más simple que una columna DNF).
+    const sinPosicion = !Number.isFinite(lugar);
 
     const tiempoTotal =
       totalExplicit != null && isNumericRound(totalExplicit)
@@ -234,9 +280,14 @@ function parseDisciplinaSheet(ws, def, catIndex) {
 
     const hasNt = [t1, t2, t3].some((t) => isNtLike(t));
     const recorridoCompleto =
-      !sinPosicion && !hasNt && tiempoTotal != null && Number.isFinite(tiempoTotal);
+      kind === "puntos"
+        ? !sinPosicion
+        : !sinPosicion && !hasNt && tiempoTotal != null && Number.isFinite(tiempoTotal);
 
     const detalleParts = [];
+    if (kind === "teamRoping" && cabecero && pialador) {
+      detalleParts.push(`Cabecero: ${cabecero} · Pialador: ${pialador}`);
+    }
     if (t1 != null) detalleParts.push(`Ronda 1: ${formatRound(t1)}`);
     if (t2 != null) detalleParts.push(`Ronda 2: ${formatRound(t2)}`);
     if (t3 != null) detalleParts.push(`Ronda 3: ${formatRound(t3)}`);
@@ -246,12 +297,12 @@ function parseDisciplinaSheet(ws, def, catIndex) {
     const entrada = {
       lugar: Number.isFinite(lugar) ? lugar : null,
       sinPosicion,
-      recorridoCompleto: sheetKind(def.tipo) === "puntos" ? !sinPosicion : recorridoCompleto,
+      recorridoCompleto,
       competidorId: id,
       inscripcionId: id,
       nombre,
       equipo: equipo || "",
-      tiempoTotal: sheetKind(def.tipo) === "puntos" ? null : tiempoTotal,
+      tiempoTotal: kind === "puntos" ? null : tiempoTotal,
       puntos,
       puntosCircuito: puntosCircuito ?? 0,
       montoGanado,
@@ -260,7 +311,16 @@ function parseDisciplinaSheet(ws, def, catIndex) {
       t2: t2 != null ? String(t2) : null,
       t3: t3 != null ? String(t3) : null,
     };
-    if (rol) entrada.rol = rol;
+    if (kind === "teamRoping" && cabecero && pialador) {
+      entrada.headerNombre = cabecero;
+      entrada.heelerNombre = pialador;
+    } else if (kind === "teamRoping" && nombre.includes("/")) {
+      const parts = nombre.split("/").map((p) => p.trim()).filter(Boolean);
+      if (parts.length >= 2) {
+        entrada.headerNombre = parts[0];
+        entrada.heelerNombre = parts[1];
+      }
+    }
     entradas.push(entrada);
   });
 
@@ -316,26 +376,19 @@ function mapHeaderRow(row) {
     const hdr = normalizeHeader(cellText(cell));
     if (!hdr) return;
     if (hdr.startsWith("lugar") || hdr.includes("puesto")) map.lugar = col;
+    else if (hdr === "cabecero" || hdr === "header") map.cabecero = col;
+    else if (hdr === "pialador" || hdr === "heeler") map.pialador = col;
     else if (hdr.startsWith("nombre")) map.nombre = col;
     else if (hdr === "equipo") map.equipo = col;
     else if (hdr.includes("puntos") && hdr.includes("circuito")) map.puntosCircuito = col;
     else if (hdr.includes("dinero") || hdr.includes("ganado") || hdr.includes("mxn")) {
       map.dineroMxn = col;
     } else if (hdr.includes("calif")) map.califPts = col;
-    else if (hdr.includes("rol")) map.rol = col;
     else if (hdr.includes("ronda 1") || hdr === "t1") map.ronda1 = col;
     else if (hdr.includes("ronda 2") || hdr === "t2") map.ronda2 = col;
     else if (hdr.includes("ronda 3") || hdr === "t3") map.ronda3 = col;
     else if (hdr.includes("total")) map.total = col;
-    else if (
-      hdr.includes("no clasific") ||
-      hdr.includes("dnf") ||
-      hdr.includes("dsq") ||
-      hdr.includes("sin posicion") ||
-      hdr.includes("fuera")
-    ) {
-      map.fuera = col;
-    } else if (hdr === "notas" || hdr === "nota") map.notas = col;
+    else if (hdr === "notas" || hdr === "nota") map.notas = col;
   });
   return map;
 }
@@ -346,7 +399,7 @@ function addComoLlenarSheet(wb) {
     views: [{ showGridLines: false }],
   });
   ws.getColumn(1).width = 3;
-  ws.getColumn(2).width = 30;
+  ws.getColumn(2).width = 32;
   ws.getColumn(3).width = 78;
 
   mergeBanner(ws, "B1:C1", "ArenaPro Stats · Plantilla manual FMR Tour", FOREST);
@@ -367,30 +420,22 @@ function addComoLlenarSheet(wb) {
     ],
     [
       "3. Lugar = puesto final",
-      "1 = primero, 2 = segundo… NO es el orden de salida. Es cómo quedaron al cerrar la categoría.",
+      "1 = primero, 2 = segundo… Si alguien no clasificó, deja Lugar vacío y pon NT/NP (o 60/120) en el tiempo o calificación.",
     ],
     [
       "4. Columnas según disciplina",
-      "Tiempos (barriles, lazos…): Ronda 1–3 + Total. Team Roping: además Rol TR. Jineteos/Montura/Pretal: solo Calificación (pts), sin rondas.",
+      "Tiempos: Ronda 1–3 + Total. Jineteos/Montura/Pretal: solo Calificación. Team Roping: Cabecero + Pialador (sin Rol).",
     ],
     [
       "5. NT / NP en tiempos",
-      "En rondas escribe NT, NP, o el número 60 (= NT). En Achatada de Novillos el equivalente es 120 (= NT).",
+      "En rondas: NT, NP, o 60 (= NT). En Achatada: 120 (= NT).",
     ],
     [
-      "6. ¿No clasificó? (DNF/DSQ)",
-      "Pon Sí SOLO si esa persona no entra al ranking (se cayó, descalificado, no terminó). En casi todos los casos déjalo en No o vacío.",
+      "6. Team Roping",
+      "Solo 2 hojas (Abierta y Masters). Una fila = Cabecero + Pialador (columnas distintas). Ronda 1 está en la columna H (no en G: ahí va el dinero). Stats parte cada dúo a Headers y Heelers.",
     ],
     [
-      "7. Dinero y puntos",
-      "Dinero en pesos enteros. Puntos de circuito = del tour.",
-    ],
-    [
-      "8. Team Roping",
-      'Nombre como "Header / Heeler" o usa Rol TR. El dinero del dúo se parte 50/50 al publicar.',
-    ],
-    [
-      "9. Publicar",
+      "7. Publicar",
       "Guarda el .xlsx → publicar.bat → admin → suelta el archivo → preview → Agregar a Stats → Publicar.",
     ],
   ];
@@ -400,7 +445,7 @@ function addComoLlenarSheet(wb) {
     styleSectionTitle(ws.getCell(r, 2));
     ws.getCell(r, 3).value = body;
     styleBody(ws.getCell(r, 3));
-    ws.getRow(r).height = 40;
+    ws.getRow(r).height = 42;
   });
 }
 
@@ -470,7 +515,7 @@ function addDisciplinaSheet(wb, def) {
   styleMetaLabel(ws.getCell("B3"));
   ws.getCell("C3").value = def.sheet;
   styleInput(ws.getCell("C3"));
-  ws.getCell("D3").value = "Cómo salió en el cartel (Abierta, Master…)";
+  ws.getCell("D3").value = "Cómo salió en el cartel";
   ws.getCell("D3").font = { italic: true, size: 9, color: { argb: MUTED } };
 
   if (kind === "puntos") {
@@ -478,14 +523,14 @@ function addDisciplinaSheet(wb, def) {
     styleMetaLabel(ws.getCell("B4"));
     ws.getCell("C4").value = "Calificación (pts)";
     styleInput(ws.getCell("C4"));
-    ws.getCell("D4").value = "Sin tiempos: llena Calificación (pts).";
+    ws.getCell("D4").value = "Sin tiempos: llena Calificación. Sin lugar = no clasificó.";
     ws.getCell("D4").font = { italic: true, size: 9, color: { argb: MUTED } };
   } else {
     ws.getCell("B4").value = "Número de rondas";
     styleMetaLabel(ws.getCell("B4"));
     ws.getCell("C4").value = def.defaultRondas;
     styleInput(ws.getCell("C4"));
-    ws.getCell("D4").value = "1, 2 o 3. Deja vacías las rondas que no existan.";
+    ws.getCell("D4").value = "1–3. Sin lugar = no clasificó (usa NT/NP o 60/120 en la ronda).";
     ws.getCell("D4").font = { italic: true, size: 9, color: { argb: MUTED } };
   }
 
@@ -503,62 +548,38 @@ function addDisciplinaSheet(wb, def) {
   });
   ws.getRow(headerRow).height = 40;
 
-  fillDataRow(
-    ws,
-    firstData,
-    {
-      lugar: 1,
-      nombre: "Ejemplo Competidor",
-      equipo: "",
-      pts: 100,
-      dinero: 0,
-      calif: kind === "puntos" ? 85 : "",
-      rol: "",
-      r1: kind === "puntos" ? "" : 14.32,
-      r2: kind !== "puntos" && def.defaultRondas >= 2 ? 15.1 : "",
-      r3: "",
-      fuera: "No",
-      notas: "Borra esta fila; es solo guía",
-    },
-    keyToCol,
-    true
-  );
+  const example =
+    kind === "teamRoping"
+      ? {
+          lugar: 1,
+          cabecero: "Ejemplo Cabecero",
+          pialador: "Ejemplo Pialador",
+          equipo: "",
+          pts: 100,
+          dinero: 0,
+          r1: 7.45,
+          r2: def.defaultRondas >= 2 ? 8.1 : "",
+          r3: "",
+          notas: "Borra esta fila; es solo guía",
+        }
+      : {
+          lugar: 1,
+          nombre: "Ejemplo Competidor",
+          equipo: "",
+          pts: 100,
+          dinero: 0,
+          calif: kind === "puntos" ? 85 : "",
+          r1: kind === "puntos" ? "" : 14.32,
+          r2: kind !== "puntos" && def.defaultRondas >= 2 ? 15.1 : "",
+          r3: "",
+          notas: "Borra esta fila; es solo guía",
+        };
+
+  fillDataRow(ws, firstData, example, keyToCol, true);
 
   for (let i = 1; i < DATA_ROWS; i++) prepareEmptyRow(ws, firstData + i, keyToCol);
 
   const last = firstData + DATA_ROWS - 1;
-  if (keyToCol.rol) {
-    const L = colLetter(keyToCol.rol);
-    ws.dataValidations.add(`${L}${firstData}:${L}${last}`, {
-      type: "list",
-      allowBlank: true,
-      formulae: ['"Header,Heeler"'],
-      showErrorMessage: true,
-      errorTitle: "Rol TR",
-      error: "Elige Header, Heeler o deja vacío.",
-    });
-  }
-  if (keyToCol.fuera) {
-    const L = colLetter(keyToCol.fuera);
-    ws.dataValidations.add(`${L}${firstData}:${L}${last}`, {
-      type: "list",
-      allowBlank: true,
-      formulae: ['"Sí,No"'],
-      showErrorMessage: true,
-      errorTitle: "No clasificó",
-      error: "Sí = DNF/DSQ (fuera del ranking). No = clasificó normal.",
-    });
-  }
-
-  if (kind === "teamRoping") {
-    ws.getCell(firstData + 1, keyToCol.nombre).value = "Header / Heeler";
-    ws.getCell(firstData + 1, keyToCol.nombre).font = {
-      italic: true,
-      color: { argb: MUTED },
-      size: 10,
-    };
-  }
-
   const foot = last + 2;
   ws.mergeCells(foot, 2, foot, lastCol);
   ws.getCell(foot, 2).value = footerForKind(kind, def.tipo);
@@ -568,20 +589,23 @@ function addDisciplinaSheet(wb, def) {
 function tipForKind(kind, tipo) {
   const ntEq = ntEquivalente(tipo);
   if (kind === "puntos") {
-    return "Lugar = puesto final (no orden de salida). Solo Calificación (pts). ¿No clasificó? = Sí únicamente si DNF/DSQ.";
+    return "Lugar = puesto final. Sin lugar = no clasificó. Usa Calificación (pts); puedes poner NT/NP ahí si aplica.";
   }
   if (kind === "teamRoping") {
-    return `Lugar = puesto final. Rondas = total de esa ronda (NT/NP o ${ntEq} = NT). Rol TR = Header/Heeler. Total se calcula solo.`;
+    return `Lugar = puesto final. Cabecero + Pialador por fila (Stats parte Header/Heeler). Rondas: NT/NP o ${ntEq}=NT. Sin lugar = no clasificó.`;
   }
-  return `Lugar = puesto final (no orden de salida). Rondas = total de esa ronda (acepta NT, NP o ${ntEq} = NT). Total se calcula solo.`;
+  return `Lugar = puesto final (no orden de salida). Rondas: NT, NP o ${ntEq}=NT. Sin lugar = no clasificó.`;
 }
 
 function footerForKind(kind, tipo) {
   const ntEq = ntEquivalente(tipo);
   if (kind === "puntos") {
-    return "Dinero sin decimales. ¿No clasificó? = Sí solo si esa persona no entra al ranking (DNF / DSQ).";
+    return "Dinero sin decimales. Si no clasificó: deja Lugar vacío.";
   }
-  return `En rondas: NT, NP o el número ${ntEq} (equivale a NT). Dinero sin decimales. ¿No clasificó? = Sí solo si DNF / DSQ.`;
+  if (kind === "teamRoping") {
+    return `Cabecero + Pialador por fila. En rondas: NT, NP o ${ntEq} (=NT). Sin lugar = no clasificó.`;
+  }
+  return `En rondas: NT, NP o ${ntEq} (=NT). Dinero sin decimales. Sin lugar = no clasificó.`;
 }
 
 function totalFormula(r, r1Col, r3Col) {
@@ -690,13 +714,47 @@ function cellText(cell) {
   if (cell == null) return "";
   const v = typeof cell === "object" && "value" in cell ? cell.value : cell;
   if (v == null) return "";
+  if (v instanceof Date) return normalizeFechaYmd(v) || "";
   if (typeof v === "object" && v.richText) {
     return v.richText.map((t) => t.text).join("").trim();
   }
   if (typeof v === "object" && v.text) return String(v.text).trim();
-  if (typeof v === "object" && v.result != null) return String(v.result).trim();
+  if (typeof v === "object" && v.result != null) {
+    if (v.result instanceof Date) return normalizeFechaYmd(v.result) || "";
+    return String(v.result).trim();
+  }
   if (typeof v === "object" && v.formula) return "";
   return String(v).trim();
+}
+
+/**
+ * Normaliza fechas de Excel/JS a AAAA-MM-DD (seguro para nombres de archivo).
+ * @param {unknown} v
+ * @returns {string}
+ */
+export function normalizeFechaYmd(v) {
+  if (v == null || v === "") return "";
+  if (v instanceof Date && !Number.isNaN(v.getTime())) {
+    const y = v.getFullYear();
+    const m = String(v.getMonth() + 1).padStart(2, "0");
+    const d = String(v.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }
+  if (typeof v === "number" && Number.isFinite(v) && v > 20000 && v < 80000) {
+    // Serial Excel (días desde 1899-12-30), aproximación UTC.
+    const utc = new Date(Date.UTC(1899, 11, 30) + Math.round(v) * 86400000);
+    return utc.toISOString().slice(0, 10);
+  }
+  const s = String(v).trim();
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+  const parsed = new Date(s);
+  if (!Number.isNaN(parsed.getTime()) && /[a-z]{3}|GMT|\d{1,2}:\d{2}/i.test(s)) {
+    const y = parsed.getFullYear();
+    const m = String(parsed.getMonth() + 1).padStart(2, "0");
+    const d = String(parsed.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  }
+  return "";
 }
 
 function normalizeHeader(s) {
@@ -706,13 +764,6 @@ function normalizeHeader(s) {
     .toLowerCase()
     .replace(/\s+/g, " ")
     .trim();
-}
-
-function normalizeRol(s) {
-  const n = normalizeHeader(s);
-  if (n === "header" || n === "cabeza") return "header";
-  if (n === "heeler" || n === "pata") return "heeler";
-  return "";
 }
 
 function toNumOrNull(v) {
@@ -738,7 +789,7 @@ function roundCell(v, ntEquivalenteSecs = 60) {
   return s;
 }
 
-/** Segundos que equivalen a NT según disciplina. Achatada = 120; resto de tiempo = 60. */
+/** Segundos que equivalen a NT. Achatada = 120; resto de tiempo = 60. */
 export function ntEquivalente(tipo) {
   return tipo === "AchatadaDeNovillos" ? 120 : 60;
 }
@@ -748,6 +799,10 @@ function isNtLike(v) {
     .trim()
     .toUpperCase();
   return s === "NT" || s === "NP" || s === "NO TIME";
+}
+
+function isValidRoundSignal(v) {
+  return v != null && v !== "" && (isNtLike(v) || isNumericRound(v));
 }
 
 function isNumericRound(v) {
@@ -773,11 +828,6 @@ function formatRound(v) {
   if (isNtLike(v)) return String(v).toUpperCase().includes("NP") ? "NP" : "NT";
   const n = Number(v);
   return Number.isFinite(n) ? n.toFixed(3) : String(v);
-}
-
-function truthy(s) {
-  const n = normalizeHeader(s);
-  return n === "si" || n === "sí" || n === "yes" || n === "1" || n === "true" || n === "x";
 }
 
 function slugify(s) {
