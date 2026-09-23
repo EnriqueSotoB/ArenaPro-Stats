@@ -34,6 +34,13 @@
       "file": "eventos/2026-09-06-rodeo-camargo-2026.json"
     },
     {
+      "id": "manual:2026-09-19-truckmania-manual",
+      "nombre": "TRUCKMANIA MANUAL",
+      "fecha": "2026-09-19",
+      "sede": "Arena complejo avalos",
+      "file": "eventos/2026-09-19-truckmania-manual.json"
+    },
+    {
       "id": "local:27",
       "nombre": "TRUCKMANIA FEST 2026",
       "fecha": "2026-09-20",

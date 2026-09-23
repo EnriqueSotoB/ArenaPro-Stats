@@ -34,6 +34,7 @@ const DISCIPLINA_LABEL = {
   LazoDeBecerro: "Lazo de Becerro",
   LazoEnFalso: "Lazo en Falso",
   AchatadaDeNovillos: "Achatada de Novillos",
+  AmarreDeChiva: "Amarre de Chiva",
   TeamRoping: "Team Roping",
   TeamRopingMasters: "Team Roping Masters",
   TeamRopingHeader: "Team Roping — Headers",
@@ -61,6 +62,7 @@ function inferTipoFromNombre(nom) {
   if (/lazo de becerro|becerro/.test(nom)) return "LazoDeBecerro";
   if (/lazo en falso/.test(nom)) return "LazoEnFalso";
   if (/achatada/.test(nom)) return "AchatadaDeNovillos";
+  if (/amarre|chiva/.test(nom)) return "AmarreDeChiva";
   if (/pretal/.test(nom)) return "CaballoConPretal";
   if (/montura/.test(nom)) return "CaballoConMontura";
   if (/jineteo/.test(nom)) return "JineteosDeToros";

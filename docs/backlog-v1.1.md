@@ -40,6 +40,14 @@ Priorizado después de FMR Tour 2027 v1 estable. No mezclar en sprints 0–4 sal
 
 ---
 
+## Hecho recientemente
+
+| Item | Notas |
+|------|-------|
+| Evento manual (Excel) | Plantilla por disciplina → `source: manual` + ingest |
+
+---
+
 ## Deuda técnica
 
 - Extraer más lógica de `app.js` / `admin.js` a módulos puros.

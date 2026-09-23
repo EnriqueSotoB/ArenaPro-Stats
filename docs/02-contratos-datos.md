@@ -197,11 +197,24 @@ Reglas:
 Mantener alineación con Time / FMR. Claves conocidas hoy:
 
 - Barriles, BarrilesMasters  
-- LazoDeBecerro, LazoEnFalso, AchatadaDeNovillos  
+- LazoDeBecerro, LazoEnFalso, AchatadaDeNovillos, AmarreDeChiva  
 - TeamRoping → se **parte** en Header / Heeler (+ Masters)  
 - CaballoConPretal, CaballoConMontura, JineteosDeToros, Polos  
 
 **Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)`.
+
+---
+
+## 8b. Evento manual (Excel)
+
+Para rodeos que no se corren en Time: plantilla [`templates/evento-manual.xlsx`](../templates/evento-manual.xlsx).
+
+- Una hoja por disciplina (vacías = omitidas).
+- Meta en hoja `Evento`; tiempos = totales por ronda (`Ronda 1–3`).
+- El admin convierte a JSON `source: "manual"` schema 2 con `clasificacion` completa (paridad Time para UI/rebuild).
+- `resultados[]` se sintetiza desde las rondas.
+
+Ver `scripts/lib/excel-evento.mjs`.
 
 ---
 

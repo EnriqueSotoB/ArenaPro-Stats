@@ -1,8 +1,8 @@
 # Decisiones de producto — FMR Tour 2027
 
-**Última actualización:** 2026-09-21  
-**Producto:** ArenaPro Stats (sitio público) alimentado por ArenaPro Time  
+**Producto:** ArenaPro Stats (sitio público) alimentado por ArenaPro Time **o** plantilla Excel manual  
 **Temporada objetivo:** FMR Tour 2027
+**Última actualización:** 2026-09-22
 
 Cualquier cambio de negocio se actualiza **aquí primero**, luego en código y tests.
 
@@ -24,7 +24,7 @@ Cualquier cambio de negocio se actualiza **aquí primero**, luego en código y t
 
 | Tema | Decisión |
 |------|----------|
-| Fuente de verdad | **ArenaPro Time** (`puntosCircuito`) |
+| Fuente de verdad | **ArenaPro Time** (`puntosCircuito`) o plantilla Excel manual (misma semántica) |
 | Stats | **No recalcula** reglas de puntuación; solo agrega por temporada |
 | Team Roping | Los puntos **NO** se dividen 50/50. Se usan los puntos que vengan de Time por rol (header/heeler) |
 
@@ -34,7 +34,7 @@ Cualquier cambio de negocio se actualiza **aquí primero**, luego en código y t
 
 | Tema | Decisión |
 |------|----------|
-| Fuente | Time debe exportar montos; Stats suma y muestra |
+| Fuente | Time exporta montos; sin Time, la plantilla Excel los captura a mano. Stats suma y muestra |
 | Moneda | **MXN**, enteros (sin decimales). Formato `es-MX` |
 | Team Roping | Dinero **50/50** header / heeler — **provisional**, confirmar con organizadores |
 | Redondeo 50/50 | Si el monto es impar: un peso al header, resto al heeler (o documentar la regla inversa; debe ser determinista y testeada) |
