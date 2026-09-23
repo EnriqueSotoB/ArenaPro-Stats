@@ -75,8 +75,8 @@ Revisar en código/links:
 
 ## 4. Checklist de corte
 
-- [ ] CNAME DNS `estadisticas` → `enriquesotob.github.io`
-- [ ] Custom domain en Pages + HTTPS
+- [x] CNAME DNS `estadisticas` → `enriquesotob.github.io`
+- [ ] Custom domain en Pages + HTTPS *(confirmar Enforce HTTPS en Settings → Pages tras merge a `main`)*
 - [x] Archivo `CNAME` en el repo
 - [x] Links internos/ops actualizados
 - [ ] Probar: home, `#temporada`, un evento, admin sigue en localhost

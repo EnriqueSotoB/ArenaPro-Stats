@@ -9,15 +9,15 @@
 
 ## Criterios de aceptación
 
-- [ ] Branding visible: **FMR Tour 2027** (sin “demo”).
-- [ ] Hub temporada: disciplinas incluyen Headers/Heelers; toggle o tabs **Puntos | Dinero**.
-- [ ] Ranking: columnas / modo dinero; cut line **oculto** hasta `cutLineVisible`.
-- [ ] Evento: muestra montos si existen.
-- [ ] Vista **All-Around Cowboy** (temporada): solo quienes cobraron en **≥2** disciplinas; orden por dinero.
-- [ ] Texto corto “Cómo se calcula” (puntos de Time, dinero MXN, All-Around 2+).
-- [ ] Mobile usable (tablas con scroll).
-- [ ] `npm test` verde; meta acumulada ≥ 40 tests (aprox.).
-- [ ] Checklist de lanzamiento completado.
+- [x] Branding visible: **FMR Tour 2027** (sin “demo”).
+- [x] Hub temporada: disciplinas incluyen Headers/Heelers; toggle o tabs **Puntos | Dinero**.
+- [x] Ranking: columnas / modo dinero; cut line **oculto** hasta `cutLineVisible`.
+- [x] Evento: muestra montos si existen.
+- [x] Vista **All-Around Cowboy** (temporada): solo quienes cobraron en **≥2** disciplinas; orden por dinero.
+- [x] Texto corto “Cómo se calcula” (puntos de Time, dinero MXN, All-Around 2+).
+- [x] Mobile usable (tablas con scroll).
+- [x] `npm test` verde; meta acumulada ≥ 40 tests (aprox.).
+- [x] Checklist de lanzamiento completado (ítems técnicos; spot-checks humanos pendientes).
 - [ ] PR sprint → `develop`, luego `develop` → `main`.
 
 ---

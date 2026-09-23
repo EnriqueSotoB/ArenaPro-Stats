@@ -33,18 +33,19 @@ Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branc
 
 ---
 
-## Estado del repo (punto de partida)
+## Estado del repo (post sprints 0–4 + dominio/Excel)
 
 | Capacidad | Estado |
 |-----------|--------|
-| Ranking puntos temporada | Funciona (demo) |
-| Detalle por evento | Funciona |
-| Admin local + publish GitHub Pages | Funciona |
-| Dinero / premios | **No existe** |
-| Headers / Heelers | **No existe** (TR como dúo) |
-| All-Around | **No existe** |
-| Suite de tests | **No existe** (Sprint 0 la crea) |
-| Branding FMR Tour 2027 | Pendiente (hoy “Circuito demo”) |
+| Ranking puntos / dinero temporada | Listo |
+| Detalle por evento + $ | Listo |
+| Admin local + publish GitHub Pages | Listo |
+| Headers / Heelers (+ Masters) | Listo |
+| All-Around temporada (2+ con $) | Listo |
+| Evento manual (Excel) | Listo |
+| Suite de tests + CI | Listo |
+| Branding FMR Tour 2027 | Listo |
+| Release `develop` → `main` | En curso |
 
 Sitio oficial: https://estadisticas.arenapro.mx/  
 (legacy Pages: https://enriquesotob.github.io/ArenaPro-Stats/)
