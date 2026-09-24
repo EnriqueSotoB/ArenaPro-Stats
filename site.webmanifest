@@ -1,0 +1,32 @@
+{
+  "name": "ArenaPro Estadísticas",
+  "short_name": "ArenaPro Estadísticas",
+  "description": "Clasificación de puntos y estadísticas del FMR Tour — ArenaPro Estadísticas",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#3f524f",
+  "theme_color": "#3f524f",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
