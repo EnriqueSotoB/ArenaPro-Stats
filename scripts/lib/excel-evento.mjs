@@ -4,6 +4,7 @@
  */
 import ExcelJS from "exceljs";
 import { toMontoEntero } from "./money.mjs";
+import { toPuntosEntero } from "./points.mjs";
 
 /**
  * @type {Array<{ sheet: string, tipo: string, defaultRondas: number }>}
@@ -304,7 +305,7 @@ function parseDisciplinaSheet(ws, def, catIndex) {
       equipo: equipo || "",
       tiempoTotal: kind === "puntos" ? null : tiempoTotal,
       puntos,
-      puntosCircuito: puntosCircuito ?? 0,
+      puntosCircuito: toPuntosEntero(puntosCircuito),
       montoGanado,
       detalleVueltas: detalleParts.join(" · ") || null,
       t1: t1 != null ? String(t1) : null,

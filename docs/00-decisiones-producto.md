@@ -26,6 +26,7 @@ Cualquier cambio de negocio se actualiza **aquí primero**, luego en código y t
 |------|----------|
 | Fuente de verdad | **ArenaPro Time** (`puntosCircuito`) o plantilla Excel manual (misma semántica) |
 | Stats | **No recalcula** reglas de puntuación; solo agrega por temporada |
+| Enteros | Puntos de circuito **sin decimales** (como AERCH). Si Time manda fracciones por empate (`22.666…`), Stats **redondea al entero más cercano** al ingest/rebuild y al mostrar |
 | Team Roping | Los puntos **NO** se dividen 50/50. Se usan los puntos que vengan de Time por rol (header/heeler) |
 
 ---

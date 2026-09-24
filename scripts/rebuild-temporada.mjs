@@ -18,6 +18,7 @@ import {
   resolveCompetitorKey,
 } from "./lib/competitor-aliases.mjs";
 import { toMontoEntero } from "./lib/money.mjs";
+import { toPuntosEntero } from "./lib/points.mjs";
 import { buildAllAround } from "./lib/all-around.mjs";
 import {
   expandTeamRopingRow,
@@ -150,10 +151,7 @@ export function rowsForStanding(row, cat) {
       ...row,
       disciplinaId: baseDisc,
       montoGanado: toMontoEntero(row.montoGanado),
-      puntosCircuito:
-        row.puntosCircuito != null && Number.isFinite(Number(row.puntosCircuito))
-          ? Number(row.puntosCircuito)
-          : 0,
+      puntosCircuito: toPuntosEntero(row.puntosCircuito),
     },
   ];
 }
@@ -202,10 +200,7 @@ export function rebuildTemporada(root = defaultRoot) {
         const compKey = resolveCompetitorKey(row, aliasMap, competitorKey);
         if (!compKey || compKey === "anon") continue;
 
-        const pts =
-          row.puntosCircuito != null && Number.isFinite(Number(row.puntosCircuito))
-            ? Number(row.puntosCircuito)
-            : 0;
+        const pts = toPuntosEntero(row.puntosCircuito);
         const dinero = toMontoEntero(row.montoGanado);
         const eventKey = `${compKey}::${discId}`;
         const prev = seen.get(eventKey);

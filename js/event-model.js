@@ -1,6 +1,7 @@
 /** Lógica compartida de evento (sitio público + preview en admin). */
 
 import { fmtMxn } from "../scripts/lib/money.mjs";
+import { toPuntosEntero } from "../scripts/lib/points.mjs";
 
 export function normalizeEvento(raw, fallbackName = "") {
   const meta = raw.meta || {};
@@ -75,7 +76,7 @@ function rankingFromClasificacion(evento, cat) {
       sumaTiempos: tiempoTotal,
       tiempoTotal,
       puntosCalif: e.puntos != null ? Number(e.puntos) : null,
-      puntosCircuito: e.puntosCircuito != null ? Number(e.puntosCircuito) : null,
+      puntosCircuito: e.puntosCircuito != null ? toPuntosEntero(e.puntosCircuito) : null,
       montoGanado: e.montoGanado != null ? Number(e.montoGanado) : null,
       esPuntos,
       detalleVueltas: detalle,
@@ -114,7 +115,9 @@ function rankingFromResultadosLegacy(rows, cat) {
       sumaTiempos: tiempoCompleto ? tiempos.reduce((a, b) => a + b, 0) : null,
       tiemposParciales: !tiempoCompleto && tiempos.length ? tiempos : null,
       puntosCalif: puntosDisc.length ? Math.max(...puntosDisc) : null,
-      puntosCircuito: puntosCircuito.length ? Math.max(...puntosCircuito) : null,
+      puntosCircuito: puntosCircuito.length
+        ? toPuntosEntero(Math.max(...puntosCircuito))
+        : null,
       montoGanado: null,
       esPuntos,
       rondasEsperadas,
@@ -263,7 +266,8 @@ export function fmtTime(n) {
 export function fmtNum(n) {
   if (n == null || Number.isNaN(Number(n))) return "—";
   const x = Number(n);
-  return Number.isInteger(x) ? String(x) : x.toFixed(2);
+  if (!Number.isFinite(x)) return "—";
+  return String(Math.round(x));
 }
 
 export function escapeHtml(s) {
