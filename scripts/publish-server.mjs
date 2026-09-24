@@ -14,7 +14,8 @@ import {
   aplicarStatsEdits,
   buildDefaultEdits,
 } from "./lib/stats-edits.mjs";
-import { appendAlias } from "./lib/alias-store.mjs";
+import { appendAlias, removeAlias } from "./lib/alias-store.mjs";
+import { displayFromKey } from "./lib/alias-suggest.mjs";
 import { parseExcelEvento, normalizeFechaYmd } from "./lib/excel-evento.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
@@ -300,10 +301,88 @@ function saveAliasesDoc(doc) {
   writeFileSync(path, JSON.stringify(doc, null, 2) + "\n", "utf8");
 }
 
+function uniqueCompetitorNames(standings) {
+  /** @type {Map<string, string>} */
+  const map = new Map();
+  for (const row of standings || []) {
+    const key = String(row.competidorKey || "").trim();
+    if (!key || key === "anon") continue;
+    const label =
+      (row.nombre && String(row.nombre).trim()) || displayFromKey(key);
+    if (!map.has(key)) map.set(key, label);
+  }
+  return [...map.entries()]
+    .map(([key, label]) => ({ key, label }))
+    .sort((a, b) => a.label.localeCompare(b.label, "es"));
+}
+
+function loadTemporadaStandings() {
+  const path = join(ROOT, "data", "temporada.json");
+  if (!existsSync(path)) return [];
+  try {
+    const payload = JSON.parse(readFileSync(path, "utf8"));
+    return Array.isArray(payload.standings) ? payload.standings : [];
+  } catch {
+    return [];
+  }
+}
+
+function getAliasesPayload() {
+  const doc = loadAliasesDoc();
+  const standings = loadTemporadaStandings();
+  const names = uniqueCompetitorNames(standings);
+  /** Incluir variantes ya aliasadas para el datalist. */
+  const seen = new Set(names.map((n) => n.key));
+  for (const a of doc.aliases || []) {
+    const from = String(a.from || "").trim();
+    if (from && !seen.has(from)) {
+      seen.add(from);
+      names.push({ key: from, label: displayFromKey(from) });
+    }
+    const to = String(a.to || "").trim();
+    if (to && !seen.has(to)) {
+      seen.add(to);
+      names.push({ key: to, label: displayFromKey(to) });
+    }
+  }
+  names.sort((a, b) => a.label.localeCompare(b.label, "es"));
+  return {
+    ok: true,
+    version: doc.version || 1,
+    aliases: doc.aliases || [],
+    names,
+  };
+}
+
 function addAlias(body) {
-  const next = appendAlias(loadAliasesDoc(), body || {});
+  const next = appendAlias(loadAliasesDoc(), {
+    from: body?.from,
+    to: body?.to,
+    nota: body?.nota,
+  });
   saveAliasesDoc(next);
-  return { ok: true, aliases: next.aliases, count: next.aliases.length };
+  const rebuilt = runRebuild();
+  return {
+    ok: true,
+    aliases: next.aliases,
+    count: next.aliases.length,
+    rebuilt,
+    ...getAliasesPayload(),
+  };
+}
+
+function deleteAlias(body) {
+  const next = removeAlias(loadAliasesDoc(), body?.from);
+  saveAliasesDoc({ version: next.version, aliases: next.aliases });
+  const rebuilt = runRebuild();
+  return {
+    ok: true,
+    removed: next.removed,
+    aliases: next.aliases,
+    count: next.aliases.length,
+    rebuilt,
+    ...getAliasesPayload(),
+  };
 }
 
 function removeEvent({ id }) {
@@ -488,14 +567,20 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (method === "GET" && url.pathname === "/api/aliases") {
-      const doc = loadAliasesDoc();
-      sendJson(res, 200, { ok: true, ...doc });
+      sendJson(res, 200, getAliasesPayload());
       return;
     }
 
     if (method === "POST" && url.pathname === "/api/aliases") {
       const body = await readJsonBody(req);
       const result = addAlias(body);
+      sendJson(res, 200, result);
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/aliases/remove") {
+      const body = await readJsonBody(req);
+      const result = deleteAlias(body);
       sendJson(res, 200, result);
       return;
     }
