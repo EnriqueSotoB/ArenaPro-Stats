@@ -41,8 +41,11 @@ npx --yes serve .
 |--------|-------------|
 | **Temporada** | Hub con cards por categoría (top 5) |
 | **Ranking** | Tabla completa, pódium, cut line, Δ al líder |
+| **Competidor** | Ficha con totales, disciplinas e historial (`#competidor/…`) |
 | **Eventos** | Índice de rodeos |
 | **Detalle evento** | Pódium + tabs por categoría + filas expandibles |
+
+Búsqueda en la barra superior (también **Ctrl/⌘+K**). Los nombres enlazan a la ficha.
 
 ## Estructura
 

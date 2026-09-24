@@ -105,6 +105,54 @@
       <p class="meta">Eliminar quita el JSON y regenera la temporada. Luego publica para que salga del sitio público.</p>
       <ul id="eventosList" class="eventos-mini"></ul>
     </section>
+
+    <section class="panel" id="aliasesPanel">
+      <h2 class="step-title-plain">Unificar competidores</h2>
+      <p class="meta">
+        Si el mismo rider aparece con otro nombre (apodo, spelling), únelo aquí.
+        No cambia el texto del evento; sí suma puntos y dinero en la temporada.
+      </p>
+
+      <form id="aliasForm" class="alias-form" autocomplete="off">
+        <label class="field admin-field alias-field">
+          <span>Aparece como</span>
+          <input
+            id="aliasFrom"
+            type="text"
+            list="aliasNamesList"
+            placeholder="Lalito Calderon"
+            spellcheck="false"
+            required
+          />
+          <span id="aliasFromKey" class="alias-key-preview" hidden></span>
+        </label>
+        <span class="alias-arrow" aria-hidden="true">→</span>
+        <label class="field admin-field alias-field">
+          <span>Unificar con</span>
+          <input
+            id="aliasTo"
+            type="text"
+            list="aliasNamesList"
+            placeholder="Eduardo Calderon"
+            spellcheck="false"
+            required
+          />
+          <span id="aliasToKey" class="alias-key-preview" hidden></span>
+        </label>
+        <label class="field admin-field alias-field alias-nota-field">
+          <span>Nota (opcional)</span>
+          <input id="aliasNota" type="text" placeholder="Apodo vs nombre completo" maxlength="120" />
+        </label>
+        <div class="btn-row alias-form-actions">
+          <button type="submit" class="btn-primary" id="btnAliasSave">Unificar</button>
+        </div>
+      </form>
+      <datalist id="aliasNamesList"></datalist>
+      <div id="aliasHints" class="alias-hints" hidden></div>
+
+      <p class="preview-label alias-list-label">Aliases actuales</p>
+      <ul id="aliasesList" class="aliases-mini"></ul>
+    </section>
   </main>
 
   <footer class="footer">

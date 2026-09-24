@@ -3,6 +3,9 @@
  * Módulo puro (sin Node APIs) — usable desde admin (browser) y tests/server.
  */
 
+import { toPuntosCircuito } from "./points.mjs";
+import { toMontoEntero } from "./money.mjs";
+
 /**
  * @param {object} entrada
  * @param {string|number} categoriaId
@@ -134,10 +137,10 @@ function mergeEntrada(ent, patch) {
   const next = { ...ent };
   if (patch.nombre != null) next.nombre = String(patch.nombre);
   if (patch.puntosCircuito != null && patch.puntosCircuito !== "") {
-    next.puntosCircuito = Number(patch.puntosCircuito);
+    next.puntosCircuito = toPuntosCircuito(patch.puntosCircuito);
   }
   if (patch.montoGanado != null && patch.montoGanado !== "") {
-    next.montoGanado = Number(patch.montoGanado);
+    next.montoGanado = toMontoEntero(patch.montoGanado);
   }
   return next;
 }
@@ -180,15 +183,15 @@ export function listEditableFilas(evento, categoriaId, edits = null) {
       nombre: patch?.nombre != null ? String(patch.nombre) : ent.nombre || "",
       puntosCircuito:
         patch?.puntosCircuito != null
-          ? Number(patch.puntosCircuito)
+          ? toPuntosCircuito(patch.puntosCircuito)
           : ent.puntosCircuito != null
-            ? Number(ent.puntosCircuito)
+            ? toPuntosCircuito(ent.puntosCircuito)
             : null,
       montoGanado:
         patch?.montoGanado != null
-          ? Number(patch.montoGanado)
+          ? toMontoEntero(patch.montoGanado)
           : ent.montoGanado != null
-            ? Number(ent.montoGanado)
+            ? toMontoEntero(ent.montoGanado)
             : null,
       excluir: Boolean(patch?.excluir),
     };

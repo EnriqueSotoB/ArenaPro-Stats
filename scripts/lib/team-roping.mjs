@@ -7,6 +7,7 @@
  *   ambos roles reciben ese mismo valor hasta que exista export por rol.
  */
 import { splitMoneyMxn, toMontoEntero } from "./money.mjs";
+import { toPuntosCircuito } from "./points.mjs";
 
 /**
  * @param {string} discId
@@ -59,14 +60,12 @@ export function expandTeamRopingRow(row, baseDiscId) {
 
   const rol = String(row.rol || "").toLowerCase();
   if (rol === "header" || rol === "heeler") {
-    const pts =
-      row.puntosCircuito != null ? Number(row.puntosCircuito) : 0;
     return [
       {
         ...row,
         nombre: row.nombre || row.competidorId || "—",
         rol,
-        puntosCircuito: Number.isFinite(pts) ? pts : 0,
+        puntosCircuito: toPuntosCircuito(row.puntosCircuito),
         montoGanado: toMontoEntero(row.montoGanado),
         disciplinaId: teamRopingRoleDisc(baseDiscId, rol),
       },
@@ -104,15 +103,14 @@ export function expandTeamRopingRow(row, baseDiscId) {
  * @param {string} heelerName
  */
 function expandNamedPair(row, baseDiscId, headerName, heelerName) {
-  const teamPts = row.puntosCircuito != null ? Number(row.puntosCircuito) : 0;
-  const ptsSafe = Number.isFinite(teamPts) ? teamPts : 0;
+  const ptsSafe = toPuntosCircuito(row.puntosCircuito);
   const headerPts =
     row.puntosCircuitoHeader != null
-      ? Number(row.puntosCircuitoHeader)
+      ? toPuntosCircuito(row.puntosCircuitoHeader)
       : ptsSafe;
   const heelerPts =
     row.puntosCircuitoHeeler != null
-      ? Number(row.puntosCircuitoHeeler)
+      ? toPuntosCircuito(row.puntosCircuitoHeeler)
       : ptsSafe;
 
   const equipoMonto = toMontoEntero(
@@ -131,7 +129,7 @@ function expandNamedPair(row, baseDiscId, headerName, heelerName) {
       rol: "header",
       // Evitar que el id del dúo fusione a ambos riders.
       competidorId: row.headerCompetidorId || null,
-      puntosCircuito: Number.isFinite(headerPts) ? headerPts : 0,
+      puntosCircuito: headerPts,
       montoGanado: headerMoney,
       disciplinaId: teamRopingRoleDisc(baseDiscId, "header"),
     },
@@ -140,7 +138,7 @@ function expandNamedPair(row, baseDiscId, headerName, heelerName) {
       nombre: heelerName,
       rol: "heeler",
       competidorId: row.heelerCompetidorId || null,
-      puntosCircuito: Number.isFinite(heelerPts) ? heelerPts : 0,
+      puntosCircuito: heelerPts,
       montoGanado: heelerMoney,
       disciplinaId: teamRopingRoleDisc(baseDiscId, "heeler"),
     },

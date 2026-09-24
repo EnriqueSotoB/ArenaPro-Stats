@@ -16,12 +16,21 @@ import {
   listEditableFilas,
   upsertFilaEdit,
 } from "../scripts/lib/stats-edits.mjs";
+import { normalizeAliasInput } from "../scripts/lib/alias-store.mjs";
+import {
+  displayFromKey,
+  peersWithSameSurname,
+  spellingNearMatches,
+} from "../scripts/lib/alias-suggest.mjs";
 
 let pendingEvento = null;
 /** @type {ReturnType<typeof buildDefaultEdits>|null} */
 let pendingEdits = null;
 let previewCatId = null;
 const expandedRows = new Set();
+
+/** @type {{ aliases: Array<object>, names: Array<{key:string,label:string}> }} */
+let aliasesState = { aliases: [], names: [] };
 
 const els = {
   statusMeta: document.getElementById("statusMeta"),
@@ -48,12 +57,23 @@ const els = {
   dirtyNote: document.getElementById("dirtyNote"),
   eventosList: document.getElementById("eventosList"),
   btnDownloadPlantilla: document.getElementById("btnDownloadPlantilla"),
+  aliasForm: document.getElementById("aliasForm"),
+  aliasFrom: document.getElementById("aliasFrom"),
+  aliasTo: document.getElementById("aliasTo"),
+  aliasNota: document.getElementById("aliasNota"),
+  aliasFromKey: document.getElementById("aliasFromKey"),
+  aliasToKey: document.getElementById("aliasToKey"),
+  aliasNamesList: document.getElementById("aliasNamesList"),
+  aliasesList: document.getElementById("aliasesList"),
+  aliasHints: document.getElementById("aliasHints"),
+  btnAliasSave: document.getElementById("btnAliasSave"),
 };
 
 init().catch((err) => showBanner(err.message || String(err), true));
 
 async function init() {
   wireDropzone();
+  wireAliasesPanel();
   els.btnDownloadPlantilla?.addEventListener("click", onDownloadPlantilla);
   els.btnIngest.addEventListener("click", onIngest);
   els.btnPublish.addEventListener("click", onPublish);
@@ -62,6 +82,7 @@ async function init() {
   });
   els.editSearch.addEventListener("input", () => applyEditSearchFilter());
   await refreshStatus();
+  await refreshAliases();
 }
 
 function wireDropzone() {
@@ -394,7 +415,7 @@ function renderEditPanel(catId) {
           return `<tr class="${excl ? "is-excluded" : ""}" data-key="${escapeAttr(r.key)}" data-search="${escapeAttr(search)}">
             <td><input type="checkbox" data-field="incluir" ${excl ? "" : "checked"} /></td>
             <td><input type="text" data-field="nombre" value="${escapeAttr(r.nombre)}" /></td>
-            <td><input type="number" data-field="puntosCircuito" step="1" value="${r.puntosCircuito ?? ""}" /></td>
+            <td><input type="number" data-field="puntosCircuito" step="0.5" value="${r.puntosCircuito ?? ""}" /></td>
             <td><input type="number" data-field="montoGanado" step="1" value="${r.montoGanado ?? ""}" /></td>
           </tr>`;
         })
@@ -553,6 +574,7 @@ async function onIngest() {
     );
     resetPending();
     await refreshStatus();
+    await refreshAliases();
   } catch (err) {
     showBanner(err.message || String(err), true);
     els.btnIngest.disabled = false;
@@ -673,6 +695,226 @@ async function onRemove(id, nombre) {
       `Eliminado: ${body.removed?.nombre || id}. Publica para actualizar el sitio.`,
       false
     );
+    await refreshStatus();
+    await refreshAliases();
+  } catch (err) {
+    showBanner(err.message || String(err), true);
+  }
+}
+
+function wireAliasesPanel() {
+  if (!els.aliasForm) return;
+
+  const syncPreview = () => {
+    updateAliasKeyPreview(els.aliasFrom, els.aliasFromKey);
+    updateAliasKeyPreview(els.aliasTo, els.aliasToKey);
+    renderAliasHints();
+  };
+  els.aliasFrom.addEventListener("input", syncPreview);
+  els.aliasTo.addEventListener("input", syncPreview);
+
+  els.aliasForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await onSaveAlias();
+  });
+}
+
+function updateAliasKeyPreview(input, previewEl) {
+  if (!input || !previewEl) return;
+  const raw = String(input.value || "").trim();
+  const key = normalizeAliasInput(raw);
+  if (!key || key === raw) {
+    previewEl.hidden = true;
+    previewEl.textContent = "";
+    return;
+  }
+  previewEl.hidden = false;
+  previewEl.textContent = key;
+}
+
+function labelForKey(key) {
+  const found = aliasesState.names.find((n) => n.key === key);
+  if (found?.label) return found.label;
+  return displayFromKey(key);
+}
+
+function applyAliasesPayload(body) {
+  aliasesState = {
+    aliases: Array.isArray(body.aliases) ? body.aliases : [],
+    names: Array.isArray(body.names) ? body.names : [],
+  };
+  renderAliasesUi();
+}
+
+async function refreshAliases() {
+  if (!els.aliasesList) return;
+  try {
+    const res = await fetch("/api/aliases");
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "No se pudieron cargar aliases");
+    applyAliasesPayload(body);
+  } catch {
+    els.aliasesList.innerHTML = `<li class="alias-empty">No hay API de aliases (¿publish-server corriendo?).</li>`;
+    if (els.aliasHints) els.aliasHints.hidden = true;
+  }
+}
+
+function renderAliasHints() {
+  if (!els.aliasHints) return;
+  const fromKey = normalizeAliasInput(els.aliasFrom?.value);
+  if (!fromKey || !fromKey.startsWith("name:")) {
+    els.aliasHints.hidden = true;
+    els.aliasHints.innerHTML = "";
+    return;
+  }
+
+  const aliasesDoc = { aliases: aliasesState.aliases };
+  const people = aliasesState.names;
+  const spelling = spellingNearMatches(fromKey, people, aliasesDoc);
+  const surnamePeers = peersWithSameSurname(fromKey, people, aliasesDoc, {
+    maxGroup: 5,
+    limit: 5,
+  });
+
+  const parts = [];
+
+  if (spelling.length) {
+    parts.push(`<p class="alias-hints-label">Parecido (posible typo)</p>
+      <div class="alias-hint-chips">${spelling
+        .map(
+          (p) =>
+            `<button type="button" class="alias-chip" data-alias-fill-to="${escapeAttr(p.key)}">${escapeHtml(p.label)}</button>`
+        )
+        .join("")}</div>`);
+  }
+
+  if (surnamePeers.peers.length) {
+    parts.push(`<p class="alias-hints-label">Mismo apellido “${escapeHtml(surnamePeers.surname)}” <span class="alias-hints-note">(poco común en temporada)</span></p>
+      <div class="alias-hint-chips">${surnamePeers.peers
+        .map(
+          (p) =>
+            `<button type="button" class="alias-chip" data-alias-fill-to="${escapeAttr(p.key)}">${escapeHtml(p.label)}</button>`
+        )
+        .join("")}</div>`);
+  } else if (surnamePeers.suppressed) {
+    parts.push(
+      `<p class="alias-hints-note">Hay muchos con apellido “${escapeHtml(surnamePeers.surname)}” — elige el canónico a mano (autocomplete).</p>`
+    );
+  }
+
+  if (!parts.length) {
+    els.aliasHints.hidden = true;
+    els.aliasHints.innerHTML = "";
+    return;
+  }
+
+  els.aliasHints.hidden = false;
+  els.aliasHints.innerHTML = parts.join("");
+  els.aliasHints.querySelectorAll("[data-alias-fill-to]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.getAttribute("data-alias-fill-to");
+      if (!els.aliasTo || !key) return;
+      els.aliasTo.value = labelForKey(key);
+      updateAliasKeyPreview(els.aliasTo, els.aliasToKey);
+      els.aliasTo.focus();
+    });
+  });
+}
+
+function renderAliasesUi() {
+  if (els.aliasNamesList) {
+    els.aliasNamesList.innerHTML = aliasesState.names
+      .map((n) => `<option value="${escapeAttr(n.label)}"></option>`)
+      .join("");
+  }
+
+  if (els.aliasesList) {
+    const list = aliasesState.aliases;
+    els.aliasesList.innerHTML = list.length
+      ? list
+          .map((a) => {
+            const fromLabel = labelForKey(a.from);
+            const toLabel = labelForKey(a.to);
+            return `<li>
+              <div class="alias-pair">
+                <span class="alias-from">${escapeHtml(fromLabel)}</span>
+                <span class="alias-sep">→</span>
+                <span class="alias-to">${escapeHtml(toLabel)}</span>
+                ${a.nota ? `<span class="alias-nota">${escapeHtml(a.nota)}</span>` : ""}
+                <span class="alias-keys">${escapeHtml(a.from)} → ${escapeHtml(a.to)}</span>
+              </div>
+              <button type="button" class="btn-danger btn-sm" data-alias-remove="${escapeAttr(a.from)}">Quitar</button>
+            </li>`;
+          })
+          .join("")
+      : `<li class="alias-empty">Ningún alias aún.</li>`;
+
+    els.aliasesList.querySelectorAll("[data-alias-remove]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        onRemoveAlias(btn.getAttribute("data-alias-remove"));
+      });
+    });
+  }
+
+  renderAliasHints();
+}
+
+async function onSaveAlias(preset) {
+  const fromRaw = preset?.from ?? els.aliasFrom?.value;
+  const toRaw = preset?.to ?? els.aliasTo?.value;
+  const nota = preset?.nota ?? els.aliasNota?.value ?? "";
+  const from = normalizeAliasInput(fromRaw);
+  const to = normalizeAliasInput(toRaw);
+  if (!from || !to) {
+    showBanner("Indica ambos nombres para unificar.", true);
+    return;
+  }
+  if (from === to) {
+    showBanner("Los dos nombres ya son la misma clave.", true);
+    return;
+  }
+
+  if (els.btnAliasSave) els.btnAliasSave.disabled = true;
+  showBanner("Unificando y regenerando temporada…", false);
+  try {
+    const res = await fetch("/api/aliases", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to, nota: nota.trim() || undefined }),
+    });
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "Error al guardar alias");
+    applyAliasesPayload(body);
+    if (els.aliasForm) els.aliasForm.reset();
+    updateAliasKeyPreview(els.aliasFrom, els.aliasFromKey);
+    updateAliasKeyPreview(els.aliasTo, els.aliasToKey);
+    showBanner(
+      `Unificado: ${displayFromKey(from)} → ${displayFromKey(to)}. Publica para el sitio.`,
+      false
+    );
+    await refreshStatus();
+  } catch (err) {
+    showBanner(err.message || String(err), true);
+  } finally {
+    if (els.btnAliasSave) els.btnAliasSave.disabled = false;
+  }
+}
+
+async function onRemoveAlias(from) {
+  if (!from) return;
+  if (!confirm(`¿Quitar el alias de “${displayFromKey(from)}”?`)) return;
+
+  showBanner("Quitando alias y regenerando temporada…", false);
+  try {
+    const res = await fetch("/api/aliases/remove", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ from }),
+    });
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "Error al quitar alias");
+    applyAliasesPayload(body);
+    showBanner("Alias eliminado. Publica para actualizar el sitio.", false);
     await refreshStatus();
   } catch (err) {
     showBanner(err.message || String(err), true);
