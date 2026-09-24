@@ -18,8 +18,12 @@ import {
   resolveCompetitorKey,
 } from "./lib/competitor-aliases.mjs";
 import { toMontoEntero } from "./lib/money.mjs";
-import { toPuntosEntero } from "./lib/points.mjs";
+import { toPuntosCircuito } from "./lib/points.mjs";
 import { buildAllAround } from "./lib/all-around.mjs";
+import {
+  finalizeCompetidores,
+  pushCompetidorEvento,
+} from "./lib/competidores.mjs";
 import {
   expandTeamRopingRow,
   isTeamRopingBase,
@@ -151,7 +155,7 @@ export function rowsForStanding(row, cat) {
       ...row,
       disciplinaId: baseDisc,
       montoGanado: toMontoEntero(row.montoGanado),
-      puntosCircuito: toPuntosEntero(row.puntosCircuito),
+      puntosCircuito: toPuntosCircuito(row.puntosCircuito),
     },
   ];
 }
@@ -179,11 +183,19 @@ export function rebuildTemporada(root = defaultRoot) {
 
   /** @type {Map<string, object>} */
   const standings = new Map();
+  /** @type {Map<string, object>} */
+  const competidorAccum = new Map();
 
   for (const entry of eventos) {
     const file = join(root, "data", entry.file);
     const ev = JSON.parse(readFileSync(file, "utf8"));
     const catMap = Object.fromEntries((ev.categorias || []).map((c) => [c.id, c]));
+    const eventMeta = {
+      id: entry.id || ev.eventoId || "",
+      nombre: entry.nombre || ev.nombreEvento || "",
+      fecha: entry.fecha || ev.fecha || "",
+      sede: entry.sede || ev.sede || "",
+    };
 
     /** Por evento: un renglón por competidor+disciplina (máx puntos / máx dinero). */
     const seen = new Map();
@@ -200,7 +212,7 @@ export function rebuildTemporada(root = defaultRoot) {
         const compKey = resolveCompetitorKey(row, aliasMap, competitorKey);
         if (!compKey || compKey === "anon") continue;
 
-        const pts = toPuntosEntero(row.puntosCircuito);
+        const pts = toPuntosCircuito(row.puntosCircuito);
         const dinero = toMontoEntero(row.montoGanado);
         const eventKey = `${compKey}::${discId}`;
         const prev = seen.get(eventKey);
@@ -228,6 +240,8 @@ export function rebuildTemporada(root = defaultRoot) {
     }
 
     for (const item of seen.values()) {
+      pushCompetidorEvento(competidorAccum, item, eventMeta);
+
       const sk = `${item.competidorKey}::${item.disciplinaId}`;
       const cur = standings.get(sk) || {
         competidorKey: item.competidorKey,
@@ -269,6 +283,7 @@ export function rebuildTemporada(root = defaultRoot) {
     eventosContados: eventos.length,
     standings: standingsList,
     allAround: buildAllAround(standingsList),
+    competidores: finalizeCompetidores(competidorAccum, standingsList),
   };
 
   if (payload.standings.some((s) => {

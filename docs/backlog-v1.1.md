@@ -12,8 +12,6 @@ Priorizado después de FMR Tour 2027 v1 estable. No mezclar en sprints 0–4 sal
 | Confirmar split dinero TR | Actualizar constante + `00-decisiones-producto.md` |
 | IDs web estables desde Time | Dejar de depender de `name:` cuando existan |
 | All-Around **por evento** | Misma regla 2+ con dinero, scope = un rodeo |
-| Perfil de competidor | Historial por evento: pts + $ |
-| Búsqueda de competidor | Autocomplete por nombre |
 
 ---
 
@@ -43,8 +41,10 @@ Priorizado después de FMR Tour 2027 v1 estable. No mezclar en sprints 0–4 sal
 ## Hecho recientemente
 
 | Item | Notas |
-|------|-------|
+|------|--------|
 | Evento manual (Excel) | Plantilla por disciplina → `source: manual` + ingest |
+| Búsqueda + ficha competidor | `#competidor/…`, historial en `temporada.competidores`, ⌘/Ctrl+K |
+| UX craft v1.1 | Archivo display, motion, empty states All-Around, nombres clicables |
 
 ---
 

@@ -415,7 +415,7 @@ function renderEditPanel(catId) {
           return `<tr class="${excl ? "is-excluded" : ""}" data-key="${escapeAttr(r.key)}" data-search="${escapeAttr(search)}">
             <td><input type="checkbox" data-field="incluir" ${excl ? "" : "checked"} /></td>
             <td><input type="text" data-field="nombre" value="${escapeAttr(r.nombre)}" /></td>
-            <td><input type="number" data-field="puntosCircuito" step="1" value="${r.puntosCircuito ?? ""}" /></td>
+            <td><input type="number" data-field="puntosCircuito" step="0.5" value="${r.puntosCircuito ?? ""}" /></td>
             <td><input type="number" data-field="montoGanado" step="1" value="${r.montoGanado ?? ""}" /></td>
           </tr>`;
         })

@@ -1,7 +1,7 @@
 /** Lógica compartida de evento (sitio público + preview en admin). */
 
 import { fmtMxn } from "../scripts/lib/money.mjs";
-import { toPuntosEntero } from "../scripts/lib/points.mjs";
+import { toPuntosCircuito } from "../scripts/lib/points.mjs";
 
 export function normalizeEvento(raw, fallbackName = "") {
   const meta = raw.meta || {};
@@ -76,7 +76,7 @@ function rankingFromClasificacion(evento, cat) {
       sumaTiempos: tiempoTotal,
       tiempoTotal,
       puntosCalif: e.puntos != null ? Number(e.puntos) : null,
-      puntosCircuito: e.puntosCircuito != null ? toPuntosEntero(e.puntosCircuito) : null,
+      puntosCircuito: e.puntosCircuito != null ? toPuntosCircuito(e.puntosCircuito) : null,
       montoGanado: e.montoGanado != null ? Number(e.montoGanado) : null,
       esPuntos,
       detalleVueltas: detalle,
@@ -116,7 +116,7 @@ function rankingFromResultadosLegacy(rows, cat) {
       tiemposParciales: !tiempoCompleto && tiempos.length ? tiempos : null,
       puntosCalif: puntosDisc.length ? Math.max(...puntosDisc) : null,
       puntosCircuito: puntosCircuito.length
-        ? toPuntosEntero(Math.max(...puntosCircuito))
+        ? toPuntosCircuito(Math.max(...puntosCircuito))
         : null,
       montoGanado: null,
       esPuntos,
@@ -153,15 +153,24 @@ function isPuntosTipo(tipo) {
 export function renderPodiumHtml(items) {
   if (!items?.length) return "";
   return items
-    .map(
-      (item, idx) => `<article class="podium-card${idx === 0 ? " is-first" : ""}">
+    .map((item, idx) => {
+      const nameHtml = athleteNameHtml(item.name, item.competidorKey);
+      return `<article class="podium-card${idx === 0 ? " is-first" : ""}" style="--podium-i:${idx}">
       <p class="podium-place">#${item.place}</p>
-      <p class="podium-name">${escapeHtml(item.name)}</p>
+      <p class="podium-name">${nameHtml}</p>
       <p class="podium-sub">${escapeHtml(item.sub || "—")}</p>
       <p class="podium-value">${escapeHtml(item.value)}</p>
-    </article>`
-    )
+    </article>`;
+    })
     .join("");
+}
+
+/** Link a ficha cuando hay `competidorKey`; texto plano si no. */
+export function athleteNameHtml(name, competidorKey) {
+  const label = escapeHtml(name || "—");
+  const key = String(competidorKey || "").trim();
+  if (!key) return label;
+  return `<a class="athlete-link" href="#competidor/${encodeURIComponent(key)}">${label}</a>`;
 }
 
 export function rankingToPodiumItems(ranking) {
@@ -171,6 +180,7 @@ export function rankingToPodiumItems(ranking) {
     .map((r) => ({
       place: r.lugar,
       name: r.nombre,
+      competidorKey: r.profileKey || null,
       sub: r.equipo || "",
       value: formatResultadoValor(r),
     }));
@@ -223,7 +233,7 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
           : "";
       const main = `<tr class="is-expandable${open ? " is-open" : ""}" data-row="${escapeAttr(rowId)}" aria-expanded="${open}">
         <td class="num">${lugarLabel}</td>
-        <td>${escapeHtml(r.nombre)}${mark}${sub}</td>
+        <td>${athleteNameHtml(r.nombre, r.profileKey)}${mark}${sub}</td>
         <td>${escapeHtml(r.equipo || "—")}</td>
         <td class="num">${formatTiempoCelda(r)}</td>
         <td class="num">${circ}</td>
@@ -267,7 +277,8 @@ export function fmtNum(n) {
   if (n == null || Number.isNaN(Number(n))) return "—";
   const x = Number(n);
   if (!Number.isFinite(x)) return "—";
-  return String(Math.round(x));
+  const half = Math.round(x * 2) / 2;
+  return Number.isInteger(half) ? String(half) : half.toFixed(1);
 }
 
 export function escapeHtml(s) {

@@ -6,6 +6,9 @@
   <title>FMR Tour 2027 — ArenaPro Estadísticas</title>
   <meta name="description" content="Clasificación de puntos y estadísticas del FMR Tour 2027 — ArenaPro Estadísticas" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -17,10 +20,25 @@
         <span class="brand-sub">Estadísticas</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Secciones">
-      <button type="button" class="nav-link" data-nav="temporada" id="navTemporada">Temporada</button>
-      <button type="button" class="nav-link" data-nav="eventos" id="navEventos">Eventos</button>
-    </nav>
+    <div class="topbar-tools">
+      <div class="search" id="searchRoot">
+        <label class="visually-hidden" for="searchInput">Buscar competidor</label>
+        <input
+          type="search"
+          id="searchInput"
+          class="search-input"
+          placeholder="Buscar competidor…"
+          autocomplete="off"
+          spellcheck="false"
+          enterkeyhint="search"
+        />
+        <div id="searchResults" class="search-results" hidden role="listbox" aria-label="Resultados"></div>
+      </div>
+      <nav class="nav" aria-label="Secciones">
+        <button type="button" class="nav-link" data-nav="temporada" id="navTemporada">Temporada</button>
+        <button type="button" class="nav-link" data-nav="eventos" id="navEventos">Eventos</button>
+      </nav>
+    </div>
   </header>
 
   <main class="main">
@@ -29,6 +47,7 @@
     <!-- TEMPORADA: hub por categoría -->
     <section id="viewTemporadaHub" class="view" hidden>
       <header class="page-head">
+        <p class="eyebrow">Circuito</p>
         <h1 id="tempTitle">Temporada</h1>
         <p id="tempMeta" class="meta"></p>
         <div class="metric-toggle" role="group" aria-label="Métrica de ranking">
@@ -47,7 +66,7 @@
       <aside id="metodologia" class="metodologia panel">
         <h2>Cómo se calcula</h2>
         <ul>
-          <li><strong>Puntos</strong> vienen de ArenaPro Time (`puntosCircuito`); este sitio acumula la temporada y los muestra como <strong>enteros</strong> (redondeo si Time manda fracciones por empate).</li>
+          <li><strong>Puntos</strong> vienen de ArenaPro Time (`puntosCircuito`); este sitio acumula la temporada. Se muestran como enteros o medios (`.5`), igual que AERCH; se limpia float basura de empates.</li>
           <li><strong>Dinero</strong> en MXN enteros; Team Roping se parte 50/50 Header / Heeler (provisional).</li>
           <li><strong>All-Around</strong> suma el dinero de quienes cobraron en ≥2 disciplinas (Header y Heeler cuentan aparte).</li>
           <li>La línea de corte se publicará cuando FMR la defina.</li>
@@ -70,9 +89,22 @@
       <div id="rankTable" class="panel"></div>
     </section>
 
+    <!-- COMPETIDOR: ficha -->
+    <section id="viewCompetidor" class="view" hidden>
+      <header class="page-head profile-head">
+        <button type="button" class="btn-back" id="btnBackCompetidor">← Volver</button>
+        <p class="eyebrow">Competidor</p>
+        <h1 id="compTitle">Competidor</h1>
+        <p id="compMeta" class="meta"></p>
+        <div id="compStats" class="profile-stats"></div>
+      </header>
+      <div id="compBody"></div>
+    </section>
+
     <!-- EVENTOS: índice -->
     <section id="viewEventosList" class="view" hidden>
       <header class="page-head">
+        <p class="eyebrow">Calendario</p>
         <h1>Eventos</h1>
         <p class="meta">Resultados por rodeo · elige uno para ver categorías</p>
       </header>
@@ -95,7 +127,7 @@
   </main>
 
   <footer class="footer">
-    <p>FMR Tour 2027 · ArenaPro Estadísticas · datos en <code>data/</code></p>
+    <p>FMR Tour 2027 · ArenaPro Estadísticas</p>
   </footer>
 
   <script src="js/app.js" type="module"></script>

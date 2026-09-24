@@ -67,5 +67,14 @@ describe("rebuildTemporada (smoke)", () => {
     assert.equal(uno.eventos, 1);
     assert.equal(uno.dineroTotal, 0);
     assert.equal(dos.dineroTotal, 0);
+
+    assert.ok(Array.isArray(temporada.competidores));
+    assert.equal(temporada.competidores.length, 2);
+    const rider = temporada.competidores.find((c) => c.nombre === "Rider Uno");
+    assert.ok(rider);
+    assert.equal(rider.historial.length, 1);
+    assert.equal(rider.historial[0].eventoId, "local:test-1");
+    assert.equal(rider.historial[0].puntos, 100);
+    assert.equal(rider.disciplinas[0].disciplinaId, "Barriles");
   });
 });

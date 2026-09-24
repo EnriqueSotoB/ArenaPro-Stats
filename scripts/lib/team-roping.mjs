@@ -7,7 +7,7 @@
  *   ambos roles reciben ese mismo valor hasta que exista export por rol.
  */
 import { splitMoneyMxn, toMontoEntero } from "./money.mjs";
-import { toPuntosEntero } from "./points.mjs";
+import { toPuntosCircuito } from "./points.mjs";
 
 /**
  * @param {string} discId
@@ -65,7 +65,7 @@ export function expandTeamRopingRow(row, baseDiscId) {
         ...row,
         nombre: row.nombre || row.competidorId || "—",
         rol,
-        puntosCircuito: toPuntosEntero(row.puntosCircuito),
+        puntosCircuito: toPuntosCircuito(row.puntosCircuito),
         montoGanado: toMontoEntero(row.montoGanado),
         disciplinaId: teamRopingRoleDisc(baseDiscId, rol),
       },
@@ -103,14 +103,14 @@ export function expandTeamRopingRow(row, baseDiscId) {
  * @param {string} heelerName
  */
 function expandNamedPair(row, baseDiscId, headerName, heelerName) {
-  const ptsSafe = toPuntosEntero(row.puntosCircuito);
+  const ptsSafe = toPuntosCircuito(row.puntosCircuito);
   const headerPts =
     row.puntosCircuitoHeader != null
-      ? toPuntosEntero(row.puntosCircuitoHeader)
+      ? toPuntosCircuito(row.puntosCircuitoHeader)
       : ptsSafe;
   const heelerPts =
     row.puntosCircuitoHeeler != null
-      ? toPuntosEntero(row.puntosCircuitoHeeler)
+      ? toPuntosCircuito(row.puntosCircuitoHeeler)
       : ptsSafe;
 
   const equipoMonto = toMontoEntero(

@@ -3,7 +3,7 @@
  * Módulo puro (sin Node APIs) — usable desde admin (browser) y tests/server.
  */
 
-import { toPuntosEntero } from "./points.mjs";
+import { toPuntosCircuito } from "./points.mjs";
 import { toMontoEntero } from "./money.mjs";
 
 /**
@@ -137,7 +137,7 @@ function mergeEntrada(ent, patch) {
   const next = { ...ent };
   if (patch.nombre != null) next.nombre = String(patch.nombre);
   if (patch.puntosCircuito != null && patch.puntosCircuito !== "") {
-    next.puntosCircuito = toPuntosEntero(patch.puntosCircuito);
+    next.puntosCircuito = toPuntosCircuito(patch.puntosCircuito);
   }
   if (patch.montoGanado != null && patch.montoGanado !== "") {
     next.montoGanado = toMontoEntero(patch.montoGanado);
@@ -183,9 +183,9 @@ export function listEditableFilas(evento, categoriaId, edits = null) {
       nombre: patch?.nombre != null ? String(patch.nombre) : ent.nombre || "",
       puntosCircuito:
         patch?.puntosCircuito != null
-          ? toPuntosEntero(patch.puntosCircuito)
+          ? toPuntosCircuito(patch.puntosCircuito)
           : ent.puntosCircuito != null
-            ? toPuntosEntero(ent.puntosCircuito)
+            ? toPuntosCircuito(ent.puntosCircuito)
             : null,
       montoGanado:
         patch?.montoGanado != null

@@ -1,19 +1,25 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { toPuntosEntero } from "../../scripts/lib/points.mjs";
+import { toPuntosCircuito } from "../../scripts/lib/points.mjs";
 
-describe("toPuntosEntero", () => {
-  it("normaliza a entero ≥ 0", () => {
-    assert.equal(toPuntosEntero(null), 0);
-    assert.equal(toPuntosEntero(""), 0);
-    assert.equal(toPuntosEntero(-3), 0);
-    assert.equal(toPuntosEntero("100"), 100);
+describe("toPuntosCircuito", () => {
+  it("normaliza a ≥ 0", () => {
+    assert.equal(toPuntosCircuito(null), 0);
+    assert.equal(toPuntosCircuito(""), 0);
+    assert.equal(toPuntosCircuito(-3), 0);
+    assert.equal(toPuntosCircuito("100"), 100);
   });
 
-  it("redondea fracciones de empate de Time", () => {
-    assert.equal(toPuntosEntero(22.666666666666668), 23);
-    assert.equal(toPuntosEntero(1.4545454545454546), 1);
-    assert.equal(toPuntosEntero(94.5), 95);
-    assert.equal(toPuntosEntero(18.5), 19);
+  it("conserva medios puntos como AERCH (Barriles 7.5 / 37.5)", () => {
+    assert.equal(toPuntosCircuito(7.5), 7.5);
+    assert.equal(toPuntosCircuito(37.5), 37.5);
+    assert.equal(toPuntosCircuito(94.5), 94.5);
+    assert.equal(toPuntosCircuito(18.5), 18.5);
+  });
+
+  it("limpia fracciones basura de Time al medio más cercano", () => {
+    assert.equal(toPuntosCircuito(22.666666666666668), 22.5);
+    assert.equal(toPuntosCircuito(1.4545454545454546), 1.5);
+    assert.equal(toPuntosCircuito(122.83333333333333), 123);
   });
 });
