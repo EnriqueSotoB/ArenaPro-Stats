@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Publicar — ArenaPro Stats</title>
+  <title>Publicar — ArenaPro Estadísticas</title>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/admin.css" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="ArenaPro Stats">
+    <a class="brand" href="/" aria-label="ArenaPro Estadísticas">
       <img src="assets/logo.svg" alt="" width="40" height="40" />
       <span class="brand-text">
         <span class="brand-name">ArenaPro</span>
@@ -22,7 +22,7 @@
 
   <main class="main admin-main">
     <header class="page-head">
-      <h1>Publicar evento en Stats</h1>
+      <h1>Publicar evento en Estadísticas</h1>
       <p id="statusMeta" class="meta">Cargando…</p>
     </header>
 
@@ -31,7 +31,7 @@
     <ol class="steps">
       <li class="step panel" id="step1">
         <h2 class="step-title"><span class="step-num">1</span> Cargar Time o plantilla Excel</h2>
-        <p class="meta">Arrastra el JSON de <strong>Exportar para Stats…</strong> o la plantilla Excel manual. <button type="button" class="link-like" id="btnDownloadPlantilla">Descargar plantilla Excel</button></p>
+        <p class="meta">Arrastra el JSON de <strong>Exportar para Stats…</strong> (Time) o la plantilla Excel manual. <button type="button" class="link-like" id="btnDownloadPlantilla">Descargar plantilla Excel</button></p>
         <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Zona para soltar archivo JSON o Excel">
           <p class="dropzone-label">Suelta el archivo aquí</p>
           <p class="dropzone-sub">JSON de Time · Excel manual (.xlsx)</p>
@@ -55,7 +55,7 @@
         <div id="warningsBox" class="warnings-box" hidden></div>
 
         <div id="cherryPick" class="cherry-pick" hidden>
-          <p class="preview-label">Categorías a incluir (cherry-pick)</p>
+          <p class="preview-label">Categorías a incluir (elegir)</p>
           <div id="cherryPickList" class="cherry-pick-list"></div>
         </div>
 
@@ -84,9 +84,9 @@
       </li>
 
       <li class="step panel" id="step3">
-        <h2 class="step-title"><span class="step-num">3</span> Agregar a Stats</h2>
+        <h2 class="step-title"><span class="step-num">3</span> Agregar a Estadísticas</h2>
         <p class="meta">Guarda el evento, actualiza el manifest y regenera la tabla de temporada.</p>
-        <button type="button" class="btn-primary" id="btnIngest" disabled>Agregar a Stats</button>
+        <button type="button" class="btn-primary" id="btnIngest" disabled>Agregar a Estadísticas</button>
       </li>
 
       <li class="step panel" id="step4">

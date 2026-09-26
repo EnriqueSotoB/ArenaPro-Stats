@@ -27,7 +27,7 @@ describe("parseTeamRopingPair", () => {
 });
 
 describe("teamRopingRoleDisc", () => {
-  it("mapea abierta y masters a Header/Heeler", () => {
+  it("mapea abierta y masters a Cabecero/Pialador", () => {
     assert.equal(teamRopingRoleDisc("TeamRoping", "header"), "TeamRopingHeader");
     assert.equal(teamRopingRoleDisc("TeamRoping", "heeler"), "TeamRopingHeeler");
     assert.equal(

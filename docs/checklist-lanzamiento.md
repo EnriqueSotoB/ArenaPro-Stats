@@ -9,10 +9,10 @@ Completar **antes** del PR `develop` → `main`.
 - [x] Título y copy: **FMR Tour 2027** (cero “demo” / “Circuito demo”)
 - [x] Puntos visibles por disciplina
 - [x] Dinero MXN enteros visible por disciplina
-- [x] Team Roping: tablas **Headers** y **Heelers** (y Masters si aplica)
-- [x] All-Around temporada: solo 2+ disciplinas **con dinero**
+- [x] Lazo por Parejas: tablas **Cabeceros** y **Pialadores** (y Master si aplica)
+- [x] Vaquero Completo temporada: solo 2+ disciplinas **con dinero**
 - [x] Metodología pública (texto corto)
-- [x] Cut line: oculto (`cutLineVisible: false`) hasta número oficial FMR
+- [x] Línea de corte: oculta (`cutLineVisible: false`) hasta número oficial FMR
 
 ## Datos
 
@@ -20,7 +20,7 @@ Completar **antes** del PR `develop` → `main`.
 - [x] Al menos 1 evento con `montoGanado` real (p. ej. Truckmania manual + exports Time)
 - [ ] Spot-check: 3 atletas — suma de $ en eventos = `dineroTotal` *(humano / circuito)*
 - [ ] Spot-check TR: puntos no partidos; dinero según regla vigente *(humano / circuito)*
-- [ ] Spot-check All-Around: un caso que debe entrar y uno que no *(humano / circuito)*
+- [ ] Spot-check Vaquero Completo: un caso que debe entrar y uno que no *(humano / circuito)*
 - [x] `temporada.json` regenerado por script (no editado a mano)
 
 ## Ingeniería

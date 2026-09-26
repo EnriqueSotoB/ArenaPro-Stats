@@ -1,5 +1,5 @@
 /**
- * ArenaPro Stats — temporada / ranking / eventos / ficha competidor.
+ * ArenaPro Estadísticas — temporada / clasificación / eventos / ficha competidor.
  * Tokens: docs/design/DESIGN_TOKENS.md (TimeManagement).
  */
 
@@ -395,7 +395,7 @@ function renderAllAroundHub() {
   if (!rows.length) {
     els.allAroundPanel.hidden = false;
     els.allAroundPanel.classList.add("is-empty");
-    els.allAroundList.innerHTML = `<p class="empty-state">Aún nadie califica: hace falta dinero en 2+ disciplinas. Cuando los eventos traigan montos, el All-Around aparece aquí.</p>`;
+    els.allAroundList.innerHTML = `<p class="empty-state">Aún nadie califica: hace falta dinero en 2+ disciplinas. Cuando los eventos traigan montos, el Vaquero Completo aparece aquí.</p>`;
     return;
   }
 
@@ -421,7 +421,7 @@ function renderAllAroundHub() {
   els.allAroundList.innerHTML = `
     <ol class="cat-card-list">${list}</ol>
     ${discNote}
-    <button type="button" class="cat-card-cta all-around-cta" id="btnAllAround">Ver ranking All-Around →</button>
+    <button type="button" class="cat-card-cta all-around-cta" id="btnAllAround">Ver clasificación Vaquero Completo →</button>
   `;
   els.allAroundList.querySelector("#btnAllAround")?.addEventListener("click", () =>
     navigate("temporada", ALL_AROUND_ID)
@@ -433,7 +433,7 @@ function renderAllAroundHub() {
 function renderAllAroundRanking() {
   const rows = temporada?.allAround || [];
   if (els.rankMetricPuntos) els.rankMetricPuntos.parentElement.hidden = true;
-  els.rankTitle.textContent = "All-Around Cowboy";
+  els.rankTitle.textContent = "Vaquero Completo";
   els.rankMeta.textContent = [
     temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
     `${rows.length} clasificados`,
@@ -444,7 +444,7 @@ function renderAllAroundRanking() {
 
   if (!rows.length) {
     els.rankPodium.innerHTML = "";
-    els.rankTable.innerHTML = `<p class="empty-state">Nadie califica aún al All-Around (se requiere dinero en 2+ disciplinas). Completa montos en Time o Excel y vuelve a publicar.</p>`;
+    els.rankTable.innerHTML = `<p class="empty-state">Nadie califica aún a Vaquero Completo (se requiere dinero en 2+ disciplinas). Completa montos en Time o Excel y vuelve a publicar.</p>`;
     return;
   }
 
@@ -486,7 +486,7 @@ function renderAllAroundRanking() {
         <tbody>${body}</tbody>
       </table>
     </div>
-    <p class="cut-note">All-Around de temporada: suma del dinero ganado solo en disciplinas con cobro. Header y Heeler cuentan como disciplinas distintas.</p>`;
+    <p class="cut-note">Vaquero Completo de temporada: suma del dinero ganado solo en disciplinas con cobro. Cabecero y Pialador cuentan como disciplinas distintas.</p>`;
 }
 
 function renderTemporadaRanking(catId) {
@@ -505,7 +505,7 @@ function renderTemporadaRanking(catId) {
   );
 
   if (!rows.length) {
-    els.rankTitle.textContent = "Ranking";
+    els.rankTitle.textContent = "Clasificación";
     els.rankMeta.textContent = "Disciplina no encontrada";
     els.rankPodium.innerHTML = "";
     els.rankTable.innerHTML = `<p class="empty-state">No hay datos para esta disciplina.</p>`;

@@ -1,10 +1,12 @@
 /**
- * Team Roping → filas Header / Heeler.
+ * Lazo por Parejas → filas Cabecero / Pialador.
  *
- * Regla provisional (docs/00-decisiones-producto.md):
- * - Dinero del dúo: 50/50 (splitMoneyMxn).
+ * Regla confirmada (docs/00-decisiones-producto.md):
+ * - Dinero del dúo: 50/50 cabecero / pialador (splitMoneyMxn).
  * - Puntos: NO se parten; si Time manda un solo puntosCircuito del equipo,
  *   ambos roles reciben ese mismo valor hasta que exista export por rol.
+ *
+ * Roles internos `header`/`heeler` = cabecero / pialador (IDs Time estables).
  */
 import { splitMoneyMxn, toMontoEntero } from "./money.mjs";
 import { toPuntosCircuito } from "./points.mjs";

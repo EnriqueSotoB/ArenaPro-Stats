@@ -92,8 +92,8 @@ tipo: descripción corta en imperativo / presente
 
 ```
 feat: sumar dineroTotal en rebuild de temporada
-test: cubrir split 50/50 de Team Roping con monto impar
-fix: no dividir puntosCircuito en headers y heelers
+test: cubrir split 50/50 de Lazo por Parejas con monto impar
+fix: no dividir puntosCircuito en cabeceros y pialadores
 docs: cerrar regla All-Around 2+ con dinero en ambas
 chore: agregar script npm test con node --test
 ```
