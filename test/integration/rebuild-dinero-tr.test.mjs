@@ -137,7 +137,7 @@ describe("rebuildTemporada team roping", () => {
     if (root) rmSync(root, { recursive: true, force: true });
   });
 
-  it("genera Headers/Heelers, no parte puntos y parte dinero", () => {
+  it("genera Cabeceros/Pialadores, no parte puntos y parte dinero", () => {
     rebuildTemporada(root);
     const temporada = JSON.parse(
       readFileSync(join(root, "data", "temporada.json"), "utf8")

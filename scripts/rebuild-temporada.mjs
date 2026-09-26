@@ -4,9 +4,9 @@
  *
  * Unificación (el nombre de categoría en Time puede variar):
  *   "Barriles" / "Abierta" / "Barriles Abierto" / "Abierta Barriles" → Barriles
- *   "Master" / "Masters" / "Master Barriles" (tipo Barriles)         → Barriles Masters
- *   "TeamRoping" / "Abierta" (tipo TeamRoping)                      → Team Roping
- *   "Masters" / "Team Roping Masters"                               → Team Roping Masters
+ *   "Master" / "Masters" / "Master Barriles" (tipo Barriles)         → Barriles Master
+ *   "TeamRoping" / "Abierta" / "Lazo por Parejas"                   → Lazo por Parejas
+ *   "Masters" / "Lazo por Parejas Master" / "Team Roping Masters"   → Lazo por Parejas Master
  *
  * No usar categoriaId local:{n}: cambia en cada competencia.
  */
@@ -35,17 +35,17 @@ const defaultRoot = join(scriptDir, "..");
 /** Etiquetas de circuito (alineadas a Time / FMR). */
 const DISCIPLINA_LABEL = {
   Barriles: "Barriles",
-  BarrilesMasters: "Barriles Masters",
+  BarrilesMasters: "Barriles Master",
   LazoDeBecerro: "Lazo de Becerro",
   LazoEnFalso: "Lazo en Falso",
   AchatadaDeNovillos: "Achatada de Novillos",
   AmarreDeChiva: "Amarre de Chiva",
-  TeamRoping: "Team Roping",
-  TeamRopingMasters: "Team Roping Masters",
-  TeamRopingHeader: "Team Roping — Headers",
-  TeamRopingHeeler: "Team Roping — Heelers",
-  TeamRopingMastersHeader: "Team Roping Masters — Headers",
-  TeamRopingMastersHeeler: "Team Roping Masters — Heelers",
+  TeamRoping: "Lazo por Parejas",
+  TeamRopingMasters: "Lazo por Parejas Master",
+  TeamRopingHeader: "Lazo por Parejas — Cabeceros",
+  TeamRopingHeeler: "Lazo por Parejas — Pialadores",
+  TeamRopingMastersHeader: "Lazo por Parejas Master — Cabeceros",
+  TeamRopingMastersHeeler: "Lazo por Parejas Master — Pialadores",
   CaballoConPretal: "Caballo con Pretal",
   CaballoConMontura: "Caballo con Montura",
   JineteosDeToros: "Jineteos de Toros",
@@ -63,7 +63,7 @@ function normalizeText(s) {
 
 function inferTipoFromNombre(nom) {
   if (/barril/.test(nom)) return "Barriles";
-  if (/team\s*roping|teamroping/.test(nom)) return "TeamRoping";
+  if (/lazo por pareja|team\s*roping|teamroping/.test(nom)) return "TeamRoping";
   if (/lazo de becerro|becerro/.test(nom)) return "LazoDeBecerro";
   if (/lazo en falso/.test(nom)) return "LazoEnFalso";
   if (/achatada/.test(nom)) return "AchatadaDeNovillos";

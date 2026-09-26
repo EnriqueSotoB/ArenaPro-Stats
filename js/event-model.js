@@ -40,7 +40,7 @@ export function categoriesWithResults(evento) {
 }
 
 /**
- * Ranking del evento: preferir `clasificacion[]` de Time (Final).
+ * Clasificación del evento: preferir `clasificacion[]` de Time (Final).
  * Solo si falta (JSON viejo) se arma un fallback desde filas de resultados.
  */
 export function buildEventoRanking(evento, cat) {

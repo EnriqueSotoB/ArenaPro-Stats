@@ -60,19 +60,21 @@ Pedir a Time (o completar en admin si Time aún no):
 | `montoGanado` | number (entero ≥ 0) | Sí para dinero | MXN sin decimales |
 | `moneda` | string | No | Default `"MXN"` |
 
-### Team Roping — ideal (Time)
+### Lazo por Parejas — ideal (Time)
+
+Nombre oficial FMR: **Lazo por Parejas** (cabecero / pialador). Campos del contrato Time siguen en inglés por compatibilidad.
 
 | Campo | Tipo | Notas |
 |-------|------|-------|
-| `rol` | `"header"` \| `"heeler"` | Si ya vienen filas separadas |
-| `headerNombre` / `heelerNombre` | string | Si viene el dúo junto |
+| `rol` | `"header"` \| `"heeler"` | cabecero / pialador; si ya vienen filas separadas |
+| `headerNombre` / `heelerNombre` | string | cabecero / pialador; si viene el dúo junto |
 | `montoEquipo` | number | Total a partir 50/50 |
 | `puntosCircuito` | number | **Por persona/rol, no split** |
 
-Si Time manda un solo renglón `"HEADER / HEELER"` + `montoGanado` del equipo:
+Si Time manda un solo renglón `"CABECERO / PIALADOR"` + `montoGanado` del equipo:
 
 1. Stats parte nombres.
-2. Dinero → 50/50 (constante configurable).
+2. Dinero → 50/50 cabecero / pialador (**confirmado**).
 3. Puntos → **duplicar el valor de Time a ambos roles** *solo si* Time no manda puntos por rol; si manda por rol, respetar. **Nunca dividir puntos.**
 
 ---
@@ -124,7 +126,7 @@ Reglas:
 }
 ```
 
-`competitorKey` resuelve `from` → `to` antes de agregar a standings / All-Around.
+`competitorKey` resuelve `from` → `to` antes de agregar a standings / Vaquero Completo.
 
 ---
 
@@ -198,7 +200,7 @@ Mantener alineación con Time / FMR. Claves conocidas hoy:
 
 - Barriles, BarrilesMasters  
 - LazoDeBecerro, LazoEnFalso, AchatadaDeNovillos, AmarreDeChiva  
-- TeamRoping → se **parte** en Header / Heeler (+ Masters)  
+- TeamRoping → se **parte** en Cabecero / Pialador (+ Master); etiquetas UI: Lazo por Parejas — Cabeceros / Pialadores  
 - CaballoConPretal, CaballoConMontura, JineteosDeToros, Polos  
 
 **Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)`.

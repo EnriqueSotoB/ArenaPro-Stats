@@ -28,7 +28,7 @@ describe("fmtMxn", () => {
 });
 
 describe("splitMoneyMxn", () => {
-  it("usa split 50/50 provisional", () => {
+  it("usa split 50/50 confirmado cabecero/pialador", () => {
     assert.equal(TEAM_ROPING_MONEY_SPLIT, 0.5);
   });
 

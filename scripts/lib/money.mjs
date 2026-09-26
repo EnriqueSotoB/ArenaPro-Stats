@@ -1,9 +1,9 @@
 /**
- * Dinero MXN entero. Split TR provisional — ver docs/00-decisiones-producto.md.
- * Si organizadores cambian la regla, ajustar TEAM_ROPING_MONEY_SPLIT / splitMoneyMxn.
+ * Dinero MXN entero. Split Lazo por Parejas — ver docs/00-decisiones-producto.md.
+ * Confirmado 50/50 cabecero / pialador. Si cambia la regla, ajustar TEAM_ROPING_MONEY_SPLIT / splitMoneyMxn.
  */
 
-/** Proporción al header (heeler recibe el resto). Provisional 50/50. */
+/** Proporción al cabecero (pialador recibe el resto). Confirmado 50/50. */
 export const TEAM_ROPING_MONEY_SPLIT = 0.5;
 
 /**
@@ -18,8 +18,9 @@ export function toMontoEntero(value) {
 }
 
 /**
- * Parte un monto de equipo en header/heeler (enteros que suman `total`).
- * Con monto impar: piso al header, resto al heeler (ej. 10001 → 5000 / 5001).
+ * Parte un monto de equipo en cabecero/pialador (enteros que suman `total`).
+ * Con monto impar: piso al cabecero, resto al pialador (ej. 10001 → 5000 / 5001).
+ * Claves `header`/`heeler` = cabecero/pialador (contrato interno / Time).
  * @param {unknown} total
  * @returns {{ header: number, heeler: number }}
  */

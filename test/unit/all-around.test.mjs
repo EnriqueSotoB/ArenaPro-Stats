@@ -56,20 +56,20 @@ describe("buildAllAround", () => {
     ]);
   });
 
-  it("trata Header y Heeler como disciplinas distintas", () => {
+  it("trata Cabecero y Pialador como disciplinas distintas", () => {
     const allAround = buildAllAround([
       {
         competidorKey: "name:tr",
         nombre: "TR Rider",
         disciplinaId: "TeamRopingHeader",
-        disciplinaNombre: "Team Roping — Headers",
+        disciplinaNombre: "Lazo por Parejas — Cabeceros",
         dineroTotal: 5000,
       },
       {
         competidorKey: "name:tr",
         nombre: "TR Rider",
         disciplinaId: "TeamRopingHeeler",
-        disciplinaNombre: "Team Roping — Heelers",
+        disciplinaNombre: "Lazo por Parejas — Pialadores",
         dineroTotal: 4000,
       },
     ]);

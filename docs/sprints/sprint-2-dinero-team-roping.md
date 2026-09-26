@@ -23,7 +23,7 @@
 
 Ver `docs/00-decisiones-producto.md`:
 
-- Dinero TR 50/50 **provisional** (`TEAM_ROPING_MONEY_SPLIT`).
+- Dinero LP 50/50 **confirmado** cabecero/pialador (`TEAM_ROPING_MONEY_SPLIT`).
 - Puntos: copiar/asignar por rol según Time; **nunca** `puntos/2`.
 
 ---
@@ -92,8 +92,8 @@ Decision doc says: points are NOT split 50/50 - use what Time assigns per role. 
 
 Actualizar `DISCIPLINA_LABEL`:
 
-- `TeamRopingHeader` → `"Team Roping — Headers"`
-- `TeamRopingHeeler` → `"Team Roping — Heelers"`
+- `TeamRopingHeader` → `"Lazo por Parejas — Cabeceros"`
+- `TeamRopingHeeler` → `"Lazo por Parejas — Pialadores"`
 - (Masters análogos)
 
 **Commit:** `feat: etiquetas de headers y heelers en disciplinas`

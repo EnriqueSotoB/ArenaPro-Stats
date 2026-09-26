@@ -1,6 +1,6 @@
-# ArenaPro Stats — Plan FMR Tour 2027
+# ArenaPro Estadísticas — Plan FMR Tour 2027
 
-Documentación operativa para construir la página oficial de estadísticas del **FMR Tour 2027**: puntos de circuito, dinero ganado (MXN) y **All-Around Cowboy** de temporada.
+Documentación operativa para construir la página oficial de estadísticas del **FMR Tour 2027**: puntos de circuito, dinero ganado (MXN) y **Vaquero Completo** de temporada.
 
 Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branches por sprint, commits pequeños en español y una suite de tests que crece en cada entrega.
 
@@ -25,9 +25,9 @@ Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branc
 |--------|-----------------|----------|------|
 | **0** Fundación | `sprint/0-fundacion` | Tooling, tests base, ramas, branding prep, quitar “demo” | [sprint-0](./sprints/sprint-0-fundacion.md) |
 | **1** Contratos e identidad | `sprint/1-contratos-identidad` | Schema dinero, aliases `local:*`, cut line preparado (oculto) | [sprint-1](./sprints/sprint-1-contratos-identidad.md) |
-| **2** Dinero + Team Roping | `sprint/2-dinero-team-roping` | Rebuild con `$`, Headers/Heelers, puntos sin split | [sprint-2](./sprints/sprint-2-dinero-team-roping.md) |
+| **2** Dinero + Lazo por Parejas | `sprint/2-dinero-team-roping` | Rebuild con `$`, Cabeceros/Pialadores, puntos sin split | [sprint-2](./sprints/sprint-2-dinero-team-roping.md) |
 | **3** Admin semi-auto | `sprint/3-admin-semi-auto` | Preview + cherry-pick + ediciones (`statsEdits`) | [sprint-3](./sprints/sprint-3-admin-semi-auto.md) |
-| **4** UI + All-Around + QA | `sprint/4-ui-all-around-qa` | Público FMR, All-Around temporada, release | [sprint-4](./sprints/sprint-4-ui-all-around-qa.md) |
+| **4** UI + Vaquero Completo + QA | `sprint/4-ui-all-around-qa` | Público FMR, Vaquero Completo temporada, release | [sprint-4](./sprints/sprint-4-ui-all-around-qa.md) |
 
 **Orden obligatorio:** 0 → 1 → 2 → 3 → 4. No adelantar UI de dinero sin rebuild + fixtures de test.
 
@@ -37,11 +37,11 @@ Este plan asume **~4 semanas** de trabajo profesional, con sprints cortos, branc
 
 | Capacidad | Estado |
 |-----------|--------|
-| Ranking puntos / dinero temporada | Listo |
+| Clasificación puntos / dinero temporada | Listo |
 | Detalle por evento + $ | Listo |
 | Admin local + publish GitHub Pages | Listo |
-| Headers / Heelers (+ Masters) | Listo |
-| All-Around temporada (2+ con $) | Listo |
+| Cabeceros / Pialadores (+ Master) | Listo |
+| Vaquero Completo temporada (2+ con $) | Listo |
 | Evento manual (Excel) | Listo |
 | Suite de tests + CI | Listo |
 | Branding FMR Tour 2027 | Listo |

@@ -113,7 +113,7 @@ describe("excel-evento", () => {
     barriles.getCell(9, 7).value = 60; // = NT
 
     // TR: B lugar, C cabecero, D pialador, F pts, G dinero, H r1
-    const tr = wb.getWorksheet("Team Roping");
+    const tr = wb.getWorksheet("Lazo por Parejas");
     tr.getCell(7, 2).value = 1;
     tr.getCell(7, 3).value = "Alpha";
     tr.getCell(7, 4).value = "Beta";
@@ -195,7 +195,7 @@ describe("excel-evento", () => {
     const ev = wb.getWorksheet("Evento");
     ev.getCell(3, 3).value = "Solo TR";
     ev.getCell(4, 3).value = "2027-05-01";
-    const tr = wb.getWorksheet("Team Roping");
+    const tr = wb.getWorksheet("Lazo por Parejas");
     // limpia ejemplo (fila 7) y pone dúo sin lugar/tiempos/pts
     for (let c = 2; c <= 12; c++) tr.getCell(7, c).value = null;
     tr.getCell(8, 3).value = "Juan";

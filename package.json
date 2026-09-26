@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Estadísticas públicas FMR Tour / ArenaPro Stats",
+  "description": "Estadísticas públicas FMR Tour / ArenaPro Estadísticas",
   "scripts": {
     "test": "node scripts/run-tests.mjs",
     "rebuild": "node scripts/rebuild-temporada.mjs",

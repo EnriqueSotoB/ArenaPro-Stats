@@ -7,18 +7,29 @@ import { toMontoEntero } from "./money.mjs";
 import { toPuntosCircuito } from "./points.mjs";
 
 /**
- * @type {Array<{ sheet: string, tipo: string, defaultRondas: number }>}
- * Team Roping: 2 hojas (abierta / masters) → rebuild parte a Header + Heeler (= 4 tablas).
+ * @type {Array<{ sheet: string, tipo: string, defaultRondas: number, aliases?: string[] }>}
+ * Lazo por Parejas: 2 hojas (abierta / masters) → rebuild parte a Cabecero + Pialador (= 4 tablas).
+ * `aliases` acepta nombres viejos de pestaña (p. ej. "Team Roping") al leer Excel existentes.
  */
 export const DISCIPLINA_SHEETS = [
   { sheet: "Barriles", tipo: "Barriles", defaultRondas: 2 },
-  { sheet: "Barriles Masters", tipo: "BarrilesMasters", defaultRondas: 2 },
+  { sheet: "Barriles Master", tipo: "BarrilesMasters", defaultRondas: 2, aliases: ["Barriles Masters"] },
   { sheet: "Lazo de Becerro", tipo: "LazoDeBecerro", defaultRondas: 2 },
   { sheet: "Lazo en Falso", tipo: "LazoEnFalso", defaultRondas: 2 },
   { sheet: "Achatada de Novillos", tipo: "AchatadaDeNovillos", defaultRondas: 2 },
   { sheet: "Amarre de Chiva", tipo: "AmarreDeChiva", defaultRondas: 2 },
-  { sheet: "Team Roping", tipo: "TeamRoping", defaultRondas: 2 },
-  { sheet: "Team Roping Masters", tipo: "TeamRopingMasters", defaultRondas: 2 },
+  {
+    sheet: "Lazo por Parejas",
+    tipo: "TeamRoping",
+    defaultRondas: 2,
+    aliases: ["Team Roping"],
+  },
+  {
+    sheet: "Lazo por Parejas Master",
+    tipo: "TeamRopingMasters",
+    defaultRondas: 2,
+    aliases: ["Team Roping Masters", "Lazo por Parejas Masters"],
+  },
   { sheet: "Caballo con Pretal", tipo: "CaballoConPretal", defaultRondas: 1 },
   { sheet: "Caballo con Montura", tipo: "CaballoConMontura", defaultRondas: 1 },
   { sheet: "Jineteos de Toros", tipo: "JineteosDeToros", defaultRondas: 1 },
@@ -97,7 +108,9 @@ export function eventoFromWorkbook(workbook) {
   let catIndex = 0;
 
   for (const def of DISCIPLINA_SHEETS) {
-    const ws = workbook.getWorksheet(def.sheet);
+    const ws =
+      workbook.getWorksheet(def.sheet) ||
+      (def.aliases || []).map((a) => workbook.getWorksheet(a)).find(Boolean);
     if (!ws) continue;
     const parsed = parseDisciplinaSheet(ws, def, catIndex);
     if (!parsed) continue;
@@ -137,7 +150,7 @@ export function eventoFromWorkbook(workbook) {
 
 export async function buildPlantillaWorkbook() {
   const wb = new ExcelJS.Workbook();
-  wb.creator = "ArenaPro Stats";
+  wb.creator = "ArenaPro Estadísticas";
   wb.created = new Date();
   addComoLlenarSheet(wb);
   addEventoSheet(wb);
@@ -212,7 +225,7 @@ function parseDisciplinaSheet(ws, def, catIndex) {
     let nombre = h.nombre ? cellText(row.getCell(h.nombre)) : "";
 
     if (kind === "teamRoping") {
-      // Una fila = dúo; rebuild parte a Header + Heeler.
+      // Una fila = dúo; rebuild parte a Cabecero + Pialador.
       if (cabecero && pialador) {
         nombre = `${cabecero} / ${pialador}`;
       } else if (cabecero && cabecero.includes("/")) {
@@ -403,7 +416,7 @@ function addComoLlenarSheet(wb) {
   ws.getColumn(2).width = 32;
   ws.getColumn(3).width = 78;
 
-  mergeBanner(ws, "B1:C1", "ArenaPro Stats · Plantilla manual FMR Tour", FOREST);
+  mergeBanner(ws, "B1:C1", "ArenaPro Estadísticas · Plantilla manual FMR Tour", FOREST);
   ws.getRow(1).height = 30;
 
   ws.getCell("B3").value = "¿Para qué sirve?";
@@ -425,19 +438,19 @@ function addComoLlenarSheet(wb) {
     ],
     [
       "4. Columnas según disciplina",
-      "Tiempos: Ronda 1–3 + Total. Jineteos/Montura/Pretal: solo Calificación. Team Roping: Cabecero + Pialador (sin Rol).",
+      "Tiempos: Ronda 1–3 + Total. Jineteos/Montura/Pretal: solo Calificación. Lazo por Parejas: Cabecero + Pialador (sin Rol).",
     ],
     [
       "5. NT / NP en tiempos",
       "En rondas: NT, NP, o 60 (= NT). En Achatada: 120 (= NT).",
     ],
     [
-      "6. Team Roping",
-      "Solo 2 hojas (Abierta y Masters). Una fila = Cabecero + Pialador (columnas distintas). Ronda 1 está en la columna H (no en G: ahí va el dinero). Stats parte cada dúo a Headers y Heelers.",
+      "6. Lazo por Parejas",
+      "Solo 2 hojas (Abierta y Master). Una fila = Cabecero + Pialador (columnas distintas). Ronda 1 está en la columna H (no en G: ahí va el dinero). Estadísticas parte cada dúo a Cabeceros y Pialadores (dinero 50/50).",
     ],
     [
       "7. Publicar",
-      "Guarda el .xlsx → publicar.bat → admin → suelta el archivo → preview → Agregar a Stats → Publicar.",
+      "Guarda el .xlsx → publicar.bat → admin → suelta el archivo → preview → Agregar a Estadísticas → Publicar.",
     ],
   ];
   steps.forEach(([title, body], i) => {
@@ -593,7 +606,7 @@ function tipForKind(kind, tipo) {
     return "Lugar = puesto final. Sin lugar = no clasificó. Usa Calificación (pts); puedes poner NT/NP ahí si aplica.";
   }
   if (kind === "teamRoping") {
-    return `Lugar = puesto final. Cabecero + Pialador por fila (Stats parte Header/Heeler). Rondas: NT/NP o ${ntEq}=NT. Sin lugar = no clasificó.`;
+    return `Lugar = puesto final. Cabecero + Pialador por fila (parte Cabecero/Pialador). Rondas: NT/NP o ${ntEq}=NT. Sin lugar = no clasificó.`;
   }
   return `Lugar = puesto final (no orden de salida). Rondas: NT, NP o ${ntEq}=NT. Sin lugar = no clasificó.`;
 }

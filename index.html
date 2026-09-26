@@ -58,14 +58,14 @@
         <p class="eyebrow">Circuito</p>
         <h1 id="tempTitle">Temporada</h1>
         <p id="tempMeta" class="meta"></p>
-        <div class="metric-toggle" role="group" aria-label="Métrica de ranking">
+        <div class="metric-toggle" role="group" aria-label="Métrica de clasificación">
           <button type="button" class="metric-btn is-active" data-metric="puntos" id="hubMetricPuntos">Puntos</button>
           <button type="button" class="metric-btn" data-metric="dinero" id="hubMetricDinero">Dinero</button>
         </div>
       </header>
       <section id="allAroundPanel" class="all-around panel" aria-labelledby="allAroundTitle" hidden>
         <div class="all-around-head">
-          <h2 id="allAroundTitle">All-Around Cowboy</h2>
+          <h2 id="allAroundTitle">Vaquero Completo</h2>
           <p class="meta">Dinero ganado en 2 o más disciplinas</p>
         </div>
         <div id="allAroundList"></div>
@@ -75,20 +75,20 @@
         <h2>Cómo se calcula</h2>
         <ul>
           <li><strong>Puntos</strong> vienen de ArenaPro Time (`puntosCircuito`); este sitio acumula la temporada. Se muestran como enteros o medios (`.5`), igual que AERCH; se limpia float basura de empates.</li>
-          <li><strong>Dinero</strong> en MXN enteros; Team Roping se parte 50/50 Header / Heeler (provisional).</li>
-          <li><strong>All-Around</strong> suma el dinero de quienes cobraron en ≥2 disciplinas (Header y Heeler cuentan aparte).</li>
+          <li><strong>Dinero</strong> en MXN enteros; Lazo por Parejas se parte 50/50 Cabecero / Pialador.</li>
+          <li><strong>Vaquero Completo</strong> suma el dinero de quienes cobraron en ≥2 disciplinas (Cabecero y Pialador cuentan aparte).</li>
           <li>La línea de corte se publicará cuando FMR la defina.</li>
         </ul>
       </aside>
     </section>
 
-    <!-- TEMPORADA: ranking completo de una categoría -->
+    <!-- TEMPORADA: clasificación completa de una categoría -->
     <section id="viewTemporadaRanking" class="view" hidden>
       <header class="page-head">
         <button type="button" class="btn-back" id="btnBackTemporada">← Temporada</button>
-        <h1 id="rankTitle">Ranking</h1>
+        <h1 id="rankTitle">Clasificación</h1>
         <p id="rankMeta" class="meta"></p>
-        <div class="metric-toggle" role="group" aria-label="Métrica de ranking">
+        <div class="metric-toggle" role="group" aria-label="Métrica de clasificación">
           <button type="button" class="metric-btn is-active" data-metric="puntos" id="rankMetricPuntos">Puntos</button>
           <button type="button" class="metric-btn" data-metric="dinero" id="rankMetricDinero">Dinero</button>
         </div>
