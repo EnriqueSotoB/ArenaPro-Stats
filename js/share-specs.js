@@ -144,7 +144,7 @@ export function shareCaption(spec) {
     .slice(0, 3)
     .map((f) => `${f.lugar}. ${f.nombre} · ${f.valor}`)
     .join("\n");
-  const encabezado = [spec.titulo, spec.linea].filter(Boolean).join(" — ");
+  const encabezado = [spec.titulo, spec.linea].filter(Boolean).join(" · ");
   return [
     [encabezado, spec.subtitulo].filter(Boolean).join("\n"),
     top,

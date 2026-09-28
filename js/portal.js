@@ -347,15 +347,14 @@ function renderTablero() {
     return;
   }
 
-  els.chartEventos.innerHTML = `<div class="solo-ancho">${columnasSvg(t.porEvento)}</div>
-    <div class="solo-movil">${barrasHtml(
-      t.porEvento.map((e) => ({
-        label: e.nombre,
-        sub: `${fmtFecha(e.fecha)} · ${fmtNum(e.competidores)} competidores`,
-        value: e.participaciones,
-        text: fmtNum(e.participaciones),
-      }))
-    )}</div>`;
+  els.chartEventos.innerHTML = barrasHtml(
+    t.porEvento.map((e) => ({
+      label: e.nombre,
+      sub: [fmtFecha(e.fecha), `${fmtNum(e.participaciones)} inscripciones`].filter(Boolean).join(" · "),
+      value: e.competidores,
+      text: fmtNum(e.competidores),
+    }))
+  );
   els.chartDisciplinas.innerHTML = barrasHtml(
     t.porDisciplina.map((d) => ({ label: d.nombre, value: d.competidores, text: fmtNum(d.competidores) }))
   );
@@ -388,47 +387,6 @@ function renderTablero() {
     ]),
     [true, false, true, true, true, true]
   );
-}
-
-function recortar(s, n) {
-  const t = String(s || "");
-  return t.length > n ? `${t.slice(0, n - 1)}…` : t;
-}
-
-/** Columnas por evento (orden cronológico): inscripciones y, encima, competidores distintos. */
-function columnasSvg(eventos) {
-  const W = 720;
-  const H = 280;
-  const top = 28;
-  const bottom = 58;
-  const left = 8;
-  const plotH = H - top - bottom;
-  const max = Math.max(1, ...eventos.map((e) => e.participaciones));
-  const slot = (W - left * 2) / eventos.length;
-  const barW = Math.min(64, slot * 0.6);
-  const maxChars = Math.max(6, Math.floor(slot / 8));
-  const cols = eventos
-    .map((e, i) => {
-      const cx = left + slot * i + slot / 2;
-      const h = (e.participaciones / max) * plotH;
-      const hc = (e.competidores / max) * plotH;
-      const y = top + plotH - h;
-      const yc = top + plotH - hc;
-      return `<g>
-        <title>${escapeHtml(`${e.nombre} · ${e.participaciones} inscripciones · ${e.competidores} competidores`)}</title>
-        <rect x="${cx - barW / 2}" y="${y}" width="${barW}" height="${Math.max(h, 1)}" rx="6" class="col-bar" />
-        <rect x="${cx - barW / 2 + barW * 0.2}" y="${yc}" width="${barW * 0.6}" height="${Math.max(hc, 1)}" rx="4" class="col-bar-2" />
-        <text x="${cx}" y="${y - 8}" class="col-value">${e.participaciones}</text>
-        <text x="${cx}" y="${H - bottom + 20}" class="col-label">${escapeHtml(recortar(e.nombre, maxChars))}</text>
-        <text x="${cx}" y="${H - bottom + 38}" class="col-sub">${escapeHtml(fmtFecha(e.fecha))}</text>
-      </g>`;
-    })
-    .join("");
-  return `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Participación por evento">
-      <line x1="0" x2="${W}" y1="${top + plotH}" y2="${top + plotH}" class="col-axis" />
-      ${cols}
-    </svg>
-    <p class="chart-legend"><span class="legend-dot is-bar"></span>Inscripciones <span class="legend-dot is-bar-2"></span>Competidores distintos</p>`;
 }
 
 function barrasHtml(items) {

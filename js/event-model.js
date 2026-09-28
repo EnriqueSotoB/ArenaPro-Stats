@@ -30,13 +30,72 @@ export function categoriesWithResults(evento) {
   return ids.map((id) => {
     const c = catMap[id];
     const block = (evento.clasificacion || []).find((x) => (x.categoriaId || "_") === id);
+    const nombreCategoria = c?.nombre || block?.nombre || (id === "_" ? "Sin categoría" : id);
+    const tipo = c?.tipo || block?.tipo || "";
     return {
       id,
-      nombre: c?.nombre || block?.nombre || (id === "_" ? "Sin categoría" : id),
-      tipo: c?.tipo || block?.tipo || "",
+      nombre: categoriaEtiqueta(nombreCategoria, tipo),
+      nombreCategoria,
+      tipo,
       numeroRondas: c?.numeroRondas ?? block?.numeroRondas,
     };
   });
+}
+
+/** Nombre de disciplina por `tipo` de Time (para rotular categorías como "Abierta" o "Master"). */
+const DISCIPLINA_POR_TIPO = {
+  Barriles: "Barriles",
+  BarrilesMasters: "Barriles Master",
+  LazoDeBecerro: "Lazo de Becerro",
+  LazoEnFalso: "Lazo en Falso",
+  AchatadaDeNovillos: "Achatada de Novillos",
+  AmarreDeChiva: "Amarre de Chiva",
+  TeamRoping: "Lazo por Parejas",
+  TeamRopingMasters: "Lazo por Parejas Master",
+  CaballoConPretal: "Caballo con Pretal",
+  CaballoConMontura: "Caballo con Montura",
+  JineteosDeToros: "Jineteo de Toros",
+  Polos: "Polos",
+};
+
+/** Minúsculas, sin acentos ni plurales: "Jineteos de Toros" ≈ "Jineteo de Toro". */
+function etiquetaClave(s) {
+  return String(s || "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]+/g, " ")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => (w.length > 3 ? w.replace(/e?s$/, "") : w))
+    .join(" ");
+}
+
+/**
+ * Como en Time: si la categoría ya se llama como su disciplina sale una vez ("Barriles");
+ * si no, "Disciplina — Categoría" ("Lazo por Parejas — Abierta").
+ */
+export function categoriaEtiqueta(nombre, tipo) {
+  const categoria = String(nombre || "").trim();
+  const disciplina = DISCIPLINA_POR_TIPO[tipo] || "";
+  if (!disciplina) return categoria;
+  if (!categoria) return disciplina;
+  const a = etiquetaClave(categoria);
+  const kDisciplina = etiquetaClave(disciplina);
+  const kTipo = etiquetaClave(tipo);
+  if (a === kDisciplina) return categoria;
+  if (a === kTipo || kDisciplina.split(" ").includes(a)) return disciplina;
+  if (a.includes(kDisciplina)) return categoria;
+  if (a.startsWith(`${kTipo} `)) {
+    const resto = categoria
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .split(/\s+/)
+      .slice(kTipo.split(" ").length)
+      .join(" ");
+    return `${disciplina} — ${resto}`;
+  }
+  return `${disciplina} — ${categoria}`;
 }
 
 /**

@@ -10,6 +10,7 @@ import { normalizeManifest, upsertAsociacion, setAsociacionPortal } from "../../
 import { planPaginas } from "../../js/social-card.js";
 import { specTemporada, shareCaption, withContexto, ALL_AROUND_ID } from "../../js/share-specs.js";
 import { calcularTablero } from "../../js/portal-stats.js";
+import { categoriaEtiqueta } from "../../js/event-model.js";
 
 const manifestBase = () =>
   normalizeManifest({
@@ -124,11 +125,25 @@ describe("specTemporada y texto", () => {
     });
     assert.equal(spec.logo, "data/logos/aerch.jpg");
     const texto = shareCaption(spec);
-    assert.match(texto, /^Barriles — AERCH Circuito 2027/);
+    assert.match(texto, /^Barriles · AERCH Circuito 2027/);
     assert.match(texto, /1\. Bea · 80 pts/);
     assert.match(texto, /https:\/\/estadisticas\.arenapro\.mx\/#c1\/temporada\/Barriles/);
     assert.ok(texto.endsWith("#AERCH #Rodeo"));
     assert.ok(!shareCaption({ ...spec, hashtags: "" }).includes("#AERCH"));
+  });
+});
+
+describe("categoriaEtiqueta", () => {
+  it("rotula como Time: una vez si coincide con la disciplina, si no Disciplina — Categoría", () => {
+    assert.equal(categoriaEtiqueta("Barriles", "Barriles"), "Barriles");
+    assert.equal(categoriaEtiqueta("Jineteo de Toros", "JineteosDeToros"), "Jineteo de Toros");
+    assert.equal(categoriaEtiqueta("Abierta", "TeamRoping"), "Lazo por Parejas — Abierta");
+    assert.equal(categoriaEtiqueta("Master", "TeamRoping"), "Lazo por Parejas — Master");
+    assert.equal(categoriaEtiqueta("Abierta", "Barriles"), "Barriles — Abierta");
+    assert.equal(categoriaEtiqueta("Team Roping", "TeamRoping"), "Lazo por Parejas");
+    assert.equal(categoriaEtiqueta("Team Roping Masters", "TeamRoping"), "Lazo por Parejas — Masters");
+    assert.equal(categoriaEtiqueta("Master", "TeamRopingMasters"), "Lazo por Parejas Master");
+    assert.equal(categoriaEtiqueta("Libre", ""), "Libre");
   });
 });
 
