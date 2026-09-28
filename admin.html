@@ -113,10 +113,21 @@
       <h2 class="step-title-plain">Asociaciones y circuitos</h2>
       <p class="meta">
         Cada asociación (AERCH, FMR…) tiene un circuito por temporada. El circuito <strong>principal</strong> es el que abre el sitio público.
+        Con <strong>Dar acceso</strong> la asociación entra a su portal (tablero e imágenes para redes, sin poder publicar).
         Los cambios regeneran las estadísticas; luego publica.
       </p>
 
       <ul id="circuitosTree" class="circuitos-tree"></ul>
+
+      <div id="portalCredencial" class="portal-credencial" hidden>
+        <p class="preview-label">Acceso al portal · cópialo ahora, la contraseña no se vuelve a mostrar</p>
+        <textarea id="portalCredencialTexto" rows="6" readonly></textarea>
+        <div class="btn-row">
+          <button type="button" class="btn-primary btn-sm" id="btnPortalCopiar">Copiar mensaje</button>
+          <button type="button" class="btn-secondary btn-sm" id="btnPortalCerrar">Listo</button>
+        </div>
+        <p class="meta">El acceso queda activo en el sitio cuando publiques.</p>
+      </div>
 
       <div class="config-forms">
         <form id="circuitoForm" class="config-form" autocomplete="off">

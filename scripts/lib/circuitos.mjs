@@ -4,6 +4,8 @@
  * el admin y el rebuild.
  */
 
+import { normalizePortal } from "./portal-auth.mjs";
+
 export const MANIFEST_VERSION = 2;
 
 /** Ids que chocan con secciones del router público (#temporada, #eventos, #competidor). */
@@ -41,6 +43,7 @@ function normalizeAsociacion(a) {
     estado: str(a?.estado),
     logo: logoPath(a?.logo),
     hashtags: normalizeHashtags(a?.hashtags),
+    portal: normalizePortal(a?.portal),
   };
 }
 
@@ -128,7 +131,7 @@ export function normalizeManifest(raw) {
     version: MANIFEST_VERSION,
     circuitoDefault: circuitoId,
     asociaciones: [
-      { id: "general", siglas: "", nombre: "General", tipo: "federacion", estado: "", logo: "", hashtags: "" },
+      { id: "general", siglas: "", nombre: "General", tipo: "federacion", estado: "", logo: "", hashtags: "", portal: null },
     ],
     circuitos: [
       normalizeCircuito({
@@ -224,14 +227,14 @@ export function upsertAsociacion(manifest, input) {
     const prev = next.asociaciones[idx];
     const logo = input?.logo === undefined ? prev.logo : data.logo;
     const hashtags = input?.hashtags === undefined ? prev.hashtags : data.hashtags;
-    const asociacion = { ...data, id: editId, logo, hashtags };
+    const asociacion = { ...data, id: editId, logo, hashtags, portal: prev.portal };
     next.asociaciones[idx] = asociacion;
     return { manifest: next, asociacion };
   }
 
   const id = slugId(data.siglas);
   assertIdLibre(id, Boolean(findAsociacion(next, id)), "una asociación");
-  const asociacion = { ...data, id };
+  const asociacion = { ...data, id, portal: null };
   next.asociaciones.push(asociacion);
   return { manifest: next, asociacion };
 }
@@ -242,6 +245,16 @@ export function setAsociacionLogo(manifest, id, logo) {
   const asociacion = findAsociacion(next, id);
   if (!asociacion) throw fail(`No se encontró la asociación "${str(id)}".`, 404);
   asociacion.logo = logoPath(logo);
+  return { manifest: next, asociacion };
+}
+
+/** Asigna (o quita con null) el acceso al portal: { sal, hash, iteraciones } de portal-auth. */
+export function setAsociacionPortal(manifest, id, portal) {
+  const next = normalizeManifest(manifest);
+  const asociacion = findAsociacion(next, id);
+  if (!asociacion) throw fail(`No se encontró la asociación "${str(id)}".`, 404);
+  asociacion.portal = portal == null ? null : normalizePortal(portal);
+  if (portal != null && !asociacion.portal) throw fail("Acceso al portal inválido.");
   return { manifest: next, asociacion };
 }
 

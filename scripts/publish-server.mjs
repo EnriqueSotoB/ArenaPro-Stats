@@ -25,12 +25,14 @@ import {
   upsertAsociacion,
   removeAsociacion,
   setAsociacionLogo,
+  setAsociacionPortal,
   logoFileName,
   LOGO_TYPES,
   upsertCircuito,
   removeCircuito,
   circuitoDataFile,
 } from "./lib/circuitos.mjs";
+import { crearAccesoPortal, generarPassword } from "./lib/portal-auth.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
@@ -524,6 +526,21 @@ function removeLogo(asociacionId) {
   return { ok: true, asociacion };
 }
 
+/** Sin password en el body se genera una; se devuelve una sola vez (el manifest solo guarda el hash). */
+async function setPortalPassword({ id, password } = {}) {
+  const plano = String(password ?? "").trim() || generarPassword();
+  const acceso = await crearAccesoPortal(plano);
+  const { manifest, asociacion } = setAsociacionPortal(loadManifest(), id, acceso);
+  saveManifest(manifest);
+  return { ok: true, asociacion, password: plano };
+}
+
+function removePortalPassword({ id } = {}) {
+  const { manifest, asociacion } = setAsociacionPortal(loadManifest(), id, null);
+  saveManifest(manifest);
+  return { ok: true, asociacion };
+}
+
 /** Aplica un cambio al manifest (asociaciones / circuitos), guarda y regenera. */
 function mutateManifest(fn) {
   const result = fn(loadManifest());
@@ -723,6 +740,18 @@ const server = http.createServer(async (req, res) => {
     if (method === "POST" && url.pathname === "/api/asociaciones/logo/remove") {
       const body = await readJsonBody(req);
       sendJson(res, 200, removeLogo(body?.id));
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/asociaciones/portal") {
+      const body = await readJsonBody(req);
+      sendJson(res, 200, await setPortalPassword(body));
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/asociaciones/portal/remove") {
+      const body = await readJsonBody(req);
+      sendJson(res, 200, removePortalPassword(body));
       return;
     }
 

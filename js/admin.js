@@ -84,6 +84,10 @@ const els = {
   asociacionLogoActual: document.getElementById("asociacionLogoActual"),
   asociacionLogoImg: document.getElementById("asociacionLogoImg"),
   btnAsociacionLogoRemove: document.getElementById("btnAsociacionLogoRemove"),
+  portalCredencial: document.getElementById("portalCredencial"),
+  portalCredencialTexto: document.getElementById("portalCredencialTexto"),
+  btnPortalCopiar: document.getElementById("btnPortalCopiar"),
+  btnPortalCerrar: document.getElementById("btnPortalCerrar"),
   btnAsociacionSave: document.getElementById("btnAsociacionSave"),
   btnAsociacionCancel: document.getElementById("btnAsociacionCancel"),
   btnIngest: document.getElementById("btnIngest"),
@@ -912,6 +916,49 @@ function wireCircuitosPanel() {
     const ok = await postConfig("/api/asociaciones/logo/remove", { id }, () => "Logo quitado. Publica para el sitio.");
     if (ok) els.asociacionLogoActual.hidden = true;
   });
+
+  els.btnPortalCopiar?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(els.portalCredencialTexto.value);
+      showBanner("Mensaje copiado. Mándalo por WhatsApp o correo a la asociación.", false);
+    } catch {
+      els.portalCredencialTexto.select();
+    }
+  });
+  els.btnPortalCerrar?.addEventListener("click", () => {
+    els.portalCredencialTexto.value = "";
+    els.portalCredencial.hidden = true;
+  });
+}
+
+function portalUrl(asociacionId, publico = true) {
+  const base = publico ? statusData.pagesUrl || "https://estadisticas.arenapro.mx/" : "/";
+  return `${base}portal.html#${encodeURIComponent(asociacionId)}`;
+}
+
+async function darAccesoPortal(a) {
+  const nueva = prompt(
+    `Contraseña del portal de ${a.siglas || a.nombre}.\n\nDéjalo vacío para generar una segura, o escribe una de al menos 10 caracteres.` +
+      (a.portal ? "\n\nLa contraseña anterior dejará de funcionar." : ""),
+    ""
+  );
+  if (nueva === null) return;
+  const body = await postConfig(
+    "/api/asociaciones/portal",
+    { id: a.id, password: nueva },
+    () => `Acceso al portal listo para ${a.siglas || a.nombre}. Publica para activarlo.`
+  );
+  if (!body?.password) return;
+  els.portalCredencialTexto.value = [
+    `Portal ${a.siglas || a.nombre} — ArenaPro Estadísticas`,
+    "",
+    `Liga: ${portalUrl(a.id)}`,
+    `Contraseña: ${body.password}`,
+    "",
+    "Ahí ven el tablero de su circuito y generan las imágenes para Facebook e Instagram.",
+  ].join("\n");
+  els.portalCredencial.hidden = false;
+  els.portalCredencial.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 async function uploadLogo(asociacionId, file) {
@@ -1035,6 +1082,14 @@ function renderCircuitosTree() {
           </span>
           ${actions}
         </div>
+        ${a.id ? `<div class="tree-portal">
+          <span class="meta">Portal: ${a.portal ? `<strong>con acceso</strong>` : "sin acceso"}</span>
+          <span class="ev-actions">
+            <a class="btn-secondary btn-sm" href="${escapeAttr(portalUrl(a.id, false))}" target="_blank" rel="noopener">Abrir portal</a>
+            <button type="button" class="btn-secondary btn-sm" data-portal-set="${escapeAttr(a.id)}">${a.portal ? "Nueva contraseña" : "Dar acceso"}</button>
+            ${a.portal ? `<button type="button" class="btn-danger btn-sm" data-portal-remove="${escapeAttr(a.id)}">Quitar acceso</button>` : ""}
+          </span>
+        </div>` : ""}
         <ul class="tree-circuitos">${circuitos || `<li class="meta">Sin circuitos todavía.</li>`}</ul>
       </li>`;
     })
@@ -1099,6 +1154,23 @@ function renderCircuitosTree() {
       const a = statusData.asociaciones.find((x) => x.id === btn.getAttribute("data-asociacion-remove"));
       if (!a || !confirm(`¿Eliminar la asociación "${a.siglas || a.nombre}"?`)) return;
       postConfig("/api/asociaciones/remove", { id: a.id }, () => `Asociación eliminada: ${a.siglas || a.nombre}.`);
+    });
+  });
+
+  const asociacionById = (id) => statusData.asociaciones.find((x) => x.id === id);
+
+  els.circuitosTree.querySelectorAll("[data-portal-set]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = asociacionById(btn.getAttribute("data-portal-set"));
+      if (a) darAccesoPortal(a);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-portal-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = asociacionById(btn.getAttribute("data-portal-remove"));
+      if (!a || !confirm(`¿Quitar el acceso al portal de ${a.siglas || a.nombre}? Su contraseña dejará de funcionar al publicar.`)) return;
+      postConfig("/api/asociaciones/portal/remove", { id: a.id }, () => `Acceso al portal quitado. Publica para aplicarlo.`);
     });
   });
 }

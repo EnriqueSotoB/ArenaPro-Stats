@@ -373,6 +373,46 @@ button.link-like:hover {
   margin-top: 0.15rem;
 }
 
+.tree-portal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  margin: 0.4rem 0 0.2rem;
+}
+
+.tree-portal a.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.portal-credencial {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 2px solid var(--ochre);
+  border-radius: 0.75rem;
+  background: #fffaf0;
+}
+
+.portal-credencial[hidden] {
+  display: none;
+}
+
+.portal-credencial textarea {
+  width: 100%;
+  font: inherit;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.875rem;
+  padding: 0.6rem;
+  border: 1px solid var(--sand);
+  border-radius: 0.5rem;
+  resize: vertical;
+}
+
 .tree-logo {
   width: 2.25rem;
   height: 2.25rem;
