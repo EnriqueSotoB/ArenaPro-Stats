@@ -18,16 +18,23 @@
   font-weight: 700;
   color: var(--forest);
   background: #fff;
-  border: 1px solid var(--forest);
-  border-radius: 0.375rem;
-  padding: 0.5rem 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, #fff);
+  border-radius: 0.5rem;
+  padding: 0.55rem 1rem;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-share:hover {
-  background: color-mix(in srgb, var(--forest) 8%, #fff);
+  border-color: var(--forest);
+  background: color-mix(in srgb, var(--forest) 5%, #fff);
+}
+
+.btn-share.is-primary:hover {
+  background: color-mix(in srgb, var(--ochre) 88%, #000);
+  border-color: color-mix(in srgb, var(--ochre) 88%, #000);
 }
 
 .btn-share.is-primary {
@@ -79,9 +86,22 @@
   font-weight: 400;
   color: var(--dark);
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 0.375rem;
-  padding: 0.55rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, #fff);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-field select {
+  cursor: pointer;
+}
+
+.login-field input:focus,
+.login-field select:focus,
+.share-caption textarea:focus {
+  outline: none;
+  border-color: var(--forest);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--forest) 22%, transparent);
 }
 
 .login-error {
@@ -489,12 +509,26 @@
 
 .redes-controls {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.15rem;
+  min-width: 0;
 }
 
 .redes-group {
   display: grid;
-  gap: 0.45rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.redes-controls .login-field {
+  min-width: 0;
+}
+
+.redes-controls .login-field select {
+  width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
 }
 
 .redes-label {
@@ -505,7 +539,53 @@
 }
 
 .redes-controls .metric-toggle {
-  flex-wrap: wrap;
+  margin-top: 0;
+}
+
+.metric-toggle.is-fill {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.metric-toggle.is-fill .metric-btn {
+  padding-inline: 0.5rem;
+}
+
+.metric-toggle.source-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.source-grid .metric-btn,
+.source-grid .metric-btn + .metric-btn {
+  display: flex;
+  align-items: center;
+  min-height: 3.1rem;
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  line-height: 1.25;
+  color: var(--dark);
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, #fff);
+  border-radius: 0.55rem;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.source-grid .metric-btn:hover {
+  border-color: var(--forest);
+}
+
+.source-grid .metric-btn.is-active {
+  color: var(--forest);
+  background: color-mix(in srgb, var(--forest) 7%, #fff);
+  border-color: var(--forest);
+  box-shadow: inset 0 0 0 1px var(--forest);
 }
 
 .share-caption {
@@ -522,10 +602,11 @@
   font-weight: 400;
   color: var(--dark);
   background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 0.375rem;
-  padding: 0.5rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, #fff);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
   resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .share-actions {
