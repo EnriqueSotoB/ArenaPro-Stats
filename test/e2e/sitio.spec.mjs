@@ -16,7 +16,24 @@ function vigilarErrores(page) {
   return errores;
 }
 
+test.beforeEach(async ({ page }) => {
+  await page.route("https://static.cloudflareinsights.com/**", (r) =>
+    r.fulfill({ contentType: "text/javascript", body: "" })
+  );
+  await page.route("https://cloudflareinsights.com/**", (r) => r.fulfill({ status: 204 }));
+});
+
 test.describe("sitio público", () => {
+  test("las páginas públicas cargan la analítica sin romper la CSP", async ({ page }) => {
+    const errores = vigilarErrores(page);
+    for (const ruta of ["/", "/portal.html", "/aviso-privacidad.html", "/terminos.html"]) {
+      const beacon = page.waitForRequest((req) => req.url().startsWith("https://static.cloudflareinsights.com/"));
+      await page.goto(ruta);
+      await beacon;
+    }
+    expect(errores).toEqual([]);
+  });
+
   test("la portada abre en el circuito principal con disciplinas", async ({ page }) => {
     const errores = vigilarErrores(page);
     await page.goto("/");
@@ -74,8 +91,10 @@ test.describe("sitio público", () => {
   });
 
   test("una ruta inexistente muestra la página 404", async ({ page }) => {
+    const beacon = page.waitForRequest((req) => req.url().startsWith("https://static.cloudflareinsights.com/"));
     const res = await page.goto("/no-existe");
     expect(res?.status()).toBe(404);
+    await beacon;
     await expect(page.locator("h1")).toHaveText("No encontramos esta página");
   });
 
