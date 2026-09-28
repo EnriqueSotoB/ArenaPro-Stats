@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Revisa el sitio en vivo. Sale con código 1 si hay problemas (el workflow "Monitor" avisa).
- * Uso: node scripts/monitor-sitio.mjs [url]
+ * Uso: node tools/monitor-sitio.mjs [url]
  */
 import { execFileSync } from "node:child_process";
 import { revisarSitio } from "./lib/monitor.mjs";

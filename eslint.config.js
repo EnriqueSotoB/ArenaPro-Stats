@@ -5,15 +5,15 @@ export default [
   { ignores: ["node_modules/", "_site/", "test-results/", "playwright-report/"] },
   js.configs.recommended,
   {
-    files: ["js/**/*.js"],
+    files: ["web/js/**/*.js", "admin/**/*.js"],
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ["scripts/**/*.mjs", "test/**/*.mjs", "e2e/**/*.mjs", "*.js", "*.mjs"],
+    files: ["tools/**/*.mjs", "test/**/*.mjs", "*.js", "*.mjs"],
     languageOptions: { globals: globals.node },
   },
   {
-    files: ["scripts/lib/**/*.mjs"],
+    files: ["web/lib/**/*.mjs"],
     languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
   {

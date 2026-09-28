@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Consola local de publicación ArenaPro Stats.
- * Uso: node scripts/publish-server.mjs
+ * Uso: node tools/publish-server.mjs
  * Solo escucha en 127.0.0.1 — no exponer a la red.
  */
 import http from "node:http";
@@ -13,15 +13,16 @@ import { randomBytes } from "node:crypto";
 import { validateEvento } from "./lib/validate-evento.mjs";
 import { motivoRechazo } from "./lib/local-guard.mjs";
 import { buscarRodeoDuplicado, problemasDePublicacion } from "./lib/integridad.mjs";
-import { eventoConNombresMayusculas } from "./lib/nombres.mjs";
-import { normalizeText } from "./lib/disciplinas.mjs";
+import { eventoConNombresMayusculas } from "../web/lib/nombres.mjs";
+import { normalizeText } from "../web/lib/disciplinas.mjs";
 import { sincronizarConRemoto } from "./lib/git-sync.mjs";
+import { archivoParaRuta } from "./lib/rutas.mjs";
 import {
   aplicarStatsEdits,
   buildDefaultEdits,
-} from "./lib/stats-edits.mjs";
-import { appendAlias, removeAlias } from "./lib/alias-store.mjs";
-import { displayFromKey } from "./lib/alias-suggest.mjs";
+} from "../web/lib/stats-edits.mjs";
+import { appendAlias, removeAlias } from "../web/lib/alias-store.mjs";
+import { displayFromKey } from "../web/lib/alias-suggest.mjs";
 import { parseExcelEvento, normalizeFechaYmd } from "./lib/excel-evento.mjs";
 import {
   normalizeManifest,
@@ -38,8 +39,8 @@ import {
   upsertCircuito,
   removeCircuito,
   circuitoDataFile,
-} from "./lib/circuitos.mjs";
-import { crearAccesoPortal, generarPassword } from "./lib/portal-auth.mjs";
+} from "../web/lib/circuitos.mjs";
+import { crearAccesoPortal, generarPassword } from "../web/lib/portal-auth.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
@@ -48,6 +49,7 @@ const ROOT = join(SCRIPT_DIR, "..");
 const PAGES_URL = "https://estadisticas.arenapro.mx/";
 /** Cambia en cada arranque; solo admin.html servido por esta consola lo conoce. */
 const SESSION_TOKEN = randomBytes(24).toString("hex");
+const ADMIN_HTML = join(ROOT, "admin", "admin.html");
 
 /** Siempre proceso Node nuevo: el import() en caliente NO invalida caché ESM en file://. */
 function runRebuild() {
@@ -670,24 +672,8 @@ async function publish() {
 }
 
 function serveStatic(req, res, urlPath) {
-  let rel = decodeURIComponent(urlPath.split("?")[0]);
-  if (rel === "/") rel = "/index.html";
-  if (rel.includes("\0")) {
-    res.writeHead(400);
-    res.end("Bad request");
-    return;
-  }
-
-  const parts = rel.replace(/^\/+/, "").split("/").filter((p) => p && p !== ".");
-  if (parts.some((p) => p === "..")) {
-    res.writeHead(403);
-    res.end("Forbidden");
-    return;
-  }
-
-  const candidate = join(ROOT, ...parts);
-  const relToRoot = relative(ROOT, candidate);
-  if (relToRoot.startsWith("..")) {
+  const candidate = archivoParaRuta(ROOT, urlPath);
+  if (!candidate) {
     res.writeHead(403);
     res.end("Forbidden");
     return;
@@ -701,7 +687,7 @@ function serveStatic(req, res, urlPath) {
 
   const type = MIME[extname(candidate).toLowerCase()] || "application/octet-stream";
   res.writeHead(200, { "Content-Type": type, "Cache-Control": "no-store" });
-  if (relToRoot === "admin.html") {
+  if (candidate === ADMIN_HTML) {
     const html = readFileSync(candidate, "utf8").replace(
       '<meta name="arenapro-token" content="" />',
       `<meta name="arenapro-token" content="${SESSION_TOKEN}" />`

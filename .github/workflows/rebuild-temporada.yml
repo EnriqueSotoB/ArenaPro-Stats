@@ -19,7 +19,7 @@ jobs:
           node-version: "20"
 
       - name: Regenerar data/circuitos/
-        run: node scripts/rebuild-temporada.mjs
+        run: node tools/rebuild-temporada.mjs
 
       - name: Commit si hay cambios
         run: |

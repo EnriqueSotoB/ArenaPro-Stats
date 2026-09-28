@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { motivoRechazo, TOKEN_HEADER } from "../../scripts/lib/local-guard.mjs";
+import { motivoRechazo, TOKEN_HEADER } from "../../tools/lib/local-guard.mjs";
 
 const cfg = { port: 8787, token: "a".repeat(48) };
 const ok = { host: "127.0.0.1:8787", origin: "http://127.0.0.1:8787", [TOKEN_HEADER]: cfg.token };

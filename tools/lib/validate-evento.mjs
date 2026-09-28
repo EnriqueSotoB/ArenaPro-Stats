@@ -1,4 +1,4 @@
-import { disciplinaKey } from "../rebuild-temporada.mjs";
+import { disciplinaKey } from "../../web/lib/disciplinas.mjs";
 
 /**
  * Valida un export Time antes de ingest.

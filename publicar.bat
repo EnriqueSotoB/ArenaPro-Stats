@@ -10,5 +10,5 @@ for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":8787" ^| findstr "LISTENING
 )
 
 start "" "http://127.0.0.1:8787/admin.html"
-node scripts\publish-server.mjs
+node tools\publish-server.mjs
 pause

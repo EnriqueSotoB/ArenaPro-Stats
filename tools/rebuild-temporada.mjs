@@ -2,7 +2,7 @@
 /**
  * Regenera data/circuitos/{circuitoId}.json sumando puntosCircuito por competidor y
  * disciplina, con los eventos asignados a cada circuito en data/manifest.json.
- * Unificación de categorías → disciplina: scripts/lib/disciplinas.mjs.
+ * Unificación de categorías → disciplina: tools/lib/disciplinas.mjs.
  *
  * No usar categoriaId local:{n}: cambia en cada competencia.
  */
@@ -20,26 +20,26 @@ import {
   aliasesParaAsociacion,
   buildAliasMap,
   resolveCompetitorKey,
-} from "./lib/competitor-aliases.mjs";
-import { toMontoEntero } from "./lib/money.mjs";
-import { toPuntosCircuito } from "./lib/points.mjs";
-import { buildAllAround } from "./lib/all-around.mjs";
+} from "../web/lib/competitor-aliases.mjs";
+import { toMontoEntero } from "../web/lib/money.mjs";
+import { toPuntosCircuito } from "../web/lib/points.mjs";
+import { buildAllAround } from "../web/lib/all-around.mjs";
 import {
   finalizeCompetidores,
   pushCompetidorEvento,
-} from "./lib/competidores.mjs";
+} from "../web/lib/competidores.mjs";
 import {
   expandTeamRopingRow,
   isTeamRopingBase,
-} from "./lib/team-roping.mjs";
+} from "../web/lib/team-roping.mjs";
 import {
   normalizeManifest,
   eventosDeCircuito,
   findAsociacion,
   circuitoDataFile,
-} from "./lib/circuitos.mjs";
-import { disciplinaKey, disciplinaLabel, normalizeText } from "./lib/disciplinas.mjs";
-import { eventoConNombresMayusculas } from "./lib/nombres.mjs";
+} from "../web/lib/circuitos.mjs";
+import { disciplinaKey, disciplinaLabel, normalizeText } from "../web/lib/disciplinas.mjs";
+import { eventoConNombresMayusculas } from "../web/lib/nombres.mjs";
 
 export { disciplinaKey, disciplinaLabel };
 

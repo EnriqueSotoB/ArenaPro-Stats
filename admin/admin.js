@@ -9,24 +9,24 @@ import {
   renderEventoRankingTableHtml,
   escapeHtml,
   escapeAttr,
-} from "./event-model.js";
+} from "../js/event-model.js";
 import {
   buildDefaultEdits,
   aplicarStatsEdits,
   editsFromStoredEvento,
   listEditableFilas,
   upsertFilaEdit,
-} from "../scripts/lib/stats-edits.mjs";
-import { normalizeAliasInput } from "../scripts/lib/alias-store.mjs";
+} from "../lib/stats-edits.mjs";
+import { normalizeAliasInput } from "../lib/alias-store.mjs";
 import {
   displayFromKey,
   peersWithSameSurname,
   spellingNearMatches,
-} from "../scripts/lib/alias-suggest.mjs";
-import { circuitosPorAsociacion, findCircuito, tipoAsociacionLabel } from "../scripts/lib/circuitos.mjs";
-import { disciplinaKey } from "../scripts/lib/disciplinas.mjs";
-import { isTeamRopingBase, parseTeamRopingPair } from "../scripts/lib/team-roping.mjs";
-import { nombreMayusculas } from "../scripts/lib/nombres.mjs";
+} from "../lib/alias-suggest.mjs";
+import { circuitosPorAsociacion, findCircuito, tipoAsociacionLabel } from "../lib/circuitos.mjs";
+import { disciplinaKey } from "../lib/disciplinas.mjs";
+import { isTeamRopingBase, parseTeamRopingPair } from "../lib/team-roping.mjs";
+import { nombreMayusculas } from "../lib/nombres.mjs";
 
 const LAST_CIRCUITOS_KEY = "arenapro.admin.circuitos";
 /** La consola local inyecta un token por arranque; sin él rechaza cualquier cambio (CSRF). */
@@ -751,7 +751,7 @@ async function refreshStatus() {
     if (!res.ok || data.ok === false) {
       els.statusMeta.textContent =
         data.error ||
-        "No hay API. Abre esta página con node scripts/publish-server.mjs (o publicar.bat).";
+        "No hay API. Abre esta página con node tools/publish-server.mjs (o publicar.bat).";
       els.btnPublish.disabled = true;
       return;
     }
@@ -832,7 +832,7 @@ async function refreshStatus() {
     });
   } catch {
     els.statusMeta.textContent =
-      "No hay API. Ejecuta publicar.bat o: node scripts/publish-server.mjs";
+      "No hay API. Ejecuta publicar.bat o: node tools/publish-server.mjs";
     els.btnPublish.disabled = true;
   }
 }

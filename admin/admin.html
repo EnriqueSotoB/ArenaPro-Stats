@@ -8,7 +8,7 @@
   <meta name="arenapro-token" content="" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="admin/admin.css" />
 </head>
 <body>
   <header class="topbar">
@@ -96,7 +96,7 @@
 
       <li class="step panel" id="step4">
         <h2 class="step-title"><span class="step-num">4</span> Publicar</h2>
-        <p class="meta">Commit y push a GitHub. Pages se actualiza sola en 1–2 minutos.</p>
+        <p class="meta">Revisa los datos, corre las pruebas y sube a GitHub. El sitio se actualiza en 2–4 minutos.</p>
         <div class="btn-row">
           <button type="button" class="btn-primary" id="btnPublish" disabled>Publicar en GitHub Pages</button>
           <a id="pagesLink" class="btn-secondary link-btn" href="https://estadisticas.arenapro.mx/" target="_blank" rel="noopener">Ver sitio público</a>
@@ -304,9 +304,9 @@
   </main>
 
   <footer class="footer">
-    <p>Solo funciona con <code>node scripts/publish-server.mjs</code> o <code>publicar.bat</code></p>
+    <p>Solo funciona con <code>node tools/publish-server.mjs</code> o <code>publicar.bat</code></p>
   </footer>
 
-  <script src="js/admin.js" type="module"></script>
+  <script src="admin/admin.js" type="module"></script>
 </body>
 </html>

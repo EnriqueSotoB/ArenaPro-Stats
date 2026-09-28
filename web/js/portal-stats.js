@@ -3,7 +3,7 @@
  * (data/circuitos/{id}.json) y de los archivos de evento. Sin DOM.
  */
 
-import { disciplinaKey, disciplinaLabel } from "../scripts/lib/disciplinas.mjs";
+import { disciplinaKey, disciplinaLabel } from "../lib/disciplinas.mjs";
 
 /**
  * @param {any} temporada acumulado del circuito

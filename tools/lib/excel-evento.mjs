@@ -1,11 +1,11 @@
-﻿/**
+/**
  * Plantilla Excel manual → mismo shape que export Time (schema 2).
  * Una hoja por disciplina; columnas según tipo (tiempo / TR / puntos).
  */
 import ExcelJS from "exceljs";
-import { toMontoEntero } from "./money.mjs";
-import { toPuntosCircuito } from "./points.mjs";
-import { nombreMayusculas } from "./nombres.mjs";
+import { toMontoEntero } from "../../web/lib/money.mjs";
+import { toPuntosCircuito } from "../../web/lib/points.mjs";
+import { nombreMayusculas } from "../../web/lib/nombres.mjs";
 
 /**
  * @type {Array<{ sheet: string, tipo: string, defaultRondas: number, aliases?: string[] }>}

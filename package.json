@@ -5,13 +5,13 @@
   "type": "module",
   "description": "Estadísticas públicas de rodeo por asociación y circuito / ArenaPro Estadísticas",
   "scripts": {
-    "test": "node scripts/run-tests.mjs",
+    "test": "node tools/run-tests.mjs",
     "test:e2e": "playwright test",
-    "monitor": "node scripts/monitor-sitio.mjs",
+    "monitor": "node tools/monitor-sitio.mjs",
     "lint": "eslint .",
-    "build:site": "node scripts/build-site.mjs",
-    "rebuild": "node scripts/rebuild-temporada.mjs",
-    "plantilla": "node scripts/build-plantilla-excel.mjs"
+    "build:site": "node tools/build-site.mjs",
+    "rebuild": "node tools/rebuild-temporada.mjs",
+    "plantilla": "node tools/build-plantilla-excel.mjs"
   },
   "engines": {
     "node": ">=20"

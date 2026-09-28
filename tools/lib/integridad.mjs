@@ -3,8 +3,8 @@
  * Sin imports de Node: lo usan la consola local, el publicador y los tests de datos.
  */
 
-import { normalizeText } from "./disciplinas.mjs";
-import { eventosDeCircuito, findCircuito } from "./circuitos.mjs";
+import { normalizeText } from "../../web/lib/disciplinas.mjs";
+import { eventosDeCircuito, findCircuito } from "../../web/lib/circuitos.mjs";
 
 const DIA_MS = 24 * 60 * 60 * 1000;
 /** Con menos competidores la coincidencia es casualidad (p. ej. dos rodeos chicos con los mismos 2 jinetes). */

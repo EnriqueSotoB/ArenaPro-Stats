@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { competitorKey } from "../../scripts/rebuild-temporada.mjs";
+import { competitorKey } from "../../tools/rebuild-temporada.mjs";
 
 describe("competitorKey", () => {
   it("prioriza id web estable (no local:)", () => {

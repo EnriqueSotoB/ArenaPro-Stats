@@ -1,7 +1,7 @@
 /**
  * Lazo por Parejas → filas Cabecero / Pialador.
  *
- * Regla confirmada (docs/00-decisiones-producto.md):
+ * Regla confirmada (docs/producto/decisiones.md):
  * - Dinero del dúo: 50/50 cabecero / pialador (splitMoneyMxn).
  * - Puntos: NO se parten; si Time manda un solo puntosCircuito del equipo,
  *   ambos roles reciben ese mismo valor hasta que exista export por rol.

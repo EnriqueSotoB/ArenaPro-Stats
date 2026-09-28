@@ -14,7 +14,7 @@ import {
   logoFileName,
   normalizeHashtags,
   tipoAsociacionLabel,
-} from "../../scripts/lib/circuitos.mjs";
+} from "../../web/lib/circuitos.mjs";
 
 const base = () =>
   normalizeManifest({

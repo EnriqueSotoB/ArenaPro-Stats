@@ -33,7 +33,7 @@ describe("consola local: guardia contra CSRF y DNS rebinding", () => {
   let token = "";
 
   before(async () => {
-    server = spawn(process.execPath, [join(root, "scripts", "publish-server.mjs")], {
+    server = spawn(process.execPath, [join(root, "tools", "publish-server.mjs")], {
       cwd: root,
       env: { ...process.env, STATS_PUBLISH_PORT: String(PORT) },
       stdio: ["ignore", "pipe", "pipe"],

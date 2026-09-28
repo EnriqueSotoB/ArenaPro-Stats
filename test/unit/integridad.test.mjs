@@ -4,8 +4,8 @@ import {
   coincidenciaRodeo,
   buscarRodeoDuplicado,
   problemasDePublicacion,
-} from "../../scripts/lib/integridad.mjs";
-import { normalizeManifest } from "../../scripts/lib/circuitos.mjs";
+} from "../../tools/lib/integridad.mjs";
+import { normalizeManifest } from "../../web/lib/circuitos.mjs";
 
 function evento(fecha, nombres) {
   return {

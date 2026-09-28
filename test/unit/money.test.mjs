@@ -5,7 +5,7 @@ import {
   splitMoneyMxn,
   toMontoEntero,
   fmtMxn,
-} from "../../scripts/lib/money.mjs";
+} from "../../web/lib/money.mjs";
 
 describe("toMontoEntero", () => {
   it("normaliza a entero ≥ 0", () => {

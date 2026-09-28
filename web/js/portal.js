@@ -4,15 +4,15 @@
  */
 
 import { normalizeEvento, categoriesWithResults, escapeHtml, escapeAttr, fmtNum } from "./event-model.js";
-import { fmtMxn } from "../scripts/lib/money.mjs";
+import { fmtMxn } from "../lib/money.mjs";
 import {
   normalizeManifest,
   findAsociacion,
   findCircuito,
   eventosDeCircuito,
   circuitoDataFile,
-} from "../scripts/lib/circuitos.mjs";
-import { llavePortal, verificarLlave, normalizePortal } from "../scripts/lib/portal-auth.mjs";
+} from "../lib/circuitos.mjs";
+import { llavePortal, verificarLlave, normalizePortal } from "../lib/portal-auth.mjs";
 import { FORMATOS, TOPS, planPaginas, drawSocialCard, canvasToPngBlob } from "./social-card.js";
 import {
   ALL_AROUND_ID,

@@ -16,12 +16,12 @@ import {
   escapeAttr,
   fmtNum,
 } from "./event-model.js";
-import { getCutLine } from "../scripts/lib/cut-line.mjs";
-import { fmtMxn } from "../scripts/lib/money.mjs";
+import { getCutLine } from "../lib/cut-line.mjs";
+import { fmtMxn } from "../lib/money.mjs";
 import {
   normalizeSearch,
   searchCompetidores,
-} from "../scripts/lib/competidores.mjs";
+} from "../lib/competidores.mjs";
 import {
   normalizeManifest,
   findCircuito,
@@ -30,7 +30,7 @@ import {
   eventosDeCircuito,
   circuitosPorAsociacion,
   circuitoDataFile,
-} from "../scripts/lib/circuitos.mjs";
+} from "../lib/circuitos.mjs";
 
 const MANIFEST_URL = "data/manifest.json";
 const TOP_CARD = 5;

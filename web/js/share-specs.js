@@ -4,7 +4,7 @@
  */
 
 import { buildEventoRanking, formatResultadoValor, fmtNum, fmtTime } from "./event-model.js";
-import { fmtMxn } from "../scripts/lib/money.mjs";
+import { fmtMxn } from "../lib/money.mjs";
 
 export const PUBLIC_SITE = "https://estadisticas.arenapro.mx/";
 export const ALL_AROUND_ID = "__all-around";

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Sirve _site/ como lo hace GitHub Pages (404.html para rutas inexistentes).
- * Uso: node scripts/serve-site.mjs [puerto]   — lo usan las pruebas E2E.
+ * Uso: node tools/serve-site.mjs [puerto]   — lo usan las pruebas E2E.
  */
 import http from "node:http";
 import { existsSync, readFileSync, statSync } from "node:fs";
@@ -28,7 +28,7 @@ const TIPOS = {
 };
 
 if (!existsSync(join(site, "index.html"))) {
-  console.error("Falta _site/. Corre primero: node scripts/build-site.mjs");
+  console.error("Falta _site/. Corre primero: node tools/build-site.mjs");
   process.exit(1);
 }
 

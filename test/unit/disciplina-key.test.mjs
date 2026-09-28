@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { disciplinaKey, disciplinaLabel } from "../../scripts/rebuild-temporada.mjs";
+import { disciplinaKey, disciplinaLabel } from "../../tools/rebuild-temporada.mjs";
 
 describe("disciplinaKey", () => {
   it("unifica Barriles / Abierta / Barriles Abierto en Barriles", () => {

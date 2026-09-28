@@ -1,6 +1,6 @@
 /**
  * Unifica identidad de competidores entre eventos cuando hay spelling distinto
- * o ids local:*. Ver docs/02-contratos-datos.md.
+ * o ids local:*. Ver docs/producto/contratos-datos.md.
  */
 
 /**

@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { revisarSitio } from "../../scripts/lib/monitor.mjs";
+import { revisarSitio } from "../../tools/lib/monitor.mjs";
 
 const BASE = "https://sitio.test/";
 const SHA = "abcdef1234567890abcdef1234567890abcdef12";

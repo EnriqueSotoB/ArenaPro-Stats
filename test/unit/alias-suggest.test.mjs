@@ -6,7 +6,7 @@ import {
   nameSimilarity,
   peersWithSameSurname,
   spellingNearMatches,
-} from "../../scripts/lib/alias-suggest.mjs";
+} from "../../web/lib/alias-suggest.mjs";
 
 describe("surnameFromKey / displayFromKey", () => {
   it("extrae apellido", () => {

@@ -1,8 +1,8 @@
 /** Lógica compartida de evento (sitio público + preview en admin). */
 
-import { fmtMxn } from "../scripts/lib/money.mjs";
-import { toPuntosCircuito } from "../scripts/lib/points.mjs";
-import { eventoConNombresMayusculas } from "../scripts/lib/nombres.mjs";
+import { fmtMxn } from "../lib/money.mjs";
+import { toPuntosCircuito } from "../lib/points.mjs";
+import { eventoConNombresMayusculas } from "../lib/nombres.mjs";
 
 export function normalizeEvento(raw, fallbackName = "") {
   const meta = raw.meta || {};

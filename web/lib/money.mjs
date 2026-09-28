@@ -1,5 +1,5 @@
 /**
- * Dinero MXN entero. Split Lazo por Parejas — ver docs/00-decisiones-producto.md.
+ * Dinero MXN entero. Split Lazo por Parejas — ver docs/producto/decisiones.md.
  * Confirmado 50/50 cabecero / pialador. Si cambia la regla, ajustar TEAM_ROPING_MONEY_SPLIT / splitMoneyMxn.
  */
 

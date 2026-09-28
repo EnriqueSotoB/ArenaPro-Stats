@@ -1,5 +1,5 @@
 /**
- * All-Around Cowboy (temporada) — docs/00-decisiones-producto.md §6.
+ * All-Around Cowboy (temporada) — docs/producto/decisiones.md §6.
  * Califica quien cobró (dineroTotal > 0) en ≥2 disciplinas.
  */
 

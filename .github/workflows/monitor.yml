@@ -28,7 +28,7 @@ jobs:
         id: revision
         run: |
           git fetch --depth=1 origin main
-          node scripts/monitor-sitio.mjs 2> problemas.txt || { cat problemas.txt; exit 1; }
+          node tools/monitor-sitio.mjs 2> problemas.txt || { cat problemas.txt; exit 1; }
 
       - name: Abrir o actualizar issue
         if: failure()

@@ -9,7 +9,7 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { rebuildTemporada } from "../../scripts/rebuild-temporada.mjs";
+import { rebuildTemporada } from "../../tools/rebuild-temporada.mjs";
 
 function writeManifest(root, eventos) {
   writeFileSync(

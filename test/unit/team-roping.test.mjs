@@ -5,7 +5,7 @@ import {
   expandTeamRopingRow,
   teamRopingRoleDisc,
   isTeamRopingBase,
-} from "../../scripts/lib/team-roping.mjs";
+} from "../../web/lib/team-roping.mjs";
 
 describe("parseTeamRopingPair", () => {
   it("parsea dúos con slash y espacios", () => {
