@@ -122,6 +122,108 @@ function fitFontSize(ctx, text, weight, size, minSize, maxW) {
   return s;
 }
 
+const TITULO_MIN = 44;
+const TITULO_INTERLINEA = 1.06;
+
+/** Parte el título en dos renglones: primero en " — ", si no donde queden más parejos. */
+function partirEnDos(ctx, text, maxW) {
+  const sep = text.indexOf(" — ");
+  if (sep > 0) {
+    const par = [`${text.slice(0, sep)} —`, text.slice(sep + 3)];
+    if (par.every((l) => ctx.measureText(l).width <= maxW)) return par;
+  }
+  const palabras = text.split(/\s+/);
+  if (palabras.length < 2) return null;
+  let mejor = null;
+  let mejorW = Infinity;
+  for (let k = 1; k < palabras.length; k++) {
+    const par = [palabras.slice(0, k).join(" "), palabras.slice(k).join(" ")];
+    const w = Math.max(...par.map((l) => ctx.measureText(l).width));
+    if (w < mejorW) {
+      mejor = par;
+      mejorW = w;
+    }
+  }
+  return mejor;
+}
+
+/**
+ * Un renglón mientras la letra no quede chica; si no, dos renglones.
+ * Solo recorta con "…" si ni en dos renglones al tamaño mínimo cabe.
+ * @returns {{ size: number, lineas: string[] }}
+ */
+function layoutTitulo(ctx, titulo, f, maxW) {
+  const text = String(titulo ?? "").trim();
+  const una = fitFontSize(ctx, text, 800, f.tituloMax, Math.round(f.tituloMax * 0.78), maxW);
+  if (ctx.measureText(text).width <= maxW) return { size: una, lineas: [text] };
+
+  for (let s = Math.round(f.tituloMax * 0.82); s >= TITULO_MIN; s -= 2) {
+    setFont(ctx, 800, s);
+    const lineas = partirEnDos(ctx, text, maxW);
+    if (lineas?.every((l) => ctx.measureText(l).width <= maxW)) return { size: s, lineas };
+  }
+  setFont(ctx, 800, TITULO_MIN);
+  const lineas = partirEnDos(ctx, text, maxW) || [text];
+  return { size: TITULO_MIN, lineas: lineas.map((l) => fitText(ctx, l, maxW)) };
+}
+
+const KICKER_INTERLINEA = 32;
+
+/** Línea de la asociación en uno o dos renglones; si se parte, corta entre siglas y nombre. */
+function layoutKicker(ctx, kicker, maxW) {
+  const text = String(kicker ?? "").toUpperCase();
+  setFont(ctx, 700, 24, SANS);
+  setTracking(ctx, 2);
+  const cabe = (s) => ctx.measureText(s).width <= maxW;
+  let lineas = [text];
+  if (!cabe(text)) {
+    const sep = text.indexOf(" · ");
+    if (sep > 0 && cabe(text.slice(0, sep)) && cabe(text.slice(sep + 3))) {
+      lineas = [text.slice(0, sep), text.slice(sep + 3)];
+    } else {
+      const palabras = text.split(/\s+/);
+      let k = 1;
+      while (k < palabras.length && cabe(palabras.slice(0, k + 1).join(" "))) k++;
+      lineas = [fitText(ctx, palabras.slice(0, k).join(" "), maxW)];
+      if (k < palabras.length) lineas.push(fitText(ctx, palabras.slice(k).join(" "), maxW));
+    }
+  }
+  setTracking(ctx, 0);
+  return lineas;
+}
+
+function altoTitulo(layout) {
+  return layout.size + (layout.lineas.length - 1) * Math.round(layout.size * TITULO_INTERLINEA);
+}
+
+function badgeSize(formatoId) {
+  return formatoId === "cuadrado" ? 150 : 176;
+}
+
+function tituloMaxW(f, formatoId, conLogo) {
+  const innerW = f.w - PAD * 2;
+  return conLogo ? innerW - badgeSize(formatoId) - 28 : innerW;
+}
+
+/** @type {CanvasRenderingContext2D|null|undefined} */
+let measureCtx;
+
+/** Renglones del encabezado para planear páginas (sin DOM, se asume un renglón de cada uno). */
+function encabezadoPlan(spec, f, formatoId) {
+  if (measureCtx === undefined) {
+    measureCtx = typeof document !== "undefined" ? document.createElement("canvas").getContext("2d") : null;
+  }
+  const plan = { tituloAlto: f.tituloMax, kickerLineas: 1 };
+  if (!measureCtx) return plan;
+  const maxW = tituloMaxW(f, formatoId, Boolean(spec?.logo));
+  if (spec?.titulo) {
+    const layout = layoutTitulo(measureCtx, spec.titulo, f, maxW);
+    if (layout.lineas.length > 1) plan.tituloAlto = altoTitulo(layout);
+  }
+  if (spec?.kicker) plan.kickerLineas = layoutKicker(measureCtx, spec.kicker, maxW).length;
+  return plan;
+}
+
 function roundRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -154,12 +256,12 @@ function drawBackground(ctx, W, H) {
   ctx.fillRect(0, 0, W, 10);
 }
 
-/** Alto del encabezado con el título a su tamaño máximo (cota para planear páginas). */
-function headerBottom(f, spec, tituloSize = f.tituloMax) {
+/** Alto del encabezado (cota para planear páginas). */
+function headerBottom(f, spec, { tituloAlto = f.tituloMax, kickerLineas = 1 } = {}) {
   let y = PAD + f.safeTop + 20;
-  if (spec.kicker) y += 50;
+  if (spec.kicker) y += 50 + (kickerLineas - 1) * KICKER_INTERLINEA;
   if (spec.linea) y += 22;
-  y += tituloSize + 22 + 8;
+  y += tituloAlto + 22 + 8;
   if (spec.subtitulo) y += 44;
   return y + 32;
 }
@@ -180,7 +282,7 @@ export function planPaginas(spec, formatoId = "post", topId = "top10") {
   const filas = (spec?.filas || []).slice(0, spec?.lista ? Infinity : top.n);
   if (!filas.length) return [{ filas: [], columnas: 1 }];
 
-  const avail = footerTop(f) - 24 - headerBottom(f, spec);
+  const avail = footerTop(f) - 24 - headerBottom(f, spec, encabezadoPlan(spec, f, formatoId));
   const columnas = spec?.lista ? 1 : 2;
   if (avail / filas.length >= (spec?.lista ? SLOT_MIN_LISTA : SLOT_MIN_UNA)) return [{ filas, columnas: 1 }];
 
@@ -361,17 +463,18 @@ export async function drawSocialCard(canvas, spec, formatoId = "post", pagina) {
 
   let y = PAD + f.safeTop + 20;
 
-  const badge = assocLogo ? (formatoId === "cuadrado" ? 150 : 176) : 0;
+  const badge = assocLogo ? badgeSize(formatoId) : 0;
   if (assocLogo) drawAssocBadge(ctx, assocLogo, W - PAD - badge, PAD + f.safeTop - 12, badge);
-  const headW = badge ? innerW - badge - 28 : innerW;
+  const headW = tituloMaxW(f, formatoId, Boolean(assocLogo));
 
   if (spec.kicker) {
+    const lineas = layoutKicker(ctx, spec.kicker, headW);
     setFont(ctx, 700, 24, SANS);
     setTracking(ctx, 2);
     ctx.fillStyle = C.ochre;
-    ctx.fillText(fitText(ctx, spec.kicker.toUpperCase(), headW), PAD, y);
+    lineas.forEach((linea, i) => ctx.fillText(linea, PAD, y + i * KICKER_INTERLINEA));
     setTracking(ctx, 0);
-    y += 50;
+    y += 50 + (lineas.length - 1) * KICKER_INTERLINEA;
   }
 
   if (spec.linea) {
@@ -381,10 +484,13 @@ export async function drawSocialCard(canvas, spec, formatoId = "post", pagina) {
     y += 22;
   }
 
-  const tituloSize = fitFontSize(ctx, spec.titulo, 800, f.tituloMax, 48, headW);
-  y += tituloSize;
+  const titulo = layoutTitulo(ctx, spec.titulo, f, headW);
+  setFont(ctx, 800, titulo.size);
   ctx.fillStyle = C.cream;
-  ctx.fillText(fitText(ctx, spec.titulo, headW), PAD, y);
+  titulo.lineas.forEach((linea, i) => {
+    y += i === 0 ? titulo.size : Math.round(titulo.size * TITULO_INTERLINEA);
+    ctx.fillText(linea, PAD, y);
+  });
   y += 22;
 
   ctx.fillStyle = C.ochre;
