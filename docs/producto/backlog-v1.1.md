@@ -9,7 +9,7 @@ Priorizado después de FMR Tour 2027 v1 estable. No mezclar en sprints 0–4 sal
 | Item | Notas |
 |------|-------|
 | Activar cut line oficial | Set `cutLine` + `cutLineVisible: true`; tests de badges |
-| Confirmar split dinero TR | Actualizar constante + `00-decisiones-producto.md` |
+| Confirmar split dinero TR | Actualizar constante + `decisiones.md` |
 | IDs web estables desde Time | Dejar de depender de `name:` cuando existan |
 | All-Around **por evento** | Misma regla 2+ con dinero, scope = un rodeo |
 

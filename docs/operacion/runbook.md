@@ -1,6 +1,7 @@
 # Runbook de operación — ArenaPro Estadísticas
 
 Guía de una página para publicar resultados y resolver problemas. Cualquier persona de respaldo debe poder seguirla sin ayuda.
+Para aprender a usar el admin paso a paso, ver el [manual del admin](./manual-admin.md).
 
 ---
 

@@ -40,7 +40,7 @@ Cualquier cambio de negocio se actualiza **aquí primero**, luego en código y t
 | Lazo por Parejas | Dinero **50/50** cabecero / pialador — **confirmado** con organizadores |
 | Redondeo 50/50 | Si el monto es impar: piso al cabecero, resto al pialador (ej. 10001 → 5000 / 5001). Determinista y testeado |
 
-Implementación: constante `TEAM_ROPING_MONEY_SPLIT = 0.5` en `scripts/lib/money.mjs`.
+Implementación: constante `TEAM_ROPING_MONEY_SPLIT = 0.5` en `web/lib/money.mjs`.
 
 ---
 
@@ -125,7 +125,7 @@ Flujo: automático por defecto, humano en el loop cuando haga falta.
 
 | Ítem | Estado |
 |------|--------|
-| Checklist export enviado/revisado (`02-contratos-datos.md` §9) | **Pendiente** — compartir con equipo Time |
+| Checklist export enviado/revisado (`contratos-datos.md` §9) | **Pendiente** — compartir con equipo Time |
 | `montoGanado` en export | Pendiente confirmación |
 | LP cabecero/pialador o dúo `"A / B"` | Pendiente confirmación Time (Stats ya soporta ambos) |
 | Split dinero LP 50/50 | **Confirmado** |

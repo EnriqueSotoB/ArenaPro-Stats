@@ -34,7 +34,7 @@ Completar **antes** del PR `develop` → `main`.
 
 ## Ops
 
-- [x] Runbook: [runbook-operacion.md](./runbook-operacion.md)
+- [x] Runbook: [runbook.md](./runbook.md) · [manual del admin](./manual-admin.md)
 - [x] Monitor cada hora con issue automático si el sitio falla
 - [ ] Persona de respaldo entrenada (30 min) y segunda computadora probada
 - [x] Ensayo de publish / ingest Excel en local
@@ -48,7 +48,7 @@ Completar **antes** del PR `develop` → `main`.
 - [ ] Aviso interno al equipo FMR / Time con link
 - [x] Canal para reportar errores de nombres / aliases: soporte@arenapro.mx (footer del sitio)
 - [x] Aviso de privacidad y términos publicados *(pendiente: revisión de abogado y domicilio del responsable)*
-- [x] Pendientes explícitos documentados: cut line oficial, confirmación 50/50 dinero TR → [backlog v1.1](./backlog-v1.1.md)
+- [x] Pendientes explícitos documentados: cut line oficial, confirmación 50/50 dinero TR → [backlog v1.1](../producto/backlog-v1.1.md)
 
 ---
 

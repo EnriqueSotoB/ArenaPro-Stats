@@ -19,7 +19,7 @@ Admin Stats: preview → cherry-pick → edits → ingest
 data/eventos/{id}.json  (+ statsEdits aplicados)
 data/manifest.json
         ↓
-scripts/rebuild-temporada.mjs
+tools/rebuild-temporada.mjs
         ↓
 data/circuitos/{circuitoId}.json  (standings + allAround, uno por circuito)
         ↓
@@ -169,7 +169,7 @@ Reglas:
 - `circuitoDefault` es el circuito que abre el sitio público.
 - `logo` (relativo a `data/`, solo `logos/*.png|jpg|webp`) y `hashtags` (texto libre normalizado a `#Tag` separados por espacio, sin duplicados) son opcionales y editables; los usa la imagen para redes y su texto sugerido. Si `hashtags` está vacío, el texto no lleva hashtags.
 - `portal` (opcional): `{ "sal": hex32, "hash": hex64, "iteraciones": 210000, "version": 2 }` — `hash` = SHA-256 de la llave PBKDF2-SHA256 de la contraseña del portal de asociaciones (`portal.html`). La sesión del navegador guarda la llave, así que copiar el `hash` público no abre el portal; registros sin `version: 2` se ignoran. Nunca se guarda la contraseña; el admin la genera con **Dar acceso** y la muestra una sola vez. `null` = sin acceso. Editar la asociación conserva el acceso; solo `/api/asociaciones/portal(/remove)` lo cambia.
-- Asociaciones y circuitos se crean/editan desde el admin (`/api/asociaciones`, `/api/circuitos`); lógica en `scripts/lib/circuitos.mjs`.
+- Asociaciones y circuitos se crean/editan desde el admin (`/api/asociaciones`, `/api/circuitos`); lógica en `web/lib/circuitos.mjs`.
 - El campo `temporada` dentro del JSON del evento es informativo (se llena con la temporada del primer circuito); **no** decide a qué acumulado entra.
 - Línea de corte por circuito: mientras `cutLineVisible !== true`, la UI **no** muestra badges de cut.
 - Un manifest v1 (`temporadaActiva` + `titulo`) se sigue leyendo como un solo circuito con todos los eventos.
@@ -229,7 +229,7 @@ Mantener alineación con Time / FMR. Claves conocidas hoy:
 - TeamRoping → se **parte** en Cabecero / Pialador (+ Master); etiquetas UI: Lazo por Parejas — Cabeceros / Pialadores  
 - CaballoConPretal, CaballoConMontura, JineteosDeToros, Polos  
 
-**Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)` (`scripts/lib/disciplinas.mjs`, compartido por rebuild, admin y portal).
+**Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)` (`web/lib/disciplinas.mjs`, compartido por rebuild, admin y portal).
 
 ---
 
@@ -242,7 +242,7 @@ Para rodeos que no se corren en Time: plantilla [`templates/evento-manual.xlsx`]
 - El admin convierte a JSON `source: "manual"` schema 2 con `clasificacion` completa (paridad Time para UI/rebuild).
 - `resultados[]` se sintetiza desde las rondas.
 
-Ver `scripts/lib/excel-evento.mjs`.
+Ver `tools/lib/excel-evento.mjs`.
 
 ---
 
