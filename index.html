@@ -102,7 +102,6 @@
             <button type="button" class="metric-btn is-active" data-metric="puntos" id="rankMetricPuntos">Puntos</button>
             <button type="button" class="metric-btn" data-metric="dinero" id="rankMetricDinero">Dinero</button>
           </div>
-          <button type="button" class="btn-share" data-share>Imagen para redes</button>
         </div>
       </header>
       <div id="rankPodium" class="podium"></div>
@@ -137,9 +136,6 @@
         <button type="button" class="btn-back" id="btnBackEventos">← Eventos</button>
         <h1 id="eventoTitle">Evento</h1>
         <p id="eventoMeta" class="meta"></p>
-        <div class="head-actions">
-          <button type="button" class="btn-share" data-share>Imagen para redes</button>
-        </div>
       </header>
       <div id="eventoPodium" class="podium"></div>
       <div class="panel">
@@ -148,31 +144,6 @@
       </div>
     </section>
   </main>
-
-  <dialog id="shareDialog" class="share-dialog" aria-labelledby="shareTitle">
-    <div class="share-head">
-      <h2 id="shareTitle">Imagen para redes</h2>
-      <button type="button" class="share-close" id="shareClose" aria-label="Cerrar">×</button>
-    </div>
-    <div class="metric-toggle share-formats" role="group" aria-label="Formato">
-      <button type="button" class="metric-btn is-active" data-formato="post">Post 4:5</button>
-      <button type="button" class="metric-btn" data-formato="cuadrado">Cuadrado</button>
-      <button type="button" class="metric-btn" data-formato="historia">Historia</button>
-    </div>
-    <div class="share-preview">
-      <canvas id="shareCanvas" width="1080" height="1350"></canvas>
-    </div>
-    <label class="share-caption">
-      <span>Texto para la publicación</span>
-      <textarea id="shareCaption" rows="4"></textarea>
-    </label>
-    <div class="share-actions">
-      <button type="button" class="btn-share is-primary" id="shareNative" hidden>Compartir</button>
-      <button type="button" class="btn-share" id="shareDownload">Descargar PNG</button>
-      <button type="button" class="btn-share" id="shareCopy">Copiar texto</button>
-    </div>
-    <p class="meta" id="shareHint">Post 4:5 es el formato que mejor se ve en el feed de Instagram y Facebook.</p>
-  </dialog>
 
   <footer class="footer">
     <p id="footerText">ArenaPro Estadísticas</p>

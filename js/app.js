@@ -10,7 +10,6 @@ import {
   renderPodiumHtml,
   rankingToPodiumItems,
   renderEventoRankingTableHtml,
-  formatResultadoValor,
   athleteNameHtml,
   groupBy,
   escapeHtml,
@@ -33,14 +32,7 @@ import {
   circuitoDataFile,
 } from "../scripts/lib/circuitos.mjs";
 
-import {
-  FORMATOS,
-  drawSocialCard,
-  canvasToPngBlob,
-} from "./social-card.js";
-
 const MANIFEST_URL = "data/manifest.json";
-const PUBLIC_SITE = "https://estadisticas.arenapro.mx/";
 const TOP_CARD = 5;
 const ALL_AROUND_ID = "__all-around";
 const BRAND = "ArenaPro Estadísticas";
@@ -88,14 +80,6 @@ const els = {
   searchInput: document.getElementById("searchInput"),
   searchResults: document.getElementById("searchResults"),
   searchRoot: document.getElementById("searchRoot"),
-  shareDialog: document.getElementById("shareDialog"),
-  shareCanvas: document.getElementById("shareCanvas"),
-  shareCaption: document.getElementById("shareCaption"),
-  shareNative: document.getElementById("shareNative"),
-  shareDownload: document.getElementById("shareDownload"),
-  shareCopy: document.getElementById("shareCopy"),
-  shareClose: document.getElementById("shareClose"),
-  shareHint: document.getElementById("shareHint"),
 };
 
 /** @type {any} */
@@ -118,10 +102,6 @@ const expandedRows = new Set();
 let metricMode = "puntos";
 /** @type {string} */
 let lastNonCompetidorHash = "#temporada";
-/** Contenido de la imagen para redes de la vista actual. @type {any} */
-let shareSpec = null;
-/** @type {keyof typeof FORMATOS} */
-let shareFormato = "post";
 
 init().catch((err) => setStatus(err.message || String(err), true));
 
@@ -148,7 +128,6 @@ async function init() {
   wireMetricToggle(els.hubMetricPuntos, els.hubMetricDinero);
   wireMetricToggle(els.rankMetricPuntos, els.rankMetricDinero);
   wireSearch();
-  wireShare();
   window.addEventListener("hashchange", () => applyRoute());
 
   setStatus("");
@@ -239,7 +218,6 @@ async function applyRoute() {
   }
   await useCircuito(route.circuitoId);
 
-  setShareSpec(null);
   hideAllViews();
   expandedRows.clear();
   syncMetricButtons();
@@ -636,19 +614,6 @@ function renderAllAroundRanking() {
       </table>
     </div>
     <p class="cut-note">Vaquero Completo de temporada: suma del dinero ganado solo en disciplinas con cobro. Cabecero y Pialador cuentan como disciplinas distintas.</p>`;
-
-  setShareSpec({
-    titulo: "Vaquero Completo",
-    subtitulo: `Dinero ganado en 2+ disciplinas · ${rows.length} clasificados`,
-    filas: rows.map((r, i) => ({
-      lugar: i + 1,
-      nombre: r.nombre || "—",
-      detalle: `${(r.disciplinasConDinero || []).length} disciplinas`,
-      valor: fmtMxn(r.dineroTotal),
-    })),
-    hash: routeHash("temporada", ALL_AROUND_ID),
-    archivo: "vaquero-completo",
-  });
 }
 
 function renderTemporadaRanking(catId) {
@@ -667,7 +632,6 @@ function renderTemporadaRanking(catId) {
   );
 
   if (!rows.length) {
-    shareSpec = null;
     els.rankTitle.textContent = "Clasificación";
     els.rankMeta.textContent = "Disciplina no encontrada";
     els.rankPodium.innerHTML = "";
@@ -750,19 +714,6 @@ function renderTemporadaRanking(catId) {
       </table>
     </div>
     ${cutNote}`;
-
-  setShareSpec({
-    titulo: nombre,
-    subtitulo: `${metricMode === "dinero" ? "Clasificación por dinero" : "Clasificación por puntos"} · ${temporada?.eventosContados ?? 0} eventos`,
-    filas: rows.map((r, i) => ({
-      lugar: i + 1,
-      nombre: r.nombre || r.competidorId || "—",
-      detalle: `${r.eventos ?? 0} evento${r.eventos === 1 ? "" : "s"}`,
-      valor: formatMetric(r),
-    })),
-    hash: routeHash("temporada", catId),
-    archivo: `${catId}-${metricMode}`,
-  });
 }
 
 /* —— Ficha competidor —— */
@@ -955,23 +906,6 @@ function renderEventoDetail(evento, catId) {
 
   els.eventoTable.innerHTML = renderEventoRankingTableHtml(ranking, expandedRows);
   wireExpandableRows();
-
-  setShareSpec({
-    linea: evento.nombreEvento || evento.eventoId || "Evento",
-    titulo: cat.nombre,
-    subtitulo: ["Resultados", fmtFecha(evento.fecha), evento.sede].filter(Boolean).join(" · "),
-    filas: ranking
-      .filter((r) => !r.sinPosicion && r.lugar != null)
-      .map((r) => ({
-        lugar: r.lugar,
-        nombre: r.nombre,
-        detalle: Number(r.montoGanado) > 0 ? fmtMxn(r.montoGanado) : r.equipo || "",
-        valor: formatResultadoValor(r),
-      })),
-    hash: routeHash("eventos", evento.eventoId),
-    archivo: `${evento.nombreEvento || "evento"}-${cat.nombre}`,
-    pie: fmtFecha(evento.fecha),
-  });
 }
 
 function wireExpandableRows() {
@@ -985,165 +919,6 @@ function wireExpandableRows() {
       renderEventoDetail(currentEvento, currentCatId);
     });
   });
-}
-
-/* —— Imagen para redes —— */
-
-function publicUrl(hash) {
-  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === "file:";
-  const base = local ? PUBLIC_SITE : `${location.origin}${location.pathname}`;
-  return `${base}${hash || ""}`;
-}
-
-function fmtFecha(value) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value || ""));
-  if (!m) return "";
-  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])).toLocaleDateString("es-MX", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-function slugArchivo(text) {
-  return (
-    String(text || "estadisticas")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-zA-Z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .toLowerCase()
-      .slice(0, 80) || "estadisticas"
-  );
-}
-
-/** Completa el spec con asociación/circuito activos y habilita los botones de la vista. */
-function setShareSpec(spec) {
-  document.querySelectorAll("[data-share]").forEach((btn) => {
-    btn.disabled = !spec?.filas?.length;
-  });
-  if (!spec) {
-    shareSpec = null;
-    return;
-  }
-  const circuito = currentCircuito();
-  const asociacion = findAsociacion(manifest, circuito?.asociacionId);
-  const actualizado = fmtFecha(temporada?.actualizadoEn);
-  shareSpec = {
-    kicker: [asociacion?.siglas, asociacion?.nombre].filter(Boolean).join(" · "),
-    linea: circuito?.nombre || "",
-    pie: actualizado ? `Actualizado ${actualizado}` : "",
-    sitio: new URL(publicUrl()).host,
-    logo: asociacion?.logo ? `data/${asociacion.logo}` : "",
-    hashtags: asociacion?.hashtags || "",
-    ...spec,
-    archivo: `${slugArchivo(circuito?.id)}-${slugArchivo(spec.archivo)}`,
-  };
-}
-
-function shareCaption(spec) {
-  const top = spec.filas
-    .slice(0, 3)
-    .map((f) => `${f.lugar}. ${f.nombre} · ${f.valor}`)
-    .join("\n");
-  const encabezado = [spec.titulo, spec.linea].filter(Boolean).join(" — ");
-  const bloques = [
-    [encabezado, spec.subtitulo].filter(Boolean).join("\n"),
-    top,
-    `Resultados completos: ${publicUrl(spec.hash)}`,
-    spec.hashtags,
-  ];
-  return bloques.filter(Boolean).join("\n\n");
-}
-
-function canShareFiles() {
-  try {
-    const probe = new File([new Blob()], "x.png", { type: "image/png" });
-    return typeof navigator.canShare === "function" && navigator.canShare({ files: [probe] });
-  } catch {
-    return false;
-  }
-}
-
-function wireShare() {
-  if (!els.shareDialog) return;
-  document.querySelectorAll("[data-share]").forEach((btn) => {
-    btn.addEventListener("click", openShare);
-  });
-  els.shareDialog.querySelectorAll("[data-formato]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      shareFormato = btn.getAttribute("data-formato");
-      renderShare();
-    });
-  });
-  els.shareClose.addEventListener("click", () => els.shareDialog.close());
-  els.shareDialog.addEventListener("click", (e) => {
-    if (e.target === els.shareDialog) els.shareDialog.close();
-  });
-  els.shareDownload.addEventListener("click", downloadShare);
-  els.shareCopy.addEventListener("click", copyShareCaption);
-  els.shareNative.addEventListener("click", nativeShare);
-  els.shareNative.hidden = !canShareFiles();
-}
-
-async function openShare() {
-  if (!shareSpec?.filas?.length) return;
-  els.shareCaption.value = shareCaption(shareSpec);
-  els.shareDialog.showModal();
-  await renderShare();
-}
-
-async function renderShare() {
-  els.shareDialog.querySelectorAll("[data-formato]").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.getAttribute("data-formato") === shareFormato);
-  });
-  const f = FORMATOS[shareFormato];
-  els.shareHint.textContent =
-    shareFormato === "historia"
-      ? "Historia 9:16 para Instagram/Facebook Stories. Deja libre arriba y abajo para los stickers."
-      : shareFormato === "cuadrado"
-        ? `Cuadrado 1080×1080: muestra el top ${f.maxFilas}.`
-        : `Post 4:5 (1080×1350): el formato que más ocupa en el feed de Instagram y Facebook. Muestra el top ${f.maxFilas}.`;
-  await drawSocialCard(els.shareCanvas, shareSpec, shareFormato);
-}
-
-function shareFileName() {
-  return `${shareSpec.archivo}-${shareFormato}.png`;
-}
-
-async function downloadShare() {
-  const blob = await canvasToPngBlob(els.shareCanvas);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = shareFileName();
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-async function copyShareCaption() {
-  try {
-    await navigator.clipboard.writeText(els.shareCaption.value);
-    els.shareHint.textContent = "Texto copiado. Pégalo en la publicación.";
-  } catch {
-    els.shareCaption.select();
-    els.shareHint.textContent = "Selecciona el texto y cópialo manualmente.";
-  }
-}
-
-async function nativeShare() {
-  try {
-    const blob = await canvasToPngBlob(els.shareCanvas);
-    const file = new File([blob], shareFileName(), { type: "image/png" });
-    // Instagram ignora el texto del share sheet: dejarlo en el portapapeles para pegarlo.
-    await navigator.clipboard?.writeText(els.shareCaption.value).catch(() => {});
-    await navigator.share({ files: [file], text: els.shareCaption.value });
-    els.shareHint.textContent = "Listo. El texto quedó copiado para pegarlo en la publicación.";
-  } catch (err) {
-    if (err?.name !== "AbortError") els.shareHint.textContent = err.message || String(err);
-  }
 }
 
 /* —— Utils —— */
