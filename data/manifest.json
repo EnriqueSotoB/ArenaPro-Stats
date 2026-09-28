@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "circuitoDefault": "aerch-circuito-2027",
+  "circuitoDefault": "temporada-2026-2027",
   "asociaciones": [
     {
       "id": "aerch",
@@ -10,7 +10,8 @@
       "estado": "Chihuahua",
       "logo": "logos/aerch.jpg",
       "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro",
-      "lazadorRepetido": "sumar"
+      "lazadorRepetido": "sumar",
+      "portal": null
     },
     {
       "id": "fmr",
@@ -18,9 +19,21 @@
       "nombre": "Federación Mexicana de Rodeo",
       "tipo": "federacion",
       "estado": "",
-      "logo": "",
+      "logo": "logos/fmr.png",
       "hashtags": "#FMR #Rodeo #ArenaPro",
-      "lazadorRepetido": "fmr"
+      "lazadorRepetido": "fmr",
+      "portal": null
+    },
+    {
+      "id": "prorodeo",
+      "siglas": "ProRodeo",
+      "nombre": "Promotora de Rodeos",
+      "tipo": "promotora",
+      "estado": "Chihuahua",
+      "logo": "logos/prorodeo.png",
+      "hashtags": "#ProRodeo #Chihuahua #RodeoProfesional",
+      "lazadorRepetido": "fmr",
+      "portal": null
     }
   ],
   "circuitos": [
@@ -41,6 +54,15 @@
       "cutLine": null,
       "cutLineVisible": false,
       "cutLinePorDisciplina": {}
+    },
+    {
+      "id": "temporada-2026-2027",
+      "asociacionId": "prorodeo",
+      "nombre": "Temporada 2026-2027",
+      "temporada": "2026-2027",
+      "cutLine": null,
+      "cutLineVisible": false,
+      "cutLinePorDisciplina": {}
     }
   ],
   "eventos": [
@@ -50,7 +72,10 @@
       "fecha": "2026-08-02",
       "sede": "Arena Huejuquilla",
       "file": "eventos/2026-08-02-rodeo-jimenez-2026.json",
-      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
+      "circuitos": [
+        "aerch-circuito-2027",
+        "fmr-tour-2027"
+      ]
     },
     {
       "id": "local:20",
@@ -58,7 +83,10 @@
       "fecha": "2026-08-15",
       "sede": "Arena Complejo Avalos",
       "file": "eventos/2026-08-15-country-fest-2026.json",
-      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
+      "circuitos": [
+        "aerch-circuito-2027",
+        "fmr-tour-2027"
+      ]
     },
     {
       "id": "local:19",
@@ -66,7 +94,10 @@
       "fecha": "2026-08-30",
       "sede": "Arena de rodeo zootecnia",
       "file": "eventos/2026-08-30-rodeo-zootecnia-2026.json",
-      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
+      "circuitos": [
+        "aerch-circuito-2027",
+        "fmr-tour-2027"
+      ]
     },
     {
       "id": "local:21",
@@ -74,7 +105,10 @@
       "fecha": "2026-09-06",
       "sede": "Arena Santa Rosalia Camargo",
       "file": "eventos/2026-09-06-rodeo-camargo-2026.json",
-      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
+      "circuitos": [
+        "aerch-circuito-2027",
+        "fmr-tour-2027"
+      ]
     },
     {
       "id": "manual:2026-09-19-truckmania-manual",
@@ -82,7 +116,10 @@
       "fecha": "2026-09-19",
       "sede": "Arena complejo avalos",
       "file": "eventos/2026-09-19-truckmania-manual.json",
-      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
+      "circuitos": [
+        "aerch-circuito-2027",
+        "fmr-tour-2027"
+      ]
     },
     {
       "id": "local:27",
@@ -90,7 +127,10 @@
       "fecha": "2026-09-20",
       "sede": "Arena Complejo Avalos",
       "file": "eventos/2026-09-20-truckmania-fest-2026.json",
-      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
+      "circuitos": [
+        "aerch-circuito-2027",
+        "fmr-tour-2027"
+      ]
     }
   ]
 }
