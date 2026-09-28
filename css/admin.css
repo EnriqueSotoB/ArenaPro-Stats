@@ -277,6 +277,20 @@ button.link-like:hover {
   padding: 0.35rem 0.75rem;
 }
 
+.btn-secondary[hidden] {
+  display: none;
+}
+
+.ev-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.eventos-mini li.is-editing {
+  background: color-mix(in srgb, var(--forest) 6%, transparent);
+}
+
 .warnings-box {
   margin: 0.75rem 0;
   padding: 0.75rem 1rem;
@@ -293,6 +307,155 @@ button.link-like:hover {
 
 .cherry-pick {
   margin-top: 1rem;
+}
+
+.circuitos-pick {
+  margin: 1rem 0 0;
+  padding: 0;
+  border: none;
+}
+
+.circuitos-pick-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.circuitos-pick-group {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.circuitos-pick-group-title {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--olive);
+}
+
+.ev-circuitos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  flex-basis: 100%;
+}
+
+.circuitos-tree {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.circuitos-tree > li {
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  background: #fff;
+}
+
+.tree-head,
+.tree-circuito {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+}
+
+.tree-head-name {
+  font-weight: 700;
+  color: var(--forest);
+}
+
+.tree-hashtags {
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.tree-logo {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: 0.375rem;
+}
+
+.logo-actual {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-actual[hidden] {
+  display: none;
+}
+
+.logo-actual img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: 0.45rem;
+}
+
+.config-field input[type="file"] {
+  padding: 0.35rem;
+}
+
+.tree-circuitos {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.tree-circuito {
+  padding: 0.35rem 0 0.35rem 0.85rem;
+  border-left: 2px solid var(--sand);
+  font-size: 0.9375rem;
+}
+
+.config-forms {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 760px) {
+  .config-forms {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.config-form {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding: 0.85rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.45rem;
+}
+
+.config-field {
+  max-width: none;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.config-field input,
+.config-field select {
+  font: inherit;
+  color: var(--dark);
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
 }
 
 .cherry-pick-list {

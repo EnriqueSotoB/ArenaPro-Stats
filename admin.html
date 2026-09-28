@@ -44,13 +44,13 @@
       </li>
 
       <li class="step panel" id="step2">
-        <h2 class="step-title"><span class="step-num">2</span> Confirmar temporada y preview</h2>
-        <p class="meta">La temporada del circuito (no siempre es el año del calendario). Elige categorías, corrige filas si hace falta y revisa el preview.</p>
+        <h2 class="step-title"><span class="step-num">2</span> Elegir circuitos y preview</h2>
+        <p class="meta">Marca para qué asociación y temporada cuenta el evento (puede ser más de una, p. ej. un rodeo FMR Tour-AERCH). Elige categorías, corrige filas si hace falta y revisa el preview.</p>
         <div id="preview" class="preview empty-preview">Sin archivo cargado.</div>
-        <label class="field admin-field">
-          <span>Temporada</span>
-          <input id="temporadaInput" type="text" inputmode="numeric" placeholder="2027" autocomplete="off" />
-        </label>
+        <fieldset class="circuitos-pick">
+          <legend class="preview-label">Cuenta para</legend>
+          <div id="circuitosPickList" class="circuitos-pick-list"></div>
+        </fieldset>
 
         <div id="warningsBox" class="warnings-box" hidden></div>
 
@@ -86,7 +86,10 @@
       <li class="step panel" id="step3">
         <h2 class="step-title"><span class="step-num">3</span> Agregar a Estadísticas</h2>
         <p class="meta">Guarda el evento, actualiza el manifest y regenera la tabla de temporada.</p>
-        <button type="button" class="btn-primary" id="btnIngest" disabled>Agregar a Estadísticas</button>
+        <div class="btn-row">
+          <button type="button" class="btn-primary" id="btnIngest" disabled>Agregar a Estadísticas</button>
+          <button type="button" class="btn-secondary" id="btnCancelEdit" hidden>Cancelar edición</button>
+        </div>
       </li>
 
       <li class="step panel" id="step4">
@@ -102,8 +105,85 @@
 
     <section class="panel">
       <h2 class="step-title-plain">Eventos en el repo</h2>
-      <p class="meta">Eliminar quita el JSON y regenera la temporada. Luego publica para que salga del sitio público.</p>
+      <p class="meta">Editar reabre el evento para corregir nombres, puntos o dinero. Eliminar quita el JSON. Ambos regeneran la temporada; luego publica para que se refleje en el sitio.</p>
       <ul id="eventosList" class="eventos-mini"></ul>
+    </section>
+
+    <section class="panel" id="circuitosPanel">
+      <h2 class="step-title-plain">Asociaciones y circuitos</h2>
+      <p class="meta">
+        Cada asociación (AERCH, FMR…) tiene un circuito por temporada. El circuito <strong>principal</strong> es el que abre el sitio público.
+        Los cambios regeneran las estadísticas; luego publica.
+      </p>
+
+      <ul id="circuitosTree" class="circuitos-tree"></ul>
+
+      <div class="config-forms">
+        <form id="circuitoForm" class="config-form" autocomplete="off">
+          <p class="preview-label" id="circuitoFormTitle">Nuevo circuito / temporada</p>
+          <input type="hidden" id="circuitoId" />
+          <label class="field admin-field config-field">
+            <span>Asociación</span>
+            <select id="circuitoAsociacion" required></select>
+          </label>
+          <label class="field admin-field config-field">
+            <span>Nombre</span>
+            <input id="circuitoNombre" type="text" placeholder="AERCH Circuito 2028" maxlength="80" required />
+          </label>
+          <label class="field admin-field config-field">
+            <span>Temporada</span>
+            <input id="circuitoTemporada" type="text" placeholder="2028 o 2027-2028" maxlength="20" required />
+          </label>
+          <label class="cherry-item">
+            <input id="circuitoPrincipal" type="checkbox" />
+            <span>Circuito principal del sitio</span>
+          </label>
+          <div class="btn-row">
+            <button type="submit" class="btn-primary" id="btnCircuitoSave">Crear circuito</button>
+            <button type="button" class="btn-secondary" id="btnCircuitoCancel" hidden>Cancelar</button>
+          </div>
+        </form>
+
+        <form id="asociacionForm" class="config-form" autocomplete="off">
+          <p class="preview-label" id="asociacionFormTitle">Nueva asociación</p>
+          <input type="hidden" id="asociacionId" />
+          <label class="field admin-field config-field">
+            <span>Siglas</span>
+            <input id="asociacionSiglas" type="text" placeholder="AERCH" maxlength="20" required />
+          </label>
+          <label class="field admin-field config-field">
+            <span>Nombre</span>
+            <input id="asociacionNombre" type="text" placeholder="Asociación Estatal de Rodeo de Chihuahua" maxlength="120" required />
+          </label>
+          <label class="field admin-field config-field">
+            <span>Tipo</span>
+            <select id="asociacionTipo">
+              <option value="estatal">Asociación estatal</option>
+              <option value="federacion">Federación / nacional</option>
+            </select>
+          </label>
+          <label class="field admin-field config-field">
+            <span>Estado</span>
+            <input id="asociacionEstado" type="text" placeholder="Chihuahua" maxlength="60" />
+          </label>
+          <label class="field admin-field config-field">
+            <span>Hashtags para redes (separados por espacio)</span>
+            <input id="asociacionHashtags" type="text" placeholder="#AERCH #RodeoChihuahua" maxlength="300" spellcheck="false" />
+          </label>
+          <label class="field admin-field config-field">
+            <span>Logo (PNG, JPG o WEBP · máx. 2 MB)</span>
+            <input id="asociacionLogo" type="file" accept="image/png,image/jpeg,image/webp" />
+          </label>
+          <div id="asociacionLogoActual" class="logo-actual" hidden>
+            <img id="asociacionLogoImg" alt="" />
+            <button type="button" class="btn-danger btn-sm" id="btnAsociacionLogoRemove">Quitar logo</button>
+          </div>
+          <div class="btn-row">
+            <button type="submit" class="btn-primary" id="btnAsociacionSave">Crear asociación</button>
+            <button type="button" class="btn-secondary" id="btnAsociacionCancel" hidden>Cancelar</button>
+          </div>
+        </form>
+      </div>
     </section>
 
     <section class="panel" id="aliasesPanel">
