@@ -17,6 +17,7 @@ import {
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  aliasesParaAsociacion,
   buildAliasMap,
   resolveCompetitorKey,
 } from "./lib/competitor-aliases.mjs";
@@ -38,6 +39,7 @@ import {
   circuitoDataFile,
 } from "./lib/circuitos.mjs";
 import { disciplinaKey, disciplinaLabel, normalizeText } from "./lib/disciplinas.mjs";
+import { eventoConNombresMayusculas } from "./lib/nombres.mjs";
 
 export { disciplinaKey, disciplinaLabel };
 
@@ -131,7 +133,7 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {
   const competidorAccum = new Map();
 
   for (const entry of eventos) {
-    const ev = loadEvento(entry);
+    const ev = eventoConNombresMayusculas(loadEvento(entry));
     const catMap = Object.fromEntries((ev.categorias || []).map((c) => [c.id, c]));
     const eventMeta = {
       id: entry.id || ev.eventoId || "",
@@ -259,12 +261,12 @@ export function rebuildTemporada(root = defaultRoot) {
   );
   const aliasesPath = join(dataDir, "competidor-aliases.json");
 
-  let aliasMap = new Map();
+  let aliasesDoc = { aliases: [] };
   if (existsSync(aliasesPath)) {
     try {
-      aliasMap = buildAliasMap(JSON.parse(readFileSync(aliasesPath, "utf8")));
+      aliasesDoc = JSON.parse(readFileSync(aliasesPath, "utf8"));
     } catch {
-      aliasMap = new Map();
+      aliasesDoc = { aliases: [] };
     }
   }
 
@@ -284,6 +286,7 @@ export function rebuildTemporada(root = defaultRoot) {
   const circuitos = manifest.circuitos.map((circuito) => {
     const eventos = eventosDeCircuito(manifest, circuito.id);
     const asociacion = findAsociacion(manifest, circuito.asociacionId);
+    const aliasMap = buildAliasMap(aliasesParaAsociacion(aliasesDoc, circuito.asociacionId));
     const acumulado = buildCircuitoStandings(eventos, loadEvento, aliasMap, {
       lazadorRepetido: asociacion?.lazadorRepetido,
     });

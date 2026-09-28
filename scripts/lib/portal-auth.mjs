@@ -8,7 +8,8 @@
 export const PORTAL_ITERACIONES = 210000;
 /** Registros sin esta versión (hash = llave) permitían entrar copiando el manifest. */
 const PORTAL_VERSION = 2;
-const MIN_PASSWORD = 10;
+/** El hash es público: una contraseña corta se puede adivinar sin conexión. La generada tiene 14. */
+const MIN_PASSWORD = 14;
 /** Sin 0/O/1/I/L para dictarla por teléfono sin confusiones. */
 const ALFABETO = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 

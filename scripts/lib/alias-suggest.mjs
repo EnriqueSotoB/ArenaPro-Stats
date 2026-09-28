@@ -3,6 +3,7 @@
  * Sin lista global por apellido: genera demasiado ruido con homónimos.
  */
 import { buildAliasMap } from "./competitor-aliases.mjs";
+import { nombreMayusculas } from "./nombres.mjs";
 
 /**
  * @param {string} key
@@ -25,14 +26,7 @@ export function surnameFromKey(key) {
  */
 export function displayFromKey(key) {
   const k = String(key || "").trim();
-  if (k.startsWith("name:")) {
-    return k
-      .slice(5)
-      .split(/\s+/)
-      .filter(Boolean)
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-  }
+  if (k.startsWith("name:")) return nombreMayusculas(k.slice(5));
   return k;
 }
 

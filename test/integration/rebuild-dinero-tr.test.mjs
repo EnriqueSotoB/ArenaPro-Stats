@@ -98,7 +98,7 @@ describe("rebuildTemporada dinero", () => {
       readFileSync(outPath, "utf8")
     );
     const unoBarriles = temporada.standings.find(
-      (s) => s.nombre === "Rider Uno" && s.disciplinaId === "Barriles"
+      (s) => s.nombre === "RIDER UNO" && s.disciplinaId === "Barriles"
     );
     assert.ok(unoBarriles);
     assert.equal(unoBarriles.puntosTotales, 150);
@@ -106,7 +106,7 @@ describe("rebuildTemporada dinero", () => {
     assert.equal(unoBarriles.eventos, 2);
 
     const unoLazo = temporada.standings.find(
-      (s) => s.nombre === "Rider Uno" && s.disciplinaId === "LazoDeBecerro"
+      (s) => s.nombre === "RIDER UNO" && s.disciplinaId === "LazoDeBecerro"
     );
     assert.ok(unoLazo);
     assert.equal(unoLazo.dineroTotal, 5000);
@@ -152,8 +152,8 @@ describe("rebuildTemporada team roping", () => {
     assert.equal(headers.length, 2);
     assert.equal(heelers.length, 2);
 
-    const alpha = headers.find((s) => s.nombre === "Header Alpha");
-    const beta = heelers.find((s) => s.nombre === "Heeler Beta");
+    const alpha = headers.find((s) => s.nombre === "HEADER ALPHA");
+    const beta = heelers.find((s) => s.nombre === "HEELER BETA");
     assert.ok(alpha);
     assert.ok(beta);
     assert.equal(alpha.puntosTotales, 100);

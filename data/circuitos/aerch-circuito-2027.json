@@ -5,8 +5,8 @@
   "asociacionNombre": "Asociación Estatal de Rodeo de Chihuahua",
   "temporada": "2027",
   "titulo": "AERCH Circuito 2027",
-  "actualizadoEn": "2026-09-28T17:42:34.768Z",
-  "eventosContados": 6,
+  "actualizadoEn": "2026-09-28T18:20:02.175Z",
+  "eventosContados": 5,
   "standings": [
     {
       "competidorKey": "name:chale ochoa",
@@ -50,7 +50,7 @@
     {
       "competidorKey": "name:gael saenz",
       "competidorId": "local:560",
-      "nombre": "Gael Saenz",
+      "nombre": "GAEL SAENZ",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -63,7 +63,7 @@
     {
       "competidorKey": "name:alvaro villalba",
       "competidorId": "local:557",
-      "nombre": "Alvaro Villalba",
+      "nombre": "ALVARO VILLALBA",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -89,7 +89,7 @@
     {
       "competidorKey": "name:francisco alarcon",
       "competidorId": "local:558",
-      "nombre": "Francisco Alarcon",
+      "nombre": "FRANCISCO ALARCON",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -102,7 +102,7 @@
     {
       "competidorKey": "name:rodrigo longoria",
       "competidorId": "local:928",
-      "nombre": "Rodrigo Longoria",
+      "nombre": "RODRIGO LONGORIA",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -115,7 +115,7 @@
     {
       "competidorKey": "name:alejandro grajeda",
       "competidorId": "local:934",
-      "nombre": "Alejandro Grajeda",
+      "nombre": "ALEJANDRO GRAJEDA",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -128,7 +128,7 @@
     {
       "competidorKey": "name:luis muniz",
       "competidorId": "local:555",
-      "nombre": "Luis Muniz",
+      "nombre": "LUIS MUNIZ",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -141,7 +141,7 @@
     {
       "competidorKey": "name:edson vyeira",
       "competidorId": "local:552",
-      "nombre": "Edson Vyeira",
+      "nombre": "EDSON VYEIRA",
       "equipo": "",
       "disciplinaId": "AchatadaDeNovillos",
       "disciplinaNombre": "Achatada de Novillos",
@@ -204,19 +204,6 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:luisa herrera",
-      "competidorId": "local:526",
-      "nombre": "LUISA HERRERA",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 472,
-      "dineroTotal": 0,
-      "eventos": 6
-    },
-    {
       "competidorKey": "name:andrea gonzalez",
       "competidorId": "local:531",
       "nombre": "ANDREA GONZALEZ",
@@ -230,9 +217,22 @@
       "eventos": 4
     },
     {
+      "competidorKey": "name:luisa herrera",
+      "competidorId": "local:526",
+      "nombre": "LUISA HERRERA",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 400,
+      "dineroTotal": 0,
+      "eventos": 5
+    },
+    {
       "competidorKey": "name:diana laura pando",
       "competidorId": "local:530",
-      "nombre": "Diana Laura Pando",
+      "nombre": "DIANA LAURA PANDO",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -254,45 +254,6 @@
       "puntosTotales": 233,
       "dineroTotal": 0,
       "eventos": 4
-    },
-    {
-      "competidorKey": "name:julia meraz",
-      "competidorId": "local:julia-meraz",
-      "nombre": "JULIA MERAZ",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 204,
-      "dineroTotal": 9522,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:adriana olivas",
-      "competidorId": "local:adriana-olivas",
-      "nombre": "ADRIANA OLIVAS",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 184,
-      "dineroTotal": 6593,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:sofia olivas",
-      "competidorId": "local:sofia-olivas",
-      "nombre": "SOFIA OLIVAS",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 164,
-      "dineroTotal": 0,
-      "eventos": 2
     },
     {
       "competidorKey": "name:marlene saldivar",
@@ -323,7 +284,7 @@
     {
       "competidorKey": "name:dayanara pando",
       "competidorId": "local:514",
-      "nombre": "Dayanara Pando",
+      "nombre": "DAYANARA PANDO",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -334,17 +295,17 @@
       "eventos": 3
     },
     {
-      "competidorKey": "name:nayeli flores",
-      "competidorId": "local:nayeli-flores",
-      "nombre": "NAYELI FLORES",
+      "competidorKey": "name:julia meraz",
+      "competidorId": "local:1317",
+      "nombre": "JULIA MERAZ",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
-      "puntosTotales": 124,
-      "dineroTotal": 0,
-      "eventos": 2
+      "puntosTotales": 102,
+      "dineroTotal": 5022,
+      "eventos": 1
     },
     {
       "competidorKey": "name:ximena salcido",
@@ -360,6 +321,19 @@
       "eventos": 2
     },
     {
+      "competidorKey": "name:adriana olivas",
+      "competidorId": "local:1286",
+      "nombre": "ADRIANA OLIVAS",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 92,
+      "dineroTotal": 3348,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:anette palacios",
       "competidorId": "local:911",
       "nombre": "ANETTE PALACIOS",
@@ -369,6 +343,19 @@
       "categoriaId": "Barriles",
       "categoriaNombre": "Barriles",
       "puntosTotales": 87,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:sofia olivas",
+      "competidorId": "local:1285",
+      "nombre": "SOFIA OLIVAS",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 82,
       "dineroTotal": 0,
       "eventos": 1
     },
@@ -388,7 +375,20 @@
     {
       "competidorKey": "name:sayuri leyva",
       "competidorId": "local:521",
-      "nombre": "Sayuri Leyva",
+      "nombre": "SAYURI LEYVA",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 62,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:nayeli flores",
+      "competidorId": "local:1314",
+      "nombre": "NAYELI FLORES",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -414,7 +414,7 @@
     {
       "competidorKey": "name:andrea banuelos",
       "competidorId": "local:532",
-      "nombre": "Andrea Banuelos",
+      "nombre": "ANDREA BANUELOS",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -440,7 +440,7 @@
     {
       "competidorKey": "name:luisana carbajal",
       "competidorId": "local:902",
-      "nombre": "Luisana Carbajal",
+      "nombre": "LUISANA CARBAJAL",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -453,7 +453,7 @@
     {
       "competidorKey": "name:paulina romero",
       "competidorId": "local:522",
-      "nombre": "Paulina Romero",
+      "nombre": "PAULINA ROMERO",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -490,19 +490,6 @@
       "eventos": 3
     },
     {
-      "competidorKey": "name:selene iturralde",
-      "competidorId": "local:519",
-      "nombre": "SELENE ITURRALDE",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 8,
-      "dineroTotal": 0,
-      "eventos": 4
-    },
-    {
       "competidorKey": "name:cristina jurado",
       "competidorId": "local:906",
       "nombre": "CRISTINA JURADO",
@@ -529,9 +516,9 @@
       "eventos": 3
     },
     {
-      "competidorKey": "name:alejandra soto",
-      "competidorId": "local:535",
-      "nombre": "Alejandra Soto",
+      "competidorKey": "name:selene iturralde",
+      "competidorId": "local:519",
+      "nombre": "SELENE ITURRALDE",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -542,9 +529,9 @@
       "eventos": 3
     },
     {
-      "competidorKey": "name:valeria herrera",
-      "competidorId": "local:915",
-      "nombre": "VALERIA HERRERA",
+      "competidorKey": "name:alejandra soto",
+      "competidorId": "local:535",
+      "nombre": "ALEJANDRA SOTO",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -557,7 +544,7 @@
     {
       "competidorKey": "name:annie valeria trejo",
       "competidorId": "local:917",
-      "nombre": "Annie Valeria Trejo",
+      "nombre": "ANNIE VALERIA TREJO",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -570,7 +557,20 @@
     {
       "competidorKey": "name:brenda trevizo",
       "competidorId": "local:898",
-      "nombre": "Brenda Trevizo",
+      "nombre": "BRENDA TREVIZO",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 4,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:valeria herrera",
+      "competidorId": "local:915",
+      "nombre": "VALERIA HERRERA",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -584,32 +584,6 @@
       "competidorKey": "name:gretel hernandez",
       "competidorId": "local:922",
       "nombre": "GRETEL HERNANDEZ",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 4,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:gaby garcia",
-      "competidorId": "local:gaby-garcia",
-      "nombre": "GABY GARCIA",
-      "equipo": "",
-      "disciplinaId": "Barriles",
-      "disciplinaNombre": "Barriles",
-      "categoriaId": "Barriles",
-      "categoriaNombre": "Barriles",
-      "puntosTotales": 4,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:susy hernandez",
-      "competidorId": "local:susy-hernandez",
-      "nombre": "SUSY HERNANDEZ",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -635,7 +609,7 @@
     {
       "competidorKey": "name:ashley jaquez",
       "competidorId": "local:518",
-      "nombre": "Ashley Jaquez",
+      "nombre": "ASHLEY JAQUEZ",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -648,7 +622,7 @@
     {
       "competidorKey": "name:gretel valdez",
       "competidorId": "local:524",
-      "nombre": "Gretel Valdez",
+      "nombre": "GRETEL VALDEZ",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -726,7 +700,7 @@
     {
       "competidorKey": "name:myrka ortega",
       "competidorId": "local:777",
-      "nombre": "Myrka Ortega",
+      "nombre": "MYRKA ORTEGA",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -739,7 +713,7 @@
     {
       "competidorKey": "name:elizabath vega",
       "competidorId": "local:790",
-      "nombre": "Elizabath Vega",
+      "nombre": "ELIZABATH VEGA",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -753,6 +727,32 @@
       "competidorKey": "name:nasyerih yeverino",
       "competidorId": "local:1057",
       "nombre": "NASYERIH YEVERINO",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:gaby garcia",
+      "competidorId": "local:1318",
+      "nombre": "GABY GARCIA",
+      "equipo": "",
+      "disciplinaId": "Barriles",
+      "disciplinaNombre": "Barriles",
+      "categoriaId": "Barriles",
+      "categoriaNombre": "Barriles",
+      "puntosTotales": 2,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:susy hernandez",
+      "competidorId": "local:1283",
+      "nombre": "SUSY HERNANDEZ",
       "equipo": "",
       "disciplinaId": "Barriles",
       "disciplinaNombre": "Barriles",
@@ -778,7 +778,7 @@
     {
       "competidorKey": "name:daniela martinez",
       "competidorId": "local:923",
-      "nombre": "Daniela Martinez",
+      "nombre": "DANIELA MARTINEZ",
       "equipo": "",
       "disciplinaId": "BarrilesMasters",
       "disciplinaNombre": "Barriles Master",
@@ -791,7 +791,7 @@
     {
       "competidorKey": "name:clara ruiz",
       "competidorId": "local:925",
-      "nombre": "Clara Ruiz",
+      "nombre": "CLARA RUIZ",
       "equipo": "",
       "disciplinaId": "BarrilesMasters",
       "disciplinaNombre": "Barriles Master",
@@ -804,7 +804,7 @@
     {
       "competidorKey": "name:pery prado",
       "competidorId": "local:924",
-      "nombre": "Pery Prado",
+      "nombre": "PERY PRADO",
       "equipo": "",
       "disciplinaId": "BarrilesMasters",
       "disciplinaNombre": "Barriles Master",
@@ -817,7 +817,7 @@
     {
       "competidorKey": "name:patricia ortega",
       "competidorId": "local:926",
-      "nombre": "Patricia Ortega",
+      "nombre": "PATRICIA ORTEGA",
       "equipo": "",
       "disciplinaId": "BarrilesMasters",
       "disciplinaNombre": "Barriles Master",
@@ -836,9 +836,9 @@
       "disciplinaNombre": "Caballo con Montura",
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 511,
-      "dineroTotal": 10740,
-      "eventos": 6
+      "puntosTotales": 409,
+      "dineroTotal": 5760,
+      "eventos": 5
     },
     {
       "competidorKey": "name:david dominguez",
@@ -849,9 +849,9 @@
       "disciplinaNombre": "Caballo con Montura",
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 370,
-      "dineroTotal": 4399,
-      "eventos": 6
+      "puntosTotales": 278,
+      "dineroTotal": 0,
+      "eventos": 5
     },
     {
       "competidorKey": "name:sebastian ruiz",
@@ -875,9 +875,9 @@
       "disciplinaNombre": "Caballo con Montura",
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 157,
+      "puntosTotales": 156,
       "dineroTotal": 0,
-      "eventos": 5
+      "eventos": 4
     },
     {
       "competidorKey": "name:josue magdaleno",
@@ -888,9 +888,9 @@
       "disciplinaNombre": "Caballo con Montura",
       "categoriaId": "CaballoConMontura",
       "categoriaNombre": "Caballo con Montura",
-      "puntosTotales": 5,
+      "puntosTotales": 4,
       "dineroTotal": 0,
-      "eventos": 5
+      "eventos": 4
     },
     {
       "competidorKey": "name:ivan dowz",
@@ -947,7 +947,7 @@
     {
       "competidorKey": "name:johan de la cruz",
       "competidorId": "local:867",
-      "nombre": "Johan de la Cruz",
+      "nombre": "JOHAN DE LA CRUZ",
       "equipo": "",
       "disciplinaId": "CaballoConMontura",
       "disciplinaNombre": "Caballo con Montura",
@@ -973,7 +973,7 @@
     {
       "competidorKey": "name:marcos nunez",
       "competidorId": "local:1018",
-      "nombre": "Marcos Nunez",
+      "nombre": "MARCOS NUNEZ",
       "equipo": "",
       "disciplinaId": "CaballoConPretal",
       "disciplinaNombre": "Caballo con Pretal",
@@ -1051,7 +1051,7 @@
     {
       "competidorKey": "name:diego acevez",
       "competidorId": "local:863",
-      "nombre": "Diego Acevez",
+      "nombre": "DIEGO ACEVEZ",
       "equipo": "",
       "disciplinaId": "CaballoConPretal",
       "disciplinaNombre": "Caballo con Pretal",
@@ -1062,32 +1062,6 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:luis macias",
-      "competidorId": "local:luis-macias",
-      "nombre": "LUIS MACIAS",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 204,
-      "dineroTotal": 14458,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:fernando mendoza",
-      "competidorId": "local:fernando-mendoza",
-      "nombre": "FERNANDO MENDOZA",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 184,
-      "dineroTotal": 4572,
-      "eventos": 2
-    },
-    {
       "competidorKey": "name:aldo acosta",
       "competidorId": "local:1005",
       "nombre": "ALDO ACOSTA",
@@ -1096,9 +1070,35 @@
       "disciplinaNombre": "Jineteos de Toros",
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 105,
+      "puntosTotales": 104,
       "dineroTotal": 0,
-      "eventos": 4
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:luis macias",
+      "competidorId": "local:1300",
+      "nombre": "LUIS MACIAS",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 102,
+      "dineroTotal": 6858,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:fernando mendoza",
+      "competidorId": "local:1298",
+      "nombre": "FERNANDO MENDOZA",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 92,
+      "dineroTotal": 4572,
+      "eventos": 1
     },
     {
       "competidorKey": "name:ricardo estrada",
@@ -1109,22 +1109,9 @@
       "disciplinaNombre": "Jineteos de Toros",
       "categoriaId": "JineteosDeToros",
       "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 6,
-      "dineroTotal": 0,
-      "eventos": 6
-    },
-    {
-      "competidorKey": "name:armando rodriguez",
-      "competidorId": "local:597",
-      "nombre": "ARMANDO RODRIGUEZ",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 5,
       "dineroTotal": 0,
-      "eventos": 6
+      "eventos": 5
     },
     {
       "competidorKey": "name:angel flores",
@@ -1140,9 +1127,9 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:diego carranza",
-      "competidorId": "local:999",
-      "nombre": "DIEGO CARRANZA",
+      "competidorKey": "name:armando rodriguez",
+      "competidorId": "local:597",
+      "nombre": "ARMANDO RODRIGUEZ",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1150,12 +1137,25 @@
       "categoriaNombre": "Jineteos de Toros",
       "puntosTotales": 4,
       "dineroTotal": 0,
-      "eventos": 4
+      "eventos": 5
     },
     {
       "competidorKey": "name:oswaldo dominguez",
       "competidorId": "local:998",
       "nombre": "OSWALDO DOMINGUEZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 3,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
+      "competidorKey": "name:diego carranza",
+      "competidorId": "local:999",
+      "nombre": "DIEGO CARRANZA",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1207,7 +1207,7 @@
     {
       "competidorKey": "name:manuel hernandez",
       "competidorId": "local:596",
-      "nombre": "Manuel Hernandez",
+      "nombre": "MANUEL HERNANDEZ",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1220,7 +1220,7 @@
     {
       "competidorKey": "name:heriberto sarmiento",
       "competidorId": "local:599",
-      "nombre": "Heriberto Sarmiento",
+      "nombre": "HERIBERTO SARMIENTO",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1260,71 +1260,6 @@
       "competidorKey": "name:aaron leon",
       "competidorId": "local:874",
       "nombre": "AARON LEON",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:bryan medina",
-      "competidorId": "local:bryan-medina",
-      "nombre": "BRYAN MEDINA",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:manuel sandoval",
-      "competidorId": "local:manuel-sandoval",
-      "nombre": "MANUEL SANDOVAL",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:bryan pena",
-      "competidorId": "local:bryan-pena",
-      "nombre": "BRYAN PEÑA",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:ruben hernandez",
-      "competidorId": "local:ruben-hernandez",
-      "nombre": "RUBEN HERNANDEZ",
-      "equipo": "",
-      "disciplinaId": "JineteosDeToros",
-      "disciplinaNombre": "Jineteos de Toros",
-      "categoriaId": "JineteosDeToros",
-      "categoriaNombre": "Jineteos de Toros",
-      "puntosTotales": 2,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:elias ortiz",
-      "competidorId": "local:elias-ortiz",
-      "nombre": "ELIAS ORTIZ",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1428,7 +1363,7 @@
     {
       "competidorKey": "name:issack meraz",
       "competidorId": "local:879",
-      "nombre": "Issack Meraz",
+      "nombre": "ISSACK MERAZ",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1441,7 +1376,7 @@
     {
       "competidorKey": "name:jaime guillen",
       "competidorId": "local:880",
-      "nombre": "Jaime Guillen",
+      "nombre": "JAIME GUILLEN",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1454,7 +1389,7 @@
     {
       "competidorKey": "name:angel vyeria",
       "competidorId": "local:881",
-      "nombre": "Angel Vyeria",
+      "nombre": "ANGEL VYERIA",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1468,6 +1403,71 @@
       "competidorKey": "name:leonel saenz",
       "competidorId": "local:1086",
       "nombre": "LEONEL SAENZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:bryan medina",
+      "competidorId": "local:1296",
+      "nombre": "BRYAN MEDINA",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:manuel sandoval",
+      "competidorId": "local:1303",
+      "nombre": "MANUEL SANDOVAL",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:bryan pena",
+      "competidorId": "local:1304",
+      "nombre": "BRYAN PEÑA",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:ruben hernandez",
+      "competidorId": "local:1305",
+      "nombre": "RUBEN HERNANDEZ",
+      "equipo": "",
+      "disciplinaId": "JineteosDeToros",
+      "disciplinaNombre": "Jineteos de Toros",
+      "categoriaId": "JineteosDeToros",
+      "categoriaNombre": "Jineteos de Toros",
+      "puntosTotales": 1,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:elias ortiz",
+      "competidorId": "local:1306",
+      "nombre": "ELIAS ORTIZ",
       "equipo": "",
       "disciplinaId": "JineteosDeToros",
       "disciplinaNombre": "Jineteos de Toros",
@@ -1597,7 +1597,7 @@
     {
       "competidorKey": "name:alvaro de la torre jr",
       "competidorId": "local:954",
-      "nombre": "ALVARO DE LA TORRE Jr",
+      "nombre": "ALVARO DE LA TORRE JR",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1610,7 +1610,7 @@
     {
       "competidorKey": "name:jose luis porras",
       "competidorId": "local:542",
-      "nombre": "Jose Luis Porras",
+      "nombre": "JOSE LUIS PORRAS",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1623,7 +1623,7 @@
     {
       "competidorKey": "name:irving ortega",
       "competidorId": "local:941",
-      "nombre": "Irving Ortega",
+      "nombre": "IRVING ORTEGA",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1636,7 +1636,7 @@
     {
       "competidorKey": "name:gael sigala",
       "competidorId": "local:547",
-      "nombre": "Gael Sigala",
+      "nombre": "GAEL SIGALA",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1662,7 +1662,7 @@
     {
       "competidorKey": "name:alberto carbajal",
       "competidorId": "local:944",
-      "nombre": "Alberto Carbajal",
+      "nombre": "ALBERTO CARBAJAL",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1688,7 +1688,7 @@
     {
       "competidorKey": "name:jaime porras",
       "competidorId": "local:548",
-      "nombre": "Jaime Porras",
+      "nombre": "JAIME PORRAS",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1727,7 +1727,7 @@
     {
       "competidorKey": "name:eduardo calderon jaquez",
       "competidorId": "local:799",
-      "nombre": "Eduardo Calderon Jaquez",
+      "nombre": "EDUARDO CALDERON JAQUEZ",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1753,7 +1753,7 @@
     {
       "competidorKey": "name:eduardo calderon f",
       "competidorId": "local:938",
-      "nombre": "Eduardo Calderon F",
+      "nombre": "EDUARDO CALDERON F",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1766,7 +1766,7 @@
     {
       "competidorKey": "name:jaime anchondo",
       "competidorId": "local:797",
-      "nombre": "Jaime Anchondo",
+      "nombre": "JAIME ANCHONDO",
       "equipo": "",
       "disciplinaId": "LazoDeBecerro",
       "disciplinaNombre": "Lazo de Becerro",
@@ -1909,7 +1909,7 @@
     {
       "competidorKey": "name:anyie chavez",
       "competidorId": "local:859",
-      "nombre": "Anyie Chavez",
+      "nombre": "ANYIE CHAVEZ",
       "equipo": "",
       "disciplinaId": "LazoEnFalso",
       "disciplinaNombre": "Lazo en Falso",
@@ -1935,7 +1935,7 @@
     {
       "competidorKey": "name:lizeth minjarez",
       "competidorId": "local:852",
-      "nombre": "Lizeth Minjarez",
+      "nombre": "LIZETH MINJAREZ",
       "equipo": "",
       "disciplinaId": "LazoEnFalso",
       "disciplinaNombre": "Lazo en Falso",
@@ -1972,19 +1972,6 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:alvaro de la torre",
-      "competidorId": null,
-      "nombre": "ALVARO DE LA TORRE",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 435.5,
-      "dineroTotal": 12017,
-      "eventos": 5
-    },
-    {
       "competidorKey": "name:edgar pando",
       "competidorId": null,
       "nombre": "EDGAR PANDO",
@@ -1998,17 +1985,17 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:bandis gutierrez",
+      "competidorKey": "name:alvaro de la torre",
       "competidorId": null,
-      "nombre": "BANDIS GUTIERREZ",
+      "nombre": "ALVARO DE LA TORRE",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
       "categoriaId": "TeamRopingHeader",
       "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 305,
-      "dineroTotal": 8467,
-      "eventos": 3
+      "puntosTotales": 333.5,
+      "dineroTotal": 6750,
+      "eventos": 4
     },
     {
       "competidorKey": "name:javier sepulveda",
@@ -2050,9 +2037,22 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:bandis gutierrez",
+      "competidorId": null,
+      "nombre": "BANDIS GUTIERREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Lazo por Parejas — Cabeceros",
+      "puntosTotales": 213,
+      "dineroTotal": 4500,
+      "eventos": 2
+    },
+    {
       "competidorKey": "name:fco de la torre jr",
       "competidorId": null,
-      "nombre": "Fco de la Torre JR",
+      "nombre": "FCO DE LA TORRE JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2065,7 +2065,7 @@
     {
       "competidorKey": "name:adrian ferreiro",
       "competidorId": null,
-      "nombre": "Adrian Ferreiro",
+      "nombre": "ADRIAN FERREIRO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2078,7 +2078,7 @@
     {
       "competidorKey": "name:servando gutierrez jr",
       "competidorId": null,
-      "nombre": "Servando Gutierrez Jr",
+      "nombre": "SERVANDO GUTIERREZ JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2102,22 +2102,9 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:humberto rios",
-      "competidorId": null,
-      "nombre": "HUMBERTO RIOS",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 164,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
       "competidorKey": "name:jeronimo venegas",
       "competidorId": null,
-      "nombre": "Jeronimo Venegas",
+      "nombre": "JERONIMO VENEGAS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2156,7 +2143,7 @@
     {
       "competidorKey": "name:francisco de la torre jr",
       "competidorId": null,
-      "nombre": "FRANCISCO DE LA TORRE Jr",
+      "nombre": "FRANCISCO DE LA TORRE JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2169,7 +2156,7 @@
     {
       "competidorKey": "name:pedro wiebe",
       "competidorId": null,
-      "nombre": "Pedro Wiebe",
+      "nombre": "PEDRO WIEBE",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2182,7 +2169,7 @@
     {
       "competidorKey": "name:oscar villalobos",
       "competidorId": null,
-      "nombre": "Oscar Villalobos",
+      "nombre": "OSCAR VILLALOBOS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2195,7 +2182,7 @@
     {
       "competidorKey": "name:carlos barragan",
       "competidorId": null,
-      "nombre": "Carlos Barragan",
+      "nombre": "CARLOS BARRAGAN",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2208,7 +2195,7 @@
     {
       "competidorKey": "name:luis loya",
       "competidorId": null,
-      "nombre": "Luis Loya",
+      "nombre": "LUIS LOYA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2217,6 +2204,19 @@
       "puntosTotales": 89,
       "dineroTotal": 0,
       "eventos": 2
+    },
+    {
+      "competidorKey": "name:humberto rios",
+      "competidorId": null,
+      "nombre": "HUMBERTO RIOS",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Lazo por Parejas — Cabeceros",
+      "puntosTotales": 82,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:sergio rivera",
@@ -2234,7 +2234,7 @@
     {
       "competidorKey": "name:rigoberto nevarez",
       "competidorId": null,
-      "nombre": "Rigoberto Nevarez",
+      "nombre": "RIGOBERTO NEVAREZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2260,7 +2260,7 @@
     {
       "competidorKey": "name:mauricio avila",
       "competidorId": null,
-      "nombre": "Mauricio Avila",
+      "nombre": "MAURICIO AVILA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2273,72 +2273,20 @@
     {
       "competidorKey": "name:omar ramirez",
       "competidorId": null,
-      "nombre": "Omar Ramirez",
+      "nombre": "OMAR RAMIREZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
       "categoriaId": "TeamRopingHeader",
       "categoriaNombre": "Lazo por Parejas — Cabeceros",
       "puntosTotales": 38,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:gael sigala",
-      "competidorId": null,
-      "nombre": "GAEL SIGALA",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 38,
-      "dineroTotal": 0,
-      "eventos": 3
-    },
-    {
-      "competidorKey": "name:kevin flores",
-      "competidorId": null,
-      "nombre": "KEVIN FLORES",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 37,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:alvarito de la torre",
-      "competidorId": null,
-      "nombre": "ALVARITO DE LA TORRE",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 37,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:alex torres",
-      "competidorId": null,
-      "nombre": "ALEX TORRES",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeader",
-      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-      "categoriaId": "TeamRopingHeader",
-      "categoriaNombre": "Lazo por Parejas — Cabeceros",
-      "puntosTotales": 37,
       "dineroTotal": 0,
       "eventos": 2
     },
     {
       "competidorKey": "name:jose luis vallez",
       "competidorId": null,
-      "nombre": "Jose Luis Vallez",
+      "nombre": "JOSE LUIS VALLEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2351,13 +2299,26 @@
     {
       "competidorKey": "name:enrique artalejo",
       "competidorId": null,
-      "nombre": "Enrique Artalejo",
+      "nombre": "ENRIQUE ARTALEJO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
       "categoriaId": "TeamRopingHeader",
       "categoriaNombre": "Lazo por Parejas — Cabeceros",
       "puntosTotales": 23,
+      "dineroTotal": 0,
+      "eventos": 2
+    },
+    {
+      "competidorKey": "name:gael sigala",
+      "competidorId": null,
+      "nombre": "GAEL SIGALA",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Lazo por Parejas — Cabeceros",
+      "puntosTotales": 19.5,
       "dineroTotal": 0,
       "eventos": 2
     },
@@ -2375,6 +2336,45 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:kevin flores",
+      "competidorId": null,
+      "nombre": "KEVIN FLORES",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Lazo por Parejas — Cabeceros",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alvarito de la torre",
+      "competidorId": null,
+      "nombre": "ALVARITO DE LA TORRE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Lazo por Parejas — Cabeceros",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:alex torres",
+      "competidorId": null,
+      "nombre": "ALEX TORRES",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeader",
+      "disciplinaNombre": "Lazo por Parejas — Cabeceros",
+      "categoriaId": "TeamRopingHeader",
+      "categoriaNombre": "Lazo por Parejas — Cabeceros",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:edgar devora",
       "competidorId": null,
       "nombre": "EDGAR DEVORA",
@@ -2390,7 +2390,7 @@
     {
       "competidorKey": "name:jose luis porras",
       "competidorId": null,
-      "nombre": "Jose Luis Porras",
+      "nombre": "JOSE LUIS PORRAS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2403,7 +2403,7 @@
     {
       "competidorKey": "name:gerardo trujillo",
       "competidorId": null,
-      "nombre": "Gerardo Trujillo",
+      "nombre": "GERARDO TRUJILLO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2416,7 +2416,7 @@
     {
       "competidorKey": "name:luis guerra",
       "competidorId": null,
-      "nombre": "Luis Guerra",
+      "nombre": "LUIS GUERRA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2429,7 +2429,7 @@
     {
       "competidorKey": "name:emmanuel banuelos",
       "competidorId": null,
-      "nombre": "Emmanuel Banuelos",
+      "nombre": "EMMANUEL BANUELOS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2442,7 +2442,7 @@
     {
       "competidorKey": "name:felix hernandez",
       "competidorId": null,
-      "nombre": "Felix Hernandez",
+      "nombre": "FELIX HERNANDEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2455,7 +2455,7 @@
     {
       "competidorKey": "name:juan cisneros",
       "competidorId": null,
-      "nombre": "Juan Cisneros",
+      "nombre": "JUAN CISNEROS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2468,7 +2468,7 @@
     {
       "competidorKey": "name:gerardo holguin",
       "competidorId": null,
-      "nombre": "Gerardo Holguin",
+      "nombre": "GERARDO HOLGUIN",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2507,7 +2507,7 @@
     {
       "competidorKey": "name:luis baeza",
       "competidorId": null,
-      "nombre": "Luis Baeza",
+      "nombre": "LUIS BAEZA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2520,7 +2520,7 @@
     {
       "competidorKey": "name:pablo cardenas",
       "competidorId": null,
-      "nombre": "Pablo Cardenas",
+      "nombre": "PABLO CARDENAS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2546,7 +2546,7 @@
     {
       "competidorKey": "name:serbando gutierrez jr",
       "competidorId": null,
-      "nombre": "SERBANDO GUTIERREZ Jr",
+      "nombre": "SERBANDO GUTIERREZ JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2572,7 +2572,7 @@
     {
       "competidorKey": "name:tito santiesteban",
       "competidorId": null,
-      "nombre": "Tito Santiesteban",
+      "nombre": "TITO SANTIESTEBAN",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2585,7 +2585,7 @@
     {
       "competidorKey": "name:homero lozoya",
       "competidorId": null,
-      "nombre": "Homero Lozoya",
+      "nombre": "HOMERO LOZOYA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2598,7 +2598,7 @@
     {
       "competidorKey": "name:oswaldo hernandez jr",
       "competidorId": null,
-      "nombre": "Oswaldo Hernandez Jr",
+      "nombre": "OSWALDO HERNANDEZ JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2611,7 +2611,7 @@
     {
       "competidorKey": "name:alejandro saenz",
       "competidorId": null,
-      "nombre": "Alejandro Saenz",
+      "nombre": "ALEJANDRO SAENZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2624,7 +2624,7 @@
     {
       "competidorKey": "name:alan salazar",
       "competidorId": null,
-      "nombre": "Alan Salazar",
+      "nombre": "ALAN SALAZAR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2637,7 +2637,7 @@
     {
       "competidorKey": "name:victor h banuelos",
       "competidorId": null,
-      "nombre": "Victor H Banuelos",
+      "nombre": "VICTOR H BANUELOS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeader",
       "disciplinaNombre": "Lazo por Parejas — Cabeceros",
@@ -2648,19 +2648,6 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:miguel de la torre",
-      "competidorId": null,
-      "nombre": "MIGUEL DE LA TORRE",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeeler",
-      "disciplinaNombre": "Lazo por Parejas — Pialadores",
-      "categoriaId": "TeamRopingHeeler",
-      "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 647,
-      "dineroTotal": 12017,
-      "eventos": 6
-    },
-    {
       "competidorKey": "name:jose rodriguez",
       "competidorId": null,
       "nombre": "JOSE RODRIGUEZ",
@@ -2669,9 +2656,22 @@
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
       "categoriaId": "TeamRopingHeeler",
       "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 614,
+      "puntosTotales": 595.5,
       "dineroTotal": 0,
-      "eventos": 6
+      "eventos": 5
+    },
+    {
+      "competidorKey": "name:miguel de la torre",
+      "competidorId": null,
+      "nombre": "MIGUEL DE LA TORRE",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Lazo por Parejas — Pialadores",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Lazo por Parejas — Pialadores",
+      "puntosTotales": 545,
+      "dineroTotal": 6750,
+      "eventos": 5
     },
     {
       "competidorKey": "name:lalito marquez",
@@ -2689,7 +2689,7 @@
     {
       "competidorKey": "name:alvaro de la torre jr",
       "competidorId": null,
-      "nombre": "ALVARO DE LA TORRE Jr",
+      "nombre": "ALVARO DE LA TORRE JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2702,7 +2702,7 @@
     {
       "competidorKey": "name:ubaldo sandoval",
       "competidorId": null,
-      "nombre": "Ubaldo Sandoval",
+      "nombre": "UBALDO SANDOVAL",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2741,7 +2741,7 @@
     {
       "competidorKey": "name:fco de la torre",
       "competidorId": null,
-      "nombre": "Fco de la Torre",
+      "nombre": "FCO DE LA TORRE",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2767,7 +2767,7 @@
     {
       "competidorKey": "name:jaime anchondo",
       "competidorId": null,
-      "nombre": "Jaime Anchondo",
+      "nombre": "JAIME ANCHONDO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2778,22 +2778,9 @@
       "eventos": 3
     },
     {
-      "competidorKey": "name:balito gutierrez",
-      "competidorId": null,
-      "nombre": "BALITO GUTIERREZ",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeeler",
-      "disciplinaNombre": "Lazo por Parejas — Pialadores",
-      "categoriaId": "TeamRopingHeeler",
-      "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 184,
-      "dineroTotal": 8467,
-      "eventos": 2
-    },
-    {
       "competidorKey": "name:jose e gutierrez",
       "competidorId": null,
-      "nombre": "Jose E Gutierrez",
+      "nombre": "JOSE E GUTIERREZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2817,22 +2804,9 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:joel holguin",
-      "competidorId": null,
-      "nombre": "JOEL HOLGUIN",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeeler",
-      "disciplinaNombre": "Lazo por Parejas — Pialadores",
-      "categoriaId": "TeamRopingHeeler",
-      "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 164,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
       "competidorKey": "name:carlos alderete",
       "competidorId": null,
-      "nombre": "Carlos Alderete",
+      "nombre": "CARLOS ALDERETE",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2845,7 +2819,7 @@
     {
       "competidorKey": "name:alonso grajeda",
       "competidorId": null,
-      "nombre": "Alonso Grajeda",
+      "nombre": "ALONSO GRAJEDA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2871,7 +2845,7 @@
     {
       "competidorKey": "name:jose gutierrez",
       "competidorId": null,
-      "nombre": "Jose Gutierrez",
+      "nombre": "JOSE GUTIERREZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2884,7 +2858,7 @@
     {
       "competidorKey": "name:eduardo calderon f",
       "competidorId": null,
-      "nombre": "Eduardo Calderon F",
+      "nombre": "EDUARDO CALDERON F",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2897,7 +2871,7 @@
     {
       "competidorKey": "name:miguel nunez",
       "competidorId": null,
-      "nombre": "Miguel Nunez",
+      "nombre": "MIGUEL NUNEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2910,7 +2884,7 @@
     {
       "competidorKey": "name:pelon vazquez",
       "competidorId": null,
-      "nombre": "Pelon Vazquez",
+      "nombre": "PELON VAZQUEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2923,7 +2897,7 @@
     {
       "competidorKey": "name:omar romero",
       "competidorId": null,
-      "nombre": "Omar Romero",
+      "nombre": "OMAR ROMERO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2947,9 +2921,22 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:balito gutierrez",
+      "competidorId": null,
+      "nombre": "BALITO GUTIERREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Lazo por Parejas — Pialadores",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Lazo por Parejas — Pialadores",
+      "puntosTotales": 92,
+      "dineroTotal": 4500,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:irving ortega",
       "competidorId": null,
-      "nombre": "Irving Ortega",
+      "nombre": "IRVING ORTEGA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -2958,6 +2945,19 @@
       "puntosTotales": 89,
       "dineroTotal": 0,
       "eventos": 2
+    },
+    {
+      "competidorKey": "name:joel holguin",
+      "competidorId": null,
+      "nombre": "JOEL HOLGUIN",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Lazo por Parejas — Pialadores",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Lazo por Parejas — Pialadores",
+      "puntosTotales": 82,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:eduardo calderon j",
@@ -2988,7 +2988,7 @@
     {
       "competidorKey": "name:alejandro loya",
       "competidorId": null,
-      "nombre": "Alejandro Loya",
+      "nombre": "ALEJANDRO LOYA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3001,7 +3001,7 @@
     {
       "competidorKey": "name:gerardo trujillo",
       "competidorId": null,
-      "nombre": "Gerardo Trujillo",
+      "nombre": "GERARDO TRUJILLO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3012,48 +3012,9 @@
       "eventos": 1
     },
     {
-      "competidorKey": "name:chucky",
-      "competidorId": null,
-      "nombre": "CHUCKY",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeeler",
-      "disciplinaNombre": "Lazo por Parejas — Pialadores",
-      "categoriaId": "TeamRopingHeeler",
-      "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 37,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:buba nevarez",
-      "competidorId": null,
-      "nombre": "BUBA NEVAREZ",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeeler",
-      "disciplinaNombre": "Lazo por Parejas — Pialadores",
-      "categoriaId": "TeamRopingHeeler",
-      "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 37,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
-      "competidorKey": "name:lalo calderon jr",
-      "competidorId": null,
-      "nombre": "LALO CALDERON JR",
-      "equipo": "",
-      "disciplinaId": "TeamRopingHeeler",
-      "disciplinaNombre": "Lazo por Parejas — Pialadores",
-      "categoriaId": "TeamRopingHeeler",
-      "categoriaNombre": "Lazo por Parejas — Pialadores",
-      "puntosTotales": 37,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
       "competidorKey": "name:antonio espinoza",
       "competidorId": null,
-      "nombre": "Antonio Espinoza",
+      "nombre": "ANTONIO ESPINOZA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3079,7 +3040,7 @@
     {
       "competidorKey": "name:luis ruiz",
       "competidorId": null,
-      "nombre": "Luis Ruiz",
+      "nombre": "LUIS RUIZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3088,6 +3049,45 @@
       "puntosTotales": 23,
       "dineroTotal": 0,
       "eventos": 2
+    },
+    {
+      "competidorKey": "name:chucky",
+      "competidorId": null,
+      "nombre": "CHUCKY",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Lazo por Parejas — Pialadores",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Lazo por Parejas — Pialadores",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:buba nevarez",
+      "competidorId": null,
+      "nombre": "BUBA NEVAREZ",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Lazo por Parejas — Pialadores",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Lazo por Parejas — Pialadores",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
+      "competidorKey": "name:lalo calderon jr",
+      "competidorId": null,
+      "nombre": "LALO CALDERON JR",
+      "equipo": "",
+      "disciplinaId": "TeamRopingHeeler",
+      "disciplinaNombre": "Lazo por Parejas — Pialadores",
+      "categoriaId": "TeamRopingHeeler",
+      "categoriaNombre": "Lazo por Parejas — Pialadores",
+      "puntosTotales": 18.5,
+      "dineroTotal": 0,
+      "eventos": 1
     },
     {
       "competidorKey": "name:juan dominguez",
@@ -3105,7 +3105,7 @@
     {
       "competidorKey": "name:jaime porras",
       "competidorId": null,
-      "nombre": "Jaime Porras",
+      "nombre": "JAIME PORRAS",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3118,7 +3118,7 @@
     {
       "competidorKey": "name:jesus manuel paez sr",
       "competidorId": null,
-      "nombre": "Jesus Manuel Paez Sr",
+      "nombre": "JESUS MANUEL PAEZ SR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3131,7 +3131,7 @@
     {
       "competidorKey": "name:luis delgado jr",
       "competidorId": null,
-      "nombre": "Luis Delgado Jr",
+      "nombre": "LUIS DELGADO JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3144,7 +3144,7 @@
     {
       "competidorKey": "name:jesus silva",
       "competidorId": null,
-      "nombre": "Jesus Silva",
+      "nombre": "JESUS SILVA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3157,7 +3157,7 @@
     {
       "competidorKey": "name:fernando perez",
       "competidorId": null,
-      "nombre": "Fernando Perez",
+      "nombre": "FERNANDO PEREZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3170,7 +3170,7 @@
     {
       "competidorKey": "name:victor esparza",
       "competidorId": null,
-      "nombre": "Victor Esparza",
+      "nombre": "VICTOR ESPARZA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3183,7 +3183,7 @@
     {
       "competidorKey": "name:alan gardea",
       "competidorId": null,
-      "nombre": "Alan Gardea",
+      "nombre": "ALAN GARDEA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3196,7 +3196,7 @@
     {
       "competidorKey": "name:gael sigala",
       "competidorId": null,
-      "nombre": "Gael Sigala",
+      "nombre": "GAEL SIGALA",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3209,7 +3209,7 @@
     {
       "competidorKey": "name:gerardo parolari",
       "competidorId": null,
-      "nombre": "Gerardo Parolari",
+      "nombre": "GERARDO PAROLARI",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3235,7 +3235,7 @@
     {
       "competidorKey": "name:fernando gonzalez",
       "competidorId": null,
-      "nombre": "Fernando Gonzalez",
+      "nombre": "FERNANDO GONZALEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3248,7 +3248,7 @@
     {
       "competidorKey": "name:luis mario saldivar",
       "competidorId": null,
-      "nombre": "Luis Mario Saldivar",
+      "nombre": "LUIS MARIO SALDIVAR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3287,7 +3287,7 @@
     {
       "competidorKey": "name:jesus m paez sr",
       "competidorId": null,
-      "nombre": "JESUS M PAEZ Sr",
+      "nombre": "JESUS M PAEZ SR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3326,7 +3326,7 @@
     {
       "competidorKey": "name:ramon enriquez",
       "competidorId": null,
-      "nombre": "Ramon Enriquez",
+      "nombre": "RAMON ENRIQUEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3339,7 +3339,7 @@
     {
       "competidorKey": "name:jesus sandoval",
       "competidorId": null,
-      "nombre": "Jesus Sandoval",
+      "nombre": "JESUS SANDOVAL",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3352,7 +3352,7 @@
     {
       "competidorKey": "name:junior hernandez",
       "competidorId": null,
-      "nombre": "Junior Hernandez",
+      "nombre": "JUNIOR HERNANDEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3365,7 +3365,7 @@
     {
       "competidorKey": "name:humberto diaz",
       "competidorId": null,
-      "nombre": "Humberto Diaz",
+      "nombre": "HUMBERTO DIAZ",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3378,7 +3378,7 @@
     {
       "competidorKey": "name:joel delgado",
       "competidorId": null,
-      "nombre": "Joel Delgado",
+      "nombre": "JOEL DELGADO",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3391,7 +3391,7 @@
     {
       "competidorKey": "name:oscar garcia jr",
       "competidorId": null,
-      "nombre": "Oscar Garcia Jr",
+      "nombre": "OSCAR GARCIA JR",
       "equipo": "",
       "disciplinaId": "TeamRopingHeeler",
       "disciplinaNombre": "Lazo por Parejas — Pialadores",
@@ -3430,7 +3430,7 @@
     {
       "competidorKey": "name:jaime torres",
       "competidorId": null,
-      "nombre": "Jaime Torres",
+      "nombre": "JAIME TORRES",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3469,7 +3469,7 @@
     {
       "competidorKey": "name:gamaliel salazar",
       "competidorId": null,
-      "nombre": "Gamaliel Salazar",
+      "nombre": "GAMALIEL SALAZAR",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3508,7 +3508,7 @@
     {
       "competidorKey": "name:servando gutierrez",
       "competidorId": null,
-      "nombre": "Servando Gutierrez",
+      "nombre": "SERVANDO GUTIERREZ",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3534,7 +3534,7 @@
     {
       "competidorKey": "name:jesus manuel paez",
       "competidorId": null,
-      "nombre": "Jesus Manuel Paez",
+      "nombre": "JESUS MANUEL PAEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3547,7 +3547,7 @@
     {
       "competidorKey": "name:ricardo santana",
       "competidorId": null,
-      "nombre": "Ricardo Santana",
+      "nombre": "RICARDO SANTANA",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3560,7 +3560,7 @@
     {
       "competidorKey": "name:gamaliel barrera",
       "competidorId": null,
-      "nombre": "Gamaliel Barrera",
+      "nombre": "GAMALIEL BARRERA",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3573,7 +3573,7 @@
     {
       "competidorKey": "name:hector villagran",
       "competidorId": null,
-      "nombre": "Hector Villagran",
+      "nombre": "HECTOR VILLAGRAN",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeader",
       "disciplinaNombre": "Lazo por Parejas Master — Cabeceros",
@@ -3638,7 +3638,7 @@
     {
       "competidorKey": "name:ramon enriquez",
       "competidorId": null,
-      "nombre": "Ramon Enriquez",
+      "nombre": "RAMON ENRIQUEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeeler",
       "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
@@ -3677,7 +3677,7 @@
     {
       "competidorKey": "name:erasmo ortega",
       "competidorId": null,
-      "nombre": "Erasmo Ortega",
+      "nombre": "ERASMO ORTEGA",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeeler",
       "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
@@ -3690,7 +3690,7 @@
     {
       "competidorKey": "name:othon rios",
       "competidorId": null,
-      "nombre": "Othon Rios",
+      "nombre": "OTHON RIOS",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeeler",
       "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
@@ -3703,7 +3703,7 @@
     {
       "competidorKey": "name:balo hernandez",
       "competidorId": null,
-      "nombre": "Balo Hernandez",
+      "nombre": "BALO HERNANDEZ",
       "equipo": "",
       "disciplinaId": "TeamRopingMastersHeeler",
       "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
@@ -3729,7 +3729,7 @@
     {
       "competidorKey": "name:frida flores",
       "competidorId": "local:540",
-      "nombre": "Frida Flores",
+      "nombre": "FRIDA FLORES",
       "equipo": "",
       "disciplinaId": "Polos",
       "disciplinaNombre": "Polos",
@@ -3742,7 +3742,7 @@
     {
       "competidorKey": "name:sayuri leyva",
       "competidorId": "local:539",
-      "nombre": "Sayuri Leyva",
+      "nombre": "SAYURI LEYVA",
       "equipo": "",
       "disciplinaId": "Polos",
       "disciplinaNombre": "Polos",
@@ -3755,7 +3755,7 @@
     {
       "competidorKey": "name:gabriela gonzalez",
       "competidorId": "local:541",
-      "nombre": "Gabriela Gonzalez",
+      "nombre": "GABRIELA GONZALEZ",
       "equipo": "",
       "disciplinaId": "Polos",
       "disciplinaNombre": "Polos",
@@ -3768,7 +3768,7 @@
     {
       "competidorKey": "name:selene iturralde",
       "competidorId": "local:537",
-      "nombre": "Selene Iturralde",
+      "nombre": "SELENE ITURRALDE",
       "equipo": "",
       "disciplinaId": "Polos",
       "disciplinaNombre": "Polos",
@@ -3781,7 +3781,7 @@
     {
       "competidorKey": "name:jhosayra arellano",
       "competidorId": "local:538",
-      "nombre": "Jhosayra Arellano",
+      "nombre": "JHOSAYRA ARELLANO",
       "equipo": "",
       "disciplinaId": "Polos",
       "disciplinaNombre": "Polos",
@@ -3837,7 +3837,7 @@
     {
       "competidorKey": "name:adrian ferreiro",
       "competidorId": null,
-      "nombre": "Adrian Ferreiro",
+      "nombre": "ADRIAN FERREIRO",
       "equipo": "",
       "puntosTotales": 190,
       "dineroTotal": 0,
@@ -3886,19 +3886,19 @@
     },
     {
       "competidorKey": "name:adriana olivas",
-      "competidorId": "local:adriana-olivas",
+      "competidorId": "local:1286",
       "nombre": "ADRIANA OLIVAS",
       "equipo": "",
-      "puntosTotales": 184,
-      "dineroTotal": 6593,
-      "eventos": 2,
+      "puntosTotales": 92,
+      "dineroTotal": 3348,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 184,
-          "dineroTotal": 6593,
-          "eventos": 2
+          "puntosTotales": 92,
+          "dineroTotal": 3348,
+          "eventos": 1
         }
       ],
       "historial": [
@@ -3911,23 +3911,13 @@
           "disciplinaNombre": "Barriles",
           "puntos": 92,
           "dinero": 3348
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 92,
-          "dinero": 3245
         }
       ]
     },
     {
       "competidorKey": "name:alan gardea",
       "competidorId": null,
-      "nombre": "Alan Gardea",
+      "nombre": "ALAN GARDEA",
       "equipo": "",
       "puntosTotales": 5,
       "dineroTotal": 0,
@@ -3957,7 +3947,7 @@
     {
       "competidorKey": "name:alan salazar",
       "competidorId": null,
-      "nombre": "Alan Salazar",
+      "nombre": "ALAN SALAZAR",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -3987,7 +3977,7 @@
     {
       "competidorKey": "name:alberto carbajal",
       "competidorId": "local:944",
-      "nombre": "Alberto Carbajal",
+      "nombre": "ALBERTO CARBAJAL",
       "equipo": "",
       "puntosTotales": 103,
       "dineroTotal": 0,
@@ -4079,16 +4069,16 @@
       "competidorId": "local:1005",
       "nombre": "ALDO ACOSTA",
       "equipo": "",
-      "puntosTotales": 105,
+      "puntosTotales": 104,
       "dineroTotal": 0,
-      "eventos": 4,
+      "eventos": 3,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 105,
+          "puntosTotales": 104,
           "dineroTotal": 0,
-          "eventos": 4
+          "eventos": 3
         }
       ],
       "historial": [
@@ -4097,16 +4087,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -4137,7 +4117,7 @@
     {
       "competidorKey": "name:alejandra soto",
       "competidorId": "local:535",
-      "nombre": "Alejandra Soto",
+      "nombre": "ALEJANDRA SOTO",
       "equipo": "",
       "puntosTotales": 6,
       "dineroTotal": 0,
@@ -4187,7 +4167,7 @@
     {
       "competidorKey": "name:alejandro grajeda",
       "competidorId": "local:934",
-      "nombre": "Alejandro Grajeda",
+      "nombre": "ALEJANDRO GRAJEDA",
       "equipo": "",
       "puntosTotales": 75,
       "dineroTotal": 0,
@@ -4257,7 +4237,7 @@
     {
       "competidorKey": "name:alejandro loya",
       "competidorId": null,
-      "nombre": "Alejandro Loya",
+      "nombre": "ALEJANDRO LOYA",
       "equipo": "",
       "puntosTotales": 38,
       "dineroTotal": 0,
@@ -4297,7 +4277,7 @@
     {
       "competidorKey": "name:alejandro saenz",
       "competidorId": null,
-      "nombre": "Alejandro Saenz",
+      "nombre": "ALEJANDRO SAENZ",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -4429,16 +4409,16 @@
       "competidorId": null,
       "nombre": "ALEX TORRES",
       "equipo": "",
-      "puntosTotales": 37,
+      "puntosTotales": 18.5,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 37,
+          "puntosTotales": 18.5,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -4447,16 +4427,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
@@ -4637,7 +4607,7 @@
     {
       "competidorKey": "name:alonso grajeda",
       "competidorId": null,
-      "nombre": "Alonso Grajeda",
+      "nombre": "ALONSO GRAJEDA",
       "equipo": "",
       "puntosTotales": 129,
       "dineroTotal": 0,
@@ -4679,16 +4649,16 @@
       "competidorId": null,
       "nombre": "ALVARITO DE LA TORRE",
       "equipo": "",
-      "puntosTotales": 37,
+      "puntosTotales": 18.5,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 37,
+          "puntosTotales": 18.5,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -4697,16 +4667,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
@@ -4719,9 +4679,9 @@
       "competidorId": "local:943",
       "nombre": "ALVARO DE LA TORRE",
       "equipo": "",
-      "puntosTotales": 530.5,
-      "dineroTotal": 12017,
-      "eventos": 5,
+      "puntosTotales": 428.5,
+      "dineroTotal": 6750,
+      "eventos": 4,
       "disciplinas": [
         {
           "disciplinaId": "LazoDeBecerro",
@@ -4733,9 +4693,9 @@
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 435.5,
-          "dineroTotal": 12017,
-          "eventos": 5
+          "puntosTotales": 333.5,
+          "dineroTotal": 6750,
+          "eventos": 4
         }
       ],
       "historial": [
@@ -4748,16 +4708,6 @@
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 102,
           "dinero": 6750
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 102,
-          "dinero": 5267
         },
         {
           "eventoId": "local:21",
@@ -4824,7 +4774,7 @@
     {
       "competidorKey": "name:alvaro de la torre jr",
       "competidorId": "local:954",
-      "nombre": "ALVARO DE LA TORRE Jr",
+      "nombre": "ALVARO DE LA TORRE JR",
       "equipo": "",
       "puntosTotales": 506.5,
       "dineroTotal": 0,
@@ -4911,7 +4861,7 @@
     {
       "competidorKey": "name:alvaro villalba",
       "competidorId": "local:557",
-      "nombre": "Alvaro Villalba",
+      "nombre": "ALVARO VILLALBA",
       "equipo": "",
       "puntosTotales": 262,
       "dineroTotal": 0,
@@ -5031,7 +4981,7 @@
     {
       "competidorKey": "name:andrea banuelos",
       "competidorId": "local:532",
-      "nombre": "Andrea Banuelos",
+      "nombre": "ANDREA BANUELOS",
       "equipo": "",
       "puntosTotales": 34,
       "dineroTotal": 0,
@@ -5221,7 +5171,7 @@
     {
       "competidorKey": "name:angel vyeria",
       "competidorId": "local:881",
-      "nombre": "Angel Vyeria",
+      "nombre": "ANGEL VYERIA",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -5281,7 +5231,7 @@
     {
       "competidorKey": "name:annie valeria trejo",
       "competidorId": "local:917",
-      "nombre": "Annie Valeria Trejo",
+      "nombre": "ANNIE VALERIA TREJO",
       "equipo": "",
       "puntosTotales": 4,
       "dineroTotal": 0,
@@ -5321,7 +5271,7 @@
     {
       "competidorKey": "name:antonio espinoza",
       "competidorId": null,
-      "nombre": "Antonio Espinoza",
+      "nombre": "ANTONIO ESPINOZA",
       "equipo": "",
       "puntosTotales": 31,
       "dineroTotal": 0,
@@ -5351,7 +5301,7 @@
     {
       "competidorKey": "name:anyie chavez",
       "competidorId": "local:859",
-      "nombre": "Anyie Chavez",
+      "nombre": "ANYIE CHAVEZ",
       "equipo": "",
       "puntosTotales": 30.5,
       "dineroTotal": 0,
@@ -5413,16 +5363,16 @@
       "competidorId": "local:597",
       "nombre": "ARMANDO RODRIGUEZ",
       "equipo": "",
-      "puntosTotales": 5,
+      "puntosTotales": 4,
       "dineroTotal": 0,
-      "eventos": 6,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 5,
+          "puntosTotales": 4,
           "dineroTotal": 0,
-          "eventos": 6
+          "eventos": 5
         }
       ],
       "historial": [
@@ -5431,16 +5381,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -5491,7 +5431,7 @@
     {
       "competidorKey": "name:ashley jaquez",
       "competidorId": "local:518",
-      "nombre": "Ashley Jaquez",
+      "nombre": "ASHLEY JAQUEZ",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -5523,16 +5463,16 @@
       "competidorId": null,
       "nombre": "BALITO GUTIERREZ",
       "equipo": "",
-      "puntosTotales": 184,
-      "dineroTotal": 8467,
-      "eventos": 2,
+      "puntosTotales": 92,
+      "dineroTotal": 4500,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 184,
-          "dineroTotal": 8467,
-          "eventos": 2
+          "puntosTotales": 92,
+          "dineroTotal": 4500,
+          "eventos": 1
         }
       ],
       "historial": [
@@ -5545,23 +5485,13 @@
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 92,
           "dinero": 4500
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 92,
-          "dinero": 3967
         }
       ]
     },
     {
       "competidorKey": "name:balo hernandez",
       "competidorId": null,
-      "nombre": "Balo Hernandez",
+      "nombre": "BALO HERNANDEZ",
       "equipo": "",
       "puntosTotales": 70.5,
       "dineroTotal": 0,
@@ -5603,16 +5533,16 @@
       "competidorId": null,
       "nombre": "BANDIS GUTIERREZ",
       "equipo": "",
-      "puntosTotales": 305,
-      "dineroTotal": 8467,
-      "eventos": 3,
+      "puntosTotales": 213,
+      "dineroTotal": 4500,
+      "eventos": 2,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 305,
-          "dineroTotal": 8467,
-          "eventos": 3
+          "puntosTotales": 213,
+          "dineroTotal": 4500,
+          "eventos": 2
         }
       ],
       "historial": [
@@ -5625,16 +5555,6 @@
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 92,
           "dinero": 4500
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 92,
-          "dinero": 3967
         },
         {
           "eventoId": "local:16",
@@ -5651,7 +5571,7 @@
     {
       "competidorKey": "name:brenda trevizo",
       "competidorId": "local:898",
-      "nombre": "Brenda Trevizo",
+      "nombre": "BRENDA TREVIZO",
       "equipo": "",
       "puntosTotales": 4,
       "dineroTotal": 0,
@@ -5690,19 +5610,19 @@
     },
     {
       "competidorKey": "name:bryan medina",
-      "competidorId": "local:bryan-medina",
+      "competidorId": "local:1296",
       "nombre": "BRYAN MEDINA",
       "equipo": "",
-      "puntosTotales": 2,
+      "puntosTotales": 1,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 2,
+          "puntosTotales": 1,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -5711,16 +5631,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -5730,19 +5640,19 @@
     },
     {
       "competidorKey": "name:bryan pena",
-      "competidorId": "local:bryan-pena",
+      "competidorId": "local:1304",
       "nombre": "BRYAN PEÑA",
       "equipo": "",
-      "puntosTotales": 2,
+      "puntosTotales": 1,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 2,
+          "puntosTotales": 1,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -5751,16 +5661,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -5773,16 +5673,16 @@
       "competidorId": null,
       "nombre": "BUBA NEVAREZ",
       "equipo": "",
-      "puntosTotales": 37,
+      "puntosTotales": 18.5,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 37,
+          "puntosTotales": 18.5,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -5795,23 +5695,13 @@
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
           "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 18.5,
-          "dinero": 0
         }
       ]
     },
     {
       "competidorKey": "name:carlos alderete",
       "competidorId": null,
-      "nombre": "Carlos Alderete",
+      "nombre": "CARLOS ALDERETE",
       "equipo": "",
       "puntosTotales": 161,
       "dineroTotal": 0,
@@ -5901,7 +5791,7 @@
     {
       "competidorKey": "name:carlos barragan",
       "competidorId": null,
-      "nombre": "Carlos Barragan",
+      "nombre": "CARLOS BARRAGAN",
       "equipo": "",
       "puntosTotales": 97,
       "dineroTotal": 0,
@@ -6150,16 +6040,16 @@
       "competidorId": null,
       "nombre": "CHUCKY",
       "equipo": "",
-      "puntosTotales": 37,
+      "puntosTotales": 18.5,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 37,
+          "puntosTotales": 18.5,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -6168,16 +6058,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
@@ -6268,7 +6148,7 @@
     {
       "competidorKey": "name:clara ruiz",
       "competidorId": "local:925",
-      "nombre": "Clara Ruiz",
+      "nombre": "CLARA RUIZ",
       "equipo": "",
       "puntosTotales": 137,
       "dineroTotal": 0,
@@ -6498,7 +6378,7 @@
     {
       "competidorKey": "name:daniela martinez",
       "competidorId": "local:517",
-      "nombre": "Daniela Martinez",
+      "nombre": "DANIELA MARTINEZ",
       "equipo": "",
       "puntosTotales": 860,
       "dineroTotal": 0,
@@ -6577,16 +6457,16 @@
       "competidorId": "local:581",
       "nombre": "DAVID DOMINGUEZ",
       "equipo": "",
-      "puntosTotales": 370,
-      "dineroTotal": 4399,
-      "eventos": 6,
+      "puntosTotales": 278,
+      "dineroTotal": 0,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
-          "puntosTotales": 370,
-          "dineroTotal": 4399,
-          "eventos": 6
+          "puntosTotales": 278,
+          "dineroTotal": 0,
+          "eventos": 5
         }
       ],
       "historial": [
@@ -6599,16 +6479,6 @@
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 92,
           "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "CaballoConMontura",
-          "disciplinaNombre": "Caballo con Montura",
-          "puntos": 92,
-          "dinero": 4399
         },
         {
           "eventoId": "local:21",
@@ -6655,7 +6525,7 @@
     {
       "competidorKey": "name:dayanara pando",
       "competidorId": "local:514",
-      "nombre": "Dayanara Pando",
+      "nombre": "DAYANARA PANDO",
       "equipo": "",
       "puntosTotales": 126,
       "dineroTotal": 0,
@@ -6825,7 +6695,7 @@
     {
       "competidorKey": "name:diana laura pando",
       "competidorId": "local:530",
-      "nombre": "Diana Laura Pando",
+      "nombre": "DIANA LAURA PANDO",
       "equipo": "",
       "puntosTotales": 366,
       "dineroTotal": 0,
@@ -6915,7 +6785,7 @@
     {
       "competidorKey": "name:diego acevez",
       "competidorId": "local:863",
-      "nombre": "Diego Acevez",
+      "nombre": "DIEGO ACEVEZ",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -6947,16 +6817,16 @@
       "competidorId": "local:999",
       "nombre": "DIEGO CARRANZA",
       "equipo": "",
-      "puntosTotales": 4,
+      "puntosTotales": 3,
       "dineroTotal": 0,
-      "eventos": 4,
+      "eventos": 3,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 4,
+          "puntosTotales": 3,
           "dineroTotal": 0,
-          "eventos": 4
+          "eventos": 3
         }
       ],
       "historial": [
@@ -6965,16 +6835,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -7175,7 +7035,7 @@
     {
       "competidorKey": "name:edson vyeira",
       "competidorId": "local:552",
-      "nombre": "Edson Vyeira",
+      "nombre": "EDSON VYEIRA",
       "equipo": "",
       "puntosTotales": 22.5,
       "dineroTotal": 0,
@@ -7205,7 +7065,7 @@
     {
       "competidorKey": "name:eduardo calderon f",
       "competidorId": "local:938",
-      "nombre": "Eduardo Calderon F",
+      "nombre": "EDUARDO CALDERON F",
       "equipo": "",
       "puntosTotales": 132,
       "dineroTotal": 0,
@@ -7369,7 +7229,7 @@
     {
       "competidorKey": "name:eduardo calderon jaquez",
       "competidorId": "local:799",
-      "nombre": "Eduardo Calderon Jaquez",
+      "nombre": "EDUARDO CALDERON JAQUEZ",
       "equipo": "",
       "puntosTotales": 62,
       "dineroTotal": 0,
@@ -7398,19 +7258,19 @@
     },
     {
       "competidorKey": "name:elias ortiz",
-      "competidorId": "local:elias-ortiz",
+      "competidorId": "local:1306",
       "nombre": "ELIAS ORTIZ",
       "equipo": "",
-      "puntosTotales": 2,
+      "puntosTotales": 1,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 2,
+          "puntosTotales": 1,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -7423,23 +7283,13 @@
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
           "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
         }
       ]
     },
     {
       "competidorKey": "name:elizabath vega",
       "competidorId": "local:790",
-      "nombre": "Elizabath Vega",
+      "nombre": "ELIZABATH VEGA",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -7499,7 +7349,7 @@
     {
       "competidorKey": "name:emmanuel banuelos",
       "competidorId": null,
-      "nombre": "Emmanuel Banuelos",
+      "nombre": "EMMANUEL BANUELOS",
       "equipo": "",
       "puntosTotales": 6,
       "dineroTotal": 0,
@@ -7539,7 +7389,7 @@
     {
       "competidorKey": "name:enrique artalejo",
       "competidorId": null,
-      "nombre": "Enrique Artalejo",
+      "nombre": "ENRIQUE ARTALEJO",
       "equipo": "",
       "puntosTotales": 23,
       "dineroTotal": 0,
@@ -7579,7 +7429,7 @@
     {
       "competidorKey": "name:erasmo ortega",
       "competidorId": null,
-      "nombre": "Erasmo Ortega",
+      "nombre": "ERASMO ORTEGA",
       "equipo": "",
       "puntosTotales": 163.5,
       "dineroTotal": 0,
@@ -7609,7 +7459,7 @@
     {
       "competidorKey": "name:fco de la torre",
       "competidorId": null,
-      "nombre": "Fco de la Torre",
+      "nombre": "FCO DE LA TORRE",
       "equipo": "",
       "puntosTotales": 199,
       "dineroTotal": 0,
@@ -7649,7 +7499,7 @@
     {
       "competidorKey": "name:fco de la torre jr",
       "competidorId": null,
-      "nombre": "Fco de la Torre JR",
+      "nombre": "FCO DE LA TORRE JR",
       "equipo": "",
       "puntosTotales": 199,
       "dineroTotal": 0,
@@ -7806,7 +7656,7 @@
     {
       "competidorKey": "name:fernando gonzalez",
       "competidorId": null,
-      "nombre": "Fernando Gonzalez",
+      "nombre": "FERNANDO GONZALEZ",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -7925,19 +7775,19 @@
     },
     {
       "competidorKey": "name:fernando mendoza",
-      "competidorId": "local:fernando-mendoza",
+      "competidorId": "local:1298",
       "nombre": "FERNANDO MENDOZA",
       "equipo": "",
-      "puntosTotales": 184,
+      "puntosTotales": 92,
       "dineroTotal": 4572,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 184,
+          "puntosTotales": 92,
           "dineroTotal": 4572,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -7950,23 +7800,13 @@
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 92,
           "dinero": 4572
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 92,
-          "dinero": 0
         }
       ]
     },
     {
       "competidorKey": "name:fernando perez",
       "competidorId": null,
-      "nombre": "Fernando Perez",
+      "nombre": "FERNANDO PEREZ",
       "equipo": "",
       "puntosTotales": 6,
       "dineroTotal": 0,
@@ -8066,7 +7906,7 @@
     {
       "competidorKey": "name:francisco alarcon",
       "competidorId": "local:558",
-      "nombre": "Francisco Alarcon",
+      "nombre": "FRANCISCO ALARCON",
       "equipo": "",
       "puntosTotales": 138,
       "dineroTotal": 0,
@@ -8126,7 +7966,7 @@
     {
       "competidorKey": "name:francisco de la torre jr",
       "competidorId": null,
-      "nombre": "FRANCISCO DE LA TORRE Jr",
+      "nombre": "FRANCISCO DE LA TORRE JR",
       "equipo": "",
       "puntosTotales": 122,
       "dineroTotal": 0,
@@ -8216,7 +8056,7 @@
     {
       "competidorKey": "name:frida flores",
       "competidorId": "local:540",
-      "nombre": "Frida Flores",
+      "nombre": "FRIDA FLORES",
       "equipo": "",
       "puntosTotales": 192,
       "dineroTotal": 0,
@@ -8246,7 +8086,7 @@
     {
       "competidorKey": "name:gabriela gonzalez",
       "competidorId": "local:541",
-      "nombre": "Gabriela Gonzalez",
+      "nombre": "GABRIELA GONZALEZ",
       "equipo": "",
       "puntosTotales": 132,
       "dineroTotal": 0,
@@ -8305,19 +8145,19 @@
     },
     {
       "competidorKey": "name:gaby garcia",
-      "competidorId": "local:gaby-garcia",
+      "competidorId": "local:1318",
       "nombre": "GABY GARCIA",
       "equipo": "",
-      "puntosTotales": 4,
+      "puntosTotales": 2,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 4,
+          "puntosTotales": 2,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -8330,23 +8170,13 @@
           "disciplinaNombre": "Barriles",
           "puntos": 2,
           "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 2,
-          "dinero": 0
         }
       ]
     },
     {
       "competidorKey": "name:gael saenz",
       "competidorId": "local:560",
-      "nombre": "Gael Saenz",
+      "nombre": "GAEL SAENZ",
       "equipo": "",
       "puntosTotales": 283,
       "dineroTotal": 0,
@@ -8396,11 +8226,11 @@
     {
       "competidorKey": "name:gael sigala",
       "competidorId": "local:547",
-      "nombre": "Gael Sigala",
+      "nombre": "GAEL SIGALA",
       "equipo": "",
-      "puntosTotales": 158,
+      "puntosTotales": 139.5,
       "dineroTotal": 0,
-      "eventos": 5,
+      "eventos": 4,
       "disciplinas": [
         {
           "disciplinaId": "LazoDeBecerro",
@@ -8412,9 +8242,9 @@
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 38,
+          "puntosTotales": 19.5,
           "dineroTotal": 0,
-          "eventos": 3
+          "eventos": 2
         },
         {
           "disciplinaId": "TeamRopingHeeler",
@@ -8430,16 +8260,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
@@ -8500,7 +8320,7 @@
     {
       "competidorKey": "name:gamaliel barrera",
       "competidorId": null,
-      "nombre": "Gamaliel Barrera",
+      "nombre": "GAMALIEL BARRERA",
       "equipo": "",
       "puntosTotales": 23.5,
       "dineroTotal": 0,
@@ -8530,7 +8350,7 @@
     {
       "competidorKey": "name:gamaliel salazar",
       "competidorId": null,
-      "nombre": "Gamaliel Salazar",
+      "nombre": "GAMALIEL SALAZAR",
       "equipo": "",
       "puntosTotales": 177,
       "dineroTotal": 0,
@@ -8610,7 +8430,7 @@
     {
       "competidorKey": "name:gerardo holguin",
       "competidorId": null,
-      "nombre": "Gerardo Holguin",
+      "nombre": "GERARDO HOLGUIN",
       "equipo": "",
       "puntosTotales": 5,
       "dineroTotal": 0,
@@ -8640,7 +8460,7 @@
     {
       "competidorKey": "name:gerardo parolari",
       "competidorId": null,
-      "nombre": "Gerardo Parolari",
+      "nombre": "GERARDO PAROLARI",
       "equipo": "",
       "puntosTotales": 5,
       "dineroTotal": 0,
@@ -8750,7 +8570,7 @@
     {
       "competidorKey": "name:gerardo trujillo",
       "competidorId": null,
-      "nombre": "Gerardo Trujillo",
+      "nombre": "GERARDO TRUJILLO",
       "equipo": "",
       "puntosTotales": 49,
       "dineroTotal": 0,
@@ -8877,7 +8697,7 @@
     {
       "competidorKey": "name:gretel valdez",
       "competidorId": "local:524",
-      "nombre": "Gretel Valdez",
+      "nombre": "GRETEL VALDEZ",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -9067,7 +8887,7 @@
     {
       "competidorKey": "name:hector villagran",
       "competidorId": null,
-      "nombre": "Hector Villagran",
+      "nombre": "HECTOR VILLAGRAN",
       "equipo": "",
       "puntosTotales": 23.5,
       "dineroTotal": 0,
@@ -9097,7 +8917,7 @@
     {
       "competidorKey": "name:heriberto sarmiento",
       "competidorId": "local:599",
-      "nombre": "Heriberto Sarmiento",
+      "nombre": "HERIBERTO SARMIENTO",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -9137,7 +8957,7 @@
     {
       "competidorKey": "name:homero lozoya",
       "competidorId": null,
-      "nombre": "Homero Lozoya",
+      "nombre": "HOMERO LOZOYA",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -9167,7 +8987,7 @@
     {
       "competidorKey": "name:humberto diaz",
       "competidorId": null,
-      "nombre": "Humberto Diaz",
+      "nombre": "HUMBERTO DIAZ",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -9199,16 +9019,16 @@
       "competidorId": null,
       "nombre": "HUMBERTO RIOS",
       "equipo": "",
-      "puntosTotales": 164,
+      "puntosTotales": 82,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 164,
+          "puntosTotales": 82,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -9221,23 +9041,13 @@
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 82,
           "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 82,
-          "dinero": 0
         }
       ]
     },
     {
       "competidorKey": "name:irving ortega",
       "competidorId": "local:941",
-      "nombre": "Irving Ortega",
+      "nombre": "IRVING ORTEGA",
       "equipo": "",
       "puntosTotales": 303,
       "dineroTotal": 0,
@@ -9304,7 +9114,7 @@
     {
       "competidorKey": "name:issack meraz",
       "competidorId": "local:879",
-      "nombre": "Issack Meraz",
+      "nombre": "ISSACK MERAZ",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -9394,7 +9204,7 @@
     {
       "competidorKey": "name:jaime anchondo",
       "competidorId": "local:797",
-      "nombre": "Jaime Anchondo",
+      "nombre": "JAIME ANCHONDO",
       "equipo": "",
       "puntosTotales": 191,
       "dineroTotal": 0,
@@ -9461,7 +9271,7 @@
     {
       "competidorKey": "name:jaime guillen",
       "competidorId": "local:880",
-      "nombre": "Jaime Guillen",
+      "nombre": "JAIME GUILLEN",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -9595,7 +9405,7 @@
     {
       "competidorKey": "name:jaime torres",
       "competidorId": null,
-      "nombre": "Jaime Torres",
+      "nombre": "JAIME TORRES",
       "equipo": "",
       "puntosTotales": 207,
       "dineroTotal": 0,
@@ -9745,7 +9555,7 @@
     {
       "competidorKey": "name:jeronimo venegas",
       "competidorId": null,
-      "nombre": "Jeronimo Venegas",
+      "nombre": "JERONIMO VENEGAS",
       "equipo": "",
       "puntosTotales": 161,
       "dineroTotal": 0,
@@ -9845,7 +9655,7 @@
     {
       "competidorKey": "name:jesus m paez sr",
       "competidorId": null,
-      "nombre": "JESUS M PAEZ Sr",
+      "nombre": "JESUS M PAEZ SR",
       "equipo": "",
       "puntosTotales": 1.5,
       "dineroTotal": 0,
@@ -9875,7 +9685,7 @@
     {
       "competidorKey": "name:jesus manuel paez",
       "competidorId": null,
-      "nombre": "Jesus Manuel Paez",
+      "nombre": "JESUS MANUEL PAEZ",
       "equipo": "",
       "puntosTotales": 125,
       "dineroTotal": 0,
@@ -9972,7 +9782,7 @@
     {
       "competidorKey": "name:jesus sandoval",
       "competidorId": null,
-      "nombre": "Jesus Sandoval",
+      "nombre": "JESUS SANDOVAL",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -10002,7 +9812,7 @@
     {
       "competidorKey": "name:jesus silva",
       "competidorId": null,
-      "nombre": "Jesus Silva",
+      "nombre": "JESUS SILVA",
       "equipo": "",
       "puntosTotales": 11,
       "dineroTotal": 0,
@@ -10032,7 +9842,7 @@
     {
       "competidorKey": "name:jhosayra arellano",
       "competidorId": "local:529",
-      "nombre": "Jhosayra Arellano",
+      "nombre": "JHOSAYRA ARELLANO",
       "equipo": "",
       "puntosTotales": 140,
       "dineroTotal": 0,
@@ -10169,7 +9979,7 @@
     {
       "competidorKey": "name:joel delgado",
       "competidorId": null,
-      "nombre": "Joel Delgado",
+      "nombre": "JOEL DELGADO",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -10201,16 +10011,16 @@
       "competidorId": null,
       "nombre": "JOEL HOLGUIN",
       "equipo": "",
-      "puntosTotales": 164,
+      "puntosTotales": 82,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 164,
+          "puntosTotales": 82,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -10223,23 +10033,13 @@
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 82,
           "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 82,
-          "dinero": 0
         }
       ]
     },
     {
       "competidorKey": "name:johan de la cruz",
       "competidorId": "local:867",
-      "nombre": "Johan de la Cruz",
+      "nombre": "JOHAN DE LA CRUZ",
       "equipo": "",
       "puntosTotales": 0,
       "dineroTotal": 0,
@@ -10456,7 +10256,7 @@
     {
       "competidorKey": "name:jose e gutierrez",
       "competidorId": null,
-      "nombre": "Jose E Gutierrez",
+      "nombre": "JOSE E GUTIERREZ",
       "equipo": "",
       "puntosTotales": 177,
       "dineroTotal": 0,
@@ -10516,7 +10316,7 @@
     {
       "competidorKey": "name:jose gutierrez",
       "competidorId": null,
-      "nombre": "Jose Gutierrez",
+      "nombre": "JOSE GUTIERREZ",
       "equipo": "",
       "puntosTotales": 121,
       "dineroTotal": 0,
@@ -10596,7 +10396,7 @@
     {
       "competidorKey": "name:jose luis porras",
       "competidorId": "local:542",
-      "nombre": "Jose Luis Porras",
+      "nombre": "JOSE LUIS PORRAS",
       "equipo": "",
       "puntosTotales": 233,
       "dineroTotal": 0,
@@ -10683,7 +10483,7 @@
     {
       "competidorKey": "name:jose luis vallez",
       "competidorId": null,
-      "nombre": "Jose Luis Vallez",
+      "nombre": "JOSE LUIS VALLEZ",
       "equipo": "",
       "puntosTotales": 31,
       "dineroTotal": 0,
@@ -10745,16 +10545,16 @@
       "competidorId": null,
       "nombre": "JOSE RODRIGUEZ",
       "equipo": "",
-      "puntosTotales": 614,
+      "puntosTotales": 595.5,
       "dineroTotal": 0,
-      "eventos": 6,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 614,
+          "puntosTotales": 595.5,
           "dineroTotal": 0,
-          "eventos": 6
+          "eventos": 5
         }
       ],
       "historial": [
@@ -10763,16 +10563,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
@@ -10825,16 +10615,16 @@
       "competidorId": "local:584",
       "nombre": "JOSUE MAGDALENO",
       "equipo": "",
-      "puntosTotales": 5,
+      "puntosTotales": 4,
       "dineroTotal": 0,
-      "eventos": 5,
+      "eventos": 4,
       "disciplinas": [
         {
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
-          "puntosTotales": 5,
+          "puntosTotales": 4,
           "dineroTotal": 0,
-          "eventos": 5
+          "eventos": 4
         }
       ],
       "historial": [
@@ -10843,16 +10633,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "CaballoConMontura",
-          "disciplinaNombre": "Caballo con Montura",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 1,
@@ -10893,7 +10673,7 @@
     {
       "competidorKey": "name:juan cisneros",
       "competidorId": null,
-      "nombre": "Juan Cisneros",
+      "nombre": "JUAN CISNEROS",
       "equipo": "",
       "puntosTotales": 5,
       "dineroTotal": 0,
@@ -10972,19 +10752,19 @@
     },
     {
       "competidorKey": "name:julia meraz",
-      "competidorId": "local:julia-meraz",
+      "competidorId": "local:1317",
       "nombre": "JULIA MERAZ",
       "equipo": "",
-      "puntosTotales": 204,
-      "dineroTotal": 9522,
-      "eventos": 2,
+      "puntosTotales": 102,
+      "dineroTotal": 5022,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 204,
-          "dineroTotal": 9522,
-          "eventos": 2
+          "puntosTotales": 102,
+          "dineroTotal": 5022,
+          "eventos": 1
         }
       ],
       "historial": [
@@ -10997,23 +10777,13 @@
           "disciplinaNombre": "Barriles",
           "puntos": 102,
           "dinero": 5022
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 102,
-          "dinero": 4500
         }
       ]
     },
     {
       "competidorKey": "name:junior hernandez",
       "competidorId": null,
-      "nombre": "Junior Hernandez",
+      "nombre": "JUNIOR HERNANDEZ",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -11045,16 +10815,16 @@
       "competidorId": null,
       "nombre": "KEVIN FLORES",
       "equipo": "",
-      "puntosTotales": 37,
+      "puntosTotales": 18.5,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntosTotales": 37,
+          "puntosTotales": 18.5,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -11063,16 +10833,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeader",
-          "disciplinaNombre": "Lazo por Parejas — Cabeceros",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
@@ -11175,16 +10935,16 @@
       "competidorId": null,
       "nombre": "LALO CALDERON JR",
       "equipo": "",
-      "puntosTotales": 37,
+      "puntosTotales": 18.5,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 37,
+          "puntosTotales": 18.5,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -11193,16 +10953,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 18.5,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
@@ -11333,7 +11083,7 @@
     {
       "competidorKey": "name:lizeth minjarez",
       "competidorId": "local:852",
-      "nombre": "Lizeth Minjarez",
+      "nombre": "LIZETH MINJAREZ",
       "equipo": "",
       "puntosTotales": 4.5,
       "dineroTotal": 0,
@@ -11403,7 +11153,7 @@
     {
       "competidorKey": "name:luis baeza",
       "competidorId": "local:945",
-      "nombre": "Luis Baeza",
+      "nombre": "LUIS BAEZA",
       "equipo": "",
       "puntosTotales": 84,
       "dineroTotal": 0,
@@ -11450,7 +11200,7 @@
     {
       "competidorKey": "name:luis delgado jr",
       "competidorId": null,
-      "nombre": "Luis Delgado Jr",
+      "nombre": "LUIS DELGADO JR",
       "equipo": "",
       "puntosTotales": 12,
       "dineroTotal": 0,
@@ -11480,7 +11230,7 @@
     {
       "competidorKey": "name:luis guerra",
       "competidorId": null,
-      "nombre": "Luis Guerra",
+      "nombre": "LUIS GUERRA",
       "equipo": "",
       "puntosTotales": 11,
       "dineroTotal": 0,
@@ -11510,7 +11260,7 @@
     {
       "competidorKey": "name:luis loya",
       "competidorId": null,
-      "nombre": "Luis Loya",
+      "nombre": "LUIS LOYA",
       "equipo": "",
       "puntosTotales": 89,
       "dineroTotal": 0,
@@ -11549,19 +11299,19 @@
     },
     {
       "competidorKey": "name:luis macias",
-      "competidorId": "local:luis-macias",
+      "competidorId": "local:1300",
       "nombre": "LUIS MACIAS",
       "equipo": "",
-      "puntosTotales": 204,
-      "dineroTotal": 14458,
-      "eventos": 2,
+      "puntosTotales": 102,
+      "dineroTotal": 6858,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 204,
-          "dineroTotal": 14458,
-          "eventos": 2
+          "puntosTotales": 102,
+          "dineroTotal": 6858,
+          "eventos": 1
         }
       ],
       "historial": [
@@ -11574,23 +11324,13 @@
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 102,
           "dinero": 6858
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 102,
-          "dinero": 7600
         }
       ]
     },
     {
       "competidorKey": "name:luis mario saldivar",
       "competidorId": null,
-      "nombre": "Luis Mario Saldivar",
+      "nombre": "LUIS MARIO SALDIVAR",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -11620,7 +11360,7 @@
     {
       "competidorKey": "name:luis muniz",
       "competidorId": "local:555",
-      "nombre": "Luis Muniz",
+      "nombre": "LUIS MUNIZ",
       "equipo": "",
       "puntosTotales": 66.5,
       "dineroTotal": 0,
@@ -11710,7 +11450,7 @@
     {
       "competidorKey": "name:luis ruiz",
       "competidorId": null,
-      "nombre": "Luis Ruiz",
+      "nombre": "LUIS RUIZ",
       "equipo": "",
       "puntosTotales": 23,
       "dineroTotal": 0,
@@ -11752,16 +11492,16 @@
       "competidorId": "local:526",
       "nombre": "LUISA HERRERA",
       "equipo": "",
-      "puntosTotales": 472,
+      "puntosTotales": 400,
       "dineroTotal": 0,
-      "eventos": 6,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 472,
+          "puntosTotales": 400,
           "dineroTotal": 0,
-          "eventos": 6
+          "eventos": 5
         }
       ],
       "historial": [
@@ -11770,16 +11510,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 72,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 72,
@@ -11830,7 +11560,7 @@
     {
       "competidorKey": "name:luisana carbajal",
       "competidorId": "local:902",
-      "nombre": "Luisana Carbajal",
+      "nombre": "LUISANA CARBAJAL",
       "equipo": "",
       "puntosTotales": 19,
       "dineroTotal": 0,
@@ -11870,7 +11600,7 @@
     {
       "competidorKey": "name:manuel hernandez",
       "competidorId": "local:596",
-      "nombre": "Manuel Hernandez",
+      "nombre": "MANUEL HERNANDEZ",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -11909,19 +11639,19 @@
     },
     {
       "competidorKey": "name:manuel sandoval",
-      "competidorId": "local:manuel-sandoval",
+      "competidorId": "local:1303",
       "nombre": "MANUEL SANDOVAL",
       "equipo": "",
-      "puntosTotales": 2,
+      "puntosTotales": 1,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 2,
+          "puntosTotales": 1,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -11930,16 +11660,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -12010,7 +11730,7 @@
     {
       "competidorKey": "name:marcos nunez",
       "competidorId": "local:1018",
-      "nombre": "Marcos Nunez",
+      "nombre": "MARCOS NUNEZ",
       "equipo": "",
       "puntosTotales": 194,
       "dineroTotal": 0,
@@ -12344,7 +12064,7 @@
     {
       "competidorKey": "name:mauricio avila",
       "competidorId": "local:549",
-      "nombre": "Mauricio Avila",
+      "nombre": "MAURICIO AVILA",
       "equipo": "",
       "puntosTotales": 162,
       "dineroTotal": 0,
@@ -12443,9 +12163,9 @@
       "competidorId": "local:545",
       "nombre": "MIGUEL DE LA TORRE",
       "equipo": "",
-      "puntosTotales": 1005,
-      "dineroTotal": 12017,
-      "eventos": 6,
+      "puntosTotales": 903,
+      "dineroTotal": 6750,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "LazoDeBecerro",
@@ -12457,9 +12177,9 @@
         {
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntosTotales": 647,
-          "dineroTotal": 12017,
-          "eventos": 6
+          "puntosTotales": 545,
+          "dineroTotal": 6750,
+          "eventos": 5
         }
       ],
       "historial": [
@@ -12472,16 +12192,6 @@
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 102,
           "dinero": 6750
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "TeamRopingHeeler",
-          "disciplinaNombre": "Lazo por Parejas — Pialadores",
-          "puntos": 102,
-          "dinero": 5267
         },
         {
           "eventoId": "local:21",
@@ -12568,7 +12278,7 @@
     {
       "competidorKey": "name:miguel nunez",
       "competidorId": null,
-      "nombre": "Miguel Nunez",
+      "nombre": "MIGUEL NUNEZ",
       "equipo": "",
       "puntosTotales": 109,
       "dineroTotal": 0,
@@ -12695,7 +12405,7 @@
     {
       "competidorKey": "name:myrka ortega",
       "competidorId": "local:777",
-      "nombre": "Myrka Ortega",
+      "nombre": "MYRKA ORTEGA",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -12754,19 +12464,19 @@
     },
     {
       "competidorKey": "name:nayeli flores",
-      "competidorId": "local:nayeli-flores",
+      "competidorId": "local:1314",
       "nombre": "NAYELI FLORES",
       "equipo": "",
-      "puntosTotales": 124,
+      "puntosTotales": 62,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 124,
+          "puntosTotales": 62,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -12775,16 +12485,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 62,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 62,
@@ -12825,7 +12525,7 @@
     {
       "competidorKey": "name:omar ramirez",
       "competidorId": null,
-      "nombre": "Omar Ramirez",
+      "nombre": "OMAR RAMIREZ",
       "equipo": "",
       "puntosTotales": 38,
       "dineroTotal": 0,
@@ -12865,7 +12565,7 @@
     {
       "competidorKey": "name:omar romero",
       "competidorId": null,
-      "nombre": "Omar Romero",
+      "nombre": "OMAR ROMERO",
       "equipo": "",
       "puntosTotales": 97,
       "dineroTotal": 0,
@@ -12945,7 +12645,7 @@
     {
       "competidorKey": "name:oscar garcia jr",
       "competidorId": null,
-      "nombre": "Oscar Garcia Jr",
+      "nombre": "OSCAR GARCIA JR",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -12975,7 +12675,7 @@
     {
       "competidorKey": "name:oscar villalobos",
       "competidorId": null,
-      "nombre": "Oscar Villalobos",
+      "nombre": "OSCAR VILLALOBOS",
       "equipo": "",
       "puntosTotales": 109,
       "dineroTotal": 0,
@@ -13142,7 +12842,7 @@
     {
       "competidorKey": "name:oswaldo hernandez jr",
       "competidorId": null,
-      "nombre": "Oswaldo Hernandez Jr",
+      "nombre": "OSWALDO HERNANDEZ JR",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -13172,7 +12872,7 @@
     {
       "competidorKey": "name:othon rios",
       "competidorId": null,
-      "nombre": "Othon Rios",
+      "nombre": "OTHON RIOS",
       "equipo": "",
       "puntosTotales": 147,
       "dineroTotal": 0,
@@ -13309,7 +13009,7 @@
     {
       "competidorKey": "name:patricia ortega",
       "competidorId": "local:926",
-      "nombre": "Patricia Ortega",
+      "nombre": "PATRICIA ORTEGA",
       "equipo": "",
       "puntosTotales": 2,
       "dineroTotal": 0,
@@ -13496,7 +13196,7 @@
     {
       "competidorKey": "name:paulina romero",
       "competidorId": "local:522",
-      "nombre": "Paulina Romero",
+      "nombre": "PAULINA ROMERO",
       "equipo": "",
       "puntosTotales": 12,
       "dineroTotal": 0,
@@ -13576,7 +13276,7 @@
     {
       "competidorKey": "name:pedro wiebe",
       "competidorId": null,
-      "nombre": "Pedro Wiebe",
+      "nombre": "PEDRO WIEBE",
       "equipo": "",
       "puntosTotales": 119,
       "dineroTotal": 0,
@@ -13716,7 +13416,7 @@
     {
       "competidorKey": "name:pelon vazquez",
       "competidorId": null,
-      "nombre": "Pelon Vazquez",
+      "nombre": "PELON VAZQUEZ",
       "equipo": "",
       "puntosTotales": 106,
       "dineroTotal": 0,
@@ -13746,7 +13446,7 @@
     {
       "competidorKey": "name:pery prado",
       "competidorId": "local:528",
-      "nombre": "Pery Prado",
+      "nombre": "PERY PRADO",
       "equipo": "",
       "puntosTotales": 620,
       "dineroTotal": 0,
@@ -13823,7 +13523,7 @@
     {
       "competidorKey": "name:ramon enriquez",
       "competidorId": null,
-      "nombre": "Ramon Enriquez",
+      "nombre": "RAMON ENRIQUEZ",
       "equipo": "",
       "puntosTotales": 201.5,
       "dineroTotal": 0,
@@ -13932,16 +13632,16 @@
       "competidorId": "local:593",
       "nombre": "RICARDO ESTRADA",
       "equipo": "",
-      "puntosTotales": 6,
+      "puntosTotales": 5,
       "dineroTotal": 0,
-      "eventos": 6,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 6,
+          "puntosTotales": 5,
           "dineroTotal": 0,
-          "eventos": 6
+          "eventos": 5
         }
       ],
       "historial": [
@@ -13950,16 +13650,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -14010,7 +13700,7 @@
     {
       "competidorKey": "name:ricardo santana",
       "competidorId": null,
-      "nombre": "Ricardo Santana",
+      "nombre": "RICARDO SANTANA",
       "equipo": "",
       "puntosTotales": 70.5,
       "dineroTotal": 0,
@@ -14080,7 +13770,7 @@
     {
       "competidorKey": "name:rigoberto nevarez",
       "competidorId": null,
-      "nombre": "Rigoberto Nevarez",
+      "nombre": "RIGOBERTO NEVAREZ",
       "equipo": "",
       "puntosTotales": 54,
       "dineroTotal": 0,
@@ -14120,7 +13810,7 @@
     {
       "competidorKey": "name:rodrigo longoria",
       "competidorId": "local:928",
-      "nombre": "Rodrigo Longoria",
+      "nombre": "RODRIGO LONGORIA",
       "equipo": "",
       "puntosTotales": 115,
       "dineroTotal": 0,
@@ -14159,19 +13849,19 @@
     },
     {
       "competidorKey": "name:ruben hernandez",
-      "competidorId": "local:ruben-hernandez",
+      "competidorId": "local:1305",
       "nombre": "RUBEN HERNANDEZ",
       "equipo": "",
-      "puntosTotales": 2,
+      "puntosTotales": 1,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
-          "puntosTotales": 2,
+          "puntosTotales": 1,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -14180,16 +13870,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "JineteosDeToros",
-          "disciplinaNombre": "Jineteos de Toros",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
@@ -14360,7 +14040,7 @@
     {
       "competidorKey": "name:sayuri leyva",
       "competidorId": "local:521",
-      "nombre": "Sayuri Leyva",
+      "nombre": "SAYURI LEYVA",
       "equipo": "",
       "puntosTotales": 244,
       "dineroTotal": 0,
@@ -14467,18 +14147,18 @@
     {
       "competidorKey": "name:selene iturralde",
       "competidorId": "local:519",
-      "nombre": "Selene Iturralde",
+      "nombre": "SELENE ITURRALDE",
       "equipo": "",
-      "puntosTotales": 227,
+      "puntosTotales": 225,
       "dineroTotal": 0,
-      "eventos": 6,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 8,
+          "puntosTotales": 6,
           "dineroTotal": 0,
-          "eventos": 4
+          "eventos": 3
         },
         {
           "disciplinaId": "LazoEnFalso",
@@ -14501,16 +14181,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 2,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
@@ -14571,7 +14241,7 @@
     {
       "competidorKey": "name:serbando gutierrez jr",
       "competidorId": null,
-      "nombre": "SERBANDO GUTIERREZ Jr",
+      "nombre": "SERBANDO GUTIERREZ JR",
       "equipo": "",
       "puntosTotales": 1.5,
       "dineroTotal": 0,
@@ -14748,7 +14418,7 @@
     {
       "competidorKey": "name:servando gutierrez",
       "competidorId": null,
-      "nombre": "Servando Gutierrez",
+      "nombre": "SERVANDO GUTIERREZ",
       "equipo": "",
       "puntosTotales": 147,
       "dineroTotal": 0,
@@ -14778,7 +14448,7 @@
     {
       "competidorKey": "name:servando gutierrez jr",
       "competidorId": null,
-      "nombre": "Servando Gutierrez Jr",
+      "nombre": "SERVANDO GUTIERREZ JR",
       "equipo": "",
       "puntosTotales": 177,
       "dineroTotal": 0,
@@ -14807,19 +14477,19 @@
     },
     {
       "competidorKey": "name:sofia olivas",
-      "competidorId": "local:sofia-olivas",
+      "competidorId": "local:1285",
       "nombre": "SOFIA OLIVAS",
       "equipo": "",
-      "puntosTotales": 164,
+      "puntosTotales": 82,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 164,
+          "puntosTotales": 82,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -14828,16 +14498,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 82,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 82,
@@ -14847,19 +14507,19 @@
     },
     {
       "competidorKey": "name:susy hernandez",
-      "competidorId": "local:susy-hernandez",
+      "competidorId": "local:1283",
       "nombre": "SUSY HERNANDEZ",
       "equipo": "",
-      "puntosTotales": 4,
+      "puntosTotales": 2,
       "dineroTotal": 0,
-      "eventos": 2,
+      "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 4,
+          "puntosTotales": 2,
           "dineroTotal": 0,
-          "eventos": 2
+          "eventos": 1
         }
       ],
       "historial": [
@@ -14868,16 +14528,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 2,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
@@ -14928,7 +14578,7 @@
     {
       "competidorKey": "name:tito santiesteban",
       "competidorId": null,
-      "nombre": "Tito Santiesteban",
+      "nombre": "TITO SANTIESTEBAN",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -15018,7 +14668,7 @@
     {
       "competidorKey": "name:ubaldo sandoval",
       "competidorId": null,
-      "nombre": "Ubaldo Sandoval",
+      "nombre": "UBALDO SANDOVAL",
       "equipo": "",
       "puntosTotales": 378,
       "dineroTotal": 0,
@@ -15087,16 +14737,16 @@
       "competidorId": "local:1012",
       "nombre": "VALENTIN RODRIGUEZ",
       "equipo": "",
-      "puntosTotales": 157,
+      "puntosTotales": 156,
       "dineroTotal": 0,
-      "eventos": 5,
+      "eventos": 4,
       "disciplinas": [
         {
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
-          "puntosTotales": 157,
+          "puntosTotales": 156,
           "dineroTotal": 0,
-          "eventos": 5
+          "eventos": 4
         }
       ],
       "historial": [
@@ -15105,16 +14755,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "CaballoConMontura",
-          "disciplinaNombre": "Caballo con Montura",
-          "puntos": 1,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 1,
@@ -15157,16 +14797,16 @@
       "competidorId": "local:915",
       "nombre": "VALERIA HERRERA",
       "equipo": "",
-      "puntosTotales": 6,
+      "puntosTotales": 4,
       "dineroTotal": 0,
-      "eventos": 3,
+      "eventos": 2,
       "disciplinas": [
         {
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
-          "puntosTotales": 6,
+          "puntosTotales": 4,
           "dineroTotal": 0,
-          "eventos": 3
+          "eventos": 2
         }
       ],
       "historial": [
@@ -15175,16 +14815,6 @@
           "eventoNombre": "TRUCKMANIA FEST 2026",
           "fecha": "2026-09-20",
           "sede": "Arena Complejo Avalos",
-          "disciplinaId": "Barriles",
-          "disciplinaNombre": "Barriles",
-          "puntos": 2,
-          "dinero": 0
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
@@ -15205,7 +14835,7 @@
     {
       "competidorKey": "name:victor esparza",
       "competidorId": null,
-      "nombre": "Victor Esparza",
+      "nombre": "VICTOR ESPARZA",
       "equipo": "",
       "puntosTotales": 58,
       "dineroTotal": 0,
@@ -15262,7 +14892,7 @@
     {
       "competidorKey": "name:victor h banuelos",
       "competidorId": null,
-      "nombre": "Victor H Banuelos",
+      "nombre": "VICTOR H BANUELOS",
       "equipo": "",
       "puntosTotales": 1,
       "dineroTotal": 0,
@@ -15334,16 +14964,16 @@
       "competidorId": "local:580",
       "nombre": "YAEL RAMIREZ",
       "equipo": "",
-      "puntosTotales": 511,
-      "dineroTotal": 10740,
-      "eventos": 6,
+      "puntosTotales": 409,
+      "dineroTotal": 5760,
+      "eventos": 5,
       "disciplinas": [
         {
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
-          "puntosTotales": 511,
-          "dineroTotal": 10740,
-          "eventos": 6
+          "puntosTotales": 409,
+          "dineroTotal": 5760,
+          "eventos": 5
         }
       ],
       "historial": [
@@ -15356,16 +14986,6 @@
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 102,
           "dinero": 5760
-        },
-        {
-          "eventoId": "manual:2026-09-19-truckmania-manual",
-          "eventoNombre": "TRUCKMANIA MANUAL",
-          "fecha": "2026-09-19",
-          "sede": "Arena complejo avalos",
-          "disciplinaId": "CaballoConMontura",
-          "disciplinaNombre": "Caballo con Montura",
-          "puntos": 102,
-          "dinero": 4980
         },
         {
           "eventoId": "local:21",

@@ -2,10 +2,11 @@
 
 import { fmtMxn } from "../scripts/lib/money.mjs";
 import { toPuntosCircuito } from "../scripts/lib/points.mjs";
+import { eventoConNombresMayusculas } from "../scripts/lib/nombres.mjs";
 
 export function normalizeEvento(raw, fallbackName = "") {
   const meta = raw.meta || {};
-  return {
+  return eventoConNombresMayusculas({
     schemaVersion: raw.schemaVersion ?? 1,
     exportedAt: raw.exportedAt,
     source: raw.source || "time",
@@ -17,7 +18,7 @@ export function normalizeEvento(raw, fallbackName = "") {
     categorias: Array.isArray(raw.categorias) ? raw.categorias : [],
     resultados: Array.isArray(raw.resultados) ? raw.resultados : [],
     clasificacion: Array.isArray(raw.clasificacion) ? raw.clasificacion : [],
-  };
+  });
 }
 
 export function categoriesWithResults(evento) {

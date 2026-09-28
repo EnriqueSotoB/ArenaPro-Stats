@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "circuitoDefault": "temporada-2026-2027",
+  "circuitoDefault": "aerch-circuito-2027",
   "asociaciones": [
     {
       "id": "aerch",
@@ -105,17 +105,6 @@
       "fecha": "2026-09-06",
       "sede": "Arena Santa Rosalia Camargo",
       "file": "eventos/2026-09-06-rodeo-camargo-2026.json",
-      "circuitos": [
-        "aerch-circuito-2027",
-        "fmr-tour-2027"
-      ]
-    },
-    {
-      "id": "manual:2026-09-19-truckmania-manual",
-      "nombre": "TRUCKMANIA MANUAL",
-      "fecha": "2026-09-19",
-      "sede": "Arena complejo avalos",
-      "file": "eventos/2026-09-19-truckmania-manual.json",
       "circuitos": [
         "aerch-circuito-2027",
         "fmr-tour-2027"

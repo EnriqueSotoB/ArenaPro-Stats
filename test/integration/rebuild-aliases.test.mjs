@@ -53,6 +53,7 @@ describe("rebuildTemporada con aliases", () => {
           version: 1,
           aliases: [
             { from: "name:rider uno", to: "name:rider uno canon" },
+            { from: "name:rider dos", to: "name:rider dos otra", asociacionId: "otra-asociacion" },
           ],
         },
         null,
@@ -71,9 +72,17 @@ describe("rebuildTemporada con aliases", () => {
     const temporada = JSON.parse(
       readFileSync(outPath, "utf8")
     );
-    const uno = temporada.standings.find((s) => s.nombre === "Rider Uno");
+    const uno = temporada.standings.find((s) => s.nombre === "RIDER UNO");
     assert.ok(uno);
     assert.equal(uno.competidorKey, "name:rider uno canon");
     assert.equal(uno.puntosTotales, 100);
+  });
+
+  it("no aplica aliases de otra asociación", () => {
+    const { outPath } = rebuildTemporada(root);
+    const temporada = JSON.parse(readFileSync(outPath, "utf8"));
+    const dos = temporada.standings.find((s) => s.nombre === "RIDER DOS");
+    assert.ok(dos);
+    assert.equal(dos.competidorKey, "name:rider dos");
   });
 });

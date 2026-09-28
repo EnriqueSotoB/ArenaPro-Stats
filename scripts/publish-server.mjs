@@ -9,7 +9,12 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSyn
 import { dirname, join, extname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
+import { randomBytes } from "node:crypto";
 import { validateEvento } from "./lib/validate-evento.mjs";
+import { motivoRechazo } from "./lib/local-guard.mjs";
+import { buscarRodeoDuplicado, problemasDePublicacion } from "./lib/integridad.mjs";
+import { eventoConNombresMayusculas } from "./lib/nombres.mjs";
+import { normalizeText } from "./lib/disciplinas.mjs";
 import {
   aplicarStatsEdits,
   buildDefaultEdits,
@@ -19,6 +24,7 @@ import { displayFromKey } from "./lib/alias-suggest.mjs";
 import { parseExcelEvento, normalizeFechaYmd } from "./lib/excel-evento.mjs";
 import {
   normalizeManifest,
+  findAsociacion,
   findCircuito,
   validarCircuitosEvento,
   eventosDeCircuito,
@@ -39,6 +45,8 @@ const HOST = "127.0.0.1";
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(SCRIPT_DIR, "..");
 const PAGES_URL = "https://estadisticas.arenapro.mx/";
+/** Cambia en cada arranque; solo admin.html servido por esta consola lo conoce. */
+const SESSION_TOKEN = randomBytes(24).toString("hex");
 
 /** Siempre proceso Node nuevo: el import() en caliente NO invalida caché ESM en file://. */
 function runRebuild() {
@@ -73,6 +81,28 @@ function runRebuild() {
     };
   });
   return { circuitos, log: String(stdout || "").trim() };
+}
+
+/** Los mismos tests que CI: si fallan aquí, no se sube nada al sitio público. */
+function runTests() {
+  try {
+    execFileSync(process.execPath, [join(SCRIPT_DIR, "run-tests.mjs")], {
+      cwd: ROOT,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch (e) {
+    const salida = String(e.stdout || "") + String(e.stderr || "");
+    const fallas = salida
+      .split("\n")
+      .filter((l) => /✖|not ok|AssertionError/.test(l))
+      .slice(0, 6)
+      .map((l) => l.trim())
+      .join(" · ");
+    const err = new Error(`No se publicó: fallaron las pruebas. ${fallas || "Corre npm test para ver el detalle."}`);
+    err.statusCode = 409;
+    throw err;
+  }
 }
 
 function loadCircuitoPayload(circuitoId) {
@@ -237,7 +267,21 @@ function getStatus() {
   };
 }
 
-async function ingest({ evento, circuitos, statsEdits, replaceId }) {
+function conflicto(message) {
+  return Object.assign(new Error(message), { statusCode: 409 });
+}
+
+function loadEventoEntry(entry) {
+  const abs = eventoAbsFile(entry.file);
+  if (!abs || !existsSync(abs)) return null;
+  try {
+    return JSON.parse(readFileSync(abs, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+async function ingest({ evento, circuitos, statsEdits, replaceId, permitirDuplicado }) {
   if (!evento || typeof evento !== "object") {
     const err = new Error("Falta el JSON del evento.");
     err.statusCode = 400;
@@ -254,7 +298,7 @@ async function ingest({ evento, circuitos, statsEdits, replaceId }) {
     statsEdits && typeof statsEdits === "object"
       ? statsEdits
       : buildDefaultEdits(rawEvento);
-  const applied = aplicarStatsEdits(rawEvento, edits);
+  const applied = eventoConNombresMayusculas(aplicarStatsEdits(rawEvento, edits));
 
   const validation = validateEvento(applied);
   if (!validation.ok) {
@@ -277,19 +321,57 @@ async function ingest({ evento, circuitos, statsEdits, replaceId }) {
     new Date().toISOString().slice(0, 10);
   applied.fecha = fecha;
 
-  const id =
+  const manifest = loadManifest();
+  const replaceKey = replaceId != null && replaceId !== "" ? String(replaceId).trim() : "";
+  const replaceIdx = replaceKey ? findManifestEvento(manifest, replaceKey) : -1;
+  const mismoEvento = (e) =>
+    e.fecha === fecha && normalizeText(e.nombre) === normalizeText(applied.nombreEvento);
+
+  let id =
     (applied.eventoId && String(applied.eventoId).trim()) ||
     `evt_${fecha}_${safeSlug(applied.nombreEvento)}`;
+  let idx = manifest.eventos.findIndex((e) => e.id === id);
+  if (replaceIdx < 0 && idx >= 0 && !mismoEvento(manifest.eventos[idx])) {
+    // Cada instalación de Time numera desde local:1: el mismo id puede ser otro rodeo.
+    id = `${id}-${fecha}`;
+    idx = manifest.eventos.findIndex((e) => e.id === id);
+    if (idx >= 0 && !mismoEvento(manifest.eventos[idx])) {
+      throw conflicto(`Ya existe otro evento con el id "${id}" ("${manifest.eventos[idx].nombre}").`);
+    }
+  }
+  if (replaceIdx >= 0) {
+    if (idx >= 0 && idx !== replaceIdx) {
+      throw conflicto(`Ya existe otro evento con el mismo id ("${manifest.eventos[idx].nombre}").`);
+    }
+    idx = replaceIdx;
+  }
   applied.eventoId = id;
 
-  const fileName = `${fecha}-${safeSlug(applied.nombreEvento)}.json`;
+  const ocupado = (rel) => manifest.eventos.some((e, i) => i !== idx && e.file === rel);
+  let fileName = `${fecha}-${safeSlug(applied.nombreEvento)}.json`;
+  if (ocupado(`eventos/${fileName}`)) fileName = `${fecha}-${safeSlug(applied.nombreEvento)}-${safeSlug(id)}.json`;
   const relFile = `eventos/${fileName}`;
+  if (ocupado(relFile)) throw conflicto(`Ya existe otro evento guardado como ${relFile}.`);
+
+  if (!permitirDuplicado) {
+    const existentes = manifest.eventos
+      .filter((e, i) => i !== idx && e.circuitos.some((c) => circuitoIds.includes(c)))
+      .map((entry) => ({ entry, evento: loadEventoEntry(entry) }))
+      .filter((x) => x.evento);
+    const dup = buscarRodeoDuplicado(applied, existentes);
+    if (dup) {
+      throw Object.assign(
+        conflicto(
+          `Parece el mismo rodeo que “${dup.entry.nombre}” (${dup.entry.fecha}): ${dup.comunes} de ${dup.total} competidores en común. Si es una corrección, usa Editar en ese evento.`
+        ),
+        { duplicado: dup.entry.id }
+      );
+    }
+  }
+
   const absDir = join(ROOT, "data", "eventos");
   mkdirSync(absDir, { recursive: true });
-  const absFile = join(absDir, fileName);
-  writeFileSync(absFile, JSON.stringify(applied, null, 2) + "\n", "utf8");
-
-  const manifest = loadManifest();
+  writeFileSync(join(absDir, fileName), JSON.stringify(applied, null, 2) + "\n", "utf8");
 
   const entry = {
     id,
@@ -299,19 +381,6 @@ async function ingest({ evento, circuitos, statsEdits, replaceId }) {
     file: relFile,
     circuitos: circuitoIds,
   };
-
-  let idx = manifest.eventos.findIndex((e) => e.id === id || e.file === relFile);
-  if (replaceId != null && replaceId !== "") {
-    const replaceIdx = manifest.eventos.findIndex((e) => e.id === String(replaceId).trim());
-    if (idx >= 0 && idx !== replaceIdx) {
-      const err = new Error(
-        `Ya existe otro evento con el mismo id o archivo ("${manifest.eventos[idx].nombre}").`
-      );
-      err.statusCode = 409;
-      throw err;
-    }
-    idx = replaceIdx;
-  }
 
   if (idx >= 0) {
     const prevFile = manifest.eventos[idx].file;
@@ -406,10 +475,15 @@ function getAliasesPayload() {
 }
 
 function addAlias(body) {
+  const asociacionId = String(body?.asociacionId || "").trim();
+  if (asociacionId && !findAsociacion(loadManifest(), asociacionId)) {
+    throw Object.assign(new Error(`No existe la asociación "${asociacionId}".`), { statusCode: 400 });
+  }
   const next = appendAlias(loadAliasesDoc(), {
     from: body?.from,
     to: body?.to,
     nota: body?.nota,
+    asociacionId,
   });
   saveAliasesDoc(next);
   const rebuilt = runRebuild();
@@ -423,7 +497,7 @@ function addAlias(body) {
 }
 
 function deleteAlias(body) {
-  const next = removeAlias(loadAliasesDoc(), body?.from);
+  const next = removeAlias(loadAliasesDoc(), body?.from, body?.asociacionId);
   saveAliasesDoc({ version: next.version, aliases: next.aliases });
   const rebuilt = runRebuild();
   return {
@@ -596,6 +670,10 @@ async function publish() {
     return { ok: true, published: false, message: "No hay cambios en data/ para publicar." };
   }
 
+  const problemas = problemasDePublicacion(loadManifest(), loadEventoEntry);
+  if (problemas.length) throw conflicto(`No se publicó. ${problemas.join(" ")}`);
+  runTests();
+
   git(["add", "--", "data"]);
   const staged = git(["diff", "--cached", "--name-only"]);
   if (!staged) {
@@ -655,12 +733,22 @@ function serveStatic(req, res, urlPath) {
 
   const type = MIME[extname(candidate).toLowerCase()] || "application/octet-stream";
   res.writeHead(200, { "Content-Type": type, "Cache-Control": "no-store" });
+  if (relToRoot === "admin.html") {
+    const html = readFileSync(candidate, "utf8").replace(
+      '<meta name="arenapro-token" content="" />',
+      `<meta name="arenapro-token" content="${SESSION_TOKEN}" />`
+    );
+    res.end(html);
+    return;
+  }
   res.end(readFileSync(candidate));
 }
 
 const server = http.createServer(async (req, res) => {
   try {
     assertLocal(req);
+    const rechazo = motivoRechazo(req, { port: PORT, token: SESSION_TOKEN });
+    if (rechazo) throw Object.assign(new Error(rechazo), { statusCode: 403 });
     const method = req.method || "GET";
     const url = new URL(req.url || "/", `http://${HOST}:${PORT}`);
 
@@ -800,6 +888,7 @@ const server = http.createServer(async (req, res) => {
       error: message,
       ...(Array.isArray(e.errors) ? { errors: e.errors } : {}),
       ...(Array.isArray(e.warnings) ? { warnings: e.warnings } : {}),
+      ...(e.duplicado ? { duplicado: e.duplicado } : {}),
     });
   }
 });

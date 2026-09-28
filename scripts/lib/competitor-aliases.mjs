@@ -19,6 +19,24 @@ export function buildAliasMap(aliasesDoc) {
 }
 
 /**
+ * Aliases que aplican a un circuito: los globales (sin asociacionId) y los de su asociación.
+ * Los de la asociación van al final para que ganen si ambos tienen el mismo `from`.
+ * @param {{ version?: number, aliases?: Array<{ from: string, to: string, asociacionId?: string }> }} aliasesDoc
+ * @param {string} asociacionId
+ */
+export function aliasesParaAsociacion(aliasesDoc, asociacionId) {
+  const todos = aliasesDoc?.aliases || [];
+  const scope = (a) => String(a?.asociacionId || "");
+  return {
+    ...aliasesDoc,
+    aliases: [
+      ...todos.filter((a) => !scope(a)),
+      ...todos.filter((a) => scope(a) && scope(a) === String(asociacionId || "")),
+    ],
+  };
+}
+
+/**
  * Resuelve la clave canónica aplicando aliases (máx. 5 hops; corta ciclos).
  * Si `competidorId` aparece en el mapa, se usa como punto de partida
  * (útil para `local:N` → `name:canónico`).

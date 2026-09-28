@@ -93,7 +93,7 @@ describe("excel-evento", () => {
     // Barriles (tiempo): B lugar, C nombre, E pts, F dinero, G r1, H r2
     const barriles = wb.getWorksheet("Barriles");
     barriles.getCell(7, 2).value = 1;
-    barriles.getCell(7, 3).value = "Rider Uno";
+    barriles.getCell(7, 3).value = "rider   uno";
     barriles.getCell(7, 5).value = 100;
     barriles.getCell(7, 6).value = 8000;
     barriles.getCell(7, 7).value = 14.32;
@@ -156,7 +156,7 @@ describe("excel-evento", () => {
     assert.ok(barriles);
     assert.equal(barriles.entradas.length, 3);
     const uno = barriles.entradas[0];
-    assert.equal(uno.nombre, "Rider Uno");
+    assert.equal(uno.nombre, "RIDER UNO"); // capturado como "rider   uno"
     assert.equal(uno.montoGanado, 8000);
     assert.ok(Math.abs(uno.tiempoTotal - 29.42) < 0.001);
 
@@ -169,17 +169,17 @@ describe("excel-evento", () => {
 
     const tr = evento.clasificacion.find((c) => c.tipo === "TeamRoping");
     assert.ok(tr);
-    assert.equal(tr.entradas[0].nombre, "Alpha / Beta");
-    assert.equal(tr.entradas[0].headerNombre, "Alpha");
-    assert.equal(tr.entradas[0].heelerNombre, "Beta");
+    assert.equal(tr.entradas[0].nombre, "ALPHA / BETA");
+    assert.equal(tr.entradas[0].headerNombre, "ALPHA");
+    assert.equal(tr.entradas[0].heelerNombre, "BETA");
     assert.ok(!tr.entradas[0].rol);
 
     const roles = expandTeamRopingRow(tr.entradas[0], "TeamRoping");
     assert.equal(roles.length, 2);
     assert.equal(roles[0].disciplinaId, "TeamRopingHeader");
-    assert.equal(roles[0].nombre, "Alpha");
+    assert.equal(roles[0].nombre, "ALPHA");
     assert.equal(roles[1].disciplinaId, "TeamRopingHeeler");
-    assert.equal(roles[1].nombre, "Beta");
+    assert.equal(roles[1].nombre, "BETA");
 
     const jin = evento.clasificacion.find((c) => c.tipo === "JineteosDeToros");
     assert.ok(jin);
@@ -206,9 +206,9 @@ describe("excel-evento", () => {
     const evento = await parseExcelEvento(readFileSync(out));
     const block = evento.clasificacion.find((c) => c.tipo === "TeamRoping");
     assert.ok(block);
-    assert.equal(block.entradas[0].nombre, "Juan / Pedro");
-    assert.equal(block.entradas[0].headerNombre, "Juan");
-    assert.equal(block.entradas[0].heelerNombre, "Pedro");
+    assert.equal(block.entradas[0].nombre, "JUAN / PEDRO");
+    assert.equal(block.entradas[0].headerNombre, "JUAN");
+    assert.equal(block.entradas[0].heelerNombre, "PEDRO");
   });
 
   it("escribe plantilla reutilizable", async () => {

@@ -15,7 +15,7 @@ describe("surnameFromKey / displayFromKey", () => {
   });
 
   it("formatea etiqueta", () => {
-    assert.equal(displayFromKey("name:eduardo calderon"), "Eduardo Calderon");
+    assert.equal(displayFromKey("name:eduardo calderon"), "EDUARDO CALDERON");
   });
 });
 
