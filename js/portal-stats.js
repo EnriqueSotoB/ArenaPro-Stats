@@ -1,7 +1,9 @@
 /**
  * Números del tablero del portal a partir del acumulado de un circuito
- * (data/circuitos/{id}.json). Sin DOM.
+ * (data/circuitos/{id}.json) y de los archivos de evento. Sin DOM.
  */
+
+import { disciplinaKey, disciplinaLabel } from "../scripts/lib/disciplinas.mjs";
 
 /**
  * @param {any} temporada acumulado del circuito
@@ -90,4 +92,203 @@ export function calcularTablero(temporada, eventos = []) {
     porDisciplina,
     masActivos,
   };
+}
+
+/** Lugar con empates (1, 2, 2, 4): 1 + cuántos tienen estrictamente más puntos. */
+function lugarCon(puntos, todos) {
+  let n = 1;
+  for (const p of todos) if (p > puntos) n += 1;
+  return n;
+}
+
+/**
+ * Clasificación de cada disciplina después del último rodeo del circuito, con cuántos
+ * lugares se movió cada quien contra cómo iba antes de ese rodeo. Quien debuta en la
+ * disciplina en ese rodeo sale como `nuevo` (sin lugar anterior).
+ * @param {any} temporada acumulado del circuito
+ */
+export function calcularMovimientos(temporada) {
+  const competidores = temporada?.competidores || [];
+  const eventos = new Map();
+  for (const c of competidores) {
+    for (const h of c.historial || []) {
+      if (!eventos.has(h.eventoId)) {
+        eventos.set(h.eventoId, { id: h.eventoId, nombre: h.eventoNombre || h.eventoId, fecha: h.fecha || "" });
+      }
+    }
+  }
+  const orden = [...eventos.values()].sort(
+    (a, b) => String(a.fecha).localeCompare(String(b.fecha)) || String(a.id).localeCompare(String(b.id))
+  );
+  const ultimo = orden.at(-1) || null;
+  if (orden.length < 2) return { evento: ultimo, tablas: [], cambiosLider: [] };
+
+  /** @type {Map<string, { nombre: string, filas: Map<string, any> }>} */
+  const porDisc = new Map();
+  for (const c of competidores) {
+    for (const h of c.historial || []) {
+      const id = h.disciplinaId || "_";
+      const d = porDisc.get(id) || { nombre: h.disciplinaNombre || disciplinaLabel(id), filas: new Map() };
+      porDisc.set(id, d);
+      const f = d.filas.get(c.competidorKey) || {
+        competidorKey: c.competidorKey,
+        nombre: c.nombre || "—",
+        antes: 0,
+        despues: 0,
+        puntosEvento: 0,
+        previo: false,
+        corrio: false,
+      };
+      d.filas.set(c.competidorKey, f);
+      const pts = Number(h.puntos) || 0;
+      f.despues += pts;
+      if (h.eventoId === ultimo.id) {
+        f.corrio = true;
+        f.puntosEvento += pts;
+      } else {
+        f.previo = true;
+        f.antes += pts;
+      }
+    }
+  }
+
+  const tablas = [];
+  const cambiosLider = [];
+  for (const [id, d] of porDisc) {
+    const filas = [...d.filas.values()];
+    const previos = filas.filter((f) => f.previo);
+    const ptsAntes = previos.map((f) => f.antes);
+    const ptsDespues = filas.map((f) => f.despues);
+    const corrieron = filas.filter((f) => f.corrio).length;
+    tablas.push({
+      disciplinaId: id,
+      disciplinaNombre: d.nombre,
+      corrieron,
+      filas: filas
+        .map((f) => {
+          const lugar = lugarCon(f.despues, ptsDespues);
+          const lugarAntes = f.previo ? lugarCon(f.antes, ptsAntes) : null;
+          return {
+            competidorKey: f.competidorKey,
+            nombre: f.nombre,
+            lugar,
+            lugarAntes,
+            cambio: lugarAntes == null ? null : lugarAntes - lugar,
+            nuevo: !f.previo,
+            puntos: f.despues,
+            puntosEvento: f.puntosEvento,
+            corrio: f.corrio,
+          };
+        })
+        .sort((a, b) => a.lugar - b.lugar || a.nombre.localeCompare(b.nombre, "es")),
+    });
+    if (!corrieron) continue;
+
+    const maxAntes = Math.max(0, ...ptsAntes);
+    const maxDespues = Math.max(0, ...ptsDespues);
+    const lideresAntes = previos.filter((f) => maxAntes > 0 && f.antes === maxAntes).map((f) => f.nombre);
+    const lideresDespues = filas.filter((f) => maxDespues > 0 && f.despues === maxDespues).map((f) => f.nombre);
+    const mismo =
+      lideresAntes.length === lideresDespues.length && lideresAntes.every((n) => lideresDespues.includes(n));
+    if (lideresDespues.length && !mismo) {
+      cambiosLider.push({ disciplinaId: id, disciplinaNombre: d.nombre, antes: lideresAntes, ahora: lideresDespues, puntos: maxDespues });
+    }
+  }
+
+  const porNombre = (a, b) => a.disciplinaNombre.localeCompare(b.disciplinaNombre, "es");
+  return {
+    evento: ultimo,
+    tablas: tablas.sort(porNombre),
+    cambiosLider: cambiosLider.sort(porNombre),
+  };
+}
+
+const ES_PUNTOS = /Jineteos|Montura|Pretal/i;
+
+/** Recorridos individuales de una entrada de clasificación: `[{ ronda, valor }]`. */
+export function recorridosDeEntrada(e, esPuntos) {
+  const out = [];
+  for (const parte of String(e?.detalleVueltas || "").split("·")) {
+    const m = /^\s*([^:]+):\s*([\d.,]+)\s*(?:pts)?\s*$/.exec(parte);
+    if (!m) continue;
+    const valor = Number(m[2].replace(",", "."));
+    if (Number.isFinite(valor) && valor > 0) out.push({ ronda: m[1].trim(), valor });
+  }
+  if (!out.length) {
+    ["t1", "t2", "t3"].forEach((k, i) => {
+      const valor = Number(e?.[k]);
+      if (e?.[k] != null && e[k] !== "" && Number.isFinite(valor) && valor > 0) out.push({ ronda: `Ronda ${i + 1}`, valor });
+    });
+  }
+  if (!out.length) {
+    const valor = Number(esPuntos ? e?.puntos : e?.tiempoTotal);
+    if ((esPuntos ? e?.puntos : e?.tiempoTotal) != null && Number.isFinite(valor) && valor > 0) {
+      out.push({ ronda: "", valor });
+    }
+  }
+  return out;
+}
+
+/**
+ * Récord de la temporada por disciplina: el recorrido más rápido (tiempo) o la
+ * calificación más alta (jineteos, montura, pretal) en cualquier rodeo del circuito.
+ * @param {Array<{ id: string, nombre?: string, fecha?: string, evento: any }>} eventos con su archivo ya normalizado
+ */
+export function calcularRecords(eventos = []) {
+  /** @type {Map<string, any[]>} */
+  const marcas = new Map();
+  for (const ev of eventos) {
+    const evento = ev.evento || {};
+    const cats = Object.fromEntries((evento.categorias || []).map((c) => [c.id || "_", c]));
+    for (const block of evento.clasificacion || []) {
+      const cat = cats[block.categoriaId || "_"] || {};
+      const tipo = cat.tipo || block.tipo || "";
+      const id = disciplinaKey({ tipo, nombre: cat.nombre || block.nombre || "" });
+      if (id === "_") continue;
+      const esPuntos = ES_PUNTOS.test(tipo) || ES_PUNTOS.test(id);
+      const lista = marcas.get(id) || [];
+      marcas.set(id, lista);
+      for (const e of block.entradas || []) {
+        for (const r of recorridosDeEntrada(e, esPuntos)) {
+          lista.push({
+            nombre: e.nombre || "—",
+            valor: r.valor,
+            ronda: r.ronda,
+            esPuntos,
+            eventoId: ev.id,
+            eventoNombre: ev.nombre || evento.nombreEvento || ev.id,
+            fecha: ev.fecha || evento.fecha || "",
+          });
+        }
+      }
+    }
+  }
+
+  const clave = (s) => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  const records = [];
+  for (const [id, lista] of marcas) {
+    if (!lista.length) continue;
+    const esPuntos = lista[0].esPuntos;
+    const mejor = esPuntos ? Math.max(...lista.map((m) => m.valor)) : Math.min(...lista.map((m) => m.valor));
+    // Mismo competidor con la misma marca en dos eventos (p. ej. evento duplicado): queda el primero.
+    const vistos = new Set();
+    const titulares = lista
+      .filter((m) => Math.abs(m.valor - mejor) < 1e-9)
+      .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)))
+      .filter((m) => {
+        const k = clave(m.nombre);
+        if (vistos.has(k)) return false;
+        vistos.add(k);
+        return true;
+      });
+    records.push({
+      disciplinaId: id,
+      disciplinaNombre: disciplinaLabel(id),
+      esPuntos,
+      valor: mejor,
+      titulares,
+      recorridos: lista.length,
+    });
+  }
+  return records.sort((a, b) => a.disciplinaNombre.localeCompare(b.disciplinaNombre, "es"));
 }

@@ -3,7 +3,7 @@
  * publicar sigue siendo exclusivo del admin local.
  */
 
-import { normalizeEvento, categoriesWithResults, escapeHtml, escapeAttr, fmtNum } from "./event-model.js";
+import { normalizeEvento, categoriesWithResults, escapeHtml, escapeAttr, fmtNum, fmtTime } from "./event-model.js";
 import { fmtMxn } from "../scripts/lib/money.mjs";
 import {
   normalizeManifest,
@@ -24,7 +24,7 @@ import {
   fmtFecha,
   publicUrl,
 } from "./share-specs.js";
-import { calcularTablero } from "./portal-stats.js";
+import { calcularTablero, calcularMovimientos, calcularRecords } from "./portal-stats.js";
 
 const SESSION_PREFIX = "arenapro-portal:";
 const ES_LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
@@ -54,10 +54,14 @@ const els = {
   tabTablero: $("tabTablero"),
   tabRedes: $("tabRedes"),
   kpis: $("kpis"),
-  chartEventos: $("chartEventos"),
+  movimientos: $("movimientos"),
+  movimientosMeta: $("movimientosMeta"),
+  movPicker: $("movPicker"),
+  movDisciplina: $("movDisciplina"),
   chartDisciplinas: $("chartDisciplinas"),
   panelDinero: $("panelDinero"),
   chartDinero: $("chartDinero"),
+  tablaRecords: $("tablaRecords"),
   tablaLideres: $("tablaLideres"),
   tablaActivos: $("tablaActivos"),
   fuenteTemporada: $("fuenteTemporada"),
@@ -269,6 +273,16 @@ function salir() {
 function wirePortal() {
   els.btnSalir.addEventListener("click", salir);
   els.circuitoSelect.addEventListener("change", () => usarCircuito(els.circuitoSelect.value));
+  els.movDisciplina.addEventListener("change", () => {
+    mov.disciplina = els.movDisciplina.value;
+    mov.todos = false;
+    renderTablaMovimientos();
+  });
+  els.movimientos.addEventListener("click", (e) => {
+    if (!e.target.closest("[data-mov-todos]")) return;
+    mov.todos = !mov.todos;
+    renderTablaMovimientos();
+  });
   document.querySelectorAll("[data-tab]").forEach((btn) => {
     btn.addEventListener("click", () => setTab(btn.getAttribute("data-tab")));
   });
@@ -339,22 +353,17 @@ function renderTablero() {
 
   if (!t.porEvento.length) {
     const vacio = `<p class="empty-state">Este circuito aún no tiene eventos publicados.</p>`;
-    els.chartEventos.innerHTML = vacio;
+    els.movimientos.innerHTML = vacio;
     els.chartDisciplinas.innerHTML = vacio;
+    els.tablaRecords.innerHTML = vacio;
     els.tablaLideres.innerHTML = vacio;
     els.tablaActivos.innerHTML = vacio;
     els.panelDinero.hidden = true;
     return;
   }
 
-  els.chartEventos.innerHTML = barrasHtml(
-    t.porEvento.map((e) => ({
-      label: e.nombre,
-      sub: [fmtFecha(e.fecha), `${fmtNum(e.participaciones)} inscripciones`].filter(Boolean).join(" · "),
-      value: e.competidores,
-      text: fmtNum(e.competidores),
-    }))
-  );
+  renderMovimientos();
+  renderRecords(eventos);
   els.chartDisciplinas.innerHTML = barrasHtml(
     t.porDisciplina.map((d) => ({ label: d.nombre, value: d.competidores, text: fmtNum(d.competidores) }))
   );
@@ -386,6 +395,131 @@ function renderTablero() {
       c.dinero ? escapeHtml(fmtMxn(c.dinero)) : "—",
     ]),
     [true, false, true, true, true, true]
+  );
+}
+
+function nombresHtml(nombres, max = 3) {
+  if (nombres.length <= max) return escapeHtml(nombres.join(", "));
+  return `${escapeHtml(nombres.slice(0, max).join(", "))} y ${nombres.length - max} más`;
+}
+
+const MOV_TOP = 15;
+const mov = { data: null, disciplina: "", todos: false };
+
+function renderMovimientos() {
+  mov.data = calcularMovimientos(temporada);
+  const { evento, tablas } = mov.data;
+  els.movPicker.hidden = !tablas.length;
+  if (!evento) {
+    els.movimientosMeta.textContent = "Cómo cambió la clasificación de cada disciplina con el rodeo más reciente.";
+    els.movimientos.innerHTML = `<p class="empty-state">Sin datos.</p>`;
+    return;
+  }
+  els.movimientosMeta.textContent = `Clasificación después de ${evento.nombre}${
+    evento.fecha ? ` (${fmtFecha(evento.fecha)})` : ""
+  } y cuántos lugares se movió cada quien contra cómo iba antes de ese rodeo.`;
+  if (!tablas.length) {
+    els.movimientos.innerHTML = `<p class="empty-state">Con un solo rodeo todavía no hay contra qué comparar. Aparecerá desde el segundo.</p>`;
+    return;
+  }
+
+  const lideres = new Set(mov.data.cambiosLider.map((c) => c.disciplinaId));
+  els.movDisciplina.innerHTML = tablas
+    .map(
+      (t) =>
+        `<option value="${escapeAttr(t.disciplinaId)}">${escapeHtml(t.disciplinaNombre)}${
+          lideres.has(t.disciplinaId) ? " · nuevo líder" : t.corrieron ? "" : " · no se corrió"
+        }</option>`
+    )
+    .join("");
+  if (!tablas.some((t) => t.disciplinaId === mov.disciplina)) {
+    mov.disciplina = [...tablas].sort((a, b) => b.corrieron - a.corrieron)[0].disciplinaId;
+    mov.todos = false;
+  }
+  els.movDisciplina.value = mov.disciplina;
+  renderTablaMovimientos();
+}
+
+function movIndicador(f) {
+  if (f.nuevo) return `<span class="rank-mov is-new" title="Primer rodeo en esta disciplina">NUEVO</span>`;
+  if (!f.cambio) return `<span class="rank-mov is-same" title="Mismo lugar">–</span>`;
+  const sube = f.cambio > 0;
+  return `<span class="rank-mov ${sube ? "is-up" : "is-down"}" title="${sube ? "Subió" : "Bajó"} del #${f.lugarAntes} al #${f.lugar}">
+      <span class="rank-arrow" aria-hidden="true">${sube ? "▲" : "▼"}</span>${Math.abs(f.cambio)}
+    </span>`;
+}
+
+function renderTablaMovimientos() {
+  const tabla = mov.data?.tablas.find((t) => t.disciplinaId === mov.disciplina);
+  if (!tabla) return;
+  const cambio = mov.data.cambiosLider.find((c) => c.disciplinaId === tabla.disciplinaId);
+  const lider = cambio
+    ? `<div class="mov-lider"><p><strong>Nuevo líder:</strong> ${nombresHtml(cambio.ahora)} (${fmtNum(cambio.puntos)} pts)${
+        cambio.antes.length ? `, antes ${nombresHtml(cambio.antes)}` : ""
+      }.</p></div>`
+    : "";
+  const visibles = mov.todos ? tabla.filas : tabla.filas.slice(0, MOV_TOP);
+  const pts = (n) => `${fmtNum(n)} ${n === 1 ? "pt" : "pts"}`;
+  const filas = visibles
+    .map((f) => {
+      const sub = f.corrio ? `${pts(f.puntosEvento)} en el rodeo` : "No corrió";
+      return `<li class="rank-row${f.lugar === 1 ? " is-lider" : ""}">
+        <span class="rank-pos">${f.lugar}</span>
+        <span class="rank-name">${escapeHtml(f.nombre)}<span class="rank-sub">${escapeHtml(sub)}</span></span>
+        <span class="rank-pts">${fmtNum(f.puntos)}<small>pts</small></span>
+        ${movIndicador(f)}
+      </li>`;
+    })
+    .join("");
+  const resto = tabla.filas.length - MOV_TOP;
+  const boton =
+    resto > 0
+      ? `<button type="button" class="btn-share rank-more" data-mov-todos>${
+          mov.todos ? `Ver solo el top ${MOV_TOP}` : `Ver los ${fmtNum(tabla.filas.length)}`
+        }</button>`
+      : "";
+  const aviso = tabla.corrieron ? "" : `<p class="meta">Esta disciplina no se corrió en el último rodeo.</p>`;
+  els.movimientos.innerHTML = `${lider}<div class="rank-card">
+      <div class="rank-head"><span>${escapeHtml(tabla.disciplinaNombre)}</span><span>Puntos</span></div>
+      <ol class="rank">${filas}</ol>
+    </div>${aviso}${boton}`;
+}
+
+let recordsSeq = 0;
+
+async function renderRecords(eventos) {
+  const seq = ++recordsSeq;
+  els.tablaRecords.innerHTML = `<p class="empty-state">Cargando récords…</p>`;
+  let records;
+  try {
+    const cargados = await Promise.all(
+      eventos.map(async (e) => ({ id: e.id, nombre: e.nombre, fecha: e.fecha, evento: await cargarEvento(e.id) }))
+    );
+    records = calcularRecords(cargados.filter((e) => e.evento));
+  } catch (err) {
+    if (seq === recordsSeq) els.tablaRecords.innerHTML = `<p class="empty-state">${escapeHtml(err.message || String(err))}</p>`;
+    return;
+  }
+  if (seq !== recordsSeq) return;
+  if (!records.length) {
+    els.tablaRecords.innerHTML = `<p class="empty-state">Sin recorridos con tiempo o calificación.</p>`;
+    return;
+  }
+  els.tablaRecords.innerHTML = tablaHtml(
+    ["Disciplina", "Récord", "Quién y dónde"],
+    records.map((r) => {
+      const t = r.titulares;
+      const donde = t
+        .map((x) => [x.eventoNombre, fmtFecha(x.fecha), x.ronda].filter(Boolean).join(" · "))
+        .filter((v, i, arr) => arr.indexOf(v) === i);
+      const quien = t.length > 1 ? `${nombresHtml(t.map((x) => x.nombre))} (empate)` : escapeHtml(t[0].nombre);
+      return [
+        escapeHtml(r.disciplinaNombre),
+        `<span class="record-valor">${escapeHtml(r.esPuntos ? `${fmtNum(r.valor)} pts` : `${fmtTime(r.valor)} s`)}</span>`,
+        `<span class="mov-name">${quien}<span class="mov-sub">${escapeHtml(donde.join(" / "))}</span></span>`,
+      ];
+    }),
+    [false, true, false]
   );
 }
 

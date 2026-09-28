@@ -79,9 +79,17 @@
         <div id="kpis" class="kpi-grid"></div>
         <div class="chart-grid">
           <section class="panel chart-panel chart-wide">
-            <h2 class="chart-title">Competidores por evento</h2>
-            <p class="meta">Cuántas personas corrieron cada rodeo, en orden de fecha. Quien corre dos disciplinas cuenta una vez aquí y dos en inscripciones.</p>
-            <div id="chartEventos"></div>
+            <div class="mov-head">
+              <div>
+                <h2 class="chart-title">Movimientos del último rodeo</h2>
+                <p class="meta" id="movimientosMeta">Cómo cambió la clasificación de cada disciplina con el rodeo más reciente.</p>
+              </div>
+              <label class="login-field mov-picker" id="movPicker" hidden>
+                <span>Disciplina</span>
+                <select id="movDisciplina"></select>
+              </label>
+            </div>
+            <div id="movimientos"></div>
           </section>
           <section class="panel chart-panel">
             <h2 class="chart-title">Competidores por disciplina</h2>
@@ -90,6 +98,11 @@
           <section class="panel chart-panel" id="panelDinero">
             <h2 class="chart-title">Dinero repartido por evento</h2>
             <div id="chartDinero"></div>
+          </section>
+          <section class="panel chart-panel chart-wide">
+            <h2 class="chart-title">Récords de la temporada</h2>
+            <p class="meta">El recorrido más rápido de cada disciplina en cualquier rodeo del circuito; en jineteos, montura y pretal, la calificación más alta.</p>
+            <div id="tablaRecords"></div>
           </section>
           <section class="panel chart-panel chart-wide">
             <h2 class="chart-title">Líderes por disciplina</h2>

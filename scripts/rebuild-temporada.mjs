@@ -2,12 +2,7 @@
 /**
  * Regenera data/circuitos/{circuitoId}.json sumando puntosCircuito por competidor y
  * disciplina, con los eventos asignados a cada circuito en data/manifest.json.
- *
- * Unificación (el nombre de categoría en Time puede variar):
- *   "Barriles" / "Abierta" / "Barriles Abierto" / "Abierta Barriles" → Barriles
- *   "Master" / "Masters" / "Master Barriles" (tipo Barriles)         → Barriles Master
- *   "TeamRoping" / "Abierta" / "Lazo por Parejas"                   → Lazo por Parejas
- *   "Masters" / "Lazo por Parejas Master" / "Team Roping Masters"   → Lazo por Parejas Master
+ * Unificación de categorías → disciplina: scripts/lib/disciplinas.mjs.
  *
  * No usar categoriaId local:{n}: cambia en cada competencia.
  */
@@ -42,87 +37,12 @@ import {
   findAsociacion,
   circuitoDataFile,
 } from "./lib/circuitos.mjs";
+import { disciplinaKey, disciplinaLabel, normalizeText } from "./lib/disciplinas.mjs";
+
+export { disciplinaKey, disciplinaLabel };
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = join(scriptDir, "..");
-
-/** Etiquetas de circuito (alineadas a Time / FMR). */
-const DISCIPLINA_LABEL = {
-  Barriles: "Barriles",
-  BarrilesMasters: "Barriles Master",
-  LazoDeBecerro: "Lazo de Becerro",
-  LazoEnFalso: "Lazo en Falso",
-  AchatadaDeNovillos: "Achatada de Novillos",
-  AmarreDeChiva: "Amarre de Chiva",
-  TeamRoping: "Lazo por Parejas",
-  TeamRopingMasters: "Lazo por Parejas Master",
-  TeamRopingHeader: "Lazo por Parejas — Cabeceros",
-  TeamRopingHeeler: "Lazo por Parejas — Pialadores",
-  TeamRopingMastersHeader: "Lazo por Parejas Master — Cabeceros",
-  TeamRopingMastersHeeler: "Lazo por Parejas Master — Pialadores",
-  CaballoConPretal: "Caballo con Pretal",
-  CaballoConMontura: "Caballo con Montura",
-  JineteosDeToros: "Jineteos de Toros",
-  Polos: "Polos",
-};
-
-function normalizeText(s) {
-  return String(s || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function inferTipoFromNombre(nom) {
-  if (/barril/.test(nom)) return "Barriles";
-  if (/lazo por pareja|team\s*roping|teamroping/.test(nom)) return "TeamRoping";
-  if (/lazo de becerro|becerro/.test(nom)) return "LazoDeBecerro";
-  if (/lazo en falso/.test(nom)) return "LazoEnFalso";
-  if (/achatada/.test(nom)) return "AchatadaDeNovillos";
-  if (/amarre|chiva/.test(nom)) return "AmarreDeChiva";
-  if (/pretal/.test(nom)) return "CaballoConPretal";
-  if (/montura/.test(nom)) return "CaballoConMontura";
-  if (/jineteo/.test(nom)) return "JineteosDeToros";
-  return "";
-}
-
-/**
- * Clave estable de disciplina de circuito.
- * Abierta / Barriles / Barriles Abierto → misma cubeta.
- * Master* → cubeta Masters de esa disciplina.
- */
-export function disciplinaKey(cat = {}) {
-  let tipo = String(cat.tipo || "").trim();
-  const nom = normalizeText(cat.nombre);
-  const isMaster = /\bmasters?\b/.test(nom);
-
-  if (!tipo) tipo = inferTipoFromNombre(nom);
-
-  // Enum ya viene como Masters
-  if (tipo === "TeamRopingMasters") return "TeamRopingMasters";
-  if (tipo === "BarrilesMasters") return "BarrilesMasters";
-
-  if (tipo === "TeamRoping") {
-    return isMaster ? "TeamRopingMasters" : "TeamRoping";
-  }
-  if (tipo === "Barriles") {
-    return isMaster ? "BarrilesMasters" : "Barriles";
-  }
-
-  if (tipo && isMaster && !/Masters$/i.test(tipo)) {
-    return `${tipo}Masters`;
-  }
-
-  return tipo || "_";
-}
-
-export function disciplinaLabel(key) {
-  if (DISCIPLINA_LABEL[key]) return DISCIPLINA_LABEL[key];
-  if (!key || key === "_") return "Sin disciplina";
-  return String(key).replace(/([a-z])([A-Z])/g, "$1 $2");
-}
 
 /** Misma persona entre eventos: ID web estable, o nombre normalizado si es local:*. */
 export function competitorKey(row) {

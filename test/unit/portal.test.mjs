@@ -9,7 +9,7 @@ import {
 import { normalizeManifest, upsertAsociacion, setAsociacionPortal } from "../../scripts/lib/circuitos.mjs";
 import { planPaginas } from "../../js/social-card.js";
 import { specTemporada, shareCaption, withContexto, ALL_AROUND_ID } from "../../js/share-specs.js";
-import { calcularTablero } from "../../js/portal-stats.js";
+import { calcularTablero, calcularMovimientos, calcularRecords, recorridosDeEntrada } from "../../js/portal-stats.js";
 import { categoriaEtiqueta } from "../../js/event-model.js";
 
 const manifestBase = () =>
@@ -181,5 +181,124 @@ describe("calcularTablero", () => {
     assert.equal(t.porDisciplina[0].lider.nombre, "Ana");
     assert.equal(t.porDisciplina[0].ventaja, 30);
     assert.equal(t.masActivos[0].nombre, "Ana");
+  });
+});
+
+describe("calcularMovimientos", () => {
+  const h = (eventoId, fecha, puntos, disciplinaId = "B") => ({
+    eventoId,
+    eventoNombre: eventoId === "e2" ? "Rodeo 2" : "Rodeo 1",
+    fecha,
+    disciplinaId,
+    disciplinaNombre: "Barriles",
+    puntos,
+  });
+  const c = (competidorKey, historial) => ({ competidorKey, nombre: competidorKey.toUpperCase(), historial });
+
+  it("da la clasificación después del último rodeo con lugares movidos y nuevos", () => {
+    const temporada = {
+      competidores: [
+        c("ana", [h("e1", "2026-08-01", 100)]),
+        c("bea", [h("e1", "2026-08-01", 80), h("e2", "2026-08-15", 50)]),
+        c("cris", [h("e1", "2026-08-01", 60), h("e2", "2026-08-15", 10)]),
+        c("dani", [h("e1", "2026-08-01", 60)]),
+        c("eva", [h("e2", "2026-08-15", 200)]),
+      ],
+    };
+    const mv = calcularMovimientos(temporada);
+    assert.equal(mv.evento.id, "e2");
+    // Antes: ana 1, bea 2, cris/dani 3. Después: eva 1, bea 2 (130), ana 3, cris 4, dani 5.
+    assert.deepEqual(mv.cambiosLider.map((x) => [x.antes, x.ahora]), [[["ANA"], ["EVA"]]]);
+    assert.equal(mv.tablas.length, 1);
+    assert.equal(mv.tablas[0].corrieron, 3);
+    assert.deepEqual(
+      mv.tablas[0].filas.map((f) => [f.nombre, f.lugar, f.lugarAntes, f.cambio, f.nuevo, f.puntos, f.corrio]),
+      [
+        ["EVA", 1, null, null, true, 200, true],
+        ["BEA", 2, 2, 0, false, 130, true],
+        ["ANA", 3, 1, -2, false, 100, false],
+        ["CRIS", 4, 3, -1, false, 70, true],
+        ["DANI", 5, 3, -2, false, 60, false],
+      ]
+    );
+  });
+
+  it("empatados comparten lugar y las disciplinas que no se corrieron quedan sin cambios", () => {
+    const temporada = {
+      competidores: [
+        c("a", [h("e1", "2026-08-01", 90)]),
+        c("x", [h("e1", "2026-08-01", 10), h("e2", "2026-08-15", 100)]),
+        c("y", [h("e1", "2026-08-01", 5), h("e2", "2026-08-15", 1)]),
+        c("z", [h("e1", "2026-08-01", 5), h("e2", "2026-08-15", 1)]),
+        c("p", [h("e1", "2026-08-01", 40, "P")]),
+      ],
+    };
+    const mv = calcularMovimientos(temporada);
+    const b = mv.tablas.find((t) => t.disciplinaId === "B");
+    assert.deepEqual(b.filas.map((f) => [f.nombre, f.lugar, f.cambio]), [
+      ["X", 1, 1],
+      ["A", 2, -1],
+      ["Y", 3, 0],
+      ["Z", 3, 0],
+    ]);
+    const p = mv.tablas.find((t) => t.disciplinaId === "P");
+    assert.equal(p.corrieron, 0);
+    assert.deepEqual(p.filas.map((f) => [f.lugar, f.cambio]), [[1, 0]]);
+  });
+
+  it("con un solo rodeo no hay movimientos", () => {
+    const mv = calcularMovimientos({ competidores: [c("a", [h("e1", "2026-08-01", 10)])] });
+    assert.equal(mv.evento.id, "e1");
+    assert.deepEqual([mv.tablas, mv.cambiosLider], [[], []]);
+  });
+});
+
+describe("calcularRecords", () => {
+  it("lee recorridos de detalleVueltas, t1..t3 o el total", () => {
+    assert.deepEqual(recorridosDeEntrada({ detalleVueltas: "Primera: 13.240 · Rodeo: NT" }, false), [
+      { ronda: "Primera", valor: 13.24 },
+    ]);
+    assert.deepEqual(
+      recorridosDeEntrada({ detalleVueltas: "Cabecero: ANA · Pialador: BEA · Ronda 1: 5.870" }, false),
+      [{ ronda: "Ronda 1", valor: 5.87 }]
+    );
+    assert.deepEqual(recorridosDeEntrada({ t1: "NT", t2: "7.5" }, false), [{ ronda: "Ronda 2", valor: 7.5 }]);
+    assert.deepEqual(recorridosDeEntrada({ puntos: 70 }, true), [{ ronda: "", valor: 70 }]);
+    assert.deepEqual(recorridosDeEntrada({ detalleVueltas: "Rodeo: NT" }, true), []);
+  });
+
+  it("toma el recorrido más rápido o la calificación más alta por disciplina", () => {
+    const evento = (clasificacion) => ({ categorias: [], clasificacion });
+    const eventos = [
+      {
+        id: "e1",
+        nombre: "Rodeo 1",
+        fecha: "2026-08-01",
+        evento: evento([
+          { categoriaId: "c1", tipo: "Barriles", nombre: "Abierta", entradas: [{ nombre: "Ana", detalleVueltas: "Primera: 18.300 · Rodeo: 18.100" }] },
+          { categoriaId: "c2", tipo: "Barriles", nombre: "Master", entradas: [{ nombre: "Lola", detalleVueltas: "Primera: 19.000" }] },
+          { categoriaId: "c3", tipo: "JineteosDeToros", nombre: "Jineteo de Toros", entradas: [{ nombre: "Toño", puntos: 71, detalleVueltas: "Rodeo: 71" }] },
+        ]),
+      },
+      {
+        id: "e2",
+        nombre: "Rodeo 2",
+        fecha: "2026-08-15",
+        evento: evento([
+          { categoriaId: "c9", tipo: "Barriles", nombre: "Barriles", entradas: [{ nombre: "Bea", detalleVueltas: "Rodeo: 18.100" }] },
+          { categoriaId: "c8", tipo: "JineteosDeToros", nombre: "Jineteos", entradas: [{ nombre: "Beto", puntos: 80 }] },
+        ]),
+      },
+    ];
+    const r = Object.fromEntries(calcularRecords(eventos).map((x) => [x.disciplinaId, x]));
+    assert.equal(r.Barriles.valor, 18.1);
+    assert.deepEqual(r.Barriles.titulares.map((t) => [t.nombre, t.eventoNombre, t.ronda]), [
+      ["Ana", "Rodeo 1", "Rodeo"],
+      ["Bea", "Rodeo 2", "Rodeo"],
+    ]);
+    assert.equal(r.BarrilesMasters.titulares[0].nombre, "Lola");
+    assert.equal(r.JineteosDeToros.valor, 80);
+    assert.equal(r.JineteosDeToros.titulares[0].nombre, "Beto");
+    assert.equal(r.JineteosDeToros.disciplinaNombre, "Jineteos de Toros");
   });
 });

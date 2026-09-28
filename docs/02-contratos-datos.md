@@ -229,7 +229,7 @@ Mantener alineación con Time / FMR. Claves conocidas hoy:
 - TeamRoping → se **parte** en Cabecero / Pialador (+ Master); etiquetas UI: Lazo por Parejas — Cabeceros / Pialadores  
 - CaballoConPretal, CaballoConMontura, JineteosDeToros, Polos  
 
-**Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)`.
+**Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)` (`scripts/lib/disciplinas.mjs`, compartido por rebuild, admin y portal).
 
 ---
 
