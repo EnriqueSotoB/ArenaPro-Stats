@@ -7,9 +7,9 @@ import {
   verificarLlave,
   generarPassword,
   normalizePortal,
-} from "../../scripts/lib/portal-auth.mjs";
-import { normalizeManifest, upsertAsociacion, setAsociacionPortal } from "../../scripts/lib/circuitos.mjs";
-import { planPaginas } from "../../js/social-card.js";
+} from "../../web/lib/portal-auth.mjs";
+import { normalizeManifest, upsertAsociacion, setAsociacionPortal } from "../../web/lib/circuitos.mjs";
+import { planPaginas } from "../../web/js/social-card.js";
 import {
   specTemporada,
   specMovimientos,
@@ -18,15 +18,15 @@ import {
   shareCaption,
   withContexto,
   ALL_AROUND_ID,
-} from "../../js/share-specs.js";
+} from "../../web/js/share-specs.js";
 import {
   calcularTablero,
   calcularMovimientos,
   calcularRecords,
   calcularRecordsNuevos,
   recorridosDeEntrada,
-} from "../../js/portal-stats.js";
-import { categoriaEtiqueta } from "../../js/event-model.js";
+} from "../../web/js/portal-stats.js";
+import { categoriaEtiqueta } from "../../web/js/event-model.js";
 
 const manifestBase = () =>
   normalizeManifest({

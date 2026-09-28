@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { validateEvento } from "../../scripts/lib/validate-evento.mjs";
+import { validateEvento } from "../../tools/lib/validate-evento.mjs";
 
 function baseEvento(overrides = {}) {
   return {

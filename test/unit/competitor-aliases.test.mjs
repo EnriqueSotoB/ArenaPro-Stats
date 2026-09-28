@@ -4,8 +4,8 @@ import {
   aliasesParaAsociacion,
   buildAliasMap,
   resolveCompetitorKey,
-} from "../../scripts/lib/competitor-aliases.mjs";
-import { competitorKey } from "../../scripts/rebuild-temporada.mjs";
+} from "../../web/lib/competitor-aliases.mjs";
+import { competitorKey } from "../../tools/rebuild-temporada.mjs";
 
 describe("aliasesParaAsociacion", () => {
   const doc = {

@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { eventoParaPublico } from "../../scripts/lib/publico.mjs";
+import { eventoParaPublico } from "../../tools/lib/publico.mjs";
 
 describe("eventoParaPublico", () => {
   it("quita notas de resultados y clasificación sin tocar lo demás", () => {

@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, cpSync } f
 import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { rebuildTemporada } from "../../scripts/rebuild-temporada.mjs";
+import { rebuildTemporada } from "../../tools/rebuild-temporada.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureEvento = join(here, "..", "fixtures", "mini-evento.json");

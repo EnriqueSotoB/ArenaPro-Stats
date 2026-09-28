@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { nombreMayusculas, eventoConNombresMayusculas } from "../../scripts/lib/nombres.mjs";
-import { normalizeEvento } from "../../js/event-model.js";
+import { nombreMayusculas, eventoConNombresMayusculas } from "../../web/lib/nombres.mjs";
+import { normalizeEvento } from "../../web/js/event-model.js";
 
 describe("nombreMayusculas", () => {
   it("unifica minúsculas, mezcla y espacios", () => {

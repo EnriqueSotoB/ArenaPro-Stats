@@ -1,9 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { buildCircuitoStandings, puntosLazadorRepetido } from "../../scripts/rebuild-temporada.mjs";
-import { expandTeamRopingRow } from "../../scripts/lib/team-roping.mjs";
-import { aplicarStatsEdits, buildDefaultEdits, filaKey, listEditableFilas, upsertFilaEdit } from "../../scripts/lib/stats-edits.mjs";
-import { normalizeManifest, upsertAsociacion } from "../../scripts/lib/circuitos.mjs";
+import { buildCircuitoStandings, puntosLazadorRepetido } from "../../tools/rebuild-temporada.mjs";
+import { expandTeamRopingRow } from "../../web/lib/team-roping.mjs";
+import { aplicarStatsEdits, buildDefaultEdits, filaKey, listEditableFilas, upsertFilaEdit } from "../../web/lib/stats-edits.mjs";
+import { normalizeManifest, upsertAsociacion } from "../../web/lib/circuitos.mjs";
 
 const evento = (entradas) => ({
   eventoId: "e1",

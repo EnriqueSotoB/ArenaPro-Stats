@@ -1,23 +1,42 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 4173;
+const PORT_SITIO = 4173;
+const PORT_CONSOLA = 18787;
 
 export default defineConfig({
-  testDir: "e2e",
+  testDir: "test/e2e",
   timeout: 30_000,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
-  use: {
-    baseURL: `http://127.0.0.1:${PORT}/`,
-    locale: "es-MX",
-  },
+  use: { locale: "es-MX" },
   projects: [
-    { name: "escritorio", use: { ...devices["Desktop Chrome"] } },
-    { name: "celular", use: { ...devices["Pixel 7"] } },
+    {
+      name: "escritorio",
+      testMatch: "sitio.spec.mjs",
+      use: { ...devices["Desktop Chrome"], baseURL: `http://127.0.0.1:${PORT_SITIO}/` },
+    },
+    {
+      name: "celular",
+      testMatch: "sitio.spec.mjs",
+      use: { ...devices["Pixel 7"], baseURL: `http://127.0.0.1:${PORT_SITIO}/` },
+    },
+    {
+      name: "consola",
+      testMatch: "admin.spec.mjs",
+      use: { ...devices["Desktop Chrome"], baseURL: `http://127.0.0.1:${PORT_CONSOLA}/` },
+    },
   ],
-  webServer: {
-    command: `node scripts/build-site.mjs && node scripts/serve-site.mjs ${PORT}`,
-    url: `http://127.0.0.1:${PORT}/`,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: `node tools/build-site.mjs && node tools/serve-site.mjs ${PORT_SITIO}`,
+      url: `http://127.0.0.1:${PORT_SITIO}/`,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "node tools/publish-server.mjs",
+      env: { STATS_PUBLISH_PORT: String(PORT_CONSOLA) },
+      url: `http://127.0.0.1:${PORT_CONSOLA}/api/status`,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });

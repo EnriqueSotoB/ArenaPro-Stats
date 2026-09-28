@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { esArchivoGenerado, sincronizarConRemoto } from "../../scripts/lib/git-sync.mjs";
+import { esArchivoGenerado, sincronizarConRemoto } from "../../tools/lib/git-sync.mjs";
 
 function git(cwd, ...args) {
   return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();

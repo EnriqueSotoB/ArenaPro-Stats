@@ -12,10 +12,10 @@ import {
   columnsForKind,
   ntEquivalente,
   normalizeFechaYmd,
-} from "../../scripts/lib/excel-evento.mjs";
-import { validateEvento } from "../../scripts/lib/validate-evento.mjs";
-import { disciplinaKey, disciplinaLabel } from "../../scripts/rebuild-temporada.mjs";
-import { expandTeamRopingRow } from "../../scripts/lib/team-roping.mjs";
+} from "../../tools/lib/excel-evento.mjs";
+import { validateEvento } from "../../tools/lib/validate-evento.mjs";
+import { disciplinaKey, disciplinaLabel } from "../../tools/rebuild-temporada.mjs";
+import { expandTeamRopingRow } from "../../web/lib/team-roping.mjs";
 
 describe("AmarreDeChiva", () => {
   it("tiene label e inferencia por nombre", () => {

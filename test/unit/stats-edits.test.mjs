@@ -7,7 +7,7 @@ import {
   filaKey,
   listEditableFilas,
   upsertFilaEdit,
-} from "../../scripts/lib/stats-edits.mjs";
+} from "../../web/lib/stats-edits.mjs";
 
 function sampleEvento() {
   return {

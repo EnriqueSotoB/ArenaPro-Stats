@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { buildAllAround } from "../../scripts/lib/all-around.mjs";
+import { buildAllAround } from "../../web/lib/all-around.mjs";
 
 describe("buildAllAround", () => {
   it("excluye quien solo cobró en una disciplina", () => {

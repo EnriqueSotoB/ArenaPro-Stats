@@ -4,7 +4,7 @@ import {
   finalizeCompetidores,
   pushCompetidorEvento,
   searchCompetidores,
-} from "../../scripts/lib/competidores.mjs";
+} from "../../web/lib/competidores.mjs";
 
 describe("competidores index", () => {
   it("arma historial y totales por persona", () => {

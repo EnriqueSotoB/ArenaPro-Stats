@@ -4,7 +4,7 @@ import {
   appendAlias,
   removeAlias,
   normalizeAliasInput,
-} from "../../scripts/lib/alias-store.mjs";
+} from "../../web/lib/alias-store.mjs";
 
 describe("normalizeAliasInput", () => {
   it("convierte nombre humano a name:", () => {

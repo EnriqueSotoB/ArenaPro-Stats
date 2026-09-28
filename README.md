@@ -5,7 +5,7 @@ Publicada en GitHub Pages; se alimenta con JSON de Time (**Exportar para Stats�
 
 Soporta varias **asociaciones** (AERCH, FMR…) y un **circuito por temporada** de cada una; un evento puede contar para varios circuitos (p. ej. FMR Tour-AERCH).
 
-Plan original y sprints: ver [`docs/README.md`](./docs/README.md) (tests, dominio `estadisticas.arenapro.mx`).
+Documentación: [`docs/README.md`](./docs/README.md). Para entrenar a quien publica: [manual del admin](./docs/operacion/manual-admin.md). Para problemas: [runbook](./docs/operacion/runbook.md).
 
 Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 (paleta forest / ochre / sand / cream / dark + derivados; tipografía app Arial; barra `forest`).
@@ -17,11 +17,11 @@ Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 3. En el navegador (`admin.html`):
    - suelta el JSON o el Excel
    - marca los **circuitos** para los que cuenta (asociación + temporada) y revisa el **preview** (pódium / categorías)
-   - **Agregar a Stats**
-   - **Publicar en GitHub Pages** (siempre regenera `data/circuitos/*.json` en un proceso Node nuevo)
+   - **Agregar a Estadísticas**
+   - **Publicar en GitHub Pages** (valida los datos, regenera `data/circuitos/*.json` y corre las pruebas antes de subir)
+4. Espera 2–4 min y abre https://estadisticas.arenapro.mx/
 
 Asociaciones y temporadas nuevas (p. ej. **AERCH Circuito 2028**) se crean en el panel **Asociaciones y circuitos** del admin. El circuito **principal** es el que abre el sitio público.
-4. Espera 1–2 min y abre https://estadisticas.arenapro.mx/
 
 La temporada une categorías por **disciplina de circuito** (p. ej. Abierta / Barriles Abierto → Barriles; Master → Barriles Masters). No uses ids `local:` del export.
 
@@ -33,10 +33,11 @@ La consola solo funciona en **localhost**. El sitio público en Pages es solo le
 
 Con la consola ya corriendo: http://127.0.0.1:8787/
 
-O solo estático:
+O exactamente lo que se publica:
 
 ```bash
-npx --yes serve .
+npm run build:site
+node tools/serve-site.mjs 4173
 ```
 
 ## Navegación pública
@@ -70,20 +71,35 @@ El sitio es estático: el portal no oculta datos (todo lo que muestra ya es púb
 ## Estructura
 
 ```
-admin.html                 ← consola local de publicación
-portal.html                ← portal de asociaciones (tablero + redes)
-publicar.bat
-index.html
-css/ styles + admin + portal
-js/ app.js (público) + admin.js + portal.js + social-card.js + share-specs.js + portal-stats.js
-data/ manifest (asociaciones, circuitos, eventos) + circuitos/ (generado) + eventos/
-templates/evento-manual.xlsx
-scripts/publish-server.mjs
-scripts/rebuild-temporada.mjs
+web/            ← sitio público (se publica)
+  index.html, portal.html, páginas legales, 404
+  css/  js/  assets/  (fuente e íconos)
+  lib/          ← reglas de negocio puras (navegador + Node)
+data/           ← manifest, eventos/, circuitos/ (generado), logos/  (se publica)
+admin/          ← consola local de publicación (no se publica)
+tools/          ← servidor local, build, rebuild, monitor (no se publica)
+  lib/          ← módulos solo de Node: Excel, git, validación, rutas
+templates/      ← plantilla Excel
+test/           ← unit/, integration/, e2e/, fixtures/
+docs/           ← operacion/, producto/, ingenieria/, historial/
+publicar.bat    ← abre la consola
 ```
+
+Las URLs no cambian: el build (`tools/build-site.mjs`) arma `_site/` con `web/` en la raíz y `data/` en `/data/`; la consola local monta lo mismo y además `/admin.html`. Nada de `tools/`, `admin/`, `docs/` ni la configuración del repo llega al sitio.
+
+## Desarrollo
+
+```bash
+npm ci
+npm run lint
+npm test            # unit + integración
+npm run test:e2e    # Playwright: sitio (escritorio y celular) + consola
+```
+
+Cada push a `main` corre lint, tests y E2E antes de desplegar; si algo falla, el sitio no cambia. Reglas de ramas y PRs: [prácticas de ingeniería](./docs/ingenieria/practicas.md).
 
 ## Pages
 
 https://estadisticas.arenapro.mx/
 
-(DNS + custom domain: ver [`docs/03-dominio-pages.md`](./docs/03-dominio-pages.md))
+(DNS + custom domain: ver [`docs/ingenieria/dominio-pages.md`](./docs/ingenieria/dominio-pages.md))

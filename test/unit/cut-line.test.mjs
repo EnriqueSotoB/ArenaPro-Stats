@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { getCutLine } from "../../scripts/lib/cut-line.mjs";
+import { getCutLine } from "../../web/lib/cut-line.mjs";
 
 describe("getCutLine", () => {
   it("retorna null si cutLineVisible no es true", () => {

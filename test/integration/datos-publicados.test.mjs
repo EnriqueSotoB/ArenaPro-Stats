@@ -7,9 +7,9 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { normalizeManifest, circuitoDataFile, eventosDeCircuito } from "../../scripts/lib/circuitos.mjs";
-import { problemasDePublicacion } from "../../scripts/lib/integridad.mjs";
-import { validateEvento } from "../../scripts/lib/validate-evento.mjs";
+import { normalizeManifest, circuitoDataFile, eventosDeCircuito } from "../../web/lib/circuitos.mjs";
+import { problemasDePublicacion } from "../../tools/lib/integridad.mjs";
+import { validateEvento } from "../../tools/lib/validate-evento.mjs";
 
 const dataDir = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "data");
 const readJson = (rel) => JSON.parse(readFileSync(join(dataDir, rel), "utf8"));

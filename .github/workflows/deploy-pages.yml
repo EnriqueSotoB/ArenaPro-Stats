@@ -50,7 +50,7 @@ jobs:
         run: npm run test:e2e
 
       - name: Armar sitio público
-        run: node scripts/build-site.mjs "$(git rev-parse HEAD)"
+        run: node tools/build-site.mjs "$(git rev-parse HEAD)"
 
       - uses: actions/upload-pages-artifact@v3
         with:
