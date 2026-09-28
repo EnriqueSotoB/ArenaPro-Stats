@@ -41,6 +41,8 @@ Cada hora, el workflow **Monitor** revisa el sitio en vivo. Si algo falla, GitHu
 - **Versión atrasada**: el último "Deploy Pages" falló. Abrir el run en Actions, leer qué paso falló y corregir; después re-ejecutarlo.
 - Cerrar el issue cuando el siguiente Monitor pase en verde.
 
+**Visitas y velocidad:** [Cloudflare](https://dash.cloudflare.com/) → **Web Analytics** → `estadisticas.arenapro.mx` (cuenta Arenapro.admin@gmail.com). Muestra visitas, páginas más vistas, países y tiempo de carga. No usa cookies. Los datos aparecen unos minutos después de cada visita.
+
 ## 5. Deshacer una publicación equivocada
 
 `main` no permite reescribir historia (sin force push). Para deshacer:
