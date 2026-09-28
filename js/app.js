@@ -10,6 +10,7 @@ import {
   renderPodiumHtml,
   rankingToPodiumItems,
   renderEventoRankingTableHtml,
+  formatResultadoValor,
   athleteNameHtml,
   groupBy,
   escapeHtml,
@@ -22,15 +23,35 @@ import {
   normalizeSearch,
   searchCompetidores,
 } from "../scripts/lib/competidores.mjs";
+import {
+  normalizeManifest,
+  findCircuito,
+  findAsociacion,
+  defaultCircuitoId,
+  eventosDeCircuito,
+  circuitosPorAsociacion,
+  circuitoDataFile,
+} from "../scripts/lib/circuitos.mjs";
+
+import {
+  FORMATOS,
+  drawSocialCard,
+  canvasToPngBlob,
+} from "./social-card.js";
 
 const MANIFEST_URL = "data/manifest.json";
-const TEMPORADA_URL = "data/temporada.json";
+const PUBLIC_SITE = "https://estadisticas.arenapro.mx/";
 const TOP_CARD = 5;
 const ALL_AROUND_ID = "__all-around";
-const DEFAULT_TITLE = "FMR Tour 2027 — ArenaPro Estadísticas";
+const BRAND = "ArenaPro Estadísticas";
 
 const els = {
   status: document.getElementById("status"),
+  circuitoSelect: document.getElementById("circuitoSelect"),
+  tempEyebrow: document.getElementById("tempEyebrow"),
+  tempLogo: document.getElementById("tempLogo"),
+  eventosMeta: document.getElementById("eventosMeta"),
+  footerText: document.getElementById("footerText"),
   navTemporada: document.getElementById("navTemporada"),
   navEventos: document.getElementById("navEventos"),
   viewTemporadaHub: document.getElementById("viewTemporadaHub"),
@@ -67,12 +88,24 @@ const els = {
   searchInput: document.getElementById("searchInput"),
   searchResults: document.getElementById("searchResults"),
   searchRoot: document.getElementById("searchRoot"),
+  shareDialog: document.getElementById("shareDialog"),
+  shareCanvas: document.getElementById("shareCanvas"),
+  shareCaption: document.getElementById("shareCaption"),
+  shareNative: document.getElementById("shareNative"),
+  shareDownload: document.getElementById("shareDownload"),
+  shareCopy: document.getElementById("shareCopy"),
+  shareClose: document.getElementById("shareClose"),
+  shareHint: document.getElementById("shareHint"),
 };
 
 /** @type {any} */
 let manifest = null;
-/** @type {any} */
+/** Acumulado del circuito activo (data/circuitos/{id}.json). @type {any} */
 let temporada = null;
+/** Circuito activo; los links sin prefijo (#competidor/…) se quedan en este. */
+let circuitoId = "";
+/** @type {Map<string, any>} */
+const circuitoCache = new Map();
 /** @type {Map<string, any>} */
 const eventoCache = new Map();
 /** @type {any} */
@@ -85,15 +118,26 @@ const expandedRows = new Set();
 let metricMode = "puntos";
 /** @type {string} */
 let lastNonCompetidorHash = "#temporada";
+/** Contenido de la imagen para redes de la vista actual. @type {any} */
+let shareSpec = null;
+/** @type {keyof typeof FORMATOS} */
+let shareFormato = "post";
 
 init().catch((err) => setStatus(err.message || String(err), true));
 
 async function init() {
   setStatus("Cargando datos…");
-  const [m, t] = await Promise.all([fetchJson(MANIFEST_URL), fetchJson(TEMPORADA_URL)]);
-  manifest = m;
-  temporada = t;
+  manifest = normalizeManifest(await fetchJson(MANIFEST_URL));
+  circuitoId = defaultCircuitoId(manifest);
+  renderCircuitoSelect();
 
+  els.circuitoSelect?.addEventListener("change", () => {
+    const route = parseRoute();
+    const section = route.section === "eventos" ? "eventos" : "temporada";
+    const keepId = route.section === "temporada" ? route.id : null;
+    circuitoId = els.circuitoSelect.value;
+    navigate(section, keepId);
+  });
   els.navTemporada.addEventListener("click", () => navigate("temporada"));
   els.navEventos.addEventListener("click", () => navigate("eventos"));
   els.btnBackTemporada.addEventListener("click", () => navigate("temporada"));
@@ -104,6 +148,7 @@ async function init() {
   wireMetricToggle(els.hubMetricPuntos, els.hubMetricDinero);
   wireMetricToggle(els.rankMetricPuntos, els.rankMetricDinero);
   wireSearch();
+  wireShare();
   window.addEventListener("hashchange", () => applyRoute());
 
   setStatus("");
@@ -139,22 +184,37 @@ function syncMetricButtons() {
   }
 }
 
-function navigate(section, id) {
-  if (section === "temporada" && id) {
-    location.hash = `#temporada/${encodeURIComponent(id)}`;
-  } else if (section === "temporada") {
-    location.hash = "#temporada";
-  } else if (section === "eventos" && id) {
-    location.hash = `#eventos/${encodeURIComponent(id)}`;
-  } else if (section === "competidor" && id) {
-    location.hash = `#competidor/${encodeURIComponent(id)}`;
-  } else {
-    location.hash = "#eventos";
-  }
+function routeHash(section, id, circuito = circuitoId) {
+  const prefix = circuito ? `#${encodeURIComponent(circuito)}/` : "#";
+  return `${prefix}${section}${id ? `/${encodeURIComponent(id)}` : ""}`;
 }
 
+function navigate(section, id) {
+  const known = ["temporada", "eventos", "competidor"];
+  const sec = known.includes(section) ? section : "eventos";
+  location.hash = routeHash(sec, sec === "competidor" && !id ? null : id);
+}
+
+/** Hash: #{circuitoId}/{sección}/{id}. Sin prefijo de circuito = circuito activo. */
 function parseRoute() {
-  const raw = (location.hash || "#temporada").replace(/^#/, "");
+  let raw = (location.hash || "#temporada").replace(/^#/, "");
+  let circuito = null;
+  const first = raw.split("/")[0];
+  let firstDecoded = first;
+  try {
+    firstDecoded = decodeURIComponent(first);
+  } catch {
+    /* hash mal formado: tratar como sección */
+  }
+  if (first && findCircuito(manifest, firstDecoded)) {
+    circuito = firstDecoded;
+    raw = raw.slice(first.length + 1) || "temporada";
+  }
+  const base = parseSection(raw);
+  return { ...base, circuito, circuitoId: circuito || circuitoId || defaultCircuitoId(manifest) };
+}
+
+function parseSection(raw) {
   const slash = raw.indexOf("/");
   const section = slash < 0 ? raw : raw.slice(0, slash);
   const idPart = slash < 0 ? "" : raw.slice(slash + 1);
@@ -174,6 +234,12 @@ function parseRoute() {
 
 async function applyRoute() {
   const route = parseRoute();
+  if (!route.circuito && route.circuitoId) {
+    history.replaceState(null, "", routeHash(route.section, route.id, route.circuitoId));
+  }
+  await useCircuito(route.circuitoId);
+
+  setShareSpec(null);
   hideAllViews();
   expandedRows.clear();
   syncMetricButtons();
@@ -192,7 +258,7 @@ async function applyRoute() {
     return;
   }
 
-  document.title = DEFAULT_TITLE;
+  document.title = pageTitle();
 
   if (route.section === "temporada") {
     if (route.id) {
@@ -212,6 +278,80 @@ async function applyRoute() {
     els.viewEventosList.hidden = false;
     renderEventosList();
   }
+}
+
+/* —— Circuitos —— */
+
+function currentCircuito() {
+  return findCircuito(manifest, circuitoId);
+}
+
+function pageTitle(prefix) {
+  const nombre = currentCircuito()?.nombre;
+  return [prefix, nombre, BRAND].filter(Boolean).join(" — ");
+}
+
+function emptyCircuitoPayload(circuito) {
+  return {
+    circuitoId: circuito?.id || "",
+    titulo: circuito?.nombre || "",
+    temporada: circuito?.temporada || "",
+    eventosContados: 0,
+    standings: [],
+    allAround: [],
+    competidores: [],
+  };
+}
+
+async function useCircuito(id) {
+  const circuito = findCircuito(manifest, id);
+  circuitoId = circuito?.id || "";
+  if (!circuitoCache.has(circuitoId)) {
+    let payload;
+    try {
+      payload = circuito ? await fetchJson(`data/${circuitoDataFile(circuito.id)}`) : null;
+    } catch (err) {
+      setStatus(err.message || String(err), true);
+    }
+    circuitoCache.set(circuitoId, payload || emptyCircuitoPayload(circuito));
+  }
+  temporada = circuitoCache.get(circuitoId);
+  if (els.circuitoSelect && els.circuitoSelect.value !== circuitoId) {
+    els.circuitoSelect.value = circuitoId;
+  }
+  const asociacion = findAsociacion(manifest, circuito?.asociacionId);
+  if (els.footerText) {
+    els.footerText.textContent = [asociacion?.nombre, circuito?.nombre, BRAND]
+      .filter(Boolean)
+      .join(" · ");
+  }
+}
+
+function renderCircuitoSelect() {
+  if (!els.circuitoSelect) return;
+  const grupos = circuitosPorAsociacion(manifest).filter((g) => g.circuitos.length);
+  els.circuitoSelect.innerHTML = grupos
+    .map(
+      (g) => `<optgroup label="${escapeAttr(g.asociacion.siglas || g.asociacion.nombre)}">
+        ${g.circuitos
+          .map((c) => `<option value="${escapeAttr(c.id)}">${escapeHtml(c.nombre)}</option>`)
+          .join("")}
+      </optgroup>`
+    )
+    .join("");
+  els.circuitoSelect.value = circuitoId;
+  els.circuitoSelect.parentElement.hidden = (manifest.circuitos || []).length < 2;
+}
+
+function circuitoBadgesHtml(ids) {
+  return (ids || [])
+    .map((id) => findCircuito(manifest, id))
+    .filter(Boolean)
+    .map(
+      (c) =>
+        `<span class="badge badge-circuito${c.id === circuitoId ? " is-current" : ""}">${escapeHtml(c.nombre)}</span>`
+    )
+    .join("");
 }
 
 function hideAllViews() {
@@ -330,6 +470,15 @@ function renderSearchResults() {
 
 function renderTemporadaHub() {
   const data = temporada;
+  const asociacion = findAsociacion(manifest, currentCircuito()?.asociacionId);
+  if (els.tempEyebrow) els.tempEyebrow.textContent = asociacion?.nombre || "Circuito";
+  if (els.tempLogo) {
+    els.tempLogo.hidden = !asociacion?.logo;
+    if (asociacion?.logo) {
+      els.tempLogo.src = `data/${asociacion.logo}`;
+      els.tempLogo.alt = `Logo ${asociacion.siglas || asociacion.nombre}`;
+    }
+  }
   els.tempTitle.textContent = data?.titulo || `Temporada ${data?.temporada || ""}`;
   els.tempMeta.textContent = [
     data?.temporada ? `Temporada ${data.temporada}` : "",
@@ -343,7 +492,7 @@ function renderTemporadaHub() {
   renderAllAroundHub();
 
   if (!data?.standings?.length) {
-    els.tempCards.innerHTML = `<p class="empty-state">Sin acumulado aún. Publica un evento desde la consola local.</p>`;
+    els.tempCards.innerHTML = `<p class="empty-state">Este circuito aún no tiene eventos publicados.</p>`;
     return;
   }
 
@@ -487,6 +636,19 @@ function renderAllAroundRanking() {
       </table>
     </div>
     <p class="cut-note">Vaquero Completo de temporada: suma del dinero ganado solo en disciplinas con cobro. Cabecero y Pialador cuentan como disciplinas distintas.</p>`;
+
+  setShareSpec({
+    titulo: "Vaquero Completo",
+    subtitulo: `Dinero ganado en 2+ disciplinas · ${rows.length} clasificados`,
+    filas: rows.map((r, i) => ({
+      lugar: i + 1,
+      nombre: r.nombre || "—",
+      detalle: `${(r.disciplinasConDinero || []).length} disciplinas`,
+      valor: fmtMxn(r.dineroTotal),
+    })),
+    hash: routeHash("temporada", ALL_AROUND_ID),
+    archivo: "vaquero-completo",
+  });
 }
 
 function renderTemporadaRanking(catId) {
@@ -505,6 +667,7 @@ function renderTemporadaRanking(catId) {
   );
 
   if (!rows.length) {
+    shareSpec = null;
     els.rankTitle.textContent = "Clasificación";
     els.rankMeta.textContent = "Disciplina no encontrada";
     els.rankPodium.innerHTML = "";
@@ -512,7 +675,7 @@ function renderTemporadaRanking(catId) {
     return;
   }
 
-  const cut = metricMode === "puntos" ? getCutLine(manifest, catId) : null;
+  const cut = metricMode === "puntos" ? getCutLine(currentCircuito(), catId) : null;
   const leaderVal = metricValue(rows[0]);
   const nombre = rows[0].disciplinaNombre || rows[0].categoriaNombre || catId;
 
@@ -587,6 +750,19 @@ function renderTemporadaRanking(catId) {
       </table>
     </div>
     ${cutNote}`;
+
+  setShareSpec({
+    titulo: nombre,
+    subtitulo: `${metricMode === "dinero" ? "Clasificación por dinero" : "Clasificación por puntos"} · ${temporada?.eventosContados ?? 0} eventos`,
+    filas: rows.map((r, i) => ({
+      lugar: i + 1,
+      nombre: r.nombre || r.competidorId || "—",
+      detalle: `${r.eventos ?? 0} evento${r.eventos === 1 ? "" : "s"}`,
+      valor: formatMetric(r),
+    })),
+    hash: routeHash("temporada", catId),
+    archivo: `${catId}-${metricMode}`,
+  });
 }
 
 /* —— Ficha competidor —— */
@@ -594,18 +770,18 @@ function renderTemporadaRanking(catId) {
 function renderCompetidor(key) {
   const comp = findCompetidor(key);
   if (!comp) {
-    document.title = DEFAULT_TITLE;
+    document.title = pageTitle();
     els.compTitle.textContent = "Competidor no encontrado";
     els.compMeta.textContent = "";
     els.compStats.innerHTML = "";
-    els.compBody.innerHTML = `<p class="empty-state">No hay ficha para esta clave. Prueba la búsqueda en la barra superior.</p>`;
+    els.compBody.innerHTML = `<p class="empty-state">No tiene resultados en ${escapeHtml(currentCircuito()?.nombre || "este circuito")}. Prueba otro circuito en el selector o la búsqueda en la barra superior.</p>`;
     return;
   }
 
-  document.title = `${comp.nombre} — FMR Tour 2027`;
+  document.title = pageTitle(comp.nombre);
   els.compTitle.textContent = comp.nombre;
   els.compMeta.textContent = [
-    temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
+    temporada?.titulo || "",
     `${comp.eventos || 0} eventos`,
     `${(comp.disciplinas || []).length} disciplinas`,
   ]
@@ -673,12 +849,15 @@ function renderCompetidor(key) {
 /* —— Eventos list —— */
 
 function renderEventosList() {
-  const eventos = [...(manifest?.eventos || [])].sort((a, b) =>
+  const eventos = [...eventosDeCircuito(manifest, circuitoId)].sort((a, b) =>
     String(b.fecha || "").localeCompare(String(a.fecha || ""))
   );
+  if (els.eventosMeta) {
+    els.eventosMeta.textContent = `${currentCircuito()?.nombre || "Circuito"} · ${eventos.length} evento${eventos.length === 1 ? "" : "s"} · elige uno para ver categorías`;
+  }
 
   if (!eventos.length) {
-    els.eventosList.innerHTML = `<p class="empty-state">No hay eventos en data/manifest.json.</p>`;
+    els.eventosList.innerHTML = `<p class="empty-state">Este circuito aún no tiene eventos publicados.</p>`;
     return;
   }
 
@@ -688,6 +867,7 @@ function renderEventosList() {
       <div>
         <p class="event-row-title">${escapeHtml(ev.nombre || ev.id)}</p>
         <p class="event-row-meta">${escapeHtml([ev.fecha, ev.sede].filter(Boolean).join(" · ") || "—")}</p>
+        <p class="event-row-badges">${circuitoBadgesHtml(ev.circuitos)}</p>
       </div>
       <span class="event-row-cta">Ver resultados →</span>
     </button>`
@@ -709,6 +889,7 @@ async function showEvento(eventoId) {
       eventoCache.set(entry.file, normalizeEvento(raw));
     }
     const evento = eventoCache.get(entry.file);
+    evento.circuitos = entry.circuitos || [];
     currentEvento = evento;
     const cats = categoriesWithResults(evento);
     currentCatId = cats[0]?.id || null;
@@ -733,9 +914,14 @@ function attachProfileKeys(ranking) {
 
 function renderEventoDetail(evento, catId) {
   els.eventoTitle.textContent = evento.nombreEvento || evento.eventoId || "Evento";
-  els.eventoMeta.textContent = [evento.fecha, evento.sede, evento.temporada ? `Temp. ${evento.temporada}` : ""]
+  document.title = pageTitle(evento.nombreEvento);
+  const badges = circuitoBadgesHtml(evento.circuitos);
+  els.eventoMeta.innerHTML = [
+    escapeHtml([evento.fecha, evento.sede].filter(Boolean).join(" · ")),
+    badges ? `<span class="event-row-badges">Cuenta para: ${badges}</span>` : "",
+  ]
     .filter(Boolean)
-    .join(" · ");
+    .join("<br />");
 
   const cats = categoriesWithResults(evento);
   if (!cats.length) {
@@ -769,6 +955,23 @@ function renderEventoDetail(evento, catId) {
 
   els.eventoTable.innerHTML = renderEventoRankingTableHtml(ranking, expandedRows);
   wireExpandableRows();
+
+  setShareSpec({
+    linea: evento.nombreEvento || evento.eventoId || "Evento",
+    titulo: cat.nombre,
+    subtitulo: ["Resultados", fmtFecha(evento.fecha), evento.sede].filter(Boolean).join(" · "),
+    filas: ranking
+      .filter((r) => !r.sinPosicion && r.lugar != null)
+      .map((r) => ({
+        lugar: r.lugar,
+        nombre: r.nombre,
+        detalle: Number(r.montoGanado) > 0 ? fmtMxn(r.montoGanado) : r.equipo || "",
+        valor: formatResultadoValor(r),
+      })),
+    hash: routeHash("eventos", evento.eventoId),
+    archivo: `${evento.nombreEvento || "evento"}-${cat.nombre}`,
+    pie: fmtFecha(evento.fecha),
+  });
 }
 
 function wireExpandableRows() {
@@ -782,6 +985,165 @@ function wireExpandableRows() {
       renderEventoDetail(currentEvento, currentCatId);
     });
   });
+}
+
+/* —— Imagen para redes —— */
+
+function publicUrl(hash) {
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === "file:";
+  const base = local ? PUBLIC_SITE : `${location.origin}${location.pathname}`;
+  return `${base}${hash || ""}`;
+}
+
+function fmtFecha(value) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value || ""));
+  if (!m) return "";
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])).toLocaleDateString("es-MX", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function slugArchivo(text) {
+  return (
+    String(text || "estadisticas")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .toLowerCase()
+      .slice(0, 80) || "estadisticas"
+  );
+}
+
+/** Completa el spec con asociación/circuito activos y habilita los botones de la vista. */
+function setShareSpec(spec) {
+  document.querySelectorAll("[data-share]").forEach((btn) => {
+    btn.disabled = !spec?.filas?.length;
+  });
+  if (!spec) {
+    shareSpec = null;
+    return;
+  }
+  const circuito = currentCircuito();
+  const asociacion = findAsociacion(manifest, circuito?.asociacionId);
+  const actualizado = fmtFecha(temporada?.actualizadoEn);
+  shareSpec = {
+    kicker: [asociacion?.siglas, asociacion?.nombre].filter(Boolean).join(" · "),
+    linea: circuito?.nombre || "",
+    pie: actualizado ? `Actualizado ${actualizado}` : "",
+    sitio: new URL(publicUrl()).host,
+    logo: asociacion?.logo ? `data/${asociacion.logo}` : "",
+    hashtags: asociacion?.hashtags || "",
+    ...spec,
+    archivo: `${slugArchivo(circuito?.id)}-${slugArchivo(spec.archivo)}`,
+  };
+}
+
+function shareCaption(spec) {
+  const top = spec.filas
+    .slice(0, 3)
+    .map((f) => `${f.lugar}. ${f.nombre} · ${f.valor}`)
+    .join("\n");
+  const encabezado = [spec.titulo, spec.linea].filter(Boolean).join(" — ");
+  const bloques = [
+    [encabezado, spec.subtitulo].filter(Boolean).join("\n"),
+    top,
+    `Resultados completos: ${publicUrl(spec.hash)}`,
+    spec.hashtags,
+  ];
+  return bloques.filter(Boolean).join("\n\n");
+}
+
+function canShareFiles() {
+  try {
+    const probe = new File([new Blob()], "x.png", { type: "image/png" });
+    return typeof navigator.canShare === "function" && navigator.canShare({ files: [probe] });
+  } catch {
+    return false;
+  }
+}
+
+function wireShare() {
+  if (!els.shareDialog) return;
+  document.querySelectorAll("[data-share]").forEach((btn) => {
+    btn.addEventListener("click", openShare);
+  });
+  els.shareDialog.querySelectorAll("[data-formato]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      shareFormato = btn.getAttribute("data-formato");
+      renderShare();
+    });
+  });
+  els.shareClose.addEventListener("click", () => els.shareDialog.close());
+  els.shareDialog.addEventListener("click", (e) => {
+    if (e.target === els.shareDialog) els.shareDialog.close();
+  });
+  els.shareDownload.addEventListener("click", downloadShare);
+  els.shareCopy.addEventListener("click", copyShareCaption);
+  els.shareNative.addEventListener("click", nativeShare);
+  els.shareNative.hidden = !canShareFiles();
+}
+
+async function openShare() {
+  if (!shareSpec?.filas?.length) return;
+  els.shareCaption.value = shareCaption(shareSpec);
+  els.shareDialog.showModal();
+  await renderShare();
+}
+
+async function renderShare() {
+  els.shareDialog.querySelectorAll("[data-formato]").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.getAttribute("data-formato") === shareFormato);
+  });
+  const f = FORMATOS[shareFormato];
+  els.shareHint.textContent =
+    shareFormato === "historia"
+      ? "Historia 9:16 para Instagram/Facebook Stories. Deja libre arriba y abajo para los stickers."
+      : shareFormato === "cuadrado"
+        ? `Cuadrado 1080×1080: muestra el top ${f.maxFilas}.`
+        : `Post 4:5 (1080×1350): el formato que más ocupa en el feed de Instagram y Facebook. Muestra el top ${f.maxFilas}.`;
+  await drawSocialCard(els.shareCanvas, shareSpec, shareFormato);
+}
+
+function shareFileName() {
+  return `${shareSpec.archivo}-${shareFormato}.png`;
+}
+
+async function downloadShare() {
+  const blob = await canvasToPngBlob(els.shareCanvas);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = shareFileName();
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function copyShareCaption() {
+  try {
+    await navigator.clipboard.writeText(els.shareCaption.value);
+    els.shareHint.textContent = "Texto copiado. Pégalo en la publicación.";
+  } catch {
+    els.shareCaption.select();
+    els.shareHint.textContent = "Selecciona el texto y cópialo manualmente.";
+  }
+}
+
+async function nativeShare() {
+  try {
+    const blob = await canvasToPngBlob(els.shareCanvas);
+    const file = new File([blob], shareFileName(), { type: "image/png" });
+    // Instagram ignora el texto del share sheet: dejarlo en el portapapeles para pegarlo.
+    await navigator.clipboard?.writeText(els.shareCaption.value).catch(() => {});
+    await navigator.share({ files: [file], text: els.shareCaption.value });
+    els.shareHint.textContent = "Listo. El texto quedó copiado para pegarlo en la publicación.";
+  } catch (err) {
+    if (err?.name !== "AbortError") els.shareHint.textContent = err.message || String(err);
+  }
 }
 
 /* —— Utils —— */
