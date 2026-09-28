@@ -1,10 +1,13 @@
 /**
- * Acceso al portal de asociaciones. El manifest es público: solo guarda sal + hash PBKDF2
- * (nunca la contraseña). Usa Web Crypto, así que corre igual en el navegador (HTTPS o
- * localhost) y en Node ≥ 20.
+ * Acceso al portal de asociaciones. El manifest es público: guarda la sal y
+ * hash = SHA-256(llave), con llave = PBKDF2(contraseña). La sesión del navegador guarda la
+ * llave, que solo se obtiene con la contraseña; copiar el hash del manifest no sirve.
+ * Usa Web Crypto, así que corre igual en el navegador (HTTPS o localhost) y en Node ≥ 20.
  */
 
 export const PORTAL_ITERACIONES = 210000;
+/** Registros sin esta versión (hash = llave) permitían entrar copiando el manifest. */
+const PORTAL_VERSION = 2;
 const MIN_PASSWORD = 10;
 /** Sin 0/O/1/I/L para dictarla por teléfono sin confusiones. */
 const ALFABETO = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
@@ -26,14 +29,15 @@ function fromHex(hex) {
   return out;
 }
 
-/** { sal, hash, iteraciones } válido o null. */
+/** { sal, hash, iteraciones, version } válido o null. */
 export function normalizePortal(v) {
   if (!v || typeof v !== "object") return null;
   const sal = String(v.sal || "");
   const hash = String(v.hash || "");
   const iteraciones = Number(v.iteraciones) || PORTAL_ITERACIONES;
+  if (Number(v.version) !== PORTAL_VERSION) return null;
   if (!/^[0-9a-f]{32}$/.test(sal) || !/^[0-9a-f]{64}$/.test(hash)) return null;
-  return { sal, hash, iteraciones };
+  return { sal, hash, iteraciones, version: PORTAL_VERSION };
 }
 
 /** Contraseña legible de 12 caracteres (~59 bits): "K7PM-Q9TX-2HWD". */
@@ -53,7 +57,7 @@ export function validarPassword(password) {
   return p.trim();
 }
 
-export async function hashPassword(password, salHex, iteraciones = PORTAL_ITERACIONES) {
+async function derivarLlave(password, salHex, iteraciones = PORTAL_ITERACIONES) {
   const s = subtle();
   const key = await s.importKey("raw", new TextEncoder().encode(String(password).trim()), "PBKDF2", false, [
     "deriveBits",
@@ -66,18 +70,34 @@ export async function hashPassword(password, salHex, iteraciones = PORTAL_ITERAC
   return toHex(new Uint8Array(bits));
 }
 
-/** Crea el registro { sal, hash, iteraciones } para guardar en la asociación. */
+async function hashLlave(llaveHex) {
+  return toHex(new Uint8Array(await subtle().digest("SHA-256", fromHex(llaveHex))));
+}
+
+/** Crea el registro { sal, hash, iteraciones, version } para guardar en la asociación. */
 export async function crearAccesoPortal(password) {
   const limpio = validarPassword(password);
   const sal = toHex(globalThis.crypto.getRandomValues(new Uint8Array(16)));
-  const hash = await hashPassword(limpio, sal, PORTAL_ITERACIONES);
-  return { sal, hash, iteraciones: PORTAL_ITERACIONES };
+  const llave = await derivarLlave(limpio, sal, PORTAL_ITERACIONES);
+  return { sal, hash: await hashLlave(llave), iteraciones: PORTAL_ITERACIONES, version: PORTAL_VERSION };
+}
+
+/** Llave de sesión si la contraseña corresponde al registro del portal; si no, null. */
+export async function llavePortal(password, portal) {
+  const p = normalizePortal(portal);
+  if (!p || !String(password ?? "").trim()) return null;
+  const llave = await derivarLlave(password, p.sal, p.iteraciones);
+  return (await hashLlave(llave)) === p.hash ? llave : null;
 }
 
 /** true si la contraseña corresponde al registro del portal. */
 export async function verificarPassword(password, portal) {
+  return (await llavePortal(password, portal)) !== null;
+}
+
+/** true si la llave guardada en la sesión corresponde al registro vigente del portal. */
+export async function verificarLlave(llave, portal) {
   const p = normalizePortal(portal);
-  if (!p || !String(password ?? "").trim()) return false;
-  const hash = await hashPassword(password, p.sal, p.iteraciones);
-  return hash === p.hash;
+  if (!p || !/^[0-9a-f]{64}$/.test(String(llave ?? ""))) return false;
+  return (await hashLlave(llave)) === p.hash;
 }

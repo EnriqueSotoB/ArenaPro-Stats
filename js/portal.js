@@ -12,7 +12,7 @@ import {
   eventosDeCircuito,
   circuitoDataFile,
 } from "../scripts/lib/circuitos.mjs";
-import { verificarPassword, normalizePortal } from "../scripts/lib/portal-auth.mjs";
+import { llavePortal, verificarLlave, normalizePortal } from "../scripts/lib/portal-auth.mjs";
 import { FORMATOS, TOPS, planPaginas, drawSocialCard, canvasToPngBlob } from "./social-card.js";
 import {
   ALL_AROUND_ID,
@@ -137,7 +137,7 @@ async function init() {
 
   const [idHash, circuitoHash, tabHash] = parseHash();
   const a = findAsociacion(manifest, idHash);
-  if (a && sesionValida(a)) {
+  if (a && (await sesionValida(a))) {
     await entrar(a, circuitoHash, tabHash);
     return;
   }
@@ -169,12 +169,15 @@ function sesionKey(a) {
   return `${SESSION_PREFIX}${a.id}`;
 }
 
-/** La sesión guarda el hash vigente: si el admin cambia la contraseña, se invalida sola. */
-function sesionValida(a) {
-  const portal = normalizePortal(a.portal);
+/** La sesión guarda la llave derivada de la contraseña: si el admin la cambia, se invalida sola. */
+async function sesionValida(a) {
   const guardado = localStorage.getItem(sesionKey(a));
   if (ES_LOCAL && guardado === "local") return true;
-  return Boolean(portal && guardado && guardado === portal.hash);
+  try {
+    return await verificarLlave(guardado, a.portal);
+  } catch {
+    return false;
+  }
 }
 
 function asociacionesConPortal() {
@@ -221,9 +224,9 @@ function wireLogin() {
     els.btnEntrar.disabled = true;
     els.loginError.hidden = true;
     try {
-      const ok = await verificarPassword(els.loginPassword.value, a.portal);
-      if (!ok) throw new Error("Contraseña incorrecta.");
-      localStorage.setItem(sesionKey(a), normalizePortal(a.portal).hash);
+      const llave = await llavePortal(els.loginPassword.value, a.portal);
+      if (!llave) throw new Error("Contraseña incorrecta.");
+      localStorage.setItem(sesionKey(a), llave);
       els.loginPassword.value = "";
       await entrar(a);
     } catch (err) {

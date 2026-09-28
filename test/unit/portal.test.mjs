@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import {
   crearAccesoPortal,
   verificarPassword,
+  llavePortal,
+  verificarLlave,
   generarPassword,
   normalizePortal,
 } from "../../scripts/lib/portal-auth.mjs";
@@ -62,6 +64,22 @@ describe("portal-auth", () => {
   it("descarta registros mal formados", () => {
     assert.equal(normalizePortal({ sal: "x", hash: "y" }), null);
     assert.equal(normalizePortal("abc"), null);
+  });
+
+  it("la sesión solo se abre con la llave de la contraseña, no copiando el hash público", async () => {
+    const acceso = await crearAccesoPortal("mi-clave-segura");
+    const llave = await llavePortal("mi-clave-segura", acceso);
+    assert.match(llave, /^[0-9a-f]{64}$/);
+    assert.equal(await verificarLlave(llave, acceso), true);
+    assert.equal(await verificarLlave(acceso.hash, acceso), false);
+    assert.equal(await llavePortal("otra-clave-123", acceso), null);
+    const nuevo = await crearAccesoPortal("mi-clave-segura");
+    assert.equal(await verificarLlave(llave, nuevo), false);
+  });
+
+  it("ignora registros del formato anterior (hash = llave)", async () => {
+    const { sal, hash, iteraciones } = await crearAccesoPortal("mi-clave-segura");
+    assert.equal(normalizePortal({ sal, hash, iteraciones }), null);
   });
 });
 
