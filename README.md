@@ -58,7 +58,7 @@ Búsqueda en la barra superior (también **Ctrl/⌘+K**). Los nombres enlazan a 
 | Nivel | Dónde | Qué puede hacer |
 |-------|-------|-----------------|
 | **Público** (competidores) | `index.html` | Ver temporada, eventos y fichas |
-| **Asociación** | `portal.html#{asociacionId}` + contraseña | Tablero de su circuito (KPIs, movimientos del último rodeo, récords de la temporada, disciplinas, líderes, más activos) e **imágenes para redes**. No publica nada |
+| **Asociación** | `portal.html#{asociacionId}` + contraseña | Tablero de su circuito (KPIs, movimientos del último rodeo, récords de la temporada, disciplinas, líderes, más activos) e **imágenes para redes** (clasificación, resultados de evento, movimientos, récords de la temporada y récords nuevos por evento). No publica nada |
 | **Super admin** | `admin.html` vía `publicar.bat` | Todo: eventos, circuitos, asociaciones, accesos al portal y publicar |
 
 **Acceso al portal:** en el admin, **Dar acceso** genera la contraseña (o usa la que escribas, mín. 10 caracteres) y te arma el mensaje con liga + contraseña para mandarlo. Solo se guarda el hash en `data/manifest.json`; se activa al publicar. **Nueva contraseña** invalida la anterior. Desde tu compu (`127.0.0.1`) puedes entrar a cualquier portal sin contraseña.

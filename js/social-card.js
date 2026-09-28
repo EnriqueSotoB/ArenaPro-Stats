@@ -36,6 +36,8 @@ const COL_GAP = 24;
 const SLOT_MIN_UNA = 64;
 /** Alto mínimo por fila en doble columna; define cuántos caben por imagen antes de paginar. */
 const SLOT_MIN_DOBLE = 50;
+/** Listas con detalle (récords): siempre una columna y filas altas para que se lea la segunda línea. */
+const SLOT_MIN_LISTA = 90;
 
 /** @type {Map<string, Promise<HTMLImageElement|null>>} */
 const imageCache = new Map();
@@ -175,18 +177,21 @@ function footerTop(f) {
 export function planPaginas(spec, formatoId = "post", topId = "top10") {
   const f = FORMATOS[formatoId] || FORMATOS.post;
   const top = TOPS[topId] || TOPS.top10;
-  const filas = (spec?.filas || []).slice(0, top.n);
+  const filas = (spec?.filas || []).slice(0, spec?.lista ? Infinity : top.n);
   if (!filas.length) return [{ filas: [], columnas: 1 }];
 
   const avail = footerTop(f) - 24 - headerBottom(f, spec);
-  if (avail / filas.length >= SLOT_MIN_UNA) return [{ filas, columnas: 1 }];
+  const columnas = spec?.lista ? 1 : 2;
+  if (avail / filas.length >= (spec?.lista ? SLOT_MIN_LISTA : SLOT_MIN_UNA)) return [{ filas, columnas: 1 }];
 
-  const porImagen = Math.max(2, Math.floor(avail / SLOT_MIN_DOBLE) * 2);
+  const porImagen = spec?.lista
+    ? Math.max(1, Math.floor(avail / SLOT_MIN_LISTA))
+    : Math.max(2, Math.floor(avail / SLOT_MIN_DOBLE) * 2);
   const total = Math.ceil(filas.length / porImagen);
   const porPagina = Math.ceil(filas.length / total);
   const paginas = [];
   for (let i = 0; i < filas.length; i += porPagina) {
-    paginas.push({ filas: filas.slice(i, i + porPagina), columnas: 2 });
+    paginas.push({ filas: filas.slice(i, i + porPagina), columnas });
   }
   return paginas;
 }
@@ -243,16 +248,19 @@ function drawRow(ctx, fila, x, top, w, rowH, { podio, doble, alterno }) {
 
   const mid = top + rowH / 2;
   const inset = doble ? 16 : 28;
-  const circleR = Math.min(rowH * (doble ? 0.34 : 0.32), podio ? 50 : 40);
+  const conLugar = fila.lugar !== "" && fila.lugar != null;
+  const circleR = conLugar ? Math.min(rowH * (doble ? 0.34 : 0.32), podio ? 50 : 40) : 0;
   const cx = x + inset + circleR;
-  ctx.beginPath();
-  ctx.arc(cx, mid, circleR, 0, Math.PI * 2);
-  ctx.fillStyle = first ? C.dark : podium ? C.forest : C.sand;
-  ctx.fill();
-  setFont(ctx, 800, Math.round(circleR * (String(fila.lugar).length > 2 ? 0.8 : 1.05)));
-  ctx.fillStyle = first || podium ? C.cream : C.dark;
-  ctx.textAlign = "center";
-  ctx.fillText(String(fila.lugar), cx, mid + circleR * 0.36);
+  if (conLugar) {
+    ctx.beginPath();
+    ctx.arc(cx, mid, circleR, 0, Math.PI * 2);
+    ctx.fillStyle = first ? C.dark : podium ? C.forest : C.sand;
+    ctx.fill();
+    setFont(ctx, 800, Math.round(circleR * (String(fila.lugar).length > 2 ? 0.8 : 1.05)));
+    ctx.fillStyle = first || podium ? C.cream : C.dark;
+    ctx.textAlign = "center";
+    ctx.fillText(String(fila.lugar), cx, mid + circleR * 0.36);
+  }
 
   let valorX = x + w - inset;
   if (fila.movimiento) {
@@ -272,11 +280,11 @@ function drawRow(ctx, fila, x, top, w, rowH, { podio, doble, alterno }) {
   const valorW = ctx.measureText(valor).width;
 
   ctx.textAlign = "left";
-  const nameX = cx + circleR + (doble ? 14 : 24);
+  const nameX = conLugar ? cx + circleR + (doble ? 14 : 24) : x + inset;
   const nameMaxW = valorX - valorW - (doble ? 14 : 28) - nameX;
   const nameMax = Math.round(Math.min(podio ? 58 : doble ? 32 : 40, rowH * (doble ? 0.5 : 0.46)));
   const nameSize = fitFontSize(ctx, fila.nombre, 700, nameMax, Math.round(nameMax * 0.7), nameMaxW);
-  const hasDetalle = Boolean(fila.detalle) && rowH >= 84;
+  const hasDetalle = Boolean(fila.detalle) && rowH >= 78;
   setFont(ctx, 700, nameSize);
   ctx.fillStyle = C.dark;
   const nameY = hasDetalle ? mid - 2 : mid + nameSize * 0.36;

@@ -453,6 +453,25 @@
   white-space: nowrap;
 }
 
+.record-nuevo {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: var(--ochre);
+  color: var(--dark);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.records-aviso {
+  margin: 0 0 0.75rem;
+  font-weight: 700;
+}
+
 /* —— Redes —— */
 
 .redes-layout {

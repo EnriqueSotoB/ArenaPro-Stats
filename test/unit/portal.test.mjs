@@ -8,8 +8,22 @@ import {
 } from "../../scripts/lib/portal-auth.mjs";
 import { normalizeManifest, upsertAsociacion, setAsociacionPortal } from "../../scripts/lib/circuitos.mjs";
 import { planPaginas } from "../../js/social-card.js";
-import { specTemporada, specMovimientos, shareCaption, withContexto, ALL_AROUND_ID } from "../../js/share-specs.js";
-import { calcularTablero, calcularMovimientos, calcularRecords, recorridosDeEntrada } from "../../js/portal-stats.js";
+import {
+  specTemporada,
+  specMovimientos,
+  specRecords,
+  specRecordsNuevos,
+  shareCaption,
+  withContexto,
+  ALL_AROUND_ID,
+} from "../../js/share-specs.js";
+import {
+  calcularTablero,
+  calcularMovimientos,
+  calcularRecords,
+  calcularRecordsNuevos,
+  recorridosDeEntrada,
+} from "../../js/portal-stats.js";
 import { categoriaEtiqueta } from "../../js/event-model.js";
 
 const manifestBase = () =>
@@ -326,5 +340,93 @@ describe("calcularRecords", () => {
     assert.equal(r.JineteosDeToros.valor, 80);
     assert.equal(r.JineteosDeToros.titulares[0].nombre, "Beto");
     assert.equal(r.JineteosDeToros.disciplinaNombre, "Jineteos de Toros");
+    assert.equal(r.JineteosDeToros.nuevo, true, "80 del último rodeo supera el 71");
+    assert.equal(r.Barriles.nuevo, false, "empatar el récord no es récord nuevo");
+    assert.equal(r.BarrilesMasters.nuevo, false, "no se corrió en el último rodeo");
+  });
+});
+
+describe("récords nuevos y posts de récords", () => {
+  const evento = (clasificacion) => ({ categorias: [], clasificacion });
+  const eventos = [
+    {
+      id: "e2",
+      nombre: "Rodeo 2",
+      fecha: "2026-08-15",
+      evento: evento([
+        { categoriaId: "b", tipo: "Barriles", nombre: "Barriles", entradas: [{ nombre: "Bea", detalleVueltas: "Rodeo: 17.950" }] },
+        { categoriaId: "j", tipo: "JineteosDeToros", nombre: "Jineteos", entradas: [{ nombre: "Beto", puntos: 70 }] },
+        { categoriaId: "p", tipo: "LazoDeBecerro", nombre: "Lazo", entradas: [{ nombre: "Paco", t1: "9.100" }] },
+      ]),
+    },
+    {
+      id: "e1",
+      nombre: "Rodeo 1",
+      fecha: "2026-08-01",
+      evento: evento([
+        { categoriaId: "b", tipo: "Barriles", nombre: "Barriles", entradas: [{ nombre: "Ana", detalleVueltas: "Rodeo: 18.100" }] },
+        { categoriaId: "j", tipo: "JineteosDeToros", nombre: "Jineteos", entradas: [{ nombre: "Toño", puntos: 71 }] },
+      ]),
+    },
+  ];
+
+  it("compara contra lo que había antes del evento, sin importar el orden de la lista", () => {
+    const nuevos = calcularRecordsNuevos(eventos, "e2");
+    assert.equal(nuevos.length, 1, "Jineteos no mejoró y Lazo se corrió por primera vez");
+    const [b] = nuevos;
+    assert.equal(b.disciplinaId, "Barriles");
+    assert.equal(b.valor, 17.95);
+    assert.equal(b.titulares[0].nombre, "Bea");
+    assert.equal(b.anterior.valor, 18.1);
+    assert.equal(b.anterior.titulares[0].nombre, "Ana");
+    assert.ok(Math.abs(b.mejora - 0.15) < 1e-9);
+    assert.deepEqual(calcularRecordsNuevos(eventos, "e1"), [], "el primer rodeo no rompe récords");
+    assert.deepEqual(calcularRecordsNuevos(eventos, "nope"), []);
+  });
+
+  it("post de récords de la temporada: una fila por disciplina, sin lugar y con NUEVO", () => {
+    const spec = specRecords(calcularRecords(eventos), "c");
+    assert.equal(spec.titulo, "Récords de la temporada");
+    assert.equal(spec.lista, true);
+    const barriles = spec.filas.find((f) => f.nombre === "Barriles");
+    assert.equal(barriles.lugar, "");
+    assert.equal(barriles.valor, "17.950 s");
+    assert.equal(barriles.detalle, "Bea · Rodeo 2");
+    assert.deepEqual(barriles.movimiento, { tipo: "nuevo" });
+    const jineteos = spec.filas.find((f) => f.nombre === "Jineteos de Toros");
+    assert.equal(jineteos.valor, "71 pts");
+    assert.equal(jineteos.movimiento, undefined);
+    const caption = shareCaption(spec);
+    assert.match(caption, /Barriles: 17\.950 s \(nuevo\) · Bea · Rodeo 2/);
+    assert.match(caption, /Lazo de Becerro: 9\.100 s · Paco/);
+    assert.equal(specRecords([], "c"), null);
+  });
+
+  it("post de récords nuevos de un evento, con la marca anterior", () => {
+    const ev = eventos[0];
+    const spec = specRecordsNuevos(calcularRecordsNuevos(eventos, "e2"), ev, "c");
+    assert.equal(spec.titulo, "¡Nuevo récord!");
+    assert.match(spec.subtitulo, /^Rodeo 2 · /);
+    assert.deepEqual(
+      spec.filas.map((f) => [f.lugar, f.nombre, f.detalle, f.valor]),
+      [["", "Bea", "Barriles · antes 18.100 s", "17.950 s"]]
+    );
+    assert.match(shareCaption(spec), /Barriles: Bea · 17\.950 s \(antes 18\.100 s, Ana\)/);
+    assert.equal(spec.hash, "#c/eventos/e2");
+    assert.equal(specRecordsNuevos([], ev, "c"), null);
+  });
+
+  it("las listas de récords van en una columna, ignoran el top y se reparten en carrusel", () => {
+    const filas = Array.from({ length: 12 }, (_, i) => ({ lugar: "", nombre: `D${i}`, detalle: "x", valor: "1 s" }));
+    const spec = { titulo: "Récords de la temporada", subtitulo: "s", lista: true, filas };
+    const paginas = planPaginas(spec, "post", "top3");
+    assert.ok(paginas.length > 1);
+    assert.ok(paginas.every((p) => p.columnas === 1));
+    assert.equal(paginas.reduce((n, p) => n + p.filas.length, 0), 12);
+    const tam = paginas.map((p) => p.filas.length);
+    assert.ok(Math.max(...tam) - Math.min(...tam) <= 1, "páginas balanceadas");
+    assert.deepEqual(planPaginas({ ...spec, filas: filas.slice(0, 3) }, "post", "top3"), [
+      { filas: filas.slice(0, 3), columnas: 1 },
+    ]);
   });
 });

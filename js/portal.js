@@ -20,12 +20,15 @@ import {
   specTemporada,
   specEvento,
   specMovimientos,
+  specRecords,
+  specRecordsNuevos,
+  fmtMarca,
   withContexto,
   shareCaption,
   fmtFecha,
   publicUrl,
 } from "./share-specs.js";
-import { calcularTablero, calcularMovimientos, calcularRecords } from "./portal-stats.js";
+import { calcularTablero, calcularMovimientos, calcularRecords, calcularRecordsNuevos } from "./portal-stats.js";
 
 const SESSION_PREFIX = "arenapro-portal:";
 const ES_LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
@@ -69,6 +72,9 @@ const els = {
   fuenteEvento: $("fuenteEvento"),
   fuenteMovimientos: $("fuenteMovimientos"),
   redesMovDisciplina: $("redesMovDisciplina"),
+  fuenteRecords: $("fuenteRecords"),
+  redesRecords: $("redesRecords"),
+  redesTop: $("redesTop"),
   redesDisciplina: $("redesDisciplina"),
   redesMetrica: $("redesMetrica"),
   redesEvento: $("redesEvento"),
@@ -93,6 +99,8 @@ let temporada = null;
 let tab = "tablero";
 const circuitoCache = new Map();
 const eventoCache = new Map();
+/** @type {Map<string, Promise<any[]>>} eventos del circuito ya cargados, para récords */
+const eventosCargadosCache = new Map();
 
 const redes = {
   fuente: "temporada",
@@ -103,6 +111,11 @@ const redes = {
   /** @type {ReturnType<typeof calcularMovimientos>|null} */
   mov: null,
   movDisciplina: "",
+  /** "" = récords de la temporada; id de evento = récords nuevos en ese evento; null = elegir solo */
+  /** @type {string|null} */
+  recordsVal: null,
+  /** @type {{ circuitoId: string, eventos: any[], records: any[], nuevos: Map<string, any[]> }|null} */
+  rec: null,
   formato: "post",
   top: "top10",
   /** @type {any} */
@@ -284,6 +297,16 @@ function wirePortal() {
     mov.todos = false;
     renderTablaMovimientos();
   });
+  els.tablaRecords.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-records-post]");
+    if (!btn) return;
+    redes.fuente = "records";
+    redes.recordsVal = btn.getAttribute("data-records-post") || "";
+    redes.spec = null;
+    llenarSelectRecords();
+    setTab("redes");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
   els.movimientos.addEventListener("click", (e) => {
     if (!e.target.closest("[data-mov-todos]")) return;
     mov.todos = !mov.todos;
@@ -369,7 +392,7 @@ function renderTablero() {
   }
 
   renderMovimientos();
-  renderRecords(eventos);
+  renderRecords();
   els.chartDisciplinas.innerHTML = barrasHtml(
     t.porDisciplina.map((d) => ({ label: d.nombre, value: d.competidores, text: fmtNum(d.competidores) }))
   );
@@ -493,15 +516,36 @@ function renderTablaMovimientos() {
 
 let recordsSeq = 0;
 
-async function renderRecords(eventos) {
+/** Eventos del circuito activo con su archivo cargado (una sola descarga por circuito). */
+function cargarEventosCircuito() {
+  const id = circuitoId;
+  if (!eventosCargadosCache.has(id)) {
+    const p = Promise.all(
+      eventosDeCircuito(manifest, id).map(async (e) => ({ id: e.id, nombre: e.nombre, fecha: e.fecha, evento: await cargarEvento(e.id) }))
+    ).then((l) => l.filter((e) => e.evento));
+    p.catch(() => eventosCargadosCache.delete(id));
+    eventosCargadosCache.set(id, p);
+  }
+  return eventosCargadosCache.get(id);
+}
+
+/** Récords de la temporada y récords nuevos por evento del circuito activo. */
+async function datosRecords() {
+  const id = circuitoId;
+  if (redes.rec?.circuitoId === id) return redes.rec;
+  const eventos = await cargarEventosCircuito();
+  const nuevos = new Map(eventos.map((e) => [e.id, calcularRecordsNuevos(eventos, e.id)]));
+  const rec = { circuitoId: id, eventos, records: calcularRecords(eventos), nuevos };
+  if (circuitoId === id) redes.rec = rec;
+  return rec;
+}
+
+async function renderRecords() {
   const seq = ++recordsSeq;
   els.tablaRecords.innerHTML = `<p class="empty-state">Cargando récords…</p>`;
   let records;
   try {
-    const cargados = await Promise.all(
-      eventos.map(async (e) => ({ id: e.id, nombre: e.nombre, fecha: e.fecha, evento: await cargarEvento(e.id) }))
-    );
-    records = calcularRecords(cargados.filter((e) => e.evento));
+    records = (await datosRecords()).records;
   } catch (err) {
     if (seq === recordsSeq) els.tablaRecords.innerHTML = `<p class="empty-state">${escapeHtml(err.message || String(err))}</p>`;
     return;
@@ -511,7 +555,17 @@ async function renderRecords(eventos) {
     els.tablaRecords.innerHTML = `<p class="empty-state">Sin recorridos con tiempo o calificación.</p>`;
     return;
   }
-  els.tablaRecords.innerHTML = tablaHtml(
+  const nuevos = records.filter((r) => r.nuevo);
+  const ultimo = nuevos[0]?.titulares[0];
+  const aviso = ultimo
+    ? `<p class="records-aviso"><span class="record-nuevo">Nuevo</span> ${
+        nuevos.length === 1 ? "1 récord nuevo" : `${nuevos.length} récords nuevos`
+      } en ${escapeHtml(ultimo.eventoNombre)}.</p>`
+    : "";
+  const boton = `<button type="button" class="btn-share rank-more" data-records-post="${escapeAttr(ultimo?.eventoId || "")}">${
+    ultimo ? "Hacer post de los récords nuevos" : "Hacer post de récords"
+  }</button>`;
+  els.tablaRecords.innerHTML = aviso + tablaHtml(
     ["Disciplina", "Récord", "Quién y dónde"],
     records.map((r) => {
       const t = r.titulares;
@@ -520,13 +574,13 @@ async function renderRecords(eventos) {
         .filter((v, i, arr) => arr.indexOf(v) === i);
       const quien = t.length > 1 ? `${nombresHtml(t.map((x) => x.nombre))} (empate)` : escapeHtml(t[0].nombre);
       return [
-        escapeHtml(r.disciplinaNombre),
-        `<span class="record-valor">${escapeHtml(r.esPuntos ? `${fmtNum(r.valor)} pts` : `${fmtTime(r.valor)} s`)}</span>`,
+        escapeHtml(r.disciplinaNombre) + (r.nuevo ? ` <span class="record-nuevo">Nuevo</span>` : ""),
+        `<span class="record-valor">${escapeHtml(fmtMarca(r.valor, r.esPuntos))}</span>`,
         `<span class="mov-name">${quien}<span class="mov-sub">${escapeHtml(donde.join(" / "))}</span></span>`,
       ];
     }),
     [false, true, false]
-  );
+  ) + boton;
 }
 
 function barrasHtml(items) {
@@ -595,6 +649,10 @@ function wireRedes() {
     redes.movDisciplina = els.redesMovDisciplina.value;
     renderRedes({ nuevoTexto: true });
   });
+  els.redesRecords.addEventListener("change", () => {
+    redes.recordsVal = els.redesRecords.value;
+    renderRedes({ nuevoTexto: true });
+  });
   els.redesDescargar.addEventListener("click", descargar);
   els.redesCopiar.addEventListener("click", copiarTexto);
   els.redesCompartir.addEventListener("click", compartir);
@@ -641,8 +699,46 @@ function prepararRedes() {
       "";
   }
   els.redesMovDisciplina.value = redes.movDisciplina;
+
+  if (redes.rec?.circuitoId !== circuitoId) {
+    redes.rec = null;
+    redes.recordsVal = null;
+  }
+  llenarSelectRecords();
   redes.spec = null;
   els.redesCaption.value = "";
+}
+
+/**
+ * Opciones de récords: los de la temporada y, por evento (más reciente primero), los que se rompieron ahí.
+ * Si no hay elección, abre en el último rodeo cuando impuso récords.
+ */
+function llenarSelectRecords() {
+  const rec = redes.rec?.circuitoId === circuitoId ? redes.rec : null;
+  if (!rec) {
+    els.redesRecords.innerHTML = `<option value="">Cargando récords…</option>`;
+    return;
+  }
+  const eventos = [...rec.eventos].sort(
+    (a, b) => String(b.fecha || "").localeCompare(String(a.fecha || "")) || String(b.id).localeCompare(String(a.id))
+  );
+  const nuevosEn = (id) => rec.nuevos.get(id)?.length || 0;
+  els.redesRecords.innerHTML = [
+    `<option value="">Récords de la temporada (${rec.records.length})</option>`,
+    ...eventos.map((e) => {
+      const n = nuevosEn(e.id);
+      const nombre = [e.nombre || e.id, fmtFecha(e.fecha)].filter(Boolean).join(" · ");
+      return `<option value="${escapeAttr(e.id)}"${n ? "" : " disabled"}>${escapeHtml(
+        n ? `Récords nuevos en ${nombre} (${n})` : `${nombre}: sin récords nuevos`
+      )}</option>`;
+    }),
+  ].join("");
+  const valido = (v) => v === "" || nuevosEn(v) > 0;
+  if (redes.recordsVal == null || !valido(redes.recordsVal)) {
+    const ultimo = eventos[0];
+    redes.recordsVal = ultimo && nuevosEn(ultimo.id) ? ultimo.id : "";
+  }
+  els.redesRecords.value = redes.recordsVal;
 }
 
 async function cargarEvento(eventoId) {
@@ -669,6 +765,15 @@ async function specActual() {
     if (evento && cat) base = specEvento(evento, cat, circuitoId);
   } else if (redes.fuente === "movimientos") {
     base = specMovimientos(redes.mov, redes.movDisciplina, circuitoId);
+  } else if (redes.fuente === "records") {
+    const rec = await datosRecords();
+    llenarSelectRecords();
+    if (redes.recordsVal) {
+      const ev = rec.eventos.find((e) => e.id === redes.recordsVal);
+      base = specRecordsNuevos(rec.nuevos.get(redes.recordsVal) || [], ev, circuitoId);
+    } else {
+      base = specRecords(rec.records, circuitoId);
+    }
   } else if (redes.disciplina) {
     base = specTemporada(temporada, redes.disciplina, redes.metrica);
   }
@@ -685,6 +790,8 @@ function syncRedesControles() {
   els.fuenteTemporada.hidden = redes.fuente !== "temporada";
   els.fuenteEvento.hidden = redes.fuente !== "evento";
   els.fuenteMovimientos.hidden = redes.fuente !== "movimientos";
+  els.fuenteRecords.hidden = redes.fuente !== "records";
+  els.redesTop.hidden = redes.fuente === "records";
   els.redesMetrica.hidden = redes.disciplina === ALL_AROUND_ID;
 }
 
@@ -713,7 +820,9 @@ async function renderRedes({ nuevoTexto = false } = {}) {
     els.redesPreview.innerHTML = `<p class="empty-state">${
       redes.fuente === "movimientos" && !redes.mov?.tablas.length
         ? "Los movimientos aparecen desde el segundo rodeo del circuito."
-        : "No hay resultados para esta selección."
+        : redes.fuente === "records"
+          ? "Todavía no hay recorridos con tiempo o calificación."
+          : "No hay resultados para esta selección."
     }</p>`;
     els.redesPreviewLabel.textContent = "Vista previa";
     els.redesHint.textContent = "";
@@ -738,10 +847,13 @@ async function renderRedes({ nuevoTexto = false } = {}) {
   const mostrados = paginas.reduce((n, p) => n + p.filas.length, 0);
   const total = spec.filas.length;
   const formato = FORMATOS[redes.formato];
+  const unidad = spec.lista ? (mostrados === 1 ? "récord" : "récords") : "lugares";
   els.redesPreviewLabel.textContent =
     canvases.length > 1
-      ? `Vista previa · carrusel de ${canvases.length} imágenes (${mostrados} lugares)`
-      : `Vista previa · ${formato.label} · ${mostrados} de ${total} lugares`;
+      ? `Vista previa · carrusel de ${canvases.length} imágenes (${mostrados} ${unidad})`
+      : spec.lista
+        ? `Vista previa · ${formato.label} · ${mostrados} ${unidad}`
+        : `Vista previa · ${formato.label} · ${mostrados} de ${total} lugares`;
   els.redesDescargar.textContent = canvases.length > 1 ? `Descargar ${canvases.length} imágenes` : "Descargar imagen";
   const topLabel = TOPS[redes.top]?.label || "";
   els.redesHint.textContent =
@@ -749,14 +861,14 @@ async function renderRedes({ nuevoTexto = false } = {}) {
       ? "Súbelas juntas como carrusel en Instagram o Facebook, en el orden 1, 2, 3…"
       : redes.formato === "historia"
         ? "Historia 9:16: deja libre arriba y abajo para los stickers de Instagram."
-        : total < (TOPS[redes.top]?.n ?? 0) && redes.top !== "todos"
+        : !spec.lista && total < (TOPS[redes.top]?.n ?? 0) && redes.top !== "todos"
           ? `Solo hay ${total} lugares con resultado (${topLabel} completo no aplica).`
           : "Post 4:5 es el formato que más ocupa en el feed de Instagram y Facebook.";
 }
 
 function nombreArchivo(i) {
   const n = redes.canvases.length > 1 ? `-${i + 1}` : "";
-  return `${redes.spec.archivo}-${redes.formato}-${redes.top}${n}.png`;
+  return `${redes.spec.archivo}-${redes.formato}${redes.spec.lista ? "" : `-${redes.top}`}${n}.png`;
 }
 
 async function archivos() {

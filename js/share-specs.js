@@ -3,7 +3,7 @@
  * Sin DOM: lo usa el portal de asociaciones y se prueba en Node.
  */
 
-import { buildEventoRanking, formatResultadoValor, fmtNum } from "./event-model.js";
+import { buildEventoRanking, formatResultadoValor, fmtNum, fmtTime } from "./event-model.js";
 import { fmtMxn } from "../scripts/lib/money.mjs";
 
 export const PUBLIC_SITE = "https://estadisticas.arenapro.mx/";
@@ -162,6 +162,67 @@ export function specMovimientos(mv, disciplinaId, circuitoId) {
   };
 }
 
+export function fmtMarca(valor, esPuntos) {
+  return esPuntos ? `${fmtNum(valor)} pts` : `${fmtTime(valor)} s`;
+}
+
+function nombresTitulares(titulares) {
+  return (titulares || []).map((t) => t.nombre).join(", ");
+}
+
+/**
+ * Récords de la temporada: una fila por disciplina (sin lugar), con NUEVO si lo impuso el último rodeo.
+ * @param {ReturnType<typeof import("./portal-stats.js").calcularRecords>} records
+ */
+export function specRecords(records, circuitoId) {
+  if (!records?.length) return null;
+  return {
+    titulo: "Récords de la temporada",
+    subtitulo: "Mejor tiempo o calificación en cualquier rodeo",
+    lista: true,
+    filas: records.map((r) => {
+      const t = r.titulares || [];
+      const eventos = [...new Set(t.map((x) => x.eventoNombre))];
+      return {
+        lugar: "",
+        nombre: r.disciplinaNombre,
+        detalle: [nombresTitulares(t) + (t.length > 1 ? " (empate)" : ""), eventos.join(", ")].filter(Boolean).join(" · "),
+        valor: fmtMarca(r.valor, r.esPuntos),
+        ...(r.nuevo ? { movimiento: { tipo: "nuevo" } } : {}),
+      };
+    }),
+    hash: routeHash(circuitoId, "temporada"),
+    archivo: "records-temporada",
+  };
+}
+
+/**
+ * Récords que se rompieron en un evento, con la marca que tenían antes.
+ * @param {ReturnType<typeof import("./portal-stats.js").calcularRecordsNuevos>} nuevos
+ * @param {{ id: string, nombre?: string, fecha?: string }} evento
+ */
+export function specRecordsNuevos(nuevos, evento, circuitoId) {
+  if (!nuevos?.length || !evento) return null;
+  return {
+    titulo: nuevos.length === 1 ? "¡Nuevo récord!" : "¡Récords nuevos!",
+    subtitulo: [evento.nombre || evento.id, fmtFecha(evento.fecha)].filter(Boolean).join(" · "),
+    lista: true,
+    filas: nuevos.map((r) => ({
+      lugar: "",
+      nombre: nombresTitulares(r.titulares),
+      detalle: `${r.disciplinaNombre} · antes ${fmtMarca(r.anterior.valor, r.esPuntos)}`,
+      valor: fmtMarca(r.valor, r.esPuntos),
+      caption: `${r.disciplinaNombre}: ${nombresTitulares(r.titulares)} · ${fmtMarca(r.valor, r.esPuntos)} (antes ${fmtMarca(
+        r.anterior.valor,
+        r.esPuntos
+      )}, ${nombresTitulares(r.anterior.titulares)})`,
+    })),
+    hash: routeHash(circuitoId, "eventos", evento.id),
+    archivo: `${evento.nombre || evento.id}-records-nuevos`,
+    pie: fmtFecha(evento.fecha),
+  };
+}
+
 function flechaTexto(m) {
   if (!m) return "";
   if (m.tipo === "sube") return ` (▲${m.n})`;
@@ -187,9 +248,16 @@ export function withContexto(spec, { asociacion, circuito, temporada, logoBase =
 
 /** Texto sugerido para la publicación: encabezado, podio, link y hashtags. */
 export function shareCaption(spec) {
+  const linea = (f) => {
+    if (f.caption) return f.caption;
+    if (f.lugar === "" || f.lugar == null) {
+      return `${f.nombre}: ${f.valor}${f.movimiento?.tipo === "nuevo" ? " (nuevo)" : ""}${f.detalle ? ` · ${f.detalle}` : ""}`;
+    }
+    return `${f.lugar}. ${f.nombre} · ${f.valor}${flechaTexto(f.movimiento)}`;
+  };
   const top = (spec.filas || [])
-    .slice(0, 3)
-    .map((f) => `${f.lugar}. ${f.nombre} · ${f.valor}${flechaTexto(f.movimiento)}`)
+    .slice(0, spec.lista ? Infinity : 3)
+    .map(linea)
     .join("\n");
   const encabezado = [spec.titulo, spec.linea].filter(Boolean).join(" · ");
   return [

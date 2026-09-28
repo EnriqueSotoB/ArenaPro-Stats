@@ -126,6 +126,7 @@
                 <button type="button" class="metric-btn is-active" data-fuente="temporada">Clasificación de temporada</button>
                 <button type="button" class="metric-btn" data-fuente="evento">Resultados de un evento</button>
                 <button type="button" class="metric-btn" data-fuente="movimientos">Movimientos del último rodeo</button>
+                <button type="button" class="metric-btn" data-fuente="records">Récords</button>
               </div>
             </div>
 
@@ -158,6 +159,13 @@
               </label>
             </div>
 
+            <div id="fuenteRecords" class="redes-group" hidden>
+              <label class="login-field">
+                <span>Publicación</span>
+                <select id="redesRecords"></select>
+              </label>
+            </div>
+
             <div class="redes-group">
               <span class="redes-label">Formato</span>
               <div class="metric-toggle" role="group" aria-label="Formato">
@@ -167,7 +175,7 @@
               </div>
             </div>
 
-            <div class="redes-group">
+            <div id="redesTop" class="redes-group">
               <span class="redes-label">Cuántos lugares</span>
               <div class="metric-toggle" role="group" aria-label="Cantidad">
                 <button type="button" class="metric-btn" data-top="top3">Top 3</button>

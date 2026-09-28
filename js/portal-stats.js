@@ -229,15 +229,23 @@ export function recorridosDeEntrada(e, esPuntos) {
   return out;
 }
 
+/** Eventos en orden de fecha (y id para desempatar el mismo día). */
+function ordenarEventos(eventos) {
+  return [...eventos].sort(
+    (a, b) =>
+      String(a.fecha || a.evento?.fecha || "").localeCompare(String(b.fecha || b.evento?.fecha || "")) ||
+      String(a.id).localeCompare(String(b.id))
+  );
+}
+
 /**
- * Récord de la temporada por disciplina: el recorrido más rápido (tiempo) o la
- * calificación más alta (jineteos, montura, pretal) en cualquier rodeo del circuito.
- * @param {Array<{ id: string, nombre?: string, fecha?: string, evento: any }>} eventos con su archivo ya normalizado
+ * Todos los recorridos por disciplina, cada uno con el orden de su evento en la temporada.
+ * @returns {Map<string, any[]>}
  */
-export function calcularRecords(eventos = []) {
+function marcasPorDisciplina(eventos) {
   /** @type {Map<string, any[]>} */
   const marcas = new Map();
-  for (const ev of eventos) {
+  ordenarEventos(eventos).forEach((ev, orden) => {
     const evento = ev.evento || {};
     const cats = Object.fromEntries((evento.categorias || []).map((c) => [c.id || "_", c]));
     for (const block of evento.clasificacion || []) {
@@ -258,36 +266,85 @@ export function calcularRecords(eventos = []) {
             eventoId: ev.id,
             eventoNombre: ev.nombre || evento.nombreEvento || ev.id,
             fecha: ev.fecha || evento.fecha || "",
+            orden,
           });
         }
       }
     }
-  }
+  });
+  return marcas;
+}
 
-  const clave = (s) => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+const claveNombre = (s) => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+
+/** Mejor marca de una lista y quiénes la tienen (misma persona y marca en dos eventos: queda la primera). */
+function mejorMarca(lista, esPuntos) {
+  const valor = esPuntos ? Math.max(...lista.map((m) => m.valor)) : Math.min(...lista.map((m) => m.valor));
+  const vistos = new Set();
+  const titulares = lista
+    .filter((m) => Math.abs(m.valor - valor) < 1e-9)
+    .sort((a, b) => a.orden - b.orden)
+    .filter((m) => {
+      const k = claveNombre(m.nombre);
+      if (vistos.has(k)) return false;
+      vistos.add(k);
+      return true;
+    });
+  return { valor, titulares };
+}
+
+/**
+ * Disciplinas donde un evento superó el récord que había antes de él en la temporada.
+ * La primera vez que se corre una disciplina no cuenta como récord nuevo.
+ * @param {Array<{ id: string, nombre?: string, fecha?: string, evento: any }>} eventos del circuito, ya normalizados
+ */
+export function calcularRecordsNuevos(eventos = [], eventoId) {
+  const orden = ordenarEventos(eventos).findIndex((e) => e.id === eventoId);
+  if (orden < 0) return [];
+  const out = [];
+  for (const [id, lista] of marcasPorDisciplina(eventos)) {
+    const enEvento = lista.filter((m) => m.orden === orden);
+    const antes = lista.filter((m) => m.orden < orden);
+    if (!enEvento.length || !antes.length) continue;
+    const esPuntos = lista[0].esPuntos;
+    const nuevo = mejorMarca(enEvento, esPuntos);
+    const anterior = mejorMarca(antes, esPuntos);
+    if (esPuntos ? nuevo.valor <= anterior.valor : nuevo.valor >= anterior.valor) continue;
+    out.push({
+      disciplinaId: id,
+      disciplinaNombre: disciplinaLabel(id),
+      esPuntos,
+      valor: nuevo.valor,
+      titulares: nuevo.titulares,
+      anterior,
+      mejora: Math.abs(nuevo.valor - anterior.valor),
+    });
+  }
+  return out.sort((a, b) => a.disciplinaNombre.localeCompare(b.disciplinaNombre, "es"));
+}
+
+/**
+ * Récord de la temporada por disciplina: el recorrido más rápido (tiempo) o la
+ * calificación más alta (jineteos, montura, pretal) en cualquier rodeo del circuito.
+ * `nuevo`: lo impuso el rodeo más reciente, superando el récord anterior.
+ * @param {Array<{ id: string, nombre?: string, fecha?: string, evento: any }>} eventos con su archivo ya normalizado
+ */
+export function calcularRecords(eventos = []) {
+  const ultimo = ordenarEventos(eventos).at(-1);
+  const nuevos = new Set(ultimo ? calcularRecordsNuevos(eventos, ultimo.id).map((r) => r.disciplinaId) : []);
   const records = [];
-  for (const [id, lista] of marcas) {
+  for (const [id, lista] of marcasPorDisciplina(eventos)) {
     if (!lista.length) continue;
     const esPuntos = lista[0].esPuntos;
-    const mejor = esPuntos ? Math.max(...lista.map((m) => m.valor)) : Math.min(...lista.map((m) => m.valor));
-    // Mismo competidor con la misma marca en dos eventos (p. ej. evento duplicado): queda el primero.
-    const vistos = new Set();
-    const titulares = lista
-      .filter((m) => Math.abs(m.valor - mejor) < 1e-9)
-      .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)))
-      .filter((m) => {
-        const k = clave(m.nombre);
-        if (vistos.has(k)) return false;
-        vistos.add(k);
-        return true;
-      });
+    const { valor, titulares } = mejorMarca(lista, esPuntos);
     records.push({
       disciplinaId: id,
       disciplinaNombre: disciplinaLabel(id),
       esPuntos,
-      valor: mejor,
+      valor,
       titulares,
       recorridos: lista.length,
+      nuevo: nuevos.has(id),
     });
   }
   return records.sort((a, b) => a.disciplinaNombre.localeCompare(b.disciplinaNombre, "es"));
