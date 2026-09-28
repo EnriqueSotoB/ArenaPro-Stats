@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Publicar — ArenaPro Estadísticas</title>
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/admin.css" />
 </head>
@@ -110,7 +113,13 @@
     </section>
 
     <section class="panel" id="circuitosPanel">
-      <h2 class="step-title-plain">Asociaciones y circuitos</h2>
+      <div class="section-head">
+        <h2 class="step-title-plain">Asociaciones y circuitos</h2>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary btn-sm" id="btnNuevoCircuito">+ Nuevo circuito</button>
+          <button type="button" class="btn-primary btn-sm" id="btnNuevaAsociacion">+ Nueva asociación</button>
+        </div>
+      </div>
       <p class="meta">
         Cada asociación (AERCH, FMR…) tiene un circuito por temporada. El circuito <strong>principal</strong> es el que abre el sitio público.
         Con <strong>Dar acceso</strong> la asociación entra a su portal (tablero e imágenes para redes, sin poder publicar).
@@ -129,79 +138,113 @@
         <p class="meta">El acceso queda activo en el sitio cuando publiques.</p>
       </div>
 
-      <div class="config-forms">
-        <form id="circuitoForm" class="config-form" autocomplete="off">
-          <p class="preview-label" id="circuitoFormTitle">Nuevo circuito / temporada</p>
-          <input type="hidden" id="circuitoId" />
-          <label class="field admin-field config-field">
-            <span>Asociación</span>
-            <select id="circuitoAsociacion" required></select>
-          </label>
-          <label class="field admin-field config-field">
-            <span>Nombre</span>
-            <input id="circuitoNombre" type="text" placeholder="AERCH Circuito 2028" maxlength="80" required />
-          </label>
-          <label class="field admin-field config-field">
-            <span>Temporada</span>
-            <input id="circuitoTemporada" type="text" placeholder="2028 o 2027-2028" maxlength="20" required />
-          </label>
-          <label class="cherry-item">
-            <input id="circuitoPrincipal" type="checkbox" />
-            <span>Circuito principal del sitio</span>
-          </label>
-          <div class="btn-row">
+      <dialog id="circuitoDialog" class="admin-dialog" aria-labelledby="circuitoFormTitle">
+        <form id="circuitoForm" class="dialog-form" autocomplete="off">
+          <header class="dialog-head">
+            <div>
+              <p class="dialog-eyebrow">Circuito / temporada</p>
+              <h3 class="dialog-title" id="circuitoFormTitle">Nuevo circuito</h3>
+            </div>
+            <button type="button" class="dialog-close" data-dialog-close aria-label="Cerrar">&times;</button>
+          </header>
+          <div class="dialog-body">
+            <input type="hidden" id="circuitoId" />
+            <label class="config-field">
+              <span>Asociación</span>
+              <select id="circuitoAsociacion" required></select>
+            </label>
+            <div class="config-row">
+              <label class="config-field">
+                <span>Nombre</span>
+                <input id="circuitoNombre" type="text" placeholder="AERCH Circuito 2028" maxlength="80" required />
+              </label>
+              <label class="config-field">
+                <span>Temporada</span>
+                <input id="circuitoTemporada" type="text" placeholder="2028 o 2027-2028" maxlength="20" required />
+              </label>
+            </div>
+            <label class="config-check">
+              <input id="circuitoPrincipal" type="checkbox" />
+              <span>
+                <strong>Circuito principal del sitio</strong>
+                <small>Es el que se abre al entrar al sitio público.</small>
+              </span>
+            </label>
+          </div>
+          <p class="dialog-msg" role="alert" hidden></p>
+          <footer class="dialog-foot">
+            <button type="button" class="btn-secondary" data-dialog-close>Cancelar</button>
             <button type="submit" class="btn-primary" id="btnCircuitoSave">Crear circuito</button>
-            <button type="button" class="btn-secondary" id="btnCircuitoCancel" hidden>Cancelar</button>
-          </div>
+          </footer>
         </form>
+      </dialog>
 
-        <form id="asociacionForm" class="config-form" autocomplete="off">
-          <p class="preview-label" id="asociacionFormTitle">Nueva asociación</p>
-          <input type="hidden" id="asociacionId" />
-          <label class="field admin-field config-field">
-            <span>Siglas</span>
-            <input id="asociacionSiglas" type="text" placeholder="AERCH" maxlength="20" required />
-          </label>
-          <label class="field admin-field config-field">
-            <span>Nombre</span>
-            <input id="asociacionNombre" type="text" placeholder="Asociación Estatal de Rodeo de Chihuahua" maxlength="120" required />
-          </label>
-          <label class="field admin-field config-field">
-            <span>Tipo</span>
-            <select id="asociacionTipo">
-              <option value="estatal">Asociación estatal</option>
-              <option value="federacion">Federación / nacional</option>
-            </select>
-          </label>
-          <label class="field admin-field config-field">
-            <span>Estado</span>
-            <input id="asociacionEstado" type="text" placeholder="Chihuahua" maxlength="60" />
-          </label>
-          <label class="field admin-field config-field">
-            <span>Hashtags para redes (separados por espacio)</span>
-            <input id="asociacionHashtags" type="text" placeholder="#AERCH #RodeoChihuahua" maxlength="300" spellcheck="false" />
-          </label>
-          <label class="field admin-field config-field">
-            <span>Lazador en varias parejas del mismo lado en un evento</span>
-            <select id="asociacionLazadorRepetido">
-              <option value="fmr">Como la FMR: puntos de su mejor lugar + 1 por cada lugar extra con puntos</option>
-              <option value="sumar">Sumar completos los puntos de todas sus parejas</option>
-            </select>
-          </label>
-          <label class="field admin-field config-field">
-            <span>Logo (PNG, JPG o WEBP · máx. 2 MB)</span>
-            <input id="asociacionLogo" type="file" accept="image/png,image/jpeg,image/webp" />
-          </label>
-          <div id="asociacionLogoActual" class="logo-actual" hidden>
-            <img id="asociacionLogoImg" alt="" />
-            <button type="button" class="btn-danger btn-sm" id="btnAsociacionLogoRemove">Quitar logo</button>
+      <dialog id="asociacionDialog" class="admin-dialog" aria-labelledby="asociacionFormTitle">
+        <form id="asociacionForm" class="dialog-form" autocomplete="off">
+          <header class="dialog-head">
+            <div>
+              <p class="dialog-eyebrow">Asociación o promotora</p>
+              <h3 class="dialog-title" id="asociacionFormTitle">Nueva asociación</h3>
+            </div>
+            <button type="button" class="dialog-close" data-dialog-close aria-label="Cerrar">&times;</button>
+          </header>
+          <div class="dialog-body">
+            <input type="hidden" id="asociacionId" />
+            <div class="config-row config-row-siglas">
+              <label class="config-field">
+                <span>Siglas</span>
+                <input id="asociacionSiglas" type="text" placeholder="AERCH" maxlength="20" required />
+              </label>
+              <label class="config-field">
+                <span>Nombre</span>
+                <input id="asociacionNombre" type="text" placeholder="Asociación Estatal de Rodeo de Chihuahua" maxlength="120" required />
+              </label>
+            </div>
+            <div class="config-row">
+              <label class="config-field">
+                <span>Tipo</span>
+                <select id="asociacionTipo">
+                  <option value="estatal">Asociación estatal</option>
+                  <option value="federacion">Federación / nacional</option>
+                </select>
+              </label>
+              <label class="config-field">
+                <span>Estado</span>
+                <input id="asociacionEstado" type="text" placeholder="Chihuahua" maxlength="60" />
+              </label>
+            </div>
+            <label class="config-field">
+              <span>Hashtags para redes</span>
+              <input id="asociacionHashtags" type="text" placeholder="#AERCH #RodeoChihuahua" maxlength="300" spellcheck="false" />
+              <small class="config-hint">Separados por espacio. Se agregan al texto de cada publicación.</small>
+            </label>
+            <label class="config-field">
+              <span>Lazador en varias parejas del mismo lado</span>
+              <select id="asociacionLazadorRepetido">
+                <option value="fmr">Regla FMR: mejor lugar + 1 punto por lugar extra</option>
+                <option value="sumar">Sumar completos los puntos de todas sus parejas</option>
+              </select>
+              <small class="config-hint">Cómo se cuentan sus puntos cuando lazó con varias parejas en un mismo evento.</small>
+            </label>
+            <div class="config-field">
+              <span>Logo</span>
+              <div class="logo-picker">
+                <div id="asociacionLogoActual" class="logo-actual" hidden>
+                  <img id="asociacionLogoImg" alt="" />
+                  <button type="button" class="btn-danger btn-sm" id="btnAsociacionLogoRemove">Quitar logo</button>
+                </div>
+                <input id="asociacionLogo" type="file" accept="image/png,image/jpeg,image/webp" aria-label="Logo" />
+              </div>
+              <small class="config-hint">PNG, JPG o WEBP · máx. 2 MB.</small>
+            </div>
           </div>
-          <div class="btn-row">
+          <p class="dialog-msg" role="alert" hidden></p>
+          <footer class="dialog-foot">
+            <button type="button" class="btn-secondary" data-dialog-close>Cancelar</button>
             <button type="submit" class="btn-primary" id="btnAsociacionSave">Crear asociación</button>
-            <button type="button" class="btn-secondary" id="btnAsociacionCancel" hidden>Cancelar</button>
-          </div>
+          </footer>
         </form>
-      </div>
+      </dialog>
     </section>
 
     <section class="panel" id="aliasesPanel">

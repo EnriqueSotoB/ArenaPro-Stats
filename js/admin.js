@@ -73,7 +73,10 @@ const els = {
   circuitoTemporada: document.getElementById("circuitoTemporada"),
   circuitoPrincipal: document.getElementById("circuitoPrincipal"),
   btnCircuitoSave: document.getElementById("btnCircuitoSave"),
-  btnCircuitoCancel: document.getElementById("btnCircuitoCancel"),
+  circuitoDialog: document.getElementById("circuitoDialog"),
+  btnNuevoCircuito: document.getElementById("btnNuevoCircuito"),
+  asociacionDialog: document.getElementById("asociacionDialog"),
+  btnNuevaAsociacion: document.getElementById("btnNuevaAsociacion"),
   asociacionForm: document.getElementById("asociacionForm"),
   asociacionFormTitle: document.getElementById("asociacionFormTitle"),
   asociacionId: document.getElementById("asociacionId"),
@@ -92,7 +95,6 @@ const els = {
   btnPortalCopiar: document.getElementById("btnPortalCopiar"),
   btnPortalCerrar: document.getElementById("btnPortalCerrar"),
   btnAsociacionSave: document.getElementById("btnAsociacionSave"),
-  btnAsociacionCancel: document.getElementById("btnAsociacionCancel"),
   btnIngest: document.getElementById("btnIngest"),
   btnCancelEdit: document.getElementById("btnCancelEdit"),
   btnPublish: document.getElementById("btnPublish"),
@@ -124,6 +126,9 @@ async function init() {
     showBanner("Edición cancelada. El evento quedó como estaba.", false);
   });
   els.btnPublish.addEventListener("click", onPublish);
+  els.banner.addEventListener("click", () => {
+    els.banner.hidden = true;
+  });
   wireCircuitosPanel();
   els.editSearch.addEventListener("input", () => applyEditSearchFilter());
   await refreshStatus();
@@ -902,9 +907,26 @@ function renderCircuitosPick() {
 /* —— Asociaciones y circuitos —— */
 
 function wireCircuitosPanel() {
+  wireDialog(els.circuitoDialog, resetCircuitoForm);
+  wireDialog(els.asociacionDialog, resetAsociacionForm);
+  els.btnNuevoCircuito?.addEventListener("click", () => {
+    if (!statusData.asociaciones.length) {
+      showBanner("Primero crea una asociación.", true);
+      return;
+    }
+    resetCircuitoForm();
+    openDialog(els.circuitoDialog, els.circuitoNombre);
+  });
+  els.btnNuevaAsociacion?.addEventListener("click", () => {
+    resetAsociacionForm();
+    openDialog(els.asociacionDialog, els.asociacionSiglas);
+  });
+
   els.circuitoForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const principal = els.circuitoPrincipal.checked;
+    setDialogMsg(els.circuitoDialog, "");
+    els.btnCircuitoSave.disabled = true;
     const saved = await postConfig("/api/circuitos", {
       id: els.circuitoId.value || undefined,
       asociacionId: els.circuitoAsociacion.value,
@@ -912,27 +934,36 @@ function wireCircuitosPanel() {
       temporada: els.circuitoTemporada.value,
       principal,
     }, (body) => `Circuito guardado: ${body.circuito?.nombre}.${principal ? " Es el principal del sitio." : ""} Publica para el sitio.`);
-    if (saved) resetCircuitoForm();
+    els.btnCircuitoSave.disabled = false;
+    if (saved) els.circuitoDialog.close();
   });
-  els.btnCircuitoCancel?.addEventListener("click", resetCircuitoForm);
 
   els.asociacionForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const saved = await postConfig("/api/asociaciones", {
-      id: els.asociacionId.value || undefined,
-      siglas: els.asociacionSiglas.value,
-      nombre: els.asociacionNombre.value,
-      tipo: els.asociacionTipo.value,
-      estado: els.asociacionEstado.value,
-      hashtags: els.asociacionHashtags.value,
-      lazadorRepetido: els.asociacionLazadorRepetido.value,
-    }, (body) => `Asociación guardada: ${body.asociacion?.siglas}. Publica para el sitio.`);
-    if (!saved) return;
-    const file = els.asociacionLogo.files?.[0];
-    if (file && !(await uploadLogo(saved.asociacion.id, file))) return;
-    resetAsociacionForm();
+    setDialogMsg(els.asociacionDialog, "");
+    els.btnAsociacionSave.disabled = true;
+    try {
+      const saved = await postConfig("/api/asociaciones", {
+        id: els.asociacionId.value || undefined,
+        siglas: els.asociacionSiglas.value,
+        nombre: els.asociacionNombre.value,
+        tipo: els.asociacionTipo.value,
+        estado: els.asociacionEstado.value,
+        hashtags: els.asociacionHashtags.value,
+        lazadorRepetido: els.asociacionLazadorRepetido.value,
+      }, (body) => `Asociación guardada: ${body.asociacion?.siglas}. Publica para el sitio.`);
+      if (!saved) return;
+      const file = els.asociacionLogo.files?.[0];
+      if (file && !(await uploadLogo(saved.asociacion.id, file))) {
+        els.asociacionId.value = saved.asociacion.id;
+        els.btnAsociacionSave.textContent = "Guardar asociación";
+        return;
+      }
+      els.asociacionDialog.close();
+    } finally {
+      els.btnAsociacionSave.disabled = false;
+    }
   });
-  els.btnAsociacionCancel?.addEventListener("click", resetAsociacionForm);
   els.btnAsociacionLogoRemove?.addEventListener("click", async () => {
     const id = els.asociacionId.value;
     if (!id || !confirm("¿Quitar el logo de esta asociación?")) return;
@@ -1034,9 +1065,8 @@ async function postConfig(url, payload, okMessage) {
 function resetCircuitoForm() {
   els.circuitoForm?.reset();
   els.circuitoId.value = "";
-  els.circuitoFormTitle.textContent = "Nuevo circuito / temporada";
+  els.circuitoFormTitle.textContent = "Nuevo circuito";
   els.btnCircuitoSave.textContent = "Crear circuito";
-  els.btnCircuitoCancel.hidden = true;
   renderAsociacionOptions();
 }
 
@@ -1045,8 +1075,37 @@ function resetAsociacionForm() {
   els.asociacionId.value = "";
   els.asociacionFormTitle.textContent = "Nueva asociación";
   els.btnAsociacionSave.textContent = "Crear asociación";
-  els.btnAsociacionCancel.hidden = true;
   els.asociacionLogoActual.hidden = true;
+}
+
+/** Cierra con la ✕, Cancelar, Esc o clic fuera; al cerrar deja el formulario limpio. */
+function wireDialog(dialog, onClosed) {
+  if (!dialog) return;
+  dialog.querySelectorAll("[data-dialog-close]").forEach((btn) =>
+    btn.addEventListener("click", () => dialog.close())
+  );
+  dialog.addEventListener("mousedown", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog.addEventListener("close", () => {
+    setDialogMsg(dialog, "");
+    onClosed();
+  });
+}
+
+function openDialog(dialog, focusEl) {
+  if (!dialog) return;
+  setDialogMsg(dialog, "");
+  if (!dialog.open) dialog.showModal();
+  dialog.querySelector(".dialog-body")?.scrollTo(0, 0);
+  focusEl?.focus();
+}
+
+function setDialogMsg(dialog, msg) {
+  const el = dialog?.querySelector(".dialog-msg");
+  if (!el) return;
+  el.hidden = !msg;
+  el.textContent = msg || "";
 }
 
 function renderAsociacionOptions() {
@@ -1066,58 +1125,84 @@ function renderCircuitosTree() {
   if (!els.circuitosTree) return;
   const grupos = circuitosPorAsociacion(statusData);
   if (!grupos.length) {
-    els.circuitosTree.innerHTML = `<li class="meta">Sin asociaciones. Crea la primera abajo.</li>`;
+    els.circuitosTree.innerHTML = `<li class="tree-empty">Sin asociaciones. Crea la primera con <strong>+ Nueva asociación</strong>.</li>`;
     return;
   }
   els.circuitosTree.innerHTML = grupos
     .map((g) => {
       const a = g.asociacion;
+      const nombreCorto = a.siglas || a.nombre || "";
       const circuitos = g.circuitos
         .map((c) => {
           const esPrincipal = c.id === statusData.circuitoDefault;
           return `<li class="tree-circuito">
-            <span>
-              <strong>${escapeHtml(c.nombre)}</strong>
-              <span class="meta">temporada ${escapeHtml(c.temporada)} · ${c.eventos ?? 0} evento(s)</span>
-              ${esPrincipal ? `<span class="badge badge-cut">Principal</span>` : ""}
-            </span>
-            <span class="ev-actions">
-              ${esPrincipal ? "" : `<button type="button" class="btn-secondary btn-sm" data-circuito-principal="${escapeAttr(c.id)}">Hacer principal</button>`}
-              <button type="button" class="btn-secondary btn-sm" data-circuito-edit="${escapeAttr(c.id)}">Editar</button>
-              <button type="button" class="btn-danger btn-sm" data-circuito-remove="${escapeAttr(c.id)}">Eliminar</button>
-            </span>
+            <div class="tree-circuito-info">
+              <span class="tree-circuito-name">${escapeHtml(c.nombre)}</span>
+              ${esPrincipal ? `<span class="pill pill-accent">Principal</span>` : ""}
+              <span class="meta">Temporada ${escapeHtml(c.temporada)} · ${c.eventos ?? 0} ${(c.eventos ?? 0) === 1 ? "evento" : "eventos"}</span>
+            </div>
+            <div class="ev-actions">
+              ${esPrincipal ? "" : `<button type="button" class="btn-ghost btn-sm" data-circuito-principal="${escapeAttr(c.id)}">Hacer principal</button>`}
+              <button type="button" class="btn-ghost btn-sm" data-circuito-edit="${escapeAttr(c.id)}">Editar</button>
+              <button type="button" class="btn-ghost btn-sm is-danger" data-circuito-remove="${escapeAttr(c.id)}">Eliminar</button>
+            </div>
           </li>`;
         })
         .join("");
       const actions = a.id
-        ? `<span class="ev-actions">
+        ? `<div class="ev-actions">
             <button type="button" class="btn-secondary btn-sm" data-asociacion-edit="${escapeAttr(a.id)}">Editar</button>
             <button type="button" class="btn-danger btn-sm" data-asociacion-remove="${escapeAttr(a.id)}">Eliminar</button>
-          </span>`
+          </div>`
         : "";
-      return `<li>
+      const subtitulo = [a.siglas ? a.nombre : "", a.tipo === "federacion" ? "Federación" : "Estatal", a.estado]
+        .filter(Boolean)
+        .join(" · ");
+      const logo = a.logo
+        ? `<img class="tree-logo" src="${escapeAttr(logoUrl(a.logo))}" alt="" />`
+        : `<span class="tree-logo tree-logo-empty" aria-hidden="true">${escapeHtml(nombreCorto.slice(0, 2).toUpperCase())}</span>`;
+      return `<li class="tree-card">
         <div class="tree-head">
-          <span>
-            ${a.logo ? `<img class="tree-logo" src="${escapeAttr(logoUrl(a.logo))}" alt="" />` : ""}
-            <span class="tree-head-name">${escapeHtml(a.siglas || a.nombre)}</span>
-            <span class="meta">${escapeHtml([a.siglas ? a.nombre : "", a.tipo === "federacion" ? "Federación" : "Estatal", a.estado].filter(Boolean).join(" · "))}</span>
-            <span class="meta tree-hashtags">${a.hashtags ? escapeHtml(a.hashtags) : "Sin hashtags para redes"}</span>
-            ${a.id ? `<span class="meta">Lazador en varias parejas: ${a.lazadorRepetido === "sumar" ? "suma completo" : "regla FMR"}</span>` : ""}
-          </span>
+          <div class="tree-id">
+            ${logo}
+            <div class="tree-id-text">
+              <p class="tree-head-name">${escapeHtml(nombreCorto)}</p>
+              <p class="meta">${escapeHtml(subtitulo)}</p>
+            </div>
+          </div>
           ${actions}
         </div>
-        ${a.id ? `<div class="tree-portal">
-          <span class="meta">Portal: ${a.portal ? `<strong>con acceso</strong>` : "sin acceso"}</span>
-          <span class="ev-actions">
-            <a class="btn-secondary btn-sm" href="${escapeAttr(portalUrl(a.id, false))}" target="_blank" rel="noopener">Abrir portal</a>
-            <button type="button" class="btn-secondary btn-sm" data-portal-set="${escapeAttr(a.id)}">${a.portal ? "Nueva contraseña" : "Dar acceso"}</button>
-            ${a.portal ? `<button type="button" class="btn-danger btn-sm" data-portal-remove="${escapeAttr(a.id)}">Quitar acceso</button>` : ""}
-          </span>
+        ${a.id ? `<dl class="tree-facts">
+          <div><dt>Hashtags</dt><dd>${a.hashtags ? escapeHtml(a.hashtags) : `<span class="muted">Sin hashtags</span>`}</dd></div>
+          <div><dt>Lazador en varias parejas</dt><dd>${a.lazadorRepetido === "sumar" ? "Suma completo" : "Regla FMR"}</dd></div>
+        </dl>
+        <div class="tree-portal">
+          <div class="tree-portal-status">
+            <span class="status-dot${a.portal ? " is-on" : ""}" aria-hidden="true"></span>
+            <span>Portal ${a.portal ? "<strong>con acceso</strong>" : "sin acceso"}</span>
+          </div>
+          <div class="ev-actions">
+            <a class="btn-ghost btn-sm" href="${escapeAttr(portalUrl(a.id, false))}" target="_blank" rel="noopener">Abrir portal</a>
+            <button type="button" class="btn-ghost btn-sm" data-portal-set="${escapeAttr(a.id)}">${a.portal ? "Nueva contraseña" : "Dar acceso"}</button>
+            ${a.portal ? `<button type="button" class="btn-ghost btn-sm is-danger" data-portal-remove="${escapeAttr(a.id)}">Quitar acceso</button>` : ""}
+          </div>
         </div>` : ""}
-        <ul class="tree-circuitos">${circuitos || `<li class="meta">Sin circuitos todavía.</li>`}</ul>
+        <div class="tree-circuitos-head">
+          <span class="tree-section-label">Circuitos</span>
+          ${a.id ? `<button type="button" class="link-like" data-circuito-new="${escapeAttr(a.id)}">+ Agregar circuito</button>` : ""}
+        </div>
+        <ul class="tree-circuitos">${circuitos || `<li class="tree-empty">Sin circuitos todavía.</li>`}</ul>
       </li>`;
     })
     .join("");
+
+  els.circuitosTree.querySelectorAll("[data-circuito-new]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      resetCircuitoForm();
+      els.circuitoAsociacion.value = btn.getAttribute("data-circuito-new");
+      openDialog(els.circuitoDialog, els.circuitoNombre);
+    });
+  });
 
   const circuitoById = (id) => statusData.circuitos.find((c) => c.id === id);
 
@@ -1133,15 +1218,15 @@ function renderCircuitosTree() {
     btn.addEventListener("click", () => {
       const c = circuitoById(btn.getAttribute("data-circuito-edit"));
       if (!c) return;
+      resetCircuitoForm();
       els.circuitoId.value = c.id;
       els.circuitoAsociacion.value = c.asociacionId;
       els.circuitoNombre.value = c.nombre;
       els.circuitoTemporada.value = c.temporada;
       els.circuitoPrincipal.checked = c.id === statusData.circuitoDefault;
       els.circuitoFormTitle.textContent = `Editar ${c.nombre}`;
-      els.btnCircuitoSave.textContent = "Guardar circuito";
-      els.btnCircuitoCancel.hidden = false;
-      els.circuitoNombre.focus();
+      els.btnCircuitoSave.textContent = "Guardar cambios";
+      openDialog(els.circuitoDialog, els.circuitoNombre);
     });
   });
 
@@ -1157,6 +1242,7 @@ function renderCircuitosTree() {
     btn.addEventListener("click", () => {
       const a = statusData.asociaciones.find((x) => x.id === btn.getAttribute("data-asociacion-edit"));
       if (!a) return;
+      resetAsociacionForm();
       els.asociacionId.value = a.id;
       els.asociacionSiglas.value = a.siglas;
       els.asociacionNombre.value = a.nombre;
@@ -1168,9 +1254,8 @@ function renderCircuitosTree() {
       els.asociacionLogoActual.hidden = !a.logo;
       if (a.logo) els.asociacionLogoImg.src = logoUrl(a.logo);
       els.asociacionFormTitle.textContent = `Editar ${a.siglas || a.nombre}`;
-      els.btnAsociacionSave.textContent = "Guardar asociación";
-      els.btnAsociacionCancel.hidden = false;
-      els.asociacionNombre.focus();
+      els.btnAsociacionSave.textContent = "Guardar cambios";
+      openDialog(els.asociacionDialog, els.asociacionNombre);
     });
   });
 
@@ -1419,9 +1504,22 @@ async function onRemoveAlias(from) {
   }
 }
 
+let bannerTimer = 0;
+
 function showBanner(msg, isError) {
+  const dialog = document.querySelector("dialog[open]");
+  if (dialog && isError) {
+    setDialogMsg(dialog, msg);
+    return;
+  }
+  clearTimeout(bannerTimer);
   els.banner.hidden = !msg;
   els.banner.textContent = msg || "";
   els.banner.classList.toggle("is-error", Boolean(isError));
   els.banner.classList.toggle("is-ok", Boolean(msg && !isError));
+  if (msg && !isError && !msg.endsWith("…")) {
+    bannerTimer = setTimeout(() => {
+      els.banner.hidden = true;
+    }, 7000);
+  }
 }
