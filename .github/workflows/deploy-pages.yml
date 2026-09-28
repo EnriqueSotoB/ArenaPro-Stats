@@ -5,6 +5,10 @@ name: Deploy Pages
 on:
   push:
     branches: [main]
+  # Los commits que empuja otro workflow con GITHUB_TOKEN no disparan "push".
+  workflow_run:
+    workflows: ["Rebuild temporada"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -18,9 +22,12 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-node@v4
         with:
@@ -36,8 +43,14 @@ jobs:
       - name: Tests y revisión de datos
         run: npm test
 
+      - name: Instalar navegador para pruebas E2E
+        run: npx playwright install --with-deps chromium
+
+      - name: Pruebas E2E del sitio armado
+        run: npm run test:e2e
+
       - name: Armar sitio público
-        run: node scripts/build-site.mjs "${{ github.sha }}"
+        run: node scripts/build-site.mjs "$(git rev-parse HEAD)"
 
       - uses: actions/upload-pages-artifact@v3
         with:

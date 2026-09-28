@@ -15,6 +15,7 @@ import { motivoRechazo } from "./lib/local-guard.mjs";
 import { buscarRodeoDuplicado, problemasDePublicacion } from "./lib/integridad.mjs";
 import { eventoConNombresMayusculas } from "./lib/nombres.mjs";
 import { normalizeText } from "./lib/disciplinas.mjs";
+import { sincronizarConRemoto } from "./lib/git-sync.mjs";
 import {
   aplicarStatsEdits,
   buildDefaultEdits,
@@ -624,41 +625,8 @@ function mutateManifest(fn) {
   return { ok: true, ...rest, rebuilt };
 }
 
-async function syncWithRemote() {
-  const branch = git(["rev-parse", "--abbrev-ref", "HEAD"]);
-  git(["fetch", "origin"]);
-
-  const rebaseMerge = join(ROOT, ".git", "rebase-merge");
-  try {
-    git(["pull", "--rebase", "origin", branch]);
-  } catch (e) {
-    const inRebase = existsSync(rebaseMerge);
-    const msg = String(e.stderr || e.message || e);
-    if (!inRebase && !/conflict/i.test(msg)) throw e;
-
-    // Fuente de verdad local: regenerar acumulado y continuar el rebase.
-    runRebuild();
-    try {
-      git(["add", "--", "data"]);
-      execFileSync("git", ["-c", "core.editor=true", "rebase", "--continue"], {
-        cwd: ROOT,
-        encoding: "utf8",
-        stdio: ["ignore", "pipe", "pipe"],
-        env: { ...process.env, GIT_EDITOR: "true" },
-      });
-    } catch (e2) {
-      try {
-        git(["rebase", "--abort"]);
-      } catch {
-        /* ignore */
-      }
-      const err = new Error(
-        `No se pudo sincronizar con GitHub. ${String(e2.stderr || e2.message || e2).trim()}`
-      );
-      err.statusCode = 409;
-      throw err;
-    }
-  }
+function syncWithRemote() {
+  return sincronizarConRemoto({ root: ROOT, regenerar: runRebuild });
 }
 
 async function publish() {
@@ -691,12 +659,12 @@ async function publish() {
     throw e;
   }
 
-  await syncWithRemote();
+  syncWithRemote();
   git(["push", "origin", "HEAD"]);
   return {
     ok: true,
     published: true,
-    message: "Publicado. GitHub Pages puede tardar 1–2 minutos.",
+    message: "Publicado. El sitio se actualiza en 2–4 minutos, cuando GitHub termina de revisarlo.",
     pagesUrl: PAGES_URL,
   };
 }

@@ -8,9 +8,8 @@
   <meta name="theme-color" content="#3f524f" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' data: blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+  <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/portal.css" />
 </head>
@@ -57,6 +56,7 @@
         <p id="loginError" class="login-error" role="alert" hidden></p>
         <button type="submit" class="btn-share is-primary" id="btnEntrar">Entrar</button>
         <button type="button" class="btn-share" id="btnEntrarLocal" hidden>Entrar como administrador (solo en tu compu)</button>
+        <p class="meta">La contraseña personaliza el tablero con la marca de su asociación. Los resultados que muestra son los mismos que ya son públicos en el sitio.</p>
       </form>
     </section>
 
@@ -207,6 +207,11 @@
 
   <footer class="footer">
     <p id="footerText">ArenaPro Estadísticas · Portal de asociaciones</p>
+    <ul class="footer-links">
+      <li><a href="aviso-privacidad.html">Aviso de privacidad</a></li>
+      <li><a href="terminos.html">Términos de uso</a></li>
+      <li><a href="mailto:soporte@arenapro.mx?subject=Portal%20de%20asociaciones">Soporte</a></li>
+    </ul>
   </footer>
 
   <script src="js/portal.js" type="module"></script>

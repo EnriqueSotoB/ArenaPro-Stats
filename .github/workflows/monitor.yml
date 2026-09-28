@@ -1,0 +1,47 @@
+name: Monitor
+
+# Revisa cada hora que el sitio en vivo esté arriba, con datos y con la versión de main.
+# Si falla, GitHub manda correo y se abre (o actualiza) un issue "Sitio con problemas".
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Revisar estadisticas.arenapro.mx
+        id: revision
+        run: |
+          git fetch --depth=1 origin main
+          node scripts/monitor-sitio.mjs 2> problemas.txt || { cat problemas.txt; exit 1; }
+
+      - name: Abrir o actualizar issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          titulo="Sitio con problemas"
+          cuerpo="$(cat problemas.txt)
+
+          Detectado por el workflow Monitor: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          numero="$(gh issue list --state open --search "in:title \"$titulo\"" --json number --jq '.[0].number')"
+          if [ -n "$numero" ]; then
+            gh issue comment "$numero" --body "$cuerpo"
+          else
+            gh issue create --title "$titulo" --body "$cuerpo"
+          fi
