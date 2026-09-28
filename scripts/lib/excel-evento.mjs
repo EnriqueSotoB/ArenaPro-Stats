@@ -83,7 +83,7 @@ export function columnsForKind(kind) {
       { key: "total", label: "Total tiempos", width: 14 }
     );
   }
-  cols.push({ key: "notas", label: "Notas", width: 28 });
+  cols.push({ key: "notas", label: "Notas internas (no se publican)", width: 32 });
   return cols;
 }
 
@@ -302,7 +302,6 @@ function parseDisciplinaSheet(ws, def, catIndex) {
     if (t1 != null) detalleParts.push(`Ronda 1: ${formatRound(t1)}`);
     if (t2 != null) detalleParts.push(`Ronda 2: ${formatRound(t2)}`);
     if (t3 != null) detalleParts.push(`Ronda 3: ${formatRound(t3)}`);
-    if (notas) detalleParts.push(notas);
 
     const id = `local:${slugify(nombre)}`;
     const entrada = {
@@ -321,6 +320,7 @@ function parseDisciplinaSheet(ws, def, catIndex) {
       t1: t1 != null ? String(t1) : null,
       t2: t2 != null ? String(t2) : null,
       t3: t3 != null ? String(t3) : null,
+      notas: notas || null,
     };
     if (kind === "teamRoping" && cabecero && pialador) {
       entrada.headerNombre = cabecero;
@@ -399,7 +399,7 @@ function mapHeaderRow(row) {
     else if (hdr.includes("ronda 2") || hdr === "t2") map.ronda2 = col;
     else if (hdr.includes("ronda 3") || hdr === "t3") map.ronda3 = col;
     else if (hdr.includes("total")) map.total = col;
-    else if (hdr === "notas" || hdr === "nota") map.notas = col;
+    else if (hdr.startsWith("nota")) map.notas = col;
   });
   return map;
 }

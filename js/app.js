@@ -103,7 +103,7 @@ let metricMode = "puntos";
 /** @type {string} */
 let lastNonCompetidorHash = "#temporada";
 
-init().catch((err) => setStatus(err.message || String(err), true));
+init().catch(mostrarError);
 
 async function init() {
   setStatus("Cargando datos…");
@@ -289,7 +289,7 @@ async function useCircuito(id) {
     try {
       payload = circuito ? await fetchJson(`data/${circuitoDataFile(circuito.id)}`) : null;
     } catch (err) {
-      setStatus(err.message || String(err), true);
+      mostrarError(err);
     }
     circuitoCache.set(circuitoId, payload || emptyCircuitoPayload(circuito));
   }
@@ -834,7 +834,11 @@ async function showEvento(eventoId) {
   setStatus("Cargando evento…");
   try {
     const entry = (manifest?.eventos || []).find((e) => e.id === eventoId);
-    if (!entry) throw new Error(`Evento no encontrado: ${eventoId}`);
+    if (!entry) {
+      throw Object.assign(new Error("No encontramos este evento. Puede que la liga esté incompleta."), {
+        paraMostrar: true,
+      });
+    }
     if (!eventoCache.has(entry.file)) {
       const raw = await fetchJson(`data/${entry.file}`);
       eventoCache.set(entry.file, normalizeEvento(raw));
@@ -847,7 +851,7 @@ async function showEvento(eventoId) {
     renderEventoDetail(evento, currentCatId);
     setStatus("");
   } catch (err) {
-    setStatus(err.message || String(err), true);
+    mostrarError(err);
     els.eventoTitle.textContent = "Evento";
     els.eventoMeta.textContent = "";
     els.eventoPodium.innerHTML = "";
@@ -933,3 +937,15 @@ function setStatus(msg, isError = false) {
   els.status.textContent = msg || "";
   els.status.classList.toggle("is-error", Boolean(isError && msg));
 }
+
+function mostrarError(err) {
+  console.error(err);
+  setStatus(
+    err?.paraMostrar
+      ? err.message
+      : "No pudimos cargar la información. Revisa tu conexión y recarga la página; si sigue fallando, escríbenos a soporte@arenapro.mx.",
+    true
+  );
+}
+
+window.addEventListener("unhandledrejection", (e) => mostrarError(e.reason));

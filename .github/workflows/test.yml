@@ -2,9 +2,9 @@ name: Tests
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [main]
   push:
-    branches: [main, develop, "sprint/**"]
+    branches: [main]
 
 permissions:
   contents: read
@@ -28,3 +28,9 @@ jobs:
 
       - name: Ejecutar tests
         run: npm test
+
+      - name: Instalar navegador para pruebas E2E
+        run: npx playwright install --with-deps chromium
+
+      - name: Pruebas E2E (portada, ranking, búsqueda, eventos, portal, legales)
+        run: npm run test:e2e

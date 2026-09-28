@@ -34,8 +34,9 @@ Completar **antes** del PR `develop` → `main`.
 
 ## Ops
 
-- [x] Runbook: Time/Excel → `publicar.bat` → cherry-pick/edits → Agregar → Publicar
-- [ ] Persona de respaldo entrenada (30 min)
+- [x] Runbook: [runbook-operacion.md](./runbook-operacion.md)
+- [x] Monitor cada hora con issue automático si el sitio falla
+- [ ] Persona de respaldo entrenada (30 min) y segunda computadora probada
 - [x] Ensayo de publish / ingest Excel en local
 - [x] URL Pages verificada tras merge a `main`
 - [x] Dominio custom `estadisticas.arenapro.mx` (DNS + `CNAME` en repo) — confirmar HTTPS en Pages si aún no está Enforce
@@ -45,7 +46,8 @@ Completar **antes** del PR `develop` → `main`.
 ## Comunicación
 
 - [ ] Aviso interno al equipo FMR / Time con link
-- [ ] Canal para reportar errores de nombres / aliases
+- [x] Canal para reportar errores de nombres / aliases: soporte@arenapro.mx (footer del sitio)
+- [x] Aviso de privacidad y términos publicados *(pendiente: revisión de abogado y domicilio del responsable)*
 - [x] Pendientes explícitos documentados: cut line oficial, confirmación 50/50 dinero TR → [backlog v1.1](./backlog-v1.1.md)
 
 ---

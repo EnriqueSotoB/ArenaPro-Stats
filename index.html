@@ -26,10 +26,20 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'" />
+  <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ArenaPro Estadísticas",
+      "url": "https://estadisticas.arenapro.mx/",
+      "inLanguage": "es-MX",
+      "description": "Puntos, dinero y resultados de cada rodeo del circuito, por asociación y temporada.",
+      "publisher": { "@type": "Organization", "name": "ArenaPro", "email": "soporte@arenapro.mx" }
+    }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -100,7 +110,7 @@
           <li><strong>Dinero:</strong> premios en pesos mexicanos, sin centavos. En Lazo por Parejas el premio se divide mitad para el Cabecero y mitad para el Pialador.</li>
           <li><strong>Vaquero Completo:</strong> suma el dinero de quienes ganaron premio en 2 o más disciplinas. Cabecero y Pialador cuentan como disciplinas separadas.</li>
           <li><strong>Línea de corte:</strong> aparecerá cuando la asociación publique el número oficial.</li>
-          <li>¿Ves un error en tu nombre o en un resultado? Avísale a tu asociación para que lo corrija.</li>
+          <li>¿Ves un error en tu nombre o en un resultado? Avísale a tu asociación o escríbenos a <a href="mailto:soporte@arenapro.mx?subject=Correcci%C3%B3n%20de%20resultados">soporte@arenapro.mx</a>.</li>
         </ul>
       </aside>
     </section>
@@ -161,6 +171,11 @@
 
   <footer class="footer">
     <p id="footerText">ArenaPro Estadísticas</p>
+    <ul class="footer-links">
+      <li><a href="aviso-privacidad.html">Aviso de privacidad</a></li>
+      <li><a href="terminos.html">Términos de uso</a></li>
+      <li><a href="mailto:soporte@arenapro.mx?subject=Reporte%20de%20error%20en%20Estad%C3%ADsticas">Reportar un error</a></li>
+    </ul>
   </footer>
 
   <script src="js/app.js" type="module"></script>
