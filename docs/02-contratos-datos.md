@@ -21,7 +21,7 @@ data/manifest.json
         ↓
 scripts/rebuild-temporada.mjs
         ↓
-data/temporada.json  (standings + allAround)
+data/circuitos/{circuitoId}.json  (standings + allAround, uno por circuito)
         ↓
 GitHub Pages (index.html)
 ```
@@ -130,38 +130,63 @@ Reglas:
 
 ---
 
-## 6. `data/manifest.json`
+## 6. `data/manifest.json` (version 2)
 
 ```json
 {
-  "temporadaActiva": "2027",
-  "titulo": "FMR Tour 2027",
-  "cutLine": null,
-  "cutLineVisible": false,
-  "cutLinePorDisciplina": {},
+  "version": 2,
+  "circuitoDefault": "aerch-circuito-2027",
+  "asociaciones": [
+    { "id": "aerch", "siglas": "AERCH", "nombre": "Asociación Estatal de Rodeo de Chihuahua", "tipo": "estatal", "estado": "Chihuahua", "logo": "logos/aerch.jpg", "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro" },
+    { "id": "fmr", "siglas": "FMR", "nombre": "Federación Mexicana de Rodeo", "tipo": "federacion", "estado": "", "logo": "", "hashtags": "#FMR #Rodeo #ArenaPro" }
+  ],
+  "circuitos": [
+    {
+      "id": "aerch-circuito-2027",
+      "asociacionId": "aerch",
+      "nombre": "AERCH Circuito 2027",
+      "temporada": "2027",
+      "cutLine": null,
+      "cutLineVisible": false,
+      "cutLinePorDisciplina": {}
+    }
+  ],
   "eventos": [
     {
       "id": "local:21",
       "nombre": "…",
       "fecha": "2026-09-06",
       "sede": "…",
-      "file": "eventos/….json"
+      "file": "eventos/….json",
+      "circuitos": ["aerch-circuito-2027", "fmr-tour-2027"]
     }
   ]
 }
 ```
 
-- Mientras `cutLineVisible !== true`, la UI **no** muestra badges de cut.
-- Cuando FMR defina el número: setear `cutLine` y `cutLineVisible: true`.
+- Un **circuito** = una temporada de una asociación. Solo suma los eventos que lo listan en `circuitos[]`.
+- Un evento puede contar para varios circuitos (rodeo FMR Tour-AERCH). Un evento sin circuitos no suma en ningún lado.
+- `circuitoDefault` es el circuito que abre el sitio público.
+- `logo` (relativo a `data/`, solo `logos/*.png|jpg|webp`) y `hashtags` (texto libre normalizado a `#Tag` separados por espacio, sin duplicados) son opcionales y editables; los usa la imagen para redes y su texto sugerido. Si `hashtags` está vacío, el texto no lleva hashtags.
+- Asociaciones y circuitos se crean/editan desde el admin (`/api/asociaciones`, `/api/circuitos`); lógica en `scripts/lib/circuitos.mjs`.
+- El campo `temporada` dentro del JSON del evento es informativo (se llena con la temporada del primer circuito); **no** decide a qué acumulado entra.
+- Línea de corte por circuito: mientras `cutLineVisible !== true`, la UI **no** muestra badges de cut.
+- Un manifest v1 (`temporadaActiva` + `titulo`) se sigue leyendo como un solo circuito con todos los eventos.
 
 ---
 
-## 7. `data/temporada.json` (salida del rebuild)
+## 7. `data/circuitos/{circuitoId}.json` (salida del rebuild)
+
+Uno por circuito. `data/temporada.json` ya no existe (el rebuild lo borra).
 
 ```json
 {
+  "circuitoId": "aerch-circuito-2027",
+  "asociacionId": "aerch",
+  "asociacionSiglas": "AERCH",
+  "asociacionNombre": "Asociación Estatal de Rodeo de Chihuahua",
   "temporada": "2027",
-  "titulo": "FMR Tour 2027",
+  "titulo": "AERCH Circuito 2027",
   "actualizadoEn": "…",
   "eventosContados": 4,
   "standings": [

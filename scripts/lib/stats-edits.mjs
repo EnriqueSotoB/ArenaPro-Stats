@@ -37,6 +37,30 @@ export function buildDefaultEdits(evento) {
 }
 
 /**
+ * Reabre un evento ya guardado (con statsEdits aplicados) para volver a editarlo.
+ * Lo excluido al guardar ya no existe en el archivo: solo se edita lo que quedó.
+ * @param {object} stored
+ * @returns {{ evento: object, edits: { version: number, categoriasIncluidas: string[], filas: object[] } }}
+ */
+export function editsFromStoredEvento(stored) {
+  if (!stored || typeof stored !== "object") {
+    throw new Error("Evento guardado inválido.");
+  }
+  const { statsEdits, ...evento } = stored;
+  const filas = Array.isArray(statsEdits?.filas)
+    ? statsEdits.filas.filter((f) => f && f.key && !f.excluir).map((f) => ({ ...f }))
+    : [];
+  return {
+    evento: JSON.parse(JSON.stringify(evento)),
+    edits: {
+      version: statsEdits?.version || 1,
+      categoriasIncluidas: (evento.categorias || []).map((c) => String(c.id)),
+      filas,
+    },
+  };
+}
+
+/**
  * @param {object} edits
  * @param {string} key
  * @returns {object|null}

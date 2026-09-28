@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Regenera data/temporada.json sumando puntosCircuito por competidor y disciplina de circuito.
+ * Regenera data/circuitos/{circuitoId}.json sumando puntosCircuito por competidor y
+ * disciplina, con los eventos asignados a cada circuito en data/manifest.json.
  *
  * Unificación (el nombre de categoría en Time puede variar):
  *   "Barriles" / "Abierta" / "Barriles Abierto" / "Abierta Barriles" → Barriles
@@ -10,7 +11,14 @@
  *
  * No usar categoriaId local:{n}: cambia en cada competencia.
  */
-import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
+import {
+  readFileSync,
+  writeFileSync,
+  readdirSync,
+  existsSync,
+  mkdirSync,
+  unlinkSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -28,6 +36,12 @@ import {
   expandTeamRopingRow,
   isTeamRopingBase,
 } from "./lib/team-roping.mjs";
+import {
+  normalizeManifest,
+  eventosDeCircuito,
+  findAsociacion,
+  circuitoDataFile,
+} from "./lib/circuitos.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const defaultRoot = join(scriptDir, "..");
@@ -161,34 +175,19 @@ export function rowsForStanding(row, cat) {
 }
 
 /**
- * @param {string} [root]
- * @returns {{ standings: number, eventosContados: number, temporada: string, outPath: string, disciplinas: string[] }}
+ * Acumulado de temporada de un circuito a partir de sus eventos.
+ * @param {object[]} eventos entradas del manifest
+ * @param {(entry: object) => object} loadEvento
+ * @param {Map<string, string>} aliasMap
  */
-export function rebuildTemporada(root = defaultRoot) {
-  const manifestPath = join(root, "data", "manifest.json");
-  const outPath = join(root, "data", "temporada.json");
-  const aliasesPath = join(root, "data", "competidor-aliases.json");
-
-  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-  const eventos = manifest.eventos || [];
-
-  let aliasMap = new Map();
-  if (existsSync(aliasesPath)) {
-    try {
-      aliasMap = buildAliasMap(JSON.parse(readFileSync(aliasesPath, "utf8")));
-    } catch {
-      aliasMap = new Map();
-    }
-  }
-
+export function buildCircuitoStandings(eventos, loadEvento, aliasMap) {
   /** @type {Map<string, object>} */
   const standings = new Map();
   /** @type {Map<string, object>} */
   const competidorAccum = new Map();
 
   for (const entry of eventos) {
-    const file = join(root, "data", entry.file);
-    const ev = JSON.parse(readFileSync(file, "utf8"));
+    const ev = loadEvento(entry);
     const catMap = Object.fromEntries((ev.categorias || []).map((c) => [c.id, c]));
     const eventMeta = {
       id: entry.id || ev.eventoId || "",
@@ -276,17 +275,7 @@ export function rebuildTemporada(root = defaultRoot) {
       b.dineroTotal - a.dineroTotal
   );
 
-  const payload = {
-    temporada: manifest.temporadaActiva || "2026",
-    titulo: manifest.titulo || "Temporada",
-    actualizadoEn: new Date().toISOString(),
-    eventosContados: eventos.length,
-    standings: standingsList,
-    allAround: buildAllAround(standingsList),
-    competidores: finalizeCompetidores(competidorAccum, standingsList),
-  };
-
-  if (payload.standings.some((s) => {
+  if (standingsList.some((s) => {
     const id = String(s.disciplinaId || "");
     return !id || id.startsWith("local:") || id.startsWith("cat_");
   })) {
@@ -295,26 +284,105 @@ export function rebuildTemporada(root = defaultRoot) {
     );
   }
 
-  writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
+  return {
+    standings: standingsList,
+    allAround: buildAllAround(standingsList),
+    competidores: finalizeCompetidores(competidorAccum, standingsList),
+  };
+}
 
-  const dir = join(root, "data", "eventos");
-  const registered = new Set(eventos.map((e) => e.file.replace(/^eventos\//, "")));
+/**
+ * Regenera data/circuitos/{circuitoId}.json para cada circuito del manifest.
+ * Cada circuito suma solo los eventos que lo tienen en `circuitos[]`.
+ * @param {string} [root]
+ */
+export function rebuildTemporada(root = defaultRoot) {
+  const dataDir = join(root, "data");
+  const manifest = normalizeManifest(
+    JSON.parse(readFileSync(join(dataDir, "manifest.json"), "utf8"))
+  );
+  const aliasesPath = join(dataDir, "competidor-aliases.json");
+
+  let aliasMap = new Map();
+  if (existsSync(aliasesPath)) {
+    try {
+      aliasMap = buildAliasMap(JSON.parse(readFileSync(aliasesPath, "utf8")));
+    } catch {
+      aliasMap = new Map();
+    }
+  }
+
+  /** Un evento puede contar para varios circuitos: leerlo una sola vez. */
+  const eventoCache = new Map();
+  const loadEvento = (entry) => {
+    if (!eventoCache.has(entry.file)) {
+      eventoCache.set(entry.file, JSON.parse(readFileSync(join(dataDir, entry.file), "utf8")));
+    }
+    return eventoCache.get(entry.file);
+  };
+
+  const outDir = join(dataDir, "circuitos");
+  mkdirSync(outDir, { recursive: true });
+  const actualizadoEn = new Date().toISOString();
+
+  const circuitos = manifest.circuitos.map((circuito) => {
+    const eventos = eventosDeCircuito(manifest, circuito.id);
+    const asociacion = findAsociacion(manifest, circuito.asociacionId);
+    const acumulado = buildCircuitoStandings(eventos, loadEvento, aliasMap);
+    const payload = {
+      circuitoId: circuito.id,
+      asociacionId: circuito.asociacionId,
+      asociacionSiglas: asociacion?.siglas || "",
+      asociacionNombre: asociacion?.nombre || "",
+      temporada: circuito.temporada,
+      titulo: circuito.nombre,
+      actualizadoEn,
+      eventosContados: eventos.length,
+      ...acumulado,
+    };
+    const outPath = join(dataDir, circuitoDataFile(circuito.id));
+    writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
+    return {
+      circuitoId: circuito.id,
+      titulo: circuito.nombre,
+      temporada: circuito.temporada,
+      standings: payload.standings.length,
+      eventosContados: payload.eventosContados,
+      outPath,
+      disciplinas: [...new Set(payload.standings.map((s) => s.disciplinaId))],
+    };
+  });
+
+  const vigentes = new Set(manifest.circuitos.map((c) => `${c.id}.json`));
+  for (const name of readdirSync(outDir).filter((f) => f.endsWith(".json"))) {
+    if (!vigentes.has(name)) unlinkSync(join(outDir, name));
+  }
+  const legacy = join(dataDir, "temporada.json");
+  if (existsSync(legacy)) unlinkSync(legacy);
+
+  const registered = new Set(manifest.eventos.map((e) => e.file.replace(/^eventos\//, "")));
   const orphans = [];
   try {
-    for (const name of readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+    for (const name of readdirSync(join(dataDir, "eventos")).filter((f) => f.endsWith(".json"))) {
       if (!registered.has(name)) orphans.push(name);
     }
   } catch {
     /* sin carpeta */
   }
+  const sinCircuito = manifest.eventos.filter((e) => !e.circuitos.length).map((e) => e.nombre || e.id);
 
+  const principal =
+    circuitos.find((c) => c.circuitoId === manifest.circuitoDefault) || circuitos[0] || null;
   return {
-    standings: payload.standings.length,
-    eventosContados: payload.eventosContados,
-    temporada: payload.temporada,
-    outPath,
+    circuitoDefault: manifest.circuitoDefault,
+    circuitos,
+    standings: principal?.standings ?? 0,
+    eventosContados: principal?.eventosContados ?? 0,
+    temporada: principal?.temporada ?? "",
+    outPath: principal?.outPath ?? "",
+    disciplinas: principal?.disciplinas ?? [],
     orphans,
-    disciplinas: [...new Set(payload.standings.map((s) => s.disciplinaId))],
+    sinCircuito,
   };
 }
 
@@ -323,11 +391,16 @@ import { pathToFileURL } from "node:url";
 const entry = process.argv[1] ? pathToFileURL(process.argv[1]).href : "";
 if (import.meta.url === entry) {
   const result = rebuildTemporada();
-  console.log(
-    `OK → ${result.outPath} (${result.standings} filas, ${result.eventosContados} eventos, ${result.disciplinas.length} disciplinas)`
-  );
-  console.log(`Disciplinas: ${result.disciplinas.map(disciplinaLabel).join(", ")}`);
+  for (const c of result.circuitos) {
+    console.log(
+      `OK → ${c.outPath} · ${c.titulo} (${c.standings} filas, ${c.eventosContados} eventos, ${c.disciplinas.length} disciplinas)`
+    );
+  }
+  if (!result.circuitos.length) console.warn("Aviso: el manifest no tiene circuitos.");
   for (const name of result.orphans) {
     console.warn(`Aviso: ${name} no está en manifest.json`);
+  }
+  for (const name of result.sinCircuito) {
+    console.warn(`Aviso: "${name}" no cuenta para ningún circuito`);
   }
 }

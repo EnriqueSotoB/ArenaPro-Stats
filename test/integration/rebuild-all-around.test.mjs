@@ -110,9 +110,9 @@ describe("rebuildTemporada allAround", () => {
   });
 
   it("genera allAround solo para quienes cobraron en ≥2 disciplinas", () => {
-    rebuildTemporada(root);
+    const { outPath } = rebuildTemporada(root);
     const temporada = JSON.parse(
-      readFileSync(join(root, "data", "temporada.json"), "utf8")
+      readFileSync(outPath, "utf8")
     );
     assert.ok(Array.isArray(temporada.allAround));
     assert.equal(temporada.allAround.length, 1);

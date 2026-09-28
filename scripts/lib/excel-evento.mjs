@@ -416,7 +416,7 @@ function addComoLlenarSheet(wb) {
   ws.getColumn(2).width = 32;
   ws.getColumn(3).width = 78;
 
-  mergeBanner(ws, "B1:C1", "ArenaPro Estadísticas · Plantilla manual FMR Tour", FOREST);
+  mergeBanner(ws, "B1:C1", "ArenaPro Estadísticas · Plantilla manual de evento", FOREST);
   ws.getRow(1).height = 30;
 
   ws.getCell("B3").value = "¿Para qué sirve?";

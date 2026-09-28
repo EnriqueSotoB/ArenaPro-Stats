@@ -17,6 +17,20 @@ import {
 import { appendAlias, removeAlias } from "./lib/alias-store.mjs";
 import { displayFromKey } from "./lib/alias-suggest.mjs";
 import { parseExcelEvento, normalizeFechaYmd } from "./lib/excel-evento.mjs";
+import {
+  normalizeManifest,
+  findCircuito,
+  validarCircuitosEvento,
+  eventosDeCircuito,
+  upsertAsociacion,
+  removeAsociacion,
+  setAsociacionLogo,
+  logoFileName,
+  LOGO_TYPES,
+  upsertCircuito,
+  removeCircuito,
+  circuitoDataFile,
+} from "./lib/circuitos.mjs";
 
 const PORT = Number(process.env.STATS_PUBLISH_PORT) || 8787;
 const HOST = "127.0.0.1";
@@ -36,28 +50,38 @@ function runRebuild() {
     });
   } catch (e) {
     const detail = String(e.stderr || e.stdout || e.message || e).trim();
-    const err = new Error(`Falló regenerar temporada.json. ${detail}`);
+    const err = new Error(`Falló regenerar las estadísticas. ${detail}`);
     err.statusCode = 500;
     throw err;
   }
 
-  const outPath = join(ROOT, "data", "temporada.json");
-  const payload = JSON.parse(readFileSync(outPath, "utf8"));
-  assertTemporadaCircuito(payload);
-  return {
-    standings: payload.standings?.length ?? 0,
-    eventosContados: payload.eventosContados ?? 0,
-    temporada: payload.temporada,
-    outPath,
-    disciplinas: [
-      ...new Set((payload.standings || []).map((s) => s.disciplinaId).filter(Boolean)),
-    ],
-    log: String(stdout || "").trim(),
-  };
+  const circuitos = loadManifest().circuitos.map((c) => {
+    const payload = loadCircuitoPayload(c.id);
+    if (!payload) {
+      const err = new Error(`El rebuild no generó ${circuitoDataFile(c.id)}. Reinicia publicar.bat.`);
+      err.statusCode = 500;
+      throw err;
+    }
+    assertTemporadaCircuito(payload, c.nombre);
+    return {
+      circuitoId: c.id,
+      titulo: c.nombre,
+      standings: payload.standings?.length ?? 0,
+      eventosContados: payload.eventosContados ?? 0,
+    };
+  });
+  return { circuitos, log: String(stdout || "").trim() };
+}
+
+function loadCircuitoPayload(circuitoId) {
+  const path = join(ROOT, "data", circuitoDataFile(circuitoId));
+  if (!existsSync(path)) return null;
+  return JSON.parse(readFileSync(path, "utf8"));
 }
 
 /** No publicar acumulado agrupado por local:{id} / cat_* (rompe el circuito). */
-function assertTemporadaCircuito(payload) {
+function assertTemporadaCircuito(payload, nombre) {
+  if (!payload.eventosContados) return;
   const bad = (payload.standings || []).filter((s) => {
     const id = String(s.disciplinaId || s.categoriaId || "");
     return !id || id.startsWith("local:") || id.startsWith("cat_") || id === "_";
@@ -68,14 +92,14 @@ function assertTemporadaCircuito(payload) {
       .map((s) => s.disciplinaId || s.categoriaId)
       .join(", ");
     const err = new Error(
-      `temporada.json inválida: ${bad.length} filas sin disciplina de circuito (ej. ${sample}). Reinicia publicar.bat.`
+      `${nombre}: ${bad.length} filas sin disciplina de circuito (ej. ${sample}). Reinicia publicar.bat.`
     );
     err.statusCode = 500;
     throw err;
   }
   if (!(payload.standings || []).some((s) => s.disciplinaId)) {
     const err = new Error(
-      "temporada.json sin disciplinaId — el rebuild viejo sigue en memoria. Cierra y abre publicar.bat."
+      `${nombre}: acumulado sin disciplinaId — el rebuild viejo sigue en memoria. Cierra y abre publicar.bat.`
     );
     err.statusCode = 500;
     throw err;
@@ -90,6 +114,9 @@ const MIME = {
   ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",
   ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
   ".ico": "image/x-icon",
   ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 };
@@ -166,7 +193,7 @@ function safeSlug(text) {
 
 function loadManifest() {
   const path = join(ROOT, "data", "manifest.json");
-  return JSON.parse(readFileSync(path, "utf8"));
+  return normalizeManifest(JSON.parse(readFileSync(path, "utf8")));
 }
 
 function saveManifest(manifest) {
@@ -195,21 +222,28 @@ function getStatus() {
   return {
     ok: true,
     pagesUrl: PAGES_URL,
-    temporadaActiva: manifest.temporadaActiva || "",
-    titulo: manifest.titulo || "",
-    cutLine: manifest.cutLine ?? null,
-    eventos: manifest.eventos || [],
+    circuitoDefault: manifest.circuitoDefault,
+    asociaciones: manifest.asociaciones,
+    circuitos: manifest.circuitos.map((c) => ({
+      ...c,
+      eventos: eventosDeCircuito(manifest, c.id).length,
+    })),
+    eventos: manifest.eventos,
     dirty,
     branch,
     gitSummary: ahead,
   };
 }
 
-async function ingest({ evento, temporada, statsEdits }) {
+async function ingest({ evento, circuitos, statsEdits, replaceId }) {
   if (!evento || typeof evento !== "object") {
     const err = new Error("Falta el JSON del evento.");
     err.statusCode = 400;
     throw err;
+  }
+  const circuitoIds = validarCircuitosEvento(loadManifest(), circuitos);
+  if (replaceId != null && replaceId !== "") {
+    findManifestEvento(loadManifest(), replaceId);
   }
 
   // Quitar statsEdits embebidos del export crudo; se reaplica limpio.
@@ -229,12 +263,7 @@ async function ingest({ evento, temporada, statsEdits }) {
     throw err;
   }
 
-  const temp =
-    (temporada != null && String(temporada).trim()) ||
-    (applied.temporada != null && String(applied.temporada).trim()) ||
-    loadManifest().temporadaActiva ||
-    String(new Date().getFullYear());
-
+  const temp = findCircuito(loadManifest(), circuitoIds[0]).temporada;
   applied.temporada = temp;
   if (!applied.nombreEvento && applied.eventoId) {
     applied.nombreEvento = String(applied.eventoId);
@@ -259,8 +288,6 @@ async function ingest({ evento, temporada, statsEdits }) {
   writeFileSync(absFile, JSON.stringify(applied, null, 2) + "\n", "utf8");
 
   const manifest = loadManifest();
-  manifest.temporadaActiva = temp;
-  manifest.eventos = Array.isArray(manifest.eventos) ? manifest.eventos : [];
 
   const entry = {
     id,
@@ -268,11 +295,32 @@ async function ingest({ evento, temporada, statsEdits }) {
     fecha,
     sede: applied.sede || "",
     file: relFile,
+    circuitos: circuitoIds,
   };
 
-  const idx = manifest.eventos.findIndex((e) => e.id === id || e.file === relFile);
-  if (idx >= 0) manifest.eventos[idx] = entry;
-  else manifest.eventos.push(entry);
+  let idx = manifest.eventos.findIndex((e) => e.id === id || e.file === relFile);
+  if (replaceId != null && replaceId !== "") {
+    const replaceIdx = manifest.eventos.findIndex((e) => e.id === String(replaceId).trim());
+    if (idx >= 0 && idx !== replaceIdx) {
+      const err = new Error(
+        `Ya existe otro evento con el mismo id o archivo ("${manifest.eventos[idx].nombre}").`
+      );
+      err.statusCode = 409;
+      throw err;
+    }
+    idx = replaceIdx;
+  }
+
+  if (idx >= 0) {
+    const prevFile = manifest.eventos[idx].file;
+    if (prevFile && prevFile !== relFile) {
+      const prevAbs = eventoAbsFile(prevFile);
+      if (prevAbs && existsSync(prevAbs) && statSync(prevAbs).isFile()) unlinkSync(prevAbs);
+    }
+    manifest.eventos[idx] = entry;
+  } else {
+    manifest.eventos.push(entry);
+  }
 
   manifest.eventos.sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
   saveManifest(manifest);
@@ -316,15 +364,16 @@ function uniqueCompetitorNames(standings) {
     .sort((a, b) => a.label.localeCompare(b.label, "es"));
 }
 
+/** Standings de todos los circuitos: los aliases son globales. */
 function loadTemporadaStandings() {
-  const path = join(ROOT, "data", "temporada.json");
-  if (!existsSync(path)) return [];
-  try {
-    const payload = JSON.parse(readFileSync(path, "utf8"));
-    return Array.isArray(payload.standings) ? payload.standings : [];
-  } catch {
-    return [];
-  }
+  return loadManifest().circuitos.flatMap((c) => {
+    try {
+      const payload = loadCircuitoPayload(c.id);
+      return Array.isArray(payload?.standings) ? payload.standings : [];
+    } catch {
+      return [];
+    }
+  });
 }
 
 function getAliasesPayload() {
@@ -385,31 +434,52 @@ function deleteAlias(body) {
   };
 }
 
-function removeEvent({ id }) {
+/** Ruta absoluta del JSON del evento, solo si está dentro de data/eventos/. */
+function eventoAbsFile(relFile) {
+  const rel = String(relFile || "").replace(/\\/g, "/");
+  if (!rel || rel.includes("..") || !rel.startsWith("eventos/")) return null;
+  const absFile = join(ROOT, "data", ...rel.split("/"));
+  if (relative(ROOT, absFile).startsWith("..")) return null;
+  return absFile;
+}
+
+function findManifestEvento(manifest, id) {
   const eventId = id != null ? String(id).trim() : "";
   if (!eventId) {
     const err = new Error("Falta el id del evento.");
     err.statusCode = 400;
     throw err;
   }
-
-  const manifest = loadManifest();
-  manifest.eventos = Array.isArray(manifest.eventos) ? manifest.eventos : [];
-  const idx = manifest.eventos.findIndex((e) => e.id === eventId);
+  const idx = (manifest.eventos || []).findIndex((e) => e.id === eventId);
   if (idx < 0) {
     const err = new Error(`No se encontró el evento "${eventId}".`);
     err.statusCode = 404;
     throw err;
   }
+  return idx;
+}
+
+function getEvento(id) {
+  const manifest = loadManifest();
+  const entry = manifest.eventos[findManifestEvento(manifest, id)];
+  const absFile = eventoAbsFile(entry.file);
+  if (!absFile || !existsSync(absFile) || !statSync(absFile).isFile()) {
+    const err = new Error(`No existe el archivo del evento "${entry.nombre || entry.id}".`);
+    err.statusCode = 404;
+    throw err;
+  }
+  return { ok: true, entry, evento: JSON.parse(readFileSync(absFile, "utf8")) };
+}
+
+function removeEvent({ id }) {
+  const manifest = loadManifest();
+  manifest.eventos = Array.isArray(manifest.eventos) ? manifest.eventos : [];
+  const idx = findManifestEvento(manifest, id);
 
   const entry = manifest.eventos[idx];
-  const rel = String(entry.file || "").replace(/\\/g, "/");
-  if (rel && !rel.includes("..") && rel.startsWith("eventos/")) {
-    const absFile = join(ROOT, "data", ...rel.split("/"));
-    const relToRoot = relative(ROOT, absFile);
-    if (!relToRoot.startsWith("..") && existsSync(absFile) && statSync(absFile).isFile()) {
-      unlinkSync(absFile);
-    }
+  const absFile = eventoAbsFile(entry.file);
+  if (absFile && existsSync(absFile) && statSync(absFile).isFile()) {
+    unlinkSync(absFile);
   }
 
   manifest.eventos.splice(idx, 1);
@@ -421,6 +491,46 @@ function removeEvent({ id }) {
     removed: entry,
     rebuilt,
   };
+}
+
+/** Borra data/logos/{id}.* (todas las extensiones). */
+function deleteLogoFiles(asociacionId) {
+  for (const ext of new Set(Object.values(LOGO_TYPES))) {
+    const abs = join(ROOT, "data", "logos", `${asociacionId}.${ext}`);
+    if (existsSync(abs)) unlinkSync(abs);
+  }
+}
+
+function saveLogo(asociacionId, contentType, buf) {
+  if (!buf.length) {
+    const err = new Error("Archivo de logo vacío.");
+    err.statusCode = 400;
+    throw err;
+  }
+  const manifest = loadManifest();
+  const rel = logoFileName(asociacionId, contentType);
+  const { manifest: next, asociacion } = setAsociacionLogo(manifest, asociacionId, rel);
+  mkdirSync(join(ROOT, "data", "logos"), { recursive: true });
+  deleteLogoFiles(asociacion.id);
+  writeFileSync(join(ROOT, "data", ...rel.split("/")), buf);
+  saveManifest(next);
+  return { ok: true, asociacion };
+}
+
+function removeLogo(asociacionId) {
+  const { manifest, asociacion } = setAsociacionLogo(loadManifest(), asociacionId, "");
+  deleteLogoFiles(asociacion.id);
+  saveManifest(manifest);
+  return { ok: true, asociacion };
+}
+
+/** Aplica un cambio al manifest (asociaciones / circuitos), guarda y regenera. */
+function mutateManifest(fn) {
+  const result = fn(loadManifest());
+  saveManifest(result.manifest);
+  const rebuilt = runRebuild();
+  const { manifest: _m, ...rest } = result;
+  return { ok: true, ...rest, rebuilt };
 }
 
 async function syncWithRemote() {
@@ -475,7 +585,7 @@ async function publish() {
     return { ok: true, published: false, message: "Nada que publicar." };
   }
 
-  const msg = `stats: actualizar datos de temporada ${loadManifest().temporadaActiva || ""}`.trim();
+  const msg = "stats: actualizar estadísticas";
   try {
     git(["commit", "-m", msg]);
   } catch (e) {
@@ -566,6 +676,11 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    if (method === "GET" && url.pathname === "/api/evento") {
+      sendJson(res, 200, getEvento(url.searchParams.get("id")));
+      return;
+    }
+
     if (method === "GET" && url.pathname === "/api/aliases") {
       sendJson(res, 200, getAliasesPayload());
       return;
@@ -582,6 +697,44 @@ const server = http.createServer(async (req, res) => {
       const body = await readJsonBody(req);
       const result = deleteAlias(body);
       sendJson(res, 200, result);
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/asociaciones") {
+      const body = await readJsonBody(req);
+      sendJson(res, 200, mutateManifest((m) => upsertAsociacion(m, body)));
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/asociaciones/remove") {
+      const body = await readJsonBody(req);
+      const result = mutateManifest((m) => removeAsociacion(m, body?.id));
+      deleteLogoFiles(result.asociacion.id);
+      sendJson(res, 200, result);
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/asociaciones/logo") {
+      const buf = await readRawBody(req, 2 * 1024 * 1024);
+      sendJson(res, 200, saveLogo(url.searchParams.get("id"), req.headers["content-type"], buf));
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/asociaciones/logo/remove") {
+      const body = await readJsonBody(req);
+      sendJson(res, 200, removeLogo(body?.id));
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/circuitos") {
+      const body = await readJsonBody(req);
+      sendJson(res, 200, mutateManifest((m) => upsertCircuito(m, body)));
+      return;
+    }
+
+    if (method === "POST" && url.pathname === "/api/circuitos/remove") {
+      const body = await readJsonBody(req);
+      sendJson(res, 200, mutateManifest((m) => removeCircuito(m, body?.id)));
       return;
     }
 

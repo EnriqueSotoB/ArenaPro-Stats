@@ -93,9 +93,9 @@ describe("rebuildTemporada dinero", () => {
   });
 
   it("suma dineroTotal y puntos por disciplina entre eventos", () => {
-    rebuildTemporada(root);
+    const { outPath } = rebuildTemporada(root);
     const temporada = JSON.parse(
-      readFileSync(join(root, "data", "temporada.json"), "utf8")
+      readFileSync(outPath, "utf8")
     );
     const unoBarriles = temporada.standings.find(
       (s) => s.nombre === "Rider Uno" && s.disciplinaId === "Barriles"
@@ -138,9 +138,9 @@ describe("rebuildTemporada team roping", () => {
   });
 
   it("genera Cabeceros/Pialadores, no parte puntos y parte dinero", () => {
-    rebuildTemporada(root);
+    const { outPath } = rebuildTemporada(root);
     const temporada = JSON.parse(
-      readFileSync(join(root, "data", "temporada.json"), "utf8")
+      readFileSync(outPath, "utf8")
     );
 
     const headers = temporada.standings.filter(
