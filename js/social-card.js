@@ -23,6 +23,8 @@ const C = {
   cream: "#f8f6f2",
   dark: "#3b3b3b",
   olive: "#626e67",
+  sube: "#1f9d55",
+  baja: "#d64534",
 };
 
 const DISPLAY = '"Archivo", Arial, Helvetica, sans-serif';
@@ -189,6 +191,48 @@ export function planPaginas(spec, formatoId = "post", topId = "top10") {
   return paginas;
 }
 
+/** Insignia de lugares movidos: ▲ n (verde), ▼ n (rojo), – (igual) o NUEVO. */
+function drawMovimiento(ctx, mov, x, y, w, h, sobreOcre) {
+  const cy = y + h / 2;
+  if (mov.tipo === "igual") {
+    ctx.strokeStyle = sobreOcre ? C.dark : C.olive;
+    ctx.lineWidth = Math.max(3, h * 0.08);
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(x + w * 0.4, cy);
+    ctx.lineTo(x + w * 0.6, cy);
+    ctx.stroke();
+    return;
+  }
+  roundRect(ctx, x, y, w, h, Math.min(12, h / 3));
+  ctx.fillStyle = mov.tipo === "sube" ? C.sube : mov.tipo === "baja" ? C.baja : sobreOcre ? C.dark : C.ochre;
+  ctx.fill();
+  if (mov.tipo === "nuevo") {
+    const size = Math.round(h * 0.4);
+    setFont(ctx, 800, size);
+    ctx.fillStyle = sobreOcre ? C.ochre : C.dark;
+    ctx.textAlign = "center";
+    ctx.fillText(fitText(ctx, "NUEVO", w - 8), x + w / 2, cy + size * 0.36);
+    return;
+  }
+  const size = Math.round(h * 0.56);
+  setFont(ctx, 800, size);
+  const txt = String(Math.abs(Number(mov.n) || 0));
+  const tri = h * 0.34;
+  const gap = h * 0.12;
+  const sx = x + (w - (tri + gap + ctx.measureText(txt).width)) / 2;
+  const dy = mov.tipo === "sube" ? 1 : -1;
+  ctx.fillStyle = "#fff";
+  ctx.beginPath();
+  ctx.moveTo(sx, cy + dy * tri * 0.45);
+  ctx.lineTo(sx + tri, cy + dy * tri * 0.45);
+  ctx.lineTo(sx + tri / 2, cy - dy * tri * 0.45);
+  ctx.closePath();
+  ctx.fill();
+  ctx.textAlign = "left";
+  ctx.fillText(txt, sx + tri + gap, cy + size * 0.36);
+}
+
 function drawRow(ctx, fila, x, top, w, rowH, { podio, doble, alterno }) {
   const lugarNum = Number(fila.lugar);
   const first = lugarNum === 1;
@@ -210,12 +254,20 @@ function drawRow(ctx, fila, x, top, w, rowH, { podio, doble, alterno }) {
   ctx.textAlign = "center";
   ctx.fillText(String(fila.lugar), cx, mid + circleR * 0.36);
 
+  let valorX = x + w - inset;
+  if (fila.movimiento) {
+    const bw = doble ? 70 : podio ? 104 : 100;
+    const bh = Math.min(rowH * 0.62, podio ? 60 : doble ? 40 : 52);
+    drawMovimiento(ctx, fila.movimiento, valorX - bw, mid - bh / 2, bw, bh, first);
+    valorX -= bw + (doble ? 12 : 20);
+  }
+
   const valor = doble ? fila.valorCorto || fila.valor : fila.valor;
-  const valorSize = Math.round(Math.min(podio ? 62 : doble ? 32 : 44, rowH * (doble ? 0.5 : 0.47)));
+  const valorMax = podio ? (fila.movimiento ? 46 : 62) : doble ? 32 : 44;
+  const valorSize = Math.round(Math.min(valorMax, rowH * (doble ? 0.5 : 0.47)));
   setFont(ctx, 800, valorSize);
   ctx.textAlign = "right";
   ctx.fillStyle = first ? C.dark : C.forest;
-  const valorX = x + w - inset;
   ctx.fillText(valor, valorX, mid + valorSize * 0.36);
   const valorW = ctx.measureText(valor).width;
 
@@ -270,7 +322,10 @@ function drawFilas(ctx, pagina, y, bottom, innerW, podio) {
  * @param {HTMLCanvasElement} canvas
  * @param {{
  *   kicker?: string, linea?: string, titulo: string, subtitulo?: string,
- *   filas: Array<{ lugar: number|string, nombre: string, detalle?: string, valor: string, valorCorto?: string }>,
+ *   filas: Array<{
+ *     lugar: number|string, nombre: string, detalle?: string, valor: string, valorCorto?: string,
+ *     movimiento?: { tipo: "sube"|"baja"|"igual"|"nuevo", n?: number }
+ *   }>,
  *   pie?: string, sitio?: string, logo?: string
  * }} spec
  * @param {keyof typeof FORMATOS} formatoId

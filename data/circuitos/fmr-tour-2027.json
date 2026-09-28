@@ -5,7 +5,7 @@
   "asociacionNombre": "Federación Mexicana de Rodeo",
   "temporada": "2027",
   "titulo": "FMR Tour 2027",
-  "actualizadoEn": "2026-09-28T01:05:27.393Z",
+  "actualizadoEn": "2026-09-28T04:22:53.658Z",
   "eventosContados": 6,
   "standings": [
     {
@@ -3696,7 +3696,7 @@
       "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
       "categoriaId": "TeamRopingMastersHeeler",
       "categoriaNombre": "Lazo por Parejas Master — Pialadores",
-      "puntosTotales": 140,
+      "puntosTotales": 141,
       "dineroTotal": 0,
       "eventos": 1
     },
@@ -7581,14 +7581,14 @@
       "competidorId": null,
       "nombre": "Erasmo Ortega",
       "equipo": "",
-      "puntosTotales": 140,
+      "puntosTotales": 141,
       "dineroTotal": 0,
       "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingMastersHeeler",
           "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
-          "puntosTotales": 140,
+          "puntosTotales": 141,
           "dineroTotal": 0,
           "eventos": 1
         }
@@ -7601,7 +7601,7 @@
           "sede": "Arena Complejo Avalos",
           "disciplinaId": "TeamRopingMastersHeeler",
           "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
-          "puntos": 140,
+          "puntos": 141,
           "dinero": 0
         }
       ]

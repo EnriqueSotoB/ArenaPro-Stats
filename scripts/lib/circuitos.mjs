@@ -13,6 +13,14 @@ const RESERVED_IDS = new Set(["temporada", "eventos", "competidor"]);
 
 const TIPOS_ASOCIACION = new Set(["estatal", "federacion"]);
 
+/**
+ * Lazador que sale en varias parejas del mismo lado en un evento (lazadas):
+ * - "fmr": puntos de su mejor lugar + 1 por cada lugar extra con puntos (Reglamento FMR 1.13.10 c).
+ * - "sumar": se suman completos los puntos de todas sus parejas.
+ * El dinero se suma siempre (FMR 5.12 d).
+ */
+export const REGLAS_LAZADOR_REPETIDO = ["fmr", "sumar"];
+
 function fail(message, statusCode = 400) {
   const err = new Error(message);
   err.statusCode = statusCode;
@@ -43,6 +51,7 @@ function normalizeAsociacion(a) {
     estado: str(a?.estado),
     logo: logoPath(a?.logo),
     hashtags: normalizeHashtags(a?.hashtags),
+    lazadorRepetido: REGLAS_LAZADOR_REPETIDO.includes(str(a?.lazadorRepetido)) ? str(a.lazadorRepetido) : "fmr",
     portal: normalizePortal(a?.portal),
   };
 }
@@ -131,7 +140,17 @@ export function normalizeManifest(raw) {
     version: MANIFEST_VERSION,
     circuitoDefault: circuitoId,
     asociaciones: [
-      { id: "general", siglas: "", nombre: "General", tipo: "federacion", estado: "", logo: "", hashtags: "", portal: null },
+      {
+        id: "general",
+        siglas: "",
+        nombre: "General",
+        tipo: "federacion",
+        estado: "",
+        logo: "",
+        hashtags: "",
+        lazadorRepetido: "fmr",
+        portal: null,
+      },
     ],
     circuitos: [
       normalizeCircuito({
@@ -227,7 +246,8 @@ export function upsertAsociacion(manifest, input) {
     const prev = next.asociaciones[idx];
     const logo = input?.logo === undefined ? prev.logo : data.logo;
     const hashtags = input?.hashtags === undefined ? prev.hashtags : data.hashtags;
-    const asociacion = { ...data, id: editId, logo, hashtags, portal: prev.portal };
+    const lazadorRepetido = input?.lazadorRepetido === undefined ? prev.lazadorRepetido : data.lazadorRepetido;
+    const asociacion = { ...data, id: editId, logo, hashtags, lazadorRepetido, portal: prev.portal };
     next.asociaciones[idx] = asociacion;
     return { manifest: next, asociacion };
   }

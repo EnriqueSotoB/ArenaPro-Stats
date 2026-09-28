@@ -94,13 +94,37 @@ export function rowsForStanding(row, cat) {
   ];
 }
 
+/** Asistencia + efectividad (FMR 1.13.4.2); arriba de esto la pareja obtuvo lugar con puntos. */
+const PUNTOS_ASISTENCIA_MAX = 2;
+
+const ROLES_LAZO = new Set([
+  "TeamRopingHeader",
+  "TeamRopingHeeler",
+  "TeamRopingMastersHeader",
+  "TeamRopingMastersHeeler",
+]);
+
+/**
+ * Puntos de un lazador que salió en varias parejas del mismo lado en un evento.
+ * @param {number[]} puntos de cada pareja (0 si fue lazo de ayuda)
+ * @param {"fmr"|"sumar"} regla ver REGLAS_LAZADOR_REPETIDO
+ */
+export function puntosLazadorRepetido(puntos, regla = "fmr") {
+  if (!puntos.length) return 0;
+  if (regla === "sumar") return puntos.reduce((s, p) => s + p, 0);
+  const [mejor, ...resto] = [...puntos].sort((a, b) => b - a);
+  return mejor + resto.filter((p) => p > PUNTOS_ASISTENCIA_MAX).length;
+}
+
 /**
  * Acumulado de temporada de un circuito a partir de sus eventos.
  * @param {object[]} eventos entradas del manifest
  * @param {(entry: object) => object} loadEvento
  * @param {Map<string, string>} aliasMap
+ * @param {{ lazadorRepetido?: "fmr"|"sumar" }} [reglas] de la asociación del circuito
  */
-export function buildCircuitoStandings(eventos, loadEvento, aliasMap) {
+export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {}) {
+  const reglaLazador = reglas.lazadorRepetido || "fmr";
   /** @type {Map<string, object>} */
   const standings = new Map();
   /** @type {Map<string, object>} */
@@ -116,8 +140,13 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap) {
       sede: entry.sede || ev.sede || "",
     };
 
-    /** Por evento: un renglón por competidor+disciplina (máx puntos / máx dinero). */
+    /**
+     * Por evento: un renglón por competidor+disciplina. Lazo por parejas desde la
+     * clasificación: cada pareja cuenta (dinero sumado, puntos según la regla de la
+     * asociación). Lo demás, o filas por vuelta de paquetes viejos: máx puntos / máx dinero.
+     */
     const seen = new Map();
+    const desdeClasif = (ev.clasificacion || []).some((b) => (b.entradas || []).length);
 
     for (const raw of collectEventRows(ev)) {
       const cat = catMap[raw.categoriaId] || {
@@ -145,10 +174,17 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap) {
             disciplinaNombre: disciplinaLabel(discId),
             puntos: pts,
             dinero,
+            parejas: desdeClasif && ROLES_LAZO.has(discId) ? [pts] : null,
           });
         } else {
-          prev.puntos = Math.max(prev.puntos, pts);
-          prev.dinero = Math.max(prev.dinero, dinero);
+          if (prev.parejas) {
+            prev.parejas.push(pts);
+            prev.puntos = puntosLazadorRepetido(prev.parejas, reglaLazador);
+            prev.dinero += dinero;
+          } else {
+            prev.puntos = Math.max(prev.puntos, pts);
+            prev.dinero = Math.max(prev.dinero, dinero);
+          }
           prev.nombre = row.nombre || prev.nombre;
           prev.equipo = row.equipo || prev.equipo;
           if (row.competidorId && !String(row.competidorId).startsWith("local:")) {
@@ -248,7 +284,9 @@ export function rebuildTemporada(root = defaultRoot) {
   const circuitos = manifest.circuitos.map((circuito) => {
     const eventos = eventosDeCircuito(manifest, circuito.id);
     const asociacion = findAsociacion(manifest, circuito.asociacionId);
-    const acumulado = buildCircuitoStandings(eventos, loadEvento, aliasMap);
+    const acumulado = buildCircuitoStandings(eventos, loadEvento, aliasMap, {
+      lazadorRepetido: asociacion?.lazadorRepetido,
+    });
     const payload = {
       circuitoId: circuito.id,
       asociacionId: circuito.asociacionId,

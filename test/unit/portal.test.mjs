@@ -8,7 +8,7 @@ import {
 } from "../../scripts/lib/portal-auth.mjs";
 import { normalizeManifest, upsertAsociacion, setAsociacionPortal } from "../../scripts/lib/circuitos.mjs";
 import { planPaginas } from "../../js/social-card.js";
-import { specTemporada, shareCaption, withContexto, ALL_AROUND_ID } from "../../js/share-specs.js";
+import { specTemporada, specMovimientos, shareCaption, withContexto, ALL_AROUND_ID } from "../../js/share-specs.js";
 import { calcularTablero, calcularMovimientos, calcularRecords, recorridosDeEntrada } from "../../js/portal-stats.js";
 import { categoriaEtiqueta } from "../../js/event-model.js";
 
@@ -244,6 +244,32 @@ describe("calcularMovimientos", () => {
     const p = mv.tablas.find((t) => t.disciplinaId === "P");
     assert.equal(p.corrieron, 0);
     assert.deepEqual(p.filas.map((f) => [f.lugar, f.cambio]), [[1, 0]]);
+  });
+
+  it("arma la imagen para redes con flechas y el texto con resumen", () => {
+    const mv = calcularMovimientos({
+      circuitoId: "c",
+      competidores: [
+        c("ana", [h("e1", "2026-08-01", 100)]),
+        c("bea", [h("e1", "2026-08-01", 80), h("e2", "2026-08-15", 50)]),
+        c("eva", [h("e2", "2026-08-15", 1)]),
+      ],
+    });
+    const spec = specMovimientos(mv, "B", "c");
+    assert.equal(spec.subtitulo, "Clasificación después de Rodeo 2");
+    assert.deepEqual(
+      spec.filas.map((f) => [f.lugar, f.nombre, f.valor, f.movimiento, f.detalle]),
+      [
+        [1, "BEA", "130 pts", { tipo: "sube", n: 1 }, "50 pts en el rodeo"],
+        [2, "ANA", "100 pts", { tipo: "baja", n: 1 }, "No corrió"],
+        [3, "EVA", "1 pt", { tipo: "nuevo" }, "1 pt en el rodeo"],
+      ]
+    );
+    const texto = shareCaption(spec);
+    assert.match(texto, /Nuevo líder: BEA/);
+    assert.match(texto, /Mayor subida: BEA \(del #2 al #1\)/);
+    assert.match(texto, /1\. BEA · 130 pts \(▲1\)\n2\. ANA · 100 pts \(▼1\)\n3\. EVA · 1 pt \(nuevo\)/);
+    assert.equal(specMovimientos(mv, "X", "c"), null);
   });
 
   it("con un solo rodeo no hay movimientos", () => {

@@ -19,6 +19,7 @@ import {
   disciplinasDeTemporada,
   specTemporada,
   specEvento,
+  specMovimientos,
   withContexto,
   shareCaption,
   fmtFecha,
@@ -66,6 +67,8 @@ const els = {
   tablaActivos: $("tablaActivos"),
   fuenteTemporada: $("fuenteTemporada"),
   fuenteEvento: $("fuenteEvento"),
+  fuenteMovimientos: $("fuenteMovimientos"),
+  redesMovDisciplina: $("redesMovDisciplina"),
   redesDisciplina: $("redesDisciplina"),
   redesMetrica: $("redesMetrica"),
   redesEvento: $("redesEvento"),
@@ -97,6 +100,9 @@ const redes = {
   metrica: "puntos",
   eventoId: "",
   categoriaId: "",
+  /** @type {ReturnType<typeof calcularMovimientos>|null} */
+  mov: null,
+  movDisciplina: "",
   formato: "post",
   top: "top10",
   /** @type {any} */
@@ -585,6 +591,10 @@ function wireRedes() {
     redes.categoriaId = els.redesCategoria.value;
     renderRedes({ nuevoTexto: true });
   });
+  els.redesMovDisciplina.addEventListener("change", () => {
+    redes.movDisciplina = els.redesMovDisciplina.value;
+    renderRedes({ nuevoTexto: true });
+  });
   els.redesDescargar.addEventListener("click", descargar);
   els.redesCopiar.addEventListener("click", copiarTexto);
   els.redesCompartir.addEventListener("click", compartir);
@@ -615,6 +625,22 @@ function prepararRedes() {
     redes.categoriaId = "";
   }
   els.redesEvento.value = redes.eventoId;
+
+  redes.mov = calcularMovimientos(temporada);
+  const tablas = redes.mov.tablas;
+  els.redesMovDisciplina.innerHTML = tablas
+    .map(
+      (t) =>
+        `<option value="${escapeAttr(t.disciplinaId)}">${escapeHtml(t.disciplinaNombre)}${t.corrieron ? "" : " · no se corrió"}</option>`
+    )
+    .join("");
+  if (!tablas.some((t) => t.disciplinaId === redes.movDisciplina)) {
+    redes.movDisciplina =
+      (tablas.some((t) => t.disciplinaId === mov.disciplina) ? mov.disciplina : "") ||
+      [...tablas].sort((a, b) => b.corrieron - a.corrieron)[0]?.disciplinaId ||
+      "";
+  }
+  els.redesMovDisciplina.value = redes.movDisciplina;
   redes.spec = null;
   els.redesCaption.value = "";
 }
@@ -641,6 +667,8 @@ async function specActual() {
     els.redesCategoria.value = redes.categoriaId;
     const cat = cats.find((c) => c.id === redes.categoriaId);
     if (evento && cat) base = specEvento(evento, cat, circuitoId);
+  } else if (redes.fuente === "movimientos") {
+    base = specMovimientos(redes.mov, redes.movDisciplina, circuitoId);
   } else if (redes.disciplina) {
     base = specTemporada(temporada, redes.disciplina, redes.metrica);
   }
@@ -656,6 +684,7 @@ function syncRedesControles() {
   toggle("data-top", redes.top);
   els.fuenteTemporada.hidden = redes.fuente !== "temporada";
   els.fuenteEvento.hidden = redes.fuente !== "evento";
+  els.fuenteMovimientos.hidden = redes.fuente !== "movimientos";
   els.redesMetrica.hidden = redes.disciplina === ALL_AROUND_ID;
 }
 
@@ -681,7 +710,11 @@ async function renderRedes({ nuevoTexto = false } = {}) {
   els.redesCompartir.disabled = !disponibles;
   els.redesCopiar.disabled = !disponibles;
   if (!disponibles) {
-    els.redesPreview.innerHTML = `<p class="empty-state">No hay resultados para esta selección.</p>`;
+    els.redesPreview.innerHTML = `<p class="empty-state">${
+      redes.fuente === "movimientos" && !redes.mov?.tablas.length
+        ? "Los movimientos aparecen desde el segundo rodeo del circuito."
+        : "No hay resultados para esta selección."
+    }</p>`;
     els.redesPreviewLabel.textContent = "Vista previa";
     els.redesHint.textContent = "";
     redes.canvases = [];

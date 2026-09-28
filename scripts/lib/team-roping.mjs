@@ -7,6 +7,10 @@
  *   ambos roles reciben ese mismo valor hasta que exista export por rol.
  *
  * Roles internos `header`/`heeler` = cabecero / pialador (IDs Time estables).
+ *
+ * Lazo de ayuda (`lazoAyuda: "header"|"heeler"` en la entrada, marcado en el admin):
+ * el compañero de ayuda no tiene derecho a puntos pero sí a su premio en efectivo
+ * (Reglamento FMR 1.13.10 d y 5.12 e). Su compañero cuenta normal.
  */
 import { splitMoneyMxn, toMontoEntero } from "./money.mjs";
 import { toPuntosCircuito } from "./points.mjs";
@@ -62,12 +66,14 @@ export function expandTeamRopingRow(row, baseDiscId) {
 
   const rol = String(row.rol || "").toLowerCase();
   if (rol === "header" || rol === "heeler") {
+    const ayuda = esLazoAyuda(row, rol);
     return [
       {
         ...row,
         nombre: row.nombre || row.competidorId || "—",
         rol,
-        puntosCircuito: toPuntosCircuito(row.puntosCircuito),
+        lazoAyuda: ayuda,
+        puntosCircuito: ayuda ? 0 : toPuntosCircuito(row.puntosCircuito),
         montoGanado: toMontoEntero(row.montoGanado),
         disciplinaId: teamRopingRoleDisc(baseDiscId, rol),
       },
@@ -98,6 +104,12 @@ export function expandTeamRopingRow(row, baseDiscId) {
   return expandNamedPair(row, baseDiscId, pair.header, pair.heeler);
 }
 
+/** `lazoAyuda` en la entrada: rol del compañero de ayuda ("header"|"heeler"), o `true` en filas ya partidas por rol. */
+function esLazoAyuda(row, rol) {
+  const v = row?.lazoAyuda;
+  return v === true || String(v || "").toLowerCase() === rol;
+}
+
 /**
  * @param {object} row
  * @param {string} baseDiscId
@@ -124,14 +136,18 @@ function expandNamedPair(row, baseDiscId, headerName, heelerName) {
   const heelerMoney =
     row.montoHeeler != null ? toMontoEntero(row.montoHeeler) : split.heeler;
 
+  const headerAyuda = esLazoAyuda(row, "header");
+  const heelerAyuda = esLazoAyuda(row, "heeler");
+
   return [
     {
       ...row,
       nombre: headerName,
       rol: "header",
+      lazoAyuda: headerAyuda,
       // Evitar que el id del dúo fusione a ambos riders.
       competidorId: row.headerCompetidorId || null,
-      puntosCircuito: headerPts,
+      puntosCircuito: headerAyuda ? 0 : headerPts,
       montoGanado: headerMoney,
       disciplinaId: teamRopingRoleDisc(baseDiscId, "header"),
     },
@@ -139,8 +155,9 @@ function expandNamedPair(row, baseDiscId, headerName, heelerName) {
       ...row,
       nombre: heelerName,
       rol: "heeler",
+      lazoAyuda: heelerAyuda,
       competidorId: row.heelerCompetidorId || null,
-      puntosCircuito: heelerPts,
+      puntosCircuito: heelerAyuda ? 0 : heelerPts,
       montoGanado: heelerMoney,
       disciplinaId: teamRopingRoleDisc(baseDiscId, "heeler"),
     },

@@ -9,7 +9,8 @@
       "tipo": "estatal",
       "estado": "Chihuahua",
       "logo": "logos/aerch.jpg",
-      "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro"
+      "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro",
+      "lazadorRepetido": "sumar"
     },
     {
       "id": "fmr",
@@ -18,7 +19,8 @@
       "tipo": "federacion",
       "estado": "",
       "logo": "",
-      "hashtags": "#FMR #Rodeo #ArenaPro"
+      "hashtags": "#FMR #Rodeo #ArenaPro",
+      "lazadorRepetido": "fmr"
     }
   ],
   "circuitos": [

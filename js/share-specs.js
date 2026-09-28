@@ -123,6 +123,53 @@ export function specEvento(evento, cat, circuitoId) {
   };
 }
 
+function movimientoDe(f) {
+  if (f.nuevo) return { tipo: "nuevo" };
+  if (!f.cambio) return { tipo: "igual" };
+  return { tipo: f.cambio > 0 ? "sube" : "baja", n: Math.abs(f.cambio) };
+}
+
+/**
+ * Clasificación de una disciplina después del último rodeo, con flechas de lugares movidos.
+ * @param {ReturnType<typeof import("./portal-stats.js").calcularMovimientos>} mv
+ */
+export function specMovimientos(mv, disciplinaId, circuitoId) {
+  const tabla = (mv?.tablas || []).find((t) => t.disciplinaId === disciplinaId);
+  if (!tabla || !mv.evento) return null;
+  const pts = (n) => `${fmtNum(n)} ${n === 1 ? "pt" : "pts"}`;
+  const lider = (mv.cambiosLider || []).find((c) => c.disciplinaId === disciplinaId);
+  const subio = tabla.filas
+    .filter((f) => f.cambio > 0)
+    .sort((a, b) => b.cambio - a.cambio || a.lugar - b.lugar)[0];
+  const resumen = [
+    lider ? `Nuevo líder: ${lider.ahora.join(", ")}` : "",
+    subio ? `Mayor subida: ${subio.nombre} (del #${subio.lugarAntes} al #${subio.lugar})` : "",
+  ].filter(Boolean);
+  return {
+    titulo: tabla.disciplinaNombre,
+    subtitulo: `Clasificación después de ${mv.evento.nombre}`,
+    filas: tabla.filas.map((f) => ({
+      lugar: f.lugar,
+      nombre: f.nombre,
+      detalle: f.corrio ? `${pts(f.puntosEvento)} en el rodeo` : "No corrió",
+      valor: pts(f.puntos),
+      valorCorto: fmtNum(f.puntos),
+      movimiento: movimientoDe(f),
+    })),
+    resumen: resumen.join("\n"),
+    hash: routeHash(circuitoId, "temporada", disciplinaId),
+    archivo: `${disciplinaId}-movimientos`,
+  };
+}
+
+function flechaTexto(m) {
+  if (!m) return "";
+  if (m.tipo === "sube") return ` (▲${m.n})`;
+  if (m.tipo === "baja") return ` (▼${m.n})`;
+  if (m.tipo === "nuevo") return " (nuevo)";
+  return "";
+}
+
 /** Agrega asociación, circuito, logo, hashtags y fecha de actualización al spec. */
 export function withContexto(spec, { asociacion, circuito, temporada, logoBase = "data/" }) {
   const actualizado = fmtFecha(temporada?.actualizadoEn);
@@ -142,11 +189,12 @@ export function withContexto(spec, { asociacion, circuito, temporada, logoBase =
 export function shareCaption(spec) {
   const top = (spec.filas || [])
     .slice(0, 3)
-    .map((f) => `${f.lugar}. ${f.nombre} · ${f.valor}`)
+    .map((f) => `${f.lugar}. ${f.nombre} · ${f.valor}${flechaTexto(f.movimiento)}`)
     .join("\n");
   const encabezado = [spec.titulo, spec.linea].filter(Boolean).join(" · ");
   return [
     [encabezado, spec.subtitulo].filter(Boolean).join("\n"),
+    spec.resumen,
     top,
     `Resultados completos: ${publicUrl(spec.hash)}`,
     spec.hashtags,

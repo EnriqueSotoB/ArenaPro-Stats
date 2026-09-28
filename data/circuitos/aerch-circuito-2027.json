@@ -5,7 +5,7 @@
   "asociacionNombre": "Asociación Estatal de Rodeo de Chihuahua",
   "temporada": "2027",
   "titulo": "AERCH Circuito 2027",
-  "actualizadoEn": "2026-09-28T01:05:27.393Z",
+  "actualizadoEn": "2026-09-28T04:22:53.658Z",
   "eventosContados": 6,
   "standings": [
     {
@@ -3675,6 +3675,19 @@
       "eventos": 3
     },
     {
+      "competidorKey": "name:erasmo ortega",
+      "competidorId": null,
+      "nombre": "Erasmo Ortega",
+      "equipo": "",
+      "disciplinaId": "TeamRopingMastersHeeler",
+      "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
+      "categoriaId": "TeamRopingMastersHeeler",
+      "categoriaNombre": "Lazo por Parejas Master — Pialadores",
+      "puntosTotales": 163.5,
+      "dineroTotal": 0,
+      "eventos": 1
+    },
+    {
       "competidorKey": "name:othon rios",
       "competidorId": null,
       "nombre": "Othon Rios",
@@ -3684,19 +3697,6 @@
       "categoriaId": "TeamRopingMastersHeeler",
       "categoriaNombre": "Lazo por Parejas Master — Pialadores",
       "puntosTotales": 147,
-      "dineroTotal": 0,
-      "eventos": 1
-    },
-    {
-      "competidorKey": "name:erasmo ortega",
-      "competidorId": null,
-      "nombre": "Erasmo Ortega",
-      "equipo": "",
-      "disciplinaId": "TeamRopingMastersHeeler",
-      "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
-      "categoriaId": "TeamRopingMastersHeeler",
-      "categoriaNombre": "Lazo por Parejas Master — Pialadores",
-      "puntosTotales": 140,
       "dineroTotal": 0,
       "eventos": 1
     },
@@ -7581,14 +7581,14 @@
       "competidorId": null,
       "nombre": "Erasmo Ortega",
       "equipo": "",
-      "puntosTotales": 140,
+      "puntosTotales": 163.5,
       "dineroTotal": 0,
       "eventos": 1,
       "disciplinas": [
         {
           "disciplinaId": "TeamRopingMastersHeeler",
           "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
-          "puntosTotales": 140,
+          "puntosTotales": 163.5,
           "dineroTotal": 0,
           "eventos": 1
         }
@@ -7601,7 +7601,7 @@
           "sede": "Arena Complejo Avalos",
           "disciplinaId": "TeamRopingMastersHeeler",
           "disciplinaNombre": "Lazo por Parejas Master — Pialadores",
-          "puntos": 140,
+          "puntos": 163.5,
           "dinero": 0
         }
       ]

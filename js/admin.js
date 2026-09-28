@@ -24,6 +24,8 @@ import {
   spellingNearMatches,
 } from "../scripts/lib/alias-suggest.mjs";
 import { circuitosPorAsociacion, findCircuito } from "../scripts/lib/circuitos.mjs";
+import { disciplinaKey } from "../scripts/lib/disciplinas.mjs";
+import { isTeamRopingBase, parseTeamRopingPair } from "../scripts/lib/team-roping.mjs";
 
 const LAST_CIRCUITOS_KEY = "arenapro.admin.circuitos";
 
@@ -80,6 +82,7 @@ const els = {
   asociacionTipo: document.getElementById("asociacionTipo"),
   asociacionEstado: document.getElementById("asociacionEstado"),
   asociacionHashtags: document.getElementById("asociacionHashtags"),
+  asociacionLazadorRepetido: document.getElementById("asociacionLazadorRepetido"),
   asociacionLogo: document.getElementById("asociacionLogo"),
   asociacionLogoActual: document.getElementById("asociacionLogoActual"),
   asociacionLogoImg: document.getElementById("asociacionLogoImg"),
@@ -480,6 +483,18 @@ function renderEditPanel(catId) {
   }
 
   els.editSearch.disabled = false;
+  const cat = (pendingEvento?.categorias || []).find((c) => String(c.id) === String(catId));
+  const esLazo = isTeamRopingBase(disciplinaKey(cat || {}));
+  const ayudaSelect = (r) => {
+    const pair = parseTeamRopingPair(r.nombre);
+    const opt = (value, label) =>
+      `<option value="${value}"${r.lazoAyuda === value ? " selected" : ""}>${escapeHtml(label)}</option>`;
+    return `<select data-field="lazoAyuda" title="El compañero de ayuda no suma puntos, sí dinero (FMR 1.13.10 d)">
+        ${opt("", "No")}
+        ${opt("header", pair ? `Cabecero: ${pair.header}` : "Cabecero")}
+        ${opt("heeler", pair ? `Pialador: ${pair.heeler}` : "Pialador")}
+      </select>`;
+  };
   els.editTable.innerHTML = `<table class="edit-table">
     <thead>
       <tr>
@@ -487,6 +502,7 @@ function renderEditPanel(catId) {
         <th>Nombre</th>
         <th>Pts circuito</th>
         <th>$ MXN</th>
+        ${esLazo ? "<th>Lazo de ayuda</th>" : ""}
       </tr>
     </thead>
     <tbody>
@@ -499,14 +515,20 @@ function renderEditPanel(catId) {
             <td><input type="text" data-field="nombre" value="${escapeAttr(r.nombre)}" /></td>
             <td><input type="number" data-field="puntosCircuito" step="0.5" value="${r.puntosCircuito ?? ""}" /></td>
             <td><input type="number" data-field="montoGanado" step="1" value="${r.montoGanado ?? ""}" /></td>
+            ${esLazo ? `<td>${ayudaSelect(r)}</td>` : ""}
           </tr>`;
         })
         .join("")}
     </tbody>
-  </table>`;
+  </table>
+  ${esLazo ? `<p class="meta">Lazo de ayuda: el compañero de ayuda no suma puntos, pero sí su parte del dinero; su pareja cuenta normal (Reglamento FMR 1.13.10 d y 5.12 e).</p>` : ""}`;
 
   els.editTable.querySelectorAll("tr[data-key]").forEach((tr) => {
     const key = tr.getAttribute("data-key");
+    tr.querySelector('select[data-field="lazoAyuda"]')?.addEventListener("change", (e) => {
+      upsertFilaEdit(pendingEdits, key, { lazoAyuda: e.target.value });
+      refreshPreviewOnly();
+    });
     tr.querySelectorAll("input").forEach((input) => {
       input.addEventListener("change", () => {
         const field = input.getAttribute("data-field");
@@ -903,6 +925,7 @@ function wireCircuitosPanel() {
       tipo: els.asociacionTipo.value,
       estado: els.asociacionEstado.value,
       hashtags: els.asociacionHashtags.value,
+      lazadorRepetido: els.asociacionLazadorRepetido.value,
     }, (body) => `Asociación guardada: ${body.asociacion?.siglas}. Publica para el sitio.`);
     if (!saved) return;
     const file = els.asociacionLogo.files?.[0];
@@ -1079,6 +1102,7 @@ function renderCircuitosTree() {
             <span class="tree-head-name">${escapeHtml(a.siglas || a.nombre)}</span>
             <span class="meta">${escapeHtml([a.siglas ? a.nombre : "", a.tipo === "federacion" ? "Federación" : "Estatal", a.estado].filter(Boolean).join(" · "))}</span>
             <span class="meta tree-hashtags">${a.hashtags ? escapeHtml(a.hashtags) : "Sin hashtags para redes"}</span>
+            ${a.id ? `<span class="meta">Lazador en varias parejas: ${a.lazadorRepetido === "sumar" ? "suma completo" : "regla FMR"}</span>` : ""}
           </span>
           ${actions}
         </div>
@@ -1139,6 +1163,7 @@ function renderCircuitosTree() {
       els.asociacionTipo.value = a.tipo;
       els.asociacionEstado.value = a.estado || "";
       els.asociacionHashtags.value = a.hashtags || "";
+      els.asociacionLazadorRepetido.value = a.lazadorRepetido || "fmr";
       els.asociacionLogo.value = "";
       els.asociacionLogoActual.hidden = !a.logo;
       if (a.logo) els.asociacionLogoImg.src = logoUrl(a.logo);
