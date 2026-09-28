@@ -26,8 +26,15 @@ import {
 import { circuitosPorAsociacion, findCircuito, tipoAsociacionLabel } from "../scripts/lib/circuitos.mjs";
 import { disciplinaKey } from "../scripts/lib/disciplinas.mjs";
 import { isTeamRopingBase, parseTeamRopingPair } from "../scripts/lib/team-roping.mjs";
+import { nombreMayusculas } from "../scripts/lib/nombres.mjs";
 
 const LAST_CIRCUITOS_KEY = "arenapro.admin.circuitos";
+/** La consola local inyecta un token por arranque; sin él rechaza cualquier cambio (CSRF). */
+const API_TOKEN = document.querySelector('meta[name="arenapro-token"]')?.content || "";
+
+function apiFetch(url, options = {}) {
+  return fetch(url, { ...options, headers: { ...options.headers, "X-ArenaPro-Token": API_TOKEN } });
+}
 
 /** Última respuesta de /api/status (asociaciones, circuitos, eventos). */
 let statusData = { asociaciones: [], circuitos: [], circuitoDefault: "", eventos: [] };
@@ -106,6 +113,7 @@ const els = {
   aliasFrom: document.getElementById("aliasFrom"),
   aliasTo: document.getElementById("aliasTo"),
   aliasNota: document.getElementById("aliasNota"),
+  aliasAsociacion: document.getElementById("aliasAsociacion"),
   aliasFromKey: document.getElementById("aliasFromKey"),
   aliasToKey: document.getElementById("aliasToKey"),
   aliasNamesList: document.getElementById("aliasNamesList"),
@@ -236,7 +244,7 @@ async function loadFile(file) {
     if (isExcel) {
       els.fileInfo.textContent = `Leyendo Excel: ${file.name}…`;
       const buf = await file.arrayBuffer();
-      const res = await fetch("/api/parse-excel", {
+      const res = await apiFetch("/api/parse-excel", {
         method: "POST",
         headers: {
           "Content-Type":
@@ -294,7 +302,7 @@ async function onEdit(id, nombre) {
   }
   showBanner(`Abriendo ${nombre || id}…`, false);
   try {
-    const res = await fetch(`/api/evento?id=${encodeURIComponent(id)}`);
+    const res = await apiFetch(`/api/evento?id=${encodeURIComponent(id)}`);
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "No se pudo abrir el evento");
 
@@ -541,6 +549,7 @@ function renderEditPanel(catId) {
           upsertFilaEdit(pendingEdits, key, { excluir: !input.checked });
           tr.classList.toggle("is-excluded", !input.checked);
         } else if (field === "nombre") {
+          input.value = nombreMayusculas(input.value);
           upsertFilaEdit(pendingEdits, key, { nombre: input.value });
           tr.setAttribute("data-search", normalizeSearch(input.value));
           applyEditSearchFilter();
@@ -675,17 +684,27 @@ async function onIngest() {
   els.btnIngest.disabled = true;
   showBanner(replaceId ? "Guardando cambios…" : "Agregando evento…", false);
   try {
-    const res = await fetch("/api/ingest", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        evento: pendingEvento,
-        circuitos: selectedCircuitos,
-        statsEdits: pendingEdits,
-        replaceId,
-      }),
-    });
-    const body = await res.json();
+    const enviar = (permitirDuplicado) =>
+      apiFetch("/api/ingest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          evento: pendingEvento,
+          circuitos: selectedCircuitos,
+          statsEdits: pendingEdits,
+          replaceId,
+          permitirDuplicado,
+        }),
+      });
+    let res = await enviar(false);
+    let body = await res.json();
+    if (
+      body.duplicado &&
+      confirm(`${body.error}\n\n¿Agregarlo de todos modos? Solo si de verdad son dos rodeos distintos.`)
+    ) {
+      res = await enviar(true);
+      body = await res.json();
+    }
     if (!res.ok || body.ok === false) throw new Error(body.error || "Error al guardar");
     localStorage.setItem(LAST_CIRCUITOS_KEY, JSON.stringify(selectedCircuitos));
     const warn =
@@ -712,7 +731,7 @@ async function onPublish() {
   els.btnPublish.disabled = true;
   showBanner("Publicando…", false);
   try {
-    const res = await fetch("/api/publish", { method: "POST" });
+    const res = await apiFetch("/api/publish", { method: "POST" });
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "Error al publicar");
     showBanner(body.message || "Listo.", false);
@@ -727,7 +746,7 @@ async function onPublish() {
 
 async function refreshStatus() {
   try {
-    const res = await fetch("/api/status");
+    const res = await apiFetch("/api/status");
     const data = await res.json();
     if (!res.ok || data.ok === false) {
       els.statusMeta.textContent =
@@ -831,7 +850,7 @@ async function onRemove(id, nombre) {
 
   showBanner("Eliminando evento…", false);
   try {
-    const res = await fetch("/api/remove", {
+    const res = await apiFetch("/api/remove", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
@@ -992,7 +1011,7 @@ function portalUrl(asociacionId, publico = true) {
 
 async function darAccesoPortal(a) {
   const nueva = prompt(
-    `Contraseña del portal de ${a.siglas || a.nombre}.\n\nDéjalo vacío para generar una segura, o escribe una de al menos 10 caracteres.` +
+    `Contraseña del portal de ${a.siglas || a.nombre}.\n\nDéjalo vacío para generar una segura, o escribe una de al menos 14 caracteres.` +
       (a.portal ? "\n\nLa contraseña anterior dejará de funcionar." : ""),
     ""
   );
@@ -1022,7 +1041,7 @@ async function uploadLogo(asociacionId, file) {
   }
   showBanner("Subiendo logo…", false);
   try {
-    const res = await fetch(`/api/asociaciones/logo?id=${encodeURIComponent(asociacionId)}`, {
+    const res = await apiFetch(`/api/asociaciones/logo?id=${encodeURIComponent(asociacionId)}`, {
       method: "POST",
       headers: { "Content-Type": file.type || "application/octet-stream" },
       body: await file.arrayBuffer(),
@@ -1046,7 +1065,7 @@ function logoUrl(logo) {
 async function postConfig(url, payload, okMessage) {
   showBanner("Guardando y regenerando estadísticas…", false);
   try {
-    const res = await fetch(url, {
+    const res = await apiFetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -1119,6 +1138,23 @@ function renderAsociacionOptions() {
   if (current && statusData.asociaciones.some((a) => a.id === current)) {
     els.circuitoAsociacion.value = current;
   }
+
+  if (els.aliasAsociacion) {
+    const alcance = els.aliasAsociacion.value;
+    els.aliasAsociacion.innerHTML = [
+      `<option value="">Todas las asociaciones</option>`,
+      ...statusData.asociaciones.map(
+        (a) => `<option value="${escapeAttr(a.id)}">Solo ${escapeHtml(a.siglas || a.nombre)}</option>`
+      ),
+    ].join("");
+    if (statusData.asociaciones.some((a) => a.id === alcance)) els.aliasAsociacion.value = alcance;
+  }
+}
+
+function alcanceAliasLabel(asociacionId) {
+  if (!asociacionId) return "Todas";
+  const a = statusData.asociaciones.find((x) => x.id === asociacionId);
+  return a ? `Solo ${a.siglas || a.nombre}` : `Solo ${asociacionId}`;
 }
 
 function renderCircuitosTree() {
@@ -1345,7 +1381,7 @@ function applyAliasesPayload(body) {
 async function refreshAliases() {
   if (!els.aliasesList) return;
   try {
-    const res = await fetch("/api/aliases");
+    const res = await apiFetch("/api/aliases");
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "No se pudieron cargar aliases");
     applyAliasesPayload(body);
@@ -1436,10 +1472,10 @@ function renderAliasesUi() {
                 <span class="alias-from">${escapeHtml(fromLabel)}</span>
                 <span class="alias-sep">→</span>
                 <span class="alias-to">${escapeHtml(toLabel)}</span>
-                ${a.nota ? `<span class="alias-nota">${escapeHtml(a.nota)}</span>` : ""}
+                <span class="alias-nota">${escapeHtml(alcanceAliasLabel(a.asociacionId))}${a.nota ? ` · ${escapeHtml(a.nota)}` : ""}</span>
                 <span class="alias-keys">${escapeHtml(a.from)} → ${escapeHtml(a.to)}</span>
               </div>
-              <button type="button" class="btn-danger btn-sm" data-alias-remove="${escapeAttr(a.from)}">Quitar</button>
+              <button type="button" class="btn-danger btn-sm" data-alias-remove="${escapeAttr(a.from)}" data-alias-scope="${escapeAttr(a.asociacionId || "")}">Quitar</button>
             </li>`;
           })
           .join("")
@@ -1447,7 +1483,7 @@ function renderAliasesUi() {
 
     els.aliasesList.querySelectorAll("[data-alias-remove]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        onRemoveAlias(btn.getAttribute("data-alias-remove"));
+        onRemoveAlias(btn.getAttribute("data-alias-remove"), btn.getAttribute("data-alias-scope") || "");
       });
     });
   }
@@ -1473,10 +1509,15 @@ async function onSaveAlias(preset) {
   if (els.btnAliasSave) els.btnAliasSave.disabled = true;
   showBanner("Unificando y regenerando temporada…", false);
   try {
-    const res = await fetch("/api/aliases", {
+    const res = await apiFetch("/api/aliases", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to, nota: nota.trim() || undefined }),
+      body: JSON.stringify({
+        from,
+        to,
+        nota: nota.trim() || undefined,
+        asociacionId: preset?.asociacionId ?? els.aliasAsociacion?.value ?? "",
+      }),
     });
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "Error al guardar alias");
@@ -1496,16 +1537,16 @@ async function onSaveAlias(preset) {
   }
 }
 
-async function onRemoveAlias(from) {
+async function onRemoveAlias(from, asociacionId = "") {
   if (!from) return;
-  if (!confirm(`¿Quitar el alias de “${displayFromKey(from)}”?`)) return;
+  if (!confirm(`¿Quitar el alias de “${displayFromKey(from)}” (${alcanceAliasLabel(asociacionId)})?`)) return;
 
   showBanner("Quitando alias y regenerando temporada…", false);
   try {
-    const res = await fetch("/api/aliases/remove", {
+    const res = await apiFetch("/api/aliases/remove", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ from }),
+      body: JSON.stringify({ from, asociacionId }),
     });
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "Error al quitar alias");

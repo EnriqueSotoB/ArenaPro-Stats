@@ -6,6 +6,8 @@
   "description": "Estadísticas públicas de rodeo por asociación y circuito / ArenaPro Estadísticas",
   "scripts": {
     "test": "node scripts/run-tests.mjs",
+    "lint": "eslint .",
+    "build:site": "node scripts/build-site.mjs",
     "rebuild": "node scripts/rebuild-temporada.mjs",
     "plantilla": "node scripts/build-plantilla-excel.mjs"
   },
@@ -14,5 +16,13 @@
   },
   "dependencies": {
     "exceljs": "^4.4.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "globals": "^17.12.0"
   }
 }

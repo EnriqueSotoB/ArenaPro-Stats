@@ -1,10 +1,34 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
+  aliasesParaAsociacion,
   buildAliasMap,
   resolveCompetitorKey,
 } from "../../scripts/lib/competitor-aliases.mjs";
 import { competitorKey } from "../../scripts/rebuild-temporada.mjs";
+
+describe("aliasesParaAsociacion", () => {
+  const doc = {
+    version: 1,
+    aliases: [
+      { from: "name:a", to: "name:global" },
+      { from: "name:b", to: "name:fmr", asociacionId: "fmr" },
+      { from: "name:b", to: "name:aerch", asociacionId: "aerch" },
+    ],
+  };
+
+  it("combina globales con los de la asociación, y el de la asociación gana", () => {
+    const map = buildAliasMap(aliasesParaAsociacion(doc, "aerch"));
+    assert.equal(map.get("name:a"), "name:global");
+    assert.equal(map.get("name:b"), "name:aerch");
+  });
+
+  it("sin asociación solo aplica los globales", () => {
+    const map = buildAliasMap(aliasesParaAsociacion(doc, ""));
+    assert.equal(map.get("name:a"), "name:global");
+    assert.equal(map.has("name:b"), false);
+  });
+});
 
 describe("buildAliasMap", () => {
   it("ignora entradas incompletas o identity", () => {

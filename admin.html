@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Publicar — ArenaPro Estadísticas</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="arenapro-token" content="" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -253,6 +255,7 @@
       <p class="meta">
         Si el mismo rider aparece con otro nombre (apodo, spelling), únelo aquí.
         No cambia el texto del evento; sí suma puntos y dinero en la temporada.
+        Elige una asociación si la unificación solo vale para sus circuitos.
       </p>
 
       <form id="aliasForm" class="alias-form" autocomplete="off">
@@ -280,6 +283,12 @@
             required
           />
           <span id="aliasToKey" class="alias-key-preview" hidden></span>
+        </label>
+        <label class="field admin-field alias-field">
+          <span>Aplica a</span>
+          <select id="aliasAsociacion">
+            <option value="">Todas las asociaciones</option>
+          </select>
         </label>
         <label class="field admin-field alias-field alias-nota-field">
           <span>Nota (opcional)</span>

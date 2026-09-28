@@ -5,6 +5,7 @@
 import ExcelJS from "exceljs";
 import { toMontoEntero } from "./money.mjs";
 import { toPuntosCircuito } from "./points.mjs";
+import { nombreMayusculas } from "./nombres.mjs";
 
 /**
  * @type {Array<{ sheet: string, tipo: string, defaultRondas: number, aliases?: string[] }>}
@@ -220,9 +221,9 @@ function parseDisciplinaSheet(ws, def, catIndex) {
   ws.eachRow((row, rowNumber) => {
     if (rowNumber <= headerRow) return;
 
-    const cabecero = h.cabecero ? cellText(row.getCell(h.cabecero)) : "";
-    const pialador = h.pialador ? cellText(row.getCell(h.pialador)) : "";
-    let nombre = h.nombre ? cellText(row.getCell(h.nombre)) : "";
+    const cabecero = h.cabecero ? nombreMayusculas(cellText(row.getCell(h.cabecero))) : "";
+    const pialador = h.pialador ? nombreMayusculas(cellText(row.getCell(h.pialador))) : "";
+    let nombre = h.nombre ? nombreMayusculas(cellText(row.getCell(h.nombre))) : "";
 
     if (kind === "teamRoping") {
       // Una fila = dúo; rebuild parte a Cabecero + Pialador.
@@ -230,10 +231,6 @@ function parseDisciplinaSheet(ws, def, catIndex) {
         nombre = `${cabecero} / ${pialador}`;
       } else if (cabecero && cabecero.includes("/")) {
         nombre = cabecero;
-        const pair = cabecero.split("/").map((p) => p.trim()).filter(Boolean);
-        if (pair.length >= 2) {
-          // permite pegar "Cabecero / Pialador" solo en la columna Cabecero
-        }
       } else {
         nombre = cabecero || pialador || nombre;
       }
@@ -449,7 +446,11 @@ function addComoLlenarSheet(wb) {
       "Solo 2 hojas (Abierta y Master). Una fila = Cabecero + Pialador (columnas distintas). Ronda 1 está en la columna H (no en G: ahí va el dinero). Estadísticas parte cada dúo a Cabeceros y Pialadores (dinero 50/50).",
     ],
     [
-      "7. Publicar",
+      "7. Nombres en MAYÚSCULAS",
+      "Escribe los nombres como quieras (mayúsculas, minúsculas o mezcla): al publicar, Estadísticas los convierte a MAYÚSCULAS (juan pérez → JUAN PÉREZ) para que todos los resultados se vean iguales.",
+    ],
+    [
+      "8. Publicar",
       "Guarda el .xlsx → publicar.bat → admin → suelta el archivo → preview → Agregar a Estadísticas → Publicar.",
     ],
   ];
@@ -566,8 +567,8 @@ function addDisciplinaSheet(wb, def) {
     kind === "teamRoping"
       ? {
           lugar: 1,
-          cabecero: "Ejemplo Cabecero",
-          pialador: "Ejemplo Pialador",
+          cabecero: "EJEMPLO CABECERO",
+          pialador: "EJEMPLO PIALADOR",
           equipo: "",
           pts: 100,
           dinero: 0,
@@ -578,7 +579,7 @@ function addDisciplinaSheet(wb, def) {
         }
       : {
           lugar: 1,
-          nombre: "Ejemplo Competidor",
+          nombre: "EJEMPLO COMPETIDOR",
           equipo: "",
           pts: 100,
           dinero: 0,
@@ -628,10 +629,26 @@ function totalFormula(r, r1Col, r3Col) {
   return { formula: `IF(COUNTA(${a}${r}:${b}${r})=0,"",SUM(${a}${r}:${b}${r}))` };
 }
 
+const COLUMNAS_NOMBRE = new Set(["nombre", "cabecero", "pialador"]);
+
+/** Solo aviso: Excel no puede convertir al escribir sin macros; el parser pasa todo a mayúsculas. */
+function avisoMayusculas(cell) {
+  cell.dataValidation = {
+    type: "custom",
+    allowBlank: true,
+    formulae: ["TRUE"],
+    showInputMessage: true,
+    promptTitle: "Nombre del competidor",
+    prompt: "Escríbelo como quieras: al publicar se convierte a MAYÚSCULAS (ej. juan pérez → JUAN PÉREZ).",
+    showErrorMessage: false,
+  };
+}
+
 function prepareEmptyRow(ws, r, keyToCol) {
   for (const [key, col] of Object.entries(keyToCol)) {
     const cell = ws.getCell(r, col);
     cell.border = thinBorder(SAND);
+    if (COLUMNAS_NOMBRE.has(key)) avisoMayusculas(cell);
     if (key === "total" && keyToCol.r1 && keyToCol.r3) {
       cell.value = totalFormula(r, keyToCol.r1, keyToCol.r3);
       cell.numFmt = "0.000";
@@ -651,6 +668,7 @@ function fillDataRow(ws, r, data, keyToCol, isExample) {
     const val = data[key];
     cell.value = val === "" || val == null ? null : val;
     cell.border = thinBorder(SAND);
+    if (COLUMNAS_NOMBRE.has(key)) avisoMayusculas(cell);
     if (isExample) {
       cell.font = { italic: true, color: { argb: MUTED }, size: 10 };
       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEEEAE0" } };

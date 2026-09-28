@@ -57,8 +57,10 @@ describe("portal-auth", () => {
     assert.notEqual(a, generarPassword());
   });
 
-  it("rechaza contraseñas cortas", async () => {
-    await assert.rejects(() => crearAccesoPortal("corta"), /al menos 10/);
+  it("rechaza contraseñas cortas (el hash es público: una débil se adivina sin conexión)", async () => {
+    await assert.rejects(() => crearAccesoPortal("corta"), /al menos 14/);
+    await assert.rejects(() => crearAccesoPortal("diez-chars"), /al menos 14/);
+    assert.ok(normalizePortal(await crearAccesoPortal(generarPassword())));
   });
 
   it("descarta registros mal formados", () => {

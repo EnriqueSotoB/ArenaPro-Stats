@@ -6,6 +6,18 @@
   <title>ArenaPro Estadísticas — Rodeo</title>
   <meta name="description" content="Clasificación de puntos y estadísticas de circuitos de rodeo por asociación y temporada — ArenaPro Estadísticas" />
   <meta name="theme-color" content="#3f524f" />
+  <link rel="canonical" href="https://estadisticas.arenapro.mx/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ArenaPro Estadísticas" />
+  <meta property="og:locale" content="es_MX" />
+  <meta property="og:url" content="https://estadisticas.arenapro.mx/" />
+  <meta property="og:title" content="ArenaPro Estadísticas — Clasificación de rodeo" />
+  <meta property="og:description" content="Puntos, dinero y resultados de cada rodeo del circuito, por asociación y temporada." />
+  <meta property="og:image" content="https://estadisticas.arenapro.mx/assets/icons/icon-512.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:alt" content="Logo de ArenaPro Estadísticas" />
+  <meta name="twitter:card" content="summary" />
   <meta name="application-name" content="ArenaPro Estadísticas" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -54,6 +66,7 @@
   </header>
 
   <main class="main">
+    <noscript><p class="status">Activa JavaScript en tu navegador para ver la clasificación.</p></noscript>
     <p id="status" class="status" role="status"></p>
 
     <!-- TEMPORADA: hub por categoría -->
@@ -83,10 +96,11 @@
       <aside id="metodologia" class="metodologia panel">
         <h2>Cómo se calcula</h2>
         <ul>
-          <li><strong>Puntos</strong> vienen de ArenaPro Time (`puntosCircuito`); este sitio acumula la temporada de cada circuito con los eventos que la asociación le asigna. Se muestran como enteros o medios (`.5`); se limpia float basura de empates.</li>
-          <li><strong>Dinero</strong> en MXN enteros; Lazo por Parejas se parte 50/50 Cabecero / Pialador.</li>
-          <li><strong>Vaquero Completo</strong> suma el dinero de quienes cobraron en ≥2 disciplinas (Cabecero y Pialador cuentan aparte).</li>
-          <li>La línea de corte se publicará cuando la asociación la defina.</li>
+          <li><strong>Puntos:</strong> en cada rodeo se dan puntos por lugar según el reglamento de la asociación, y aquí se suman todos los rodeos que cuentan para el circuito. Si hay empate, los puntos se reparten y pueden quedar en medios (por ejemplo, 92.5).</li>
+          <li><strong>Dinero:</strong> premios en pesos mexicanos, sin centavos. En Lazo por Parejas el premio se divide mitad para el Cabecero y mitad para el Pialador.</li>
+          <li><strong>Vaquero Completo:</strong> suma el dinero de quienes ganaron premio en 2 o más disciplinas. Cabecero y Pialador cuentan como disciplinas separadas.</li>
+          <li><strong>Línea de corte:</strong> aparecerá cuando la asociación publique el número oficial.</li>
+          <li>¿Ves un error en tu nombre o en un resultado? Avísale a tu asociación para que lo corrija.</li>
         </ul>
       </aside>
     </section>

@@ -3,7 +3,7 @@
  * publicar sigue siendo exclusivo del admin local.
  */
 
-import { normalizeEvento, categoriesWithResults, escapeHtml, escapeAttr, fmtNum, fmtTime } from "./event-model.js";
+import { normalizeEvento, categoriesWithResults, escapeHtml, escapeAttr, fmtNum } from "./event-model.js";
 import { fmtMxn } from "../scripts/lib/money.mjs";
 import {
   normalizeManifest,
@@ -169,12 +169,24 @@ function sesionKey(a) {
   return `${SESSION_PREFIX}${a.id}`;
 }
 
+/** En una compu compartida de la asociación la sesión no debe quedar abierta para siempre. */
+const SESION_DIAS = 30;
+
+function guardarSesion(a, llave) {
+  localStorage.setItem(sesionKey(a), `${llave}.${Date.now() + SESION_DIAS * 24 * 60 * 60 * 1000}`);
+}
+
 /** La sesión guarda la llave derivada de la contraseña: si el admin la cambia, se invalida sola. */
 async function sesionValida(a) {
-  const guardado = localStorage.getItem(sesionKey(a));
+  const guardado = localStorage.getItem(sesionKey(a)) || "";
   if (ES_LOCAL && guardado === "local") return true;
+  const [llave, vence] = guardado.split(".");
+  if (!(Number(vence) > Date.now())) {
+    localStorage.removeItem(sesionKey(a));
+    return false;
+  }
   try {
-    return await verificarLlave(guardado, a.portal);
+    return await verificarLlave(llave, a.portal);
   } catch {
     return false;
   }
@@ -226,7 +238,7 @@ function wireLogin() {
     try {
       const llave = await llavePortal(els.loginPassword.value, a.portal);
       if (!llave) throw new Error("Contraseña incorrecta.");
-      localStorage.setItem(sesionKey(a), llave);
+      guardarSesion(a, llave);
       els.loginPassword.value = "";
       await entrar(a);
     } catch (err) {

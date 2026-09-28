@@ -64,7 +64,7 @@ describe("rebuildTemporada por circuito", () => {
     const leer = (id) =>
       JSON.parse(readFileSync(join(root, "data", "circuitos", `${id}.json`), "utf8"));
     const puntosUno = (payload) =>
-      payload.standings.find((s) => s.nombre === "Rider Uno" && s.disciplinaId === "Barriles")
+      payload.standings.find((s) => s.nombre === "RIDER UNO" && s.disciplinaId === "Barriles")
         ?.puntosTotales;
 
     const aerch = leer("aerch-circuito-2027");

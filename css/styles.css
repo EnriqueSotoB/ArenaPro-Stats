@@ -7,7 +7,9 @@
   --cream: #f8f6f2;
   --dark: #3b3b3b;
   --olive: #626e67;
-  --textsub: #82807b;
+  /* Texto sobre crema/blanco: ≥4.5:1 (WCAG AA). --ochre queda para bordes y fondos. */
+  --ochre-text: #9a6410;
+  --textsub: #66645f;
   --border: #afa897;
   --font-sans: Arial, Helvetica, sans-serif;
   --font-display: "Archivo", Arial, Helvetica, sans-serif;
@@ -274,7 +276,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ochre);
+  color: var(--ochre-text);
 }
 
 .page-head h1 {
@@ -386,7 +388,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 800;
-  color: var(--ochre);
+  color: var(--ochre-text);
 }
 
 .all-around-cta {
@@ -504,7 +506,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: 800;
-  color: var(--ochre);
+  color: var(--ochre-text);
 }
 
 .cat-card-count {
@@ -563,7 +565,7 @@ body {
 }
 
 .cat-card-cta:hover {
-  color: var(--ochre);
+  color: var(--ochre-text);
 }
 
 /* —— Athlete links —— */
@@ -685,7 +687,7 @@ body {
   margin: 0.5rem 0 0;
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--ochre);
+  color: var(--ochre-text);
   font-variant-numeric: tabular-nums;
 }
 

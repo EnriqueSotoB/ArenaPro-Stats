@@ -60,8 +60,8 @@ describe("rebuildTemporada (smoke)", () => {
     const barriles = temporada.standings.filter((s) => s.disciplinaId === "Barriles");
     assert.equal(barriles.length, 2);
 
-    const uno = barriles.find((s) => s.nombre === "Rider Uno");
-    const dos = barriles.find((s) => s.nombre === "Rider Dos");
+    const uno = barriles.find((s) => s.nombre === "RIDER UNO");
+    const dos = barriles.find((s) => s.nombre === "RIDER DOS");
     assert.ok(uno);
     assert.ok(dos);
     assert.equal(uno.puntosTotales, 100);
@@ -72,7 +72,7 @@ describe("rebuildTemporada (smoke)", () => {
 
     assert.ok(Array.isArray(temporada.competidores));
     assert.equal(temporada.competidores.length, 2);
-    const rider = temporada.competidores.find((c) => c.nombre === "Rider Uno");
+    const rider = temporada.competidores.find((c) => c.nombre === "RIDER UNO");
     assert.ok(rider);
     assert.equal(rider.historial.length, 1);
     assert.equal(rider.historial[0].eventoId, "local:test-1");

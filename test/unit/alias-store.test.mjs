@@ -48,6 +48,14 @@ describe("appendAlias", () => {
     assert.equal(next.aliases[0].to, "name:new");
   });
 
+  it("mismo from con distinta asociación son alias distintos", () => {
+    let doc = appendAlias({ version: 1, aliases: [] }, { from: "name:a", to: "name:b" });
+    doc = appendAlias(doc, { from: "name:a", to: "name:c", asociacionId: "fmr" });
+    assert.equal(doc.aliases.length, 2);
+    assert.equal(doc.aliases[0].asociacionId, undefined);
+    assert.equal(doc.aliases[1].asociacionId, "fmr");
+  });
+
   it("rechaza ciclo", () => {
     assert.throws(
       () =>
@@ -75,6 +83,19 @@ describe("removeAlias", () => {
     assert.equal(next.aliases.length, 1);
     assert.equal(next.aliases[0].from, "name:a");
     assert.equal(next.removed.from, "name:lalito calderon");
+  });
+
+  it("solo elimina el alias del alcance indicado", () => {
+    const doc = {
+      version: 1,
+      aliases: [
+        { from: "name:a", to: "name:b" },
+        { from: "name:a", to: "name:c", asociacionId: "fmr" },
+      ],
+    };
+    const next = removeAlias(doc, "name:a", "fmr");
+    assert.deepEqual(next.aliases, [{ from: "name:a", to: "name:b" }]);
+    assert.throws(() => removeAlias(doc, "name:a", "aerch"), (err) => err.statusCode === 404);
   });
 
   it("404 si no existe", () => {

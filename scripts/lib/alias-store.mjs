@@ -33,14 +33,24 @@ export function normalizeAliasInput(raw) {
   return name ? `name:${name}` : "";
 }
 
+/** "" = aplica a todas las asociaciones. */
+function normalizeScope(v) {
+  return String(v ?? "").trim();
+}
+
+function scopeDe(alias) {
+  return normalizeScope(alias?.asociacionId);
+}
+
 /**
  * @param {{ version?: number, aliases?: Array<object> }} doc
- * @param {{ from: string, to: string, nota?: string }} entry
+ * @param {{ from: string, to: string, nota?: string, asociacionId?: string }} entry
  * @returns {{ version: number, aliases: Array<object> }}
  */
 export function appendAlias(doc, entry) {
   const from = normalizeAliasInput(entry?.from);
   const to = normalizeAliasInput(entry?.to);
+  const asociacionId = normalizeScope(entry?.asociacionId);
   if (!from || !to) {
     throw Object.assign(new Error("Faltan from y to para el alias."), {
       statusCode: 400,
@@ -53,17 +63,20 @@ export function appendAlias(doc, entry) {
   }
 
   const aliases = Array.isArray(doc?.aliases) ? [...doc.aliases] : [];
-  const idx = aliases.findIndex((a) => String(a.from) === from);
+  const idx = aliases.findIndex((a) => String(a.from) === from && scopeDe(a) === asociacionId);
   const row = {
     from,
     to,
+    ...(asociacionId ? { asociacionId } : {}),
     ...(entry.nota ? { nota: String(entry.nota) } : {}),
   };
   if (idx >= 0) aliases[idx] = row;
   else aliases.push(row);
 
-  // Detectar ciclo trivial inmediato
-  const map = buildAliasMap({ aliases });
+  // Detectar ciclo trivial inmediato (entre los que aplican al mismo alcance)
+  const map = buildAliasMap({
+    aliases: aliases.filter((a) => !scopeDe(a) || !asociacionId || scopeDe(a) === asociacionId),
+  });
   let cursor = to;
   const seen = new Set([from]);
   for (let i = 0; i < 6; i++) {
@@ -86,17 +99,19 @@ export function appendAlias(doc, entry) {
 /**
  * @param {{ version?: number, aliases?: Array<object> }} doc
  * @param {string} fromRaw
+ * @param {string} [asociacionIdRaw] "" = alias de todas las asociaciones
  * @returns {{ version: number, aliases: Array<object>, removed: object|null }}
  */
-export function removeAlias(doc, fromRaw) {
+export function removeAlias(doc, fromRaw, asociacionIdRaw = "") {
   const from = normalizeAliasInput(fromRaw);
+  const asociacionId = normalizeScope(asociacionIdRaw);
   if (!from) {
     throw Object.assign(new Error("Falta from para eliminar el alias."), {
       statusCode: 400,
     });
   }
   const aliases = Array.isArray(doc?.aliases) ? [...doc.aliases] : [];
-  const idx = aliases.findIndex((a) => String(a.from) === from);
+  const idx = aliases.findIndex((a) => String(a.from) === from && scopeDe(a) === asociacionId);
   if (idx < 0) {
     throw Object.assign(new Error(`No hay alias con from "${from}".`), {
       statusCode: 404,

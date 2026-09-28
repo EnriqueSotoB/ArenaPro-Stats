@@ -34,7 +34,7 @@ function writeManifest(root, eventos) {
 }
 
 function eventoDual(id, nombre, entradasPorCat) {
-  const categorias = Object.keys(entradasPorCat).map((catId, i) => ({
+  const categorias = Object.keys(entradasPorCat).map((catId) => ({
     id: catId,
     nombre: catId.includes("lazo") ? "Lazo de Becerro" : "Barriles",
     tipo: catId.includes("lazo") ? "LazoDeBecerro" : "Barriles",
@@ -116,7 +116,7 @@ describe("rebuildTemporada allAround", () => {
     );
     assert.ok(Array.isArray(temporada.allAround));
     assert.equal(temporada.allAround.length, 1);
-    assert.equal(temporada.allAround[0].nombre, "Duo Rider");
+    assert.equal(temporada.allAround[0].nombre, "DUO RIDER");
     assert.equal(temporada.allAround[0].dineroTotal, 28000);
     assert.equal(temporada.allAround[0].disciplinasConDinero.length, 2);
   });

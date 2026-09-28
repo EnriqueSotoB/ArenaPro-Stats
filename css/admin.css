@@ -28,7 +28,7 @@ button.link-like {
 }
 
 button.link-like:hover {
-  color: var(--ochre);
+  color: var(--ochre-text);
   text-decoration-color: currentColor;
 }
 
@@ -812,7 +812,7 @@ button.link-like:hover {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ochre);
+  color: var(--ochre-text);
 }
 
 .dialog-title {
@@ -1088,6 +1088,10 @@ button.link-like:hover {
   border: 1px solid var(--field-border);
   border-radius: 0.35rem;
   background: #fff;
+}
+
+.edit-table input[data-field="nombre"] {
+  text-transform: uppercase;
 }
 
 .edit-table input:focus {
