@@ -67,9 +67,9 @@ describe("rebuildTemporada con aliases", () => {
   });
 
   it("aplica aliases al competidorKey en standings", () => {
-    rebuildTemporada(root);
+    const { outPath } = rebuildTemporada(root);
     const temporada = JSON.parse(
-      readFileSync(join(root, "data", "temporada.json"), "utf8")
+      readFileSync(outPath, "utf8")
     );
     const uno = temporada.standings.find((s) => s.nombre === "Rider Uno");
     assert.ok(uno);

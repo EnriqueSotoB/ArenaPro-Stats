@@ -37,6 +37,30 @@ export function buildDefaultEdits(evento) {
 }
 
 /**
+ * Reabre un evento ya guardado (con statsEdits aplicados) para volver a editarlo.
+ * Lo excluido al guardar ya no existe en el archivo: solo se edita lo que quedó.
+ * @param {object} stored
+ * @returns {{ evento: object, edits: { version: number, categoriasIncluidas: string[], filas: object[] } }}
+ */
+export function editsFromStoredEvento(stored) {
+  if (!stored || typeof stored !== "object") {
+    throw new Error("Evento guardado inválido.");
+  }
+  const { statsEdits, ...evento } = stored;
+  const filas = Array.isArray(statsEdits?.filas)
+    ? statsEdits.filas.filter((f) => f && f.key && !f.excluir).map((f) => ({ ...f }))
+    : [];
+  return {
+    evento: JSON.parse(JSON.stringify(evento)),
+    edits: {
+      version: statsEdits?.version || 1,
+      categoriasIncluidas: (evento.categorias || []).map((c) => String(c.id)),
+      filas,
+    },
+  };
+}
+
+/**
  * @param {object} edits
  * @param {string} key
  * @returns {object|null}
@@ -142,7 +166,18 @@ function mergeEntrada(ent, patch) {
   if (patch.montoGanado != null && patch.montoGanado !== "") {
     next.montoGanado = toMontoEntero(patch.montoGanado);
   }
+  if (patch.lazoAyuda !== undefined) {
+    const rol = normalizeLazoAyuda(patch.lazoAyuda);
+    if (rol) next.lazoAyuda = rol;
+    else delete next.lazoAyuda;
+  }
   return next;
+}
+
+/** Rol del compañero de ayuda en lazo por parejas: "header" | "heeler" | "" (ninguno). */
+export function normalizeLazoAyuda(v) {
+  const s = String(v || "").toLowerCase();
+  return s === "header" || s === "heeler" ? s : "";
 }
 
 /**
@@ -150,7 +185,7 @@ function mergeEntrada(ent, patch) {
  * @param {object} evento — evento base SIN aplicar excluidos de categoría
  * @param {string} categoriaId
  * @param {object} [edits] — para reflejar overrides actuales en la UI
- * @returns {Array<{ key: string, nombre: string, puntosCircuito: number|null, montoGanado: number|null, excluir: boolean }>}
+ * @returns {Array<{ key: string, nombre: string, puntosCircuito: number|null, montoGanado: number|null, lazoAyuda: string, excluir: boolean }>}
  */
 export function listEditableFilas(evento, categoriaId, edits = null) {
   const catId = String(categoriaId);
@@ -193,6 +228,7 @@ export function listEditableFilas(evento, categoriaId, edits = null) {
           : ent.montoGanado != null
             ? toMontoEntero(ent.montoGanado)
             : null,
+      lazoAyuda: normalizeLazoAyuda(patch?.lazoAyuda !== undefined ? patch.lazoAyuda : ent.lazoAyuda),
       excluir: Boolean(patch?.excluir),
     };
   });

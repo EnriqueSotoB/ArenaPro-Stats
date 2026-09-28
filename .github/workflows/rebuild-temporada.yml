@@ -1,6 +1,6 @@
 name: Rebuild temporada
 
-# Solo manual: el admin local (publicar.bat) ya regenera temporada.json.
+# Solo manual: el admin local (publicar.bat) ya regenera data/circuitos/.
 # El commit automático en cada push chocaba con el siguiente "Publicar".
 on:
   workflow_dispatch:
@@ -18,17 +18,17 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Regenerar temporada.json
+      - name: Regenerar data/circuitos/
         run: node scripts/rebuild-temporada.mjs
 
       - name: Commit si hay cambios
         run: |
-          if git diff --quiet -- data/temporada.json; then
-            echo "Sin cambios en temporada.json"
+          git add -A -- data
+          if git diff --cached --quiet -- data; then
+            echo "Sin cambios en data/"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/temporada.json
-          git commit -m "chore: regenerar temporada.json"
+          git commit -m "chore: regenerar estadísticas por circuito"
           git push

@@ -52,8 +52,10 @@ describe("rebuildTemporada (smoke)", () => {
     assert.equal(result.temporada, "2027");
     assert.ok(result.standings >= 2);
 
-    const temporada = JSON.parse(readFileSync(join(root, "data", "temporada.json"), "utf8"));
+    assert.equal(result.outPath, join(root, "data", "circuitos", "fmr-tour-2027.json"));
+    const temporada = JSON.parse(readFileSync(result.outPath, "utf8"));
     assert.equal(temporada.titulo, "FMR Tour 2027");
+    assert.equal(temporada.circuitoId, "fmr-tour-2027");
 
     const barriles = temporada.standings.filter((s) => s.disciplinaId === "Barriles");
     assert.equal(barriles.length, 2);

@@ -137,6 +137,31 @@ body {
   color: var(--dark);
 }
 
+/* —— Circuit picker —— */
+
+.circuit-picker[hidden] {
+  display: none;
+}
+
+.circuit-select {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--dark);
+  background: color-mix(in srgb, var(--cream) 92%, #fff);
+  border: 1px solid color-mix(in srgb, var(--cream) 40%, var(--border));
+  border-radius: 0.45rem;
+  padding: 0.5rem 0.6rem;
+  max-width: min(260px, 80vw);
+  cursor: pointer;
+}
+
+.circuit-select:focus {
+  outline: none;
+  border-color: var(--ochre);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ochre) 35%, transparent);
+}
+
 /* —— Search —— */
 
 .search {
@@ -262,11 +287,40 @@ body {
   letter-spacing: -0.02em;
 }
 
+.head-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.assoc-logo {
+  flex-shrink: 0;
+  width: 4.75rem;
+  height: 4.75rem;
+  object-fit: contain;
+  padding: 0.3rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--forest) 12%, transparent);
+}
+
+.assoc-logo[hidden] {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .assoc-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
 .metric-toggle {
   display: inline-flex;
   margin-top: 0.85rem;
-  border: 1px solid var(--border);
-  border-radius: 0.375rem;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, #fff);
+  border-radius: 0.5rem;
   overflow: hidden;
   background: #fff;
 }
@@ -278,13 +332,23 @@ body {
   color: var(--olive);
   background: transparent;
   border: none;
-  padding: 0.45rem 0.9rem;
+  padding: 0.5rem 0.9rem;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
+.metric-btn:hover:not(.is-active) {
+  background: color-mix(in srgb, var(--forest) 6%, #fff);
+  color: var(--forest);
+}
+
+.metric-btn:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: -2px;
+}
+
 .metric-btn + .metric-btn {
-  border-left: 1px solid var(--border);
+  border-left: 1px solid color-mix(in srgb, var(--border) 60%, #fff);
 }
 
 .metric-btn.is-active {
@@ -294,6 +358,13 @@ body {
 
 .metric-toggle[hidden] {
   display: none !important;
+}
+
+.head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.65rem;
 }
 
 .all-around {
@@ -372,10 +443,20 @@ body {
 /* —— Panels / cards —— */
 
 .panel {
-  background: color-mix(in srgb, #fff 92%, var(--cream));
-  border: 1px solid var(--border);
-  border-radius: 0.55rem;
-  padding: 1rem;
+  min-width: 0;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  border-radius: 0.8rem;
+  padding: 1.15rem;
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--dark) 5%, transparent),
+    0 10px 28px -18px color-mix(in srgb, var(--forest) 35%, transparent);
+}
+
+@media (min-width: 768px) {
+  .panel {
+    padding: 1.4rem;
+  }
 }
 
 .card-grid {
@@ -855,6 +936,26 @@ td .row-sub {
 .badge-out {
   background: var(--sand);
   color: var(--textsub);
+}
+
+.badge-circuito {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--olive);
+}
+
+.badge-circuito.is-current {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--cream);
+}
+
+.event-row-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.45rem 0 0;
 }
 
 .empty,

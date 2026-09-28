@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   buildDefaultEdits,
   aplicarStatsEdits,
+  editsFromStoredEvento,
   filaKey,
   listEditableFilas,
   upsertFilaEdit,
@@ -116,6 +117,47 @@ describe("aplicarStatsEdits", () => {
     assert.ok(out.statsEdits);
     assert.equal(out.statsEdits.version, 1);
     assert.ok(out.statsEdits.editadoEn);
+  });
+});
+
+describe("editsFromStoredEvento", () => {
+  function storedEvento() {
+    const ev = sampleEvento();
+    const edits = buildDefaultEdits(ev);
+    edits.categoriasIncluidas = ["cat-a"];
+    upsertFilaEdit(edits, filaKey(ev.clasificacion[0].entradas[0], "cat-a", "clasif"), {
+      nombre: "Uno Editado",
+    });
+    upsertFilaEdit(edits, filaKey(ev.clasificacion[0].entradas[1], "cat-a", "clasif"), {
+      excluir: true,
+    });
+    return aplicarStatsEdits(ev, edits);
+  }
+
+  it("separa statsEdits e incluye solo las categorías guardadas", () => {
+    const { evento, edits } = editsFromStoredEvento(storedEvento());
+    assert.equal(evento.statsEdits, undefined);
+    assert.deepEqual(edits.categoriasIncluidas, ["cat-a"]);
+    assert.equal(edits.filas.length, 1);
+    assert.equal(edits.filas[0].nombre, "Uno Editado");
+  });
+
+  it("volver a guardar sin cambios deja el evento igual", () => {
+    const stored = storedEvento();
+    const { evento, edits } = editsFromStoredEvento(stored);
+    const again = aplicarStatsEdits(evento, edits);
+    assert.deepEqual(again.categorias, stored.categorias);
+    assert.deepEqual(again.clasificacion, stored.clasificacion);
+    assert.deepEqual(again.resultados, stored.resultados);
+  });
+
+  it("permite corregir un valor de un evento ya guardado", () => {
+    const { evento, edits } = editsFromStoredEvento(storedEvento());
+    const ent = evento.clasificacion[0].entradas[0];
+    upsertFilaEdit(edits, filaKey(ent, "cat-a", "clasif"), { puntosCircuito: 77 });
+    const out = aplicarStatsEdits(evento, edits);
+    assert.equal(out.clasificacion[0].entradas[0].puntosCircuito, 77);
+    assert.equal(out.clasificacion[0].entradas[0].nombre, "Uno Editado");
   });
 });
 

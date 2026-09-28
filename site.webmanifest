@@ -1,7 +1,7 @@
 {
   "name": "ArenaPro Estadísticas",
   "short_name": "ArenaPro Estadísticas",
-  "description": "Clasificación de puntos y estadísticas del FMR Tour — ArenaPro Estadísticas",
+  "description": "Clasificación de puntos y estadísticas de circuitos de rodeo — ArenaPro Estadísticas",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

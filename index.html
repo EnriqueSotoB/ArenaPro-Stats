@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FMR Tour 2027 — ArenaPro Estadísticas</title>
-  <meta name="description" content="Clasificación de puntos y estadísticas del FMR Tour 2027 — ArenaPro Estadísticas" />
+  <title>ArenaPro Estadísticas — Rodeo</title>
+  <meta name="description" content="Clasificación de puntos y estadísticas de circuitos de rodeo por asociación y temporada — ArenaPro Estadísticas" />
   <meta name="theme-color" content="#3f524f" />
   <meta name="application-name" content="ArenaPro Estadísticas" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -29,6 +29,10 @@
       </span>
     </a>
     <div class="topbar-tools">
+      <label class="circuit-picker">
+        <span class="visually-hidden">Asociación y temporada</span>
+        <select id="circuitoSelect" class="circuit-select"></select>
+      </label>
       <div class="search" id="searchRoot">
         <label class="visually-hidden" for="searchInput">Buscar competidor</label>
         <input
@@ -55,9 +59,14 @@
     <!-- TEMPORADA: hub por categoría -->
     <section id="viewTemporadaHub" class="view" hidden>
       <header class="page-head">
-        <p class="eyebrow">Circuito</p>
-        <h1 id="tempTitle">Temporada</h1>
-        <p id="tempMeta" class="meta"></p>
+        <div class="head-brand">
+          <img id="tempLogo" class="assoc-logo" alt="" hidden />
+          <div>
+            <p class="eyebrow" id="tempEyebrow">Circuito</p>
+            <h1 id="tempTitle">Temporada</h1>
+            <p id="tempMeta" class="meta"></p>
+          </div>
+        </div>
         <div class="metric-toggle" role="group" aria-label="Métrica de clasificación">
           <button type="button" class="metric-btn is-active" data-metric="puntos" id="hubMetricPuntos">Puntos</button>
           <button type="button" class="metric-btn" data-metric="dinero" id="hubMetricDinero">Dinero</button>
@@ -74,10 +83,10 @@
       <aside id="metodologia" class="metodologia panel">
         <h2>Cómo se calcula</h2>
         <ul>
-          <li><strong>Puntos</strong> vienen de ArenaPro Time (`puntosCircuito`); este sitio acumula la temporada. Se muestran como enteros o medios (`.5`), igual que AERCH; se limpia float basura de empates.</li>
+          <li><strong>Puntos</strong> vienen de ArenaPro Time (`puntosCircuito`); este sitio acumula la temporada de cada circuito con los eventos que la asociación le asigna. Se muestran como enteros o medios (`.5`); se limpia float basura de empates.</li>
           <li><strong>Dinero</strong> en MXN enteros; Lazo por Parejas se parte 50/50 Cabecero / Pialador.</li>
           <li><strong>Vaquero Completo</strong> suma el dinero de quienes cobraron en ≥2 disciplinas (Cabecero y Pialador cuentan aparte).</li>
-          <li>La línea de corte se publicará cuando FMR la defina.</li>
+          <li>La línea de corte se publicará cuando la asociación la defina.</li>
         </ul>
       </aside>
     </section>
@@ -88,9 +97,11 @@
         <button type="button" class="btn-back" id="btnBackTemporada">← Temporada</button>
         <h1 id="rankTitle">Clasificación</h1>
         <p id="rankMeta" class="meta"></p>
-        <div class="metric-toggle" role="group" aria-label="Métrica de clasificación">
-          <button type="button" class="metric-btn is-active" data-metric="puntos" id="rankMetricPuntos">Puntos</button>
-          <button type="button" class="metric-btn" data-metric="dinero" id="rankMetricDinero">Dinero</button>
+        <div class="head-actions">
+          <div class="metric-toggle" role="group" aria-label="Métrica de clasificación">
+            <button type="button" class="metric-btn is-active" data-metric="puntos" id="rankMetricPuntos">Puntos</button>
+            <button type="button" class="metric-btn" data-metric="dinero" id="rankMetricDinero">Dinero</button>
+          </div>
         </div>
       </header>
       <div id="rankPodium" class="podium"></div>
@@ -114,7 +125,7 @@
       <header class="page-head">
         <p class="eyebrow">Calendario</p>
         <h1>Eventos</h1>
-        <p class="meta">Resultados por rodeo · elige uno para ver categorías</p>
+        <p class="meta" id="eventosMeta">Resultados por rodeo · elige uno para ver categorías</p>
       </header>
       <div id="eventosList" class="event-list"></div>
     </section>
@@ -135,7 +146,7 @@
   </main>
 
   <footer class="footer">
-    <p>FMR Tour 2027 · ArenaPro Estadísticas</p>
+    <p id="footerText">ArenaPro Estadísticas</p>
   </footer>
 
   <script src="js/app.js" type="module"></script>

@@ -3,7 +3,9 @@
 Página estática de **estadísticas** (evento + temporada) con la marca ArenaPro.
 Publicada en GitHub Pages; se alimenta con JSON de Time (**Exportar para Stats…**) o con la plantilla Excel manual.
 
-**Plan FMR Tour 2027:** ver [`docs/README.md`](./docs/README.md) (sprints, tests, dominio `estadisticas.arenapro.mx`).
+Soporta varias **asociaciones** (AERCH, FMR…) y un **circuito por temporada** de cada una; un evento puede contar para varios circuitos (p. ej. FMR Tour-AERCH).
+
+Plan original y sprints: ver [`docs/README.md`](./docs/README.md) (tests, dominio `estadisticas.arenapro.mx`).
 
 Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 (paleta forest / ochre / sand / cream / dark + derivados; tipografía app Arial; barra `forest`).
@@ -14,9 +16,11 @@ Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 2. En esta carpeta, doble clic en **`publicar.bat`** (cierra sola la instancia anterior del puerto 8787)
 3. En el navegador (`admin.html`):
    - suelta el JSON o el Excel
-   - confirma la **temporada** y revisa el **preview** (pódium / categorías)
+   - marca los **circuitos** para los que cuenta (asociación + temporada) y revisa el **preview** (pódium / categorías)
    - **Agregar a Stats**
-   - **Publicar en GitHub Pages** (siempre regenera `temporada.json` en un proceso Node nuevo)
+   - **Publicar en GitHub Pages** (siempre regenera `data/circuitos/*.json` en un proceso Node nuevo)
+
+Asociaciones y temporadas nuevas (p. ej. **AERCH Circuito 2028**) se crean en el panel **Asociaciones y circuitos** del admin. El circuito **principal** es el que abre el sitio público.
 4. Espera 1–2 min y abre https://estadisticas.arenapro.mx/
 
 La temporada une categorías por **disciplina de circuito** (p. ej. Abierta / Barriles Abierto → Barriles; Master → Barriles Masters). No uses ids `local:` del export.
@@ -42,20 +46,37 @@ npx --yes serve .
 | **Temporada** | Hub con cards por categoría (top 5) |
 | **Ranking** | Tabla completa, pódium, cut line, Δ al líder |
 | **Competidor** | Ficha con totales, disciplinas e historial (`#competidor/…`) |
-| **Eventos** | Índice de rodeos |
+| **Eventos** | Rodeos del circuito elegido, con etiqueta de cada circuito para el que cuentan |
 | **Detalle evento** | Pódium + tabs por categoría + filas expandibles |
 
+El selector de la barra superior cambia de asociación / temporada. Las URLs llevan el circuito: `#aerch-circuito-2027/temporada/Barriles`.
+
 Búsqueda en la barra superior (también **Ctrl/⌘+K**). Los nombres enlazan a la ficha.
+
+## Tres niveles de acceso
+
+| Nivel | Dónde | Qué puede hacer |
+|-------|-------|-----------------|
+| **Público** (competidores) | `index.html` | Ver temporada, eventos y fichas |
+| **Asociación** | `portal.html#{asociacionId}` + contraseña | Tablero de su circuito (KPIs, movimientos del último rodeo, récords de la temporada, disciplinas, líderes, más activos) e **imágenes para redes** (clasificación, resultados de evento, movimientos, récords de la temporada y récords nuevos por evento). No publica nada |
+| **Super admin** | `admin.html` vía `publicar.bat` | Todo: eventos, circuitos, asociaciones, accesos al portal y publicar |
+
+**Acceso al portal:** en el admin, **Dar acceso** genera la contraseña (o usa la que escribas, mín. 10 caracteres) y te arma el mensaje con liga + contraseña para mandarlo. Solo se guarda una huella en `data/manifest.json` (nunca la contraseña); se activa al publicar. **Nueva contraseña** invalida la anterior. Desde tu compu (`127.0.0.1`) puedes entrar a cualquier portal sin contraseña.
+
+El sitio es estático: el portal no oculta datos (todo lo que muestra ya es público en el sitio); la contraseña evita que cualquiera use las herramientas con la marca de la asociación. No guardes en `data/` nada que no deba ser público.
+
+**Imágenes para redes (portal):** clasificación de temporada (puntos, dinero o Vaquero Completo) o resultados de un evento; formato post 4:5, cuadrado o historia 9:16; **Top 3**, **Top 10** o **Todos**. Todos usa doble columna (~30 por imagen) y, si no caben, arma un carrusel con el mismo número de lugares por imagen. En el celular, **Compartir** manda todas las imágenes juntas a Instagram / Facebook / WhatsApp.
 
 ## Estructura
 
 ```
 admin.html                 ← consola local de publicación
+portal.html                ← portal de asociaciones (tablero + redes)
 publicar.bat
 index.html
-css/ styles + admin
-js/ app.js + admin.js
-data/ manifest + temporada + eventos/
+css/ styles + admin + portal
+js/ app.js (público) + admin.js + portal.js + social-card.js + share-specs.js + portal-stats.js
+data/ manifest (asociaciones, circuitos, eventos) + circuitos/ (generado) + eventos/
 templates/evento-manual.xlsx
 scripts/publish-server.mjs
 scripts/rebuild-temporada.mjs

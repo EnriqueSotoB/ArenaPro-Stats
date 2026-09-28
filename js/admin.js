@@ -13,6 +13,7 @@ import {
 import {
   buildDefaultEdits,
   aplicarStatsEdits,
+  editsFromStoredEvento,
   listEditableFilas,
   upsertFilaEdit,
 } from "../scripts/lib/stats-edits.mjs";
@@ -22,12 +23,24 @@ import {
   peersWithSameSurname,
   spellingNearMatches,
 } from "../scripts/lib/alias-suggest.mjs";
+import { circuitosPorAsociacion, findCircuito, tipoAsociacionLabel } from "../scripts/lib/circuitos.mjs";
+import { disciplinaKey } from "../scripts/lib/disciplinas.mjs";
+import { isTeamRopingBase, parseTeamRopingPair } from "../scripts/lib/team-roping.mjs";
+
+const LAST_CIRCUITOS_KEY = "arenapro.admin.circuitos";
+
+/** Última respuesta de /api/status (asociaciones, circuitos, eventos). */
+let statusData = { asociaciones: [], circuitos: [], circuitoDefault: "", eventos: [] };
+/** Circuitos marcados para el evento en revisión. @type {string[]} */
+let selectedCircuitos = [];
 
 let pendingEvento = null;
 /** @type {ReturnType<typeof buildDefaultEdits>|null} */
 let pendingEdits = null;
 let previewCatId = null;
 const expandedRows = new Set();
+/** Id (manifest) del evento ya cargado que se está corrigiendo; null = evento nuevo. */
+let editingId = null;
 
 /** @type {{ aliases: Array<object>, names: Array<{key:string,label:string}> }} */
 let aliasesState = { aliases: [], names: [] };
@@ -50,8 +63,40 @@ const els = {
   previewPodium: document.getElementById("previewPodium"),
   previewTabs: document.getElementById("previewTabs"),
   previewTable: document.getElementById("previewTable"),
-  temporadaInput: document.getElementById("temporadaInput"),
+  circuitosPickList: document.getElementById("circuitosPickList"),
+  circuitosTree: document.getElementById("circuitosTree"),
+  circuitoForm: document.getElementById("circuitoForm"),
+  circuitoFormTitle: document.getElementById("circuitoFormTitle"),
+  circuitoId: document.getElementById("circuitoId"),
+  circuitoAsociacion: document.getElementById("circuitoAsociacion"),
+  circuitoNombre: document.getElementById("circuitoNombre"),
+  circuitoTemporada: document.getElementById("circuitoTemporada"),
+  circuitoPrincipal: document.getElementById("circuitoPrincipal"),
+  btnCircuitoSave: document.getElementById("btnCircuitoSave"),
+  circuitoDialog: document.getElementById("circuitoDialog"),
+  btnNuevoCircuito: document.getElementById("btnNuevoCircuito"),
+  asociacionDialog: document.getElementById("asociacionDialog"),
+  btnNuevaAsociacion: document.getElementById("btnNuevaAsociacion"),
+  asociacionForm: document.getElementById("asociacionForm"),
+  asociacionFormTitle: document.getElementById("asociacionFormTitle"),
+  asociacionId: document.getElementById("asociacionId"),
+  asociacionSiglas: document.getElementById("asociacionSiglas"),
+  asociacionNombre: document.getElementById("asociacionNombre"),
+  asociacionTipo: document.getElementById("asociacionTipo"),
+  asociacionEstado: document.getElementById("asociacionEstado"),
+  asociacionHashtags: document.getElementById("asociacionHashtags"),
+  asociacionLazadorRepetido: document.getElementById("asociacionLazadorRepetido"),
+  asociacionLogo: document.getElementById("asociacionLogo"),
+  asociacionLogoActual: document.getElementById("asociacionLogoActual"),
+  asociacionLogoImg: document.getElementById("asociacionLogoImg"),
+  btnAsociacionLogoRemove: document.getElementById("btnAsociacionLogoRemove"),
+  portalCredencial: document.getElementById("portalCredencial"),
+  portalCredencialTexto: document.getElementById("portalCredencialTexto"),
+  btnPortalCopiar: document.getElementById("btnPortalCopiar"),
+  btnPortalCerrar: document.getElementById("btnPortalCerrar"),
+  btnAsociacionSave: document.getElementById("btnAsociacionSave"),
   btnIngest: document.getElementById("btnIngest"),
+  btnCancelEdit: document.getElementById("btnCancelEdit"),
   btnPublish: document.getElementById("btnPublish"),
   pagesLink: document.getElementById("pagesLink"),
   dirtyNote: document.getElementById("dirtyNote"),
@@ -76,10 +121,15 @@ async function init() {
   wireAliasesPanel();
   els.btnDownloadPlantilla?.addEventListener("click", onDownloadPlantilla);
   els.btnIngest.addEventListener("click", onIngest);
-  els.btnPublish.addEventListener("click", onPublish);
-  els.temporadaInput.addEventListener("input", () => {
-    if (pendingEvento) refreshPreviewUi();
+  els.btnCancelEdit.addEventListener("click", () => {
+    resetPending();
+    showBanner("Edición cancelada. El evento quedó como estaba.", false);
   });
+  els.btnPublish.addEventListener("click", onPublish);
+  els.banner.addEventListener("click", () => {
+    els.banner.hidden = true;
+  });
+  wireCircuitosPanel();
   els.editSearch.addEventListener("input", () => applyEditSearchFilter());
   await refreshStatus();
   await refreshAliases();
@@ -211,14 +261,8 @@ async function loadFile(file) {
     evento.resultados = data.resultados || evento.resultados;
     evento.categorias = data.categorias || evento.categorias;
 
-    const temp =
-      data.temporada ||
-      els.temporadaInput.value ||
-      (await fetchStatusSafe())?.temporadaActiva ||
-      "";
-    els.temporadaInput.value = temp;
-    evento.temporada = temp;
-
+    setEditing(null);
+    setSelectedCircuitos(lastUsedCircuitos());
     pendingEvento = evento;
     pendingEdits = buildDefaultEdits(evento);
     previewCatId = null;
@@ -234,7 +278,50 @@ async function loadFile(file) {
   }
 }
 
+function setEditing(id) {
+  editingId = id || null;
+  els.btnIngest.textContent = editingId ? "Guardar cambios" : "Agregar a Estadísticas";
+  els.btnCancelEdit.hidden = !editingId;
+  els.eventosList.querySelectorAll("li[data-ev-id]").forEach((li) => {
+    li.classList.toggle("is-editing", li.getAttribute("data-ev-id") === editingId);
+  });
+}
+
+async function onEdit(id, nombre) {
+  if (!id) return;
+  if (pendingEvento && !confirm("Hay un evento en revisión sin guardar. ¿Descartarlo y editar este?")) {
+    return;
+  }
+  showBanner(`Abriendo ${nombre || id}…`, false);
+  try {
+    const res = await fetch(`/api/evento?id=${encodeURIComponent(id)}`);
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "No se pudo abrir el evento");
+
+    const { evento, edits } = editsFromStoredEvento(body.evento);
+    setSelectedCircuitos(body.entry?.circuitos || []);
+
+    pendingEvento = evento;
+    pendingEdits = edits;
+    previewCatId = null;
+    expandedRows.clear();
+    els.fileInput.value = "";
+    setEditing(id);
+
+    els.fileInfo.textContent = `Editando evento ya cargado: ${body.entry?.nombre || id}. Lo que desmarques se borra de este evento.`;
+    refreshPreviewUi();
+    showBanner(
+      `Editando: ${body.entry?.nombre || id}. Corrige y pulsa "Guardar cambios"; la temporada se recalcula sola.`,
+      false
+    );
+    document.getElementById("step2")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (err) {
+    showBanner(err.message || String(err), true);
+  }
+}
+
 function resetPending() {
+  setEditing(null);
   pendingEvento = null;
   pendingEdits = null;
   previewCatId = null;
@@ -256,7 +343,8 @@ function resetPending() {
 function getAppliedEvento() {
   if (!pendingEvento || !pendingEdits) return null;
   const applied = aplicarStatsEdits(pendingEvento, pendingEdits);
-  applied.temporada = els.temporadaInput.value.trim() || applied.temporada;
+  const primero = findCircuito(statusData, selectedCircuitos[0]);
+  if (primero) applied.temporada = primero.temporada;
   return applied;
 }
 
@@ -271,7 +359,7 @@ function refreshPreviewUi() {
   renderWarnings(applied);
   renderCherryPick();
   const included = pendingEdits.categoriasIncluidas || [];
-  els.btnIngest.disabled = included.length === 0;
+  els.btnIngest.disabled = included.length === 0 || selectedCircuitos.length === 0;
 
   if (!included.length) {
     els.editPanel.hidden = true;
@@ -289,11 +377,13 @@ function refreshPreviewUi() {
 
 function renderMetaPreview(evento) {
   els.preview.classList.remove("empty-preview");
+  const circuitos = selectedCircuitos
+    .map((id) => findCircuito(statusData, id)?.nombre)
+    .filter(Boolean);
   const lines = [
     evento.nombreEvento || evento.eventoId || "Sin nombre",
-    [evento.fecha, evento.sede, evento.temporada ? `Temp. ${evento.temporada}` : ""]
-      .filter(Boolean)
-      .join(" · "),
+    [evento.fecha, evento.sede].filter(Boolean).join(" · "),
+    circuitos.length ? `Cuenta para: ${circuitos.join(" · ")}` : "Sin circuito elegido",
     `${(evento.resultados || []).length} filas · ${(evento.categorias || []).length} categorías incluidas`,
   ];
   els.preview.innerHTML = lines.map((l) => `<div>${escapeHtml(l)}</div>`).join("");
@@ -398,6 +488,18 @@ function renderEditPanel(catId) {
   }
 
   els.editSearch.disabled = false;
+  const cat = (pendingEvento?.categorias || []).find((c) => String(c.id) === String(catId));
+  const esLazo = isTeamRopingBase(disciplinaKey(cat || {}));
+  const ayudaSelect = (r) => {
+    const pair = parseTeamRopingPair(r.nombre);
+    const opt = (value, label) =>
+      `<option value="${value}"${r.lazoAyuda === value ? " selected" : ""}>${escapeHtml(label)}</option>`;
+    return `<select data-field="lazoAyuda" title="El compañero de ayuda no suma puntos, sí dinero (FMR 1.13.10 d)">
+        ${opt("", "No")}
+        ${opt("header", pair ? `Cabecero: ${pair.header}` : "Cabecero")}
+        ${opt("heeler", pair ? `Pialador: ${pair.heeler}` : "Pialador")}
+      </select>`;
+  };
   els.editTable.innerHTML = `<table class="edit-table">
     <thead>
       <tr>
@@ -405,6 +507,7 @@ function renderEditPanel(catId) {
         <th>Nombre</th>
         <th>Pts circuito</th>
         <th>$ MXN</th>
+        ${esLazo ? "<th>Lazo de ayuda</th>" : ""}
       </tr>
     </thead>
     <tbody>
@@ -417,14 +520,20 @@ function renderEditPanel(catId) {
             <td><input type="text" data-field="nombre" value="${escapeAttr(r.nombre)}" /></td>
             <td><input type="number" data-field="puntosCircuito" step="0.5" value="${r.puntosCircuito ?? ""}" /></td>
             <td><input type="number" data-field="montoGanado" step="1" value="${r.montoGanado ?? ""}" /></td>
+            ${esLazo ? `<td>${ayudaSelect(r)}</td>` : ""}
           </tr>`;
         })
         .join("")}
     </tbody>
-  </table>`;
+  </table>
+  ${esLazo ? `<p class="meta">Lazo de ayuda: el compañero de ayuda no suma puntos, pero sí su parte del dinero; su pareja cuenta normal (Reglamento FMR 1.13.10 d y 5.12 e).</p>` : ""}`;
 
   els.editTable.querySelectorAll("tr[data-key]").forEach((tr) => {
     const key = tr.getAttribute("data-key");
+    tr.querySelector('select[data-field="lazoAyuda"]')?.addEventListener("change", (e) => {
+      upsertFilaEdit(pendingEdits, key, { lazoAyuda: e.target.value });
+      refreshPreviewOnly();
+    });
     tr.querySelectorAll("input").forEach((input) => {
       input.addEventListener("change", () => {
         const field = input.getAttribute("data-field");
@@ -493,7 +602,7 @@ function refreshPreviewOnly() {
   renderMetaPreview(applied);
   renderWarnings(applied);
   const included = pendingEdits.categoriasIncluidas || [];
-  els.btnIngest.disabled = included.length === 0;
+  els.btnIngest.disabled = included.length === 0 || selectedCircuitos.length === 0;
   if (!included.length) {
     els.eventPreview.hidden = true;
     return;
@@ -550,26 +659,44 @@ async function onIngest() {
     showBanner("Selecciona al menos una categoría.", true);
     return;
   }
+  if (!selectedCircuitos.length) {
+    showBanner("Elige al menos un circuito (asociación y temporada) para el evento.", true);
+    return;
+  }
+  const replaceId = editingId;
+  if (
+    replaceId &&
+    !confirm(
+      `¿Guardar los cambios en "${pendingEvento.nombreEvento || replaceId}"?\n\nSe reemplaza el evento y se recalcula la temporada. Luego publica para que se vea en el sitio.`
+    )
+  ) {
+    return;
+  }
   els.btnIngest.disabled = true;
-  showBanner("Agregando evento…", false);
+  showBanner(replaceId ? "Guardando cambios…" : "Agregando evento…", false);
   try {
     const res = await fetch("/api/ingest", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         evento: pendingEvento,
-        temporada: els.temporadaInput.value.trim(),
+        circuitos: selectedCircuitos,
         statsEdits: pendingEdits,
+        replaceId,
       }),
     });
     const body = await res.json();
-    if (!res.ok || body.ok === false) throw new Error(body.error || "Error al agregar");
+    if (!res.ok || body.ok === false) throw new Error(body.error || "Error al guardar");
+    localStorage.setItem(LAST_CIRCUITOS_KEY, JSON.stringify(selectedCircuitos));
     const warn =
       body.warnings?.length
         ? ` Avisos: ${body.warnings.join(" · ")}`
         : "";
+    const nombres = (body.entry?.circuitos || [])
+      .map((id) => findCircuito(statusData, id)?.nombre || id)
+      .join(" · ");
     showBanner(
-      `Agregado: ${body.entry?.nombre || body.file}. Temporada ${body.temporada}.${warn} Ya puedes publicar.`,
+      `${replaceId ? "Actualizado" : "Agregado"}: ${body.entry?.nombre || body.file}. Cuenta para ${nombres}.${warn} Ya puedes publicar.`,
       false
     );
     resetPending();
@@ -598,16 +725,6 @@ async function onPublish() {
   }
 }
 
-async function fetchStatusSafe() {
-  try {
-    const res = await fetch("/api/status");
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
-
 async function refreshStatus() {
   try {
     const res = await fetch("/api/status");
@@ -620,18 +737,26 @@ async function refreshStatus() {
       return;
     }
 
+    statusData = {
+      asociaciones: data.asociaciones || [],
+      circuitos: data.circuitos || [],
+      circuitoDefault: data.circuitoDefault || "",
+      eventos: data.eventos || [],
+    };
+    const principal = findCircuito(statusData, statusData.circuitoDefault);
+
     els.statusMeta.textContent = [
-      data.titulo,
-      data.temporadaActiva ? `Temporada activa ${data.temporadaActiva}` : "",
+      principal ? `Principal: ${principal.nombre}` : "Sin circuitos: crea uno abajo",
+      `${statusData.circuitos.length} circuito(s)`,
       data.branch ? `rama ${data.branch}` : "",
       data.dirty ? "hay cambios sin publicar" : "sin cambios pendientes",
     ]
       .filter(Boolean)
       .join(" · ");
 
-    if (!els.temporadaInput.value && data.temporadaActiva) {
-      els.temporadaInput.value = data.temporadaActiva;
-    }
+    setSelectedCircuitos(selectedCircuitos.length ? selectedCircuitos : lastUsedCircuitos());
+    renderCircuitosTree();
+    renderAsociacionOptions();
 
     els.btnPublish.disabled = !data.dirty;
     els.dirtyNote.textContent = data.dirty
@@ -645,16 +770,38 @@ async function refreshStatus() {
     els.eventosList.innerHTML = eventos.length
       ? eventos
           .map(
-            (e) => `<li class="ev-row">
+            (e) => `<li class="ev-row${e.id === editingId ? " is-editing" : ""}" data-ev-id="${escapeAttr(e.id)}">
             <div class="ev-info">
               <span class="ev-name">${escapeHtml(e.nombre || e.id)}</span>
               <span class="ev-meta">${escapeHtml([e.fecha, e.sede].filter(Boolean).join(" · "))}</span>
+              <span class="ev-circuitos">${
+                (e.circuitos || []).length
+                  ? e.circuitos
+                      .map(
+                        (id) =>
+                          `<span class="badge badge-circuito">${escapeHtml(findCircuito(statusData, id)?.nombre || id)}</span>`
+                      )
+                      .join("")
+                  : `<span class="badge badge-cut">Sin circuito: no suma</span>`
+              }</span>
             </div>
-            <button type="button" class="btn-danger btn-sm" data-remove="${escapeAttr(e.id)}">Eliminar</button>
+            <div class="ev-actions">
+              <button type="button" class="btn-secondary btn-sm" data-edit="${escapeAttr(e.id)}">Editar</button>
+              <button type="button" class="btn-danger btn-sm" data-remove="${escapeAttr(e.id)}">Eliminar</button>
+            </div>
           </li>`
           )
           .join("")
       : `<li class="ev-meta">Sin eventos aún.</li>`;
+
+    els.eventosList.querySelectorAll("[data-edit]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const eventId = btn.getAttribute("data-edit");
+        const nombre =
+          btn.closest("li")?.querySelector(".ev-name")?.textContent?.trim() || eventId;
+        onEdit(eventId, nombre);
+      });
+    });
 
     els.eventosList.querySelectorAll("[data-remove]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -691,6 +838,7 @@ async function onRemove(id, nombre) {
     });
     const body = await res.json();
     if (!res.ok || body.ok === false) throw new Error(body.error || "Error al eliminar");
+    if (id === editingId) resetPending();
     showBanner(
       `Eliminado: ${body.removed?.nombre || id}. Publica para actualizar el sitio.`,
       false
@@ -700,6 +848,454 @@ async function onRemove(id, nombre) {
   } catch (err) {
     showBanner(err.message || String(err), true);
   }
+}
+
+/* —— Circuitos del evento en revisión —— */
+
+function lastUsedCircuitos() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(LAST_CIRCUITOS_KEY) || "[]");
+    const valid = Array.isArray(saved) ? saved.filter((id) => findCircuito(statusData, id)) : [];
+    if (valid.length) return valid;
+  } catch {
+    /* valor corrupto: usar default */
+  }
+  return statusData.circuitoDefault ? [statusData.circuitoDefault] : [];
+}
+
+function setSelectedCircuitos(ids) {
+  selectedCircuitos = [...new Set(ids || [])].filter((id) => findCircuito(statusData, id));
+  renderCircuitosPick();
+}
+
+function renderCircuitosPick() {
+  if (!els.circuitosPickList) return;
+  const grupos = circuitosPorAsociacion(statusData).filter((g) => g.circuitos.length);
+  if (!grupos.length) {
+    els.circuitosPickList.innerHTML = `<p class="meta">No hay circuitos. Crea uno en “Asociaciones y circuitos”.</p>`;
+    return;
+  }
+  const selected = new Set(selectedCircuitos);
+  els.circuitosPickList.innerHTML = grupos
+    .map(
+      (g) => `<div class="circuitos-pick-group">
+        <p class="circuitos-pick-group-title">${escapeHtml(g.asociacion.siglas ? `${g.asociacion.siglas} · ${g.asociacion.nombre}` : g.asociacion.nombre)}</p>
+        ${g.circuitos
+          .map(
+            (c) => `<label class="cherry-item">
+              <input type="checkbox" data-circuito-id="${escapeAttr(c.id)}" ${selected.has(c.id) ? "checked" : ""} />
+              <span>${escapeHtml(c.nombre)} <span class="meta">(temporada ${escapeHtml(c.temporada)})</span></span>
+            </label>`
+          )
+          .join("")}
+      </div>`
+    )
+    .join("");
+
+  els.circuitosPickList.querySelectorAll("input[data-circuito-id]").forEach((input) => {
+    input.addEventListener("change", () => {
+      const id = input.getAttribute("data-circuito-id");
+      const set = new Set(selectedCircuitos);
+      if (input.checked) set.add(id);
+      else set.delete(id);
+      selectedCircuitos = [...set];
+      if (pendingEvento) refreshPreviewOnly();
+    });
+  });
+}
+
+/* —— Asociaciones y circuitos —— */
+
+function wireCircuitosPanel() {
+  wireDialog(els.circuitoDialog, resetCircuitoForm);
+  wireDialog(els.asociacionDialog, resetAsociacionForm);
+  els.btnNuevoCircuito?.addEventListener("click", () => {
+    if (!statusData.asociaciones.length) {
+      showBanner("Primero crea una asociación.", true);
+      return;
+    }
+    resetCircuitoForm();
+    openDialog(els.circuitoDialog, els.circuitoNombre);
+  });
+  els.btnNuevaAsociacion?.addEventListener("click", () => {
+    resetAsociacionForm();
+    openDialog(els.asociacionDialog, els.asociacionSiglas);
+  });
+
+  els.circuitoForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const principal = els.circuitoPrincipal.checked;
+    setDialogMsg(els.circuitoDialog, "");
+    els.btnCircuitoSave.disabled = true;
+    const saved = await postConfig("/api/circuitos", {
+      id: els.circuitoId.value || undefined,
+      asociacionId: els.circuitoAsociacion.value,
+      nombre: els.circuitoNombre.value,
+      temporada: els.circuitoTemporada.value,
+      principal,
+    }, (body) => `Circuito guardado: ${body.circuito?.nombre}.${principal ? " Es el principal del sitio." : ""} Publica para el sitio.`);
+    els.btnCircuitoSave.disabled = false;
+    if (saved) els.circuitoDialog.close();
+  });
+
+  els.asociacionForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    setDialogMsg(els.asociacionDialog, "");
+    els.btnAsociacionSave.disabled = true;
+    try {
+      const saved = await postConfig("/api/asociaciones", {
+        id: els.asociacionId.value || undefined,
+        siglas: els.asociacionSiglas.value,
+        nombre: els.asociacionNombre.value,
+        tipo: els.asociacionTipo.value,
+        estado: els.asociacionEstado.value,
+        hashtags: els.asociacionHashtags.value,
+        lazadorRepetido: els.asociacionLazadorRepetido.value,
+      }, (body) => `Asociación guardada: ${body.asociacion?.siglas}. Publica para el sitio.`);
+      if (!saved) return;
+      const file = els.asociacionLogo.files?.[0];
+      if (file && !(await uploadLogo(saved.asociacion.id, file))) {
+        els.asociacionId.value = saved.asociacion.id;
+        els.btnAsociacionSave.textContent = "Guardar asociación";
+        return;
+      }
+      els.asociacionDialog.close();
+    } finally {
+      els.btnAsociacionSave.disabled = false;
+    }
+  });
+  els.btnAsociacionLogoRemove?.addEventListener("click", async () => {
+    const id = els.asociacionId.value;
+    if (!id || !confirm("¿Quitar el logo de esta asociación?")) return;
+    const ok = await postConfig("/api/asociaciones/logo/remove", { id }, () => "Logo quitado. Publica para el sitio.");
+    if (ok) els.asociacionLogoActual.hidden = true;
+  });
+
+  els.btnPortalCopiar?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(els.portalCredencialTexto.value);
+      showBanner("Mensaje copiado. Mándalo por WhatsApp o correo a la asociación.", false);
+    } catch {
+      els.portalCredencialTexto.select();
+    }
+  });
+  els.btnPortalCerrar?.addEventListener("click", () => {
+    els.portalCredencialTexto.value = "";
+    els.portalCredencial.hidden = true;
+  });
+}
+
+function portalUrl(asociacionId, publico = true) {
+  const base = publico ? statusData.pagesUrl || "https://estadisticas.arenapro.mx/" : "/";
+  return `${base}portal.html#${encodeURIComponent(asociacionId)}`;
+}
+
+async function darAccesoPortal(a) {
+  const nueva = prompt(
+    `Contraseña del portal de ${a.siglas || a.nombre}.\n\nDéjalo vacío para generar una segura, o escribe una de al menos 10 caracteres.` +
+      (a.portal ? "\n\nLa contraseña anterior dejará de funcionar." : ""),
+    ""
+  );
+  if (nueva === null) return;
+  const body = await postConfig(
+    "/api/asociaciones/portal",
+    { id: a.id, password: nueva },
+    () => `Acceso al portal listo para ${a.siglas || a.nombre}. Publica para activarlo.`
+  );
+  if (!body?.password) return;
+  els.portalCredencialTexto.value = [
+    `Portal ${a.siglas || a.nombre} — ArenaPro Estadísticas`,
+    "",
+    `Liga: ${portalUrl(a.id)}`,
+    `Contraseña: ${body.password}`,
+    "",
+    "Ahí ven el tablero de su circuito y generan las imágenes para Facebook e Instagram.",
+  ].join("\n");
+  els.portalCredencial.hidden = false;
+  els.portalCredencial.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+async function uploadLogo(asociacionId, file) {
+  if (file.size > 2 * 1024 * 1024) {
+    showBanner("El logo pesa más de 2 MB. Usa una versión más ligera.", true);
+    return false;
+  }
+  showBanner("Subiendo logo…", false);
+  try {
+    const res = await fetch(`/api/asociaciones/logo?id=${encodeURIComponent(asociacionId)}`, {
+      method: "POST",
+      headers: { "Content-Type": file.type || "application/octet-stream" },
+      body: await file.arrayBuffer(),
+    });
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "No se pudo subir el logo");
+    showBanner(`Logo de ${body.asociacion.siglas || body.asociacion.nombre} guardado. Publica para el sitio.`, false);
+    await refreshStatus();
+    return true;
+  } catch (err) {
+    showBanner(err.message || String(err), true);
+    return false;
+  }
+}
+
+/** URL del logo con cache-busting (el archivo se reemplaza con el mismo nombre). */
+function logoUrl(logo) {
+  return logo ? `/data/${logo}?v=${Date.now()}` : "";
+}
+
+async function postConfig(url, payload, okMessage) {
+  showBanner("Guardando y regenerando estadísticas…", false);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const body = await res.json();
+    if (!res.ok || body.ok === false) throw new Error(body.error || "No se pudo guardar");
+    showBanner(okMessage(body), false);
+    await refreshStatus();
+    return body;
+  } catch (err) {
+    showBanner(err.message || String(err), true);
+    return null;
+  }
+}
+
+function resetCircuitoForm() {
+  els.circuitoForm?.reset();
+  els.circuitoId.value = "";
+  els.circuitoFormTitle.textContent = "Nuevo circuito";
+  els.btnCircuitoSave.textContent = "Crear circuito";
+  renderAsociacionOptions();
+}
+
+function resetAsociacionForm() {
+  els.asociacionForm?.reset();
+  els.asociacionId.value = "";
+  els.asociacionFormTitle.textContent = "Nueva asociación";
+  els.btnAsociacionSave.textContent = "Crear asociación";
+  els.asociacionLogoActual.hidden = true;
+}
+
+/** Cierra con la ✕, Cancelar, Esc o clic fuera; al cerrar deja el formulario limpio. */
+function wireDialog(dialog, onClosed) {
+  if (!dialog) return;
+  dialog.querySelectorAll("[data-dialog-close]").forEach((btn) =>
+    btn.addEventListener("click", () => dialog.close())
+  );
+  dialog.addEventListener("mousedown", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog.addEventListener("close", () => {
+    setDialogMsg(dialog, "");
+    onClosed();
+  });
+}
+
+function openDialog(dialog, focusEl) {
+  if (!dialog) return;
+  setDialogMsg(dialog, "");
+  if (!dialog.open) dialog.showModal();
+  dialog.querySelector(".dialog-body")?.scrollTo(0, 0);
+  focusEl?.focus();
+}
+
+function setDialogMsg(dialog, msg) {
+  const el = dialog?.querySelector(".dialog-msg");
+  if (!el) return;
+  el.hidden = !msg;
+  el.textContent = msg || "";
+}
+
+function renderAsociacionOptions() {
+  if (!els.circuitoAsociacion) return;
+  const current = els.circuitoAsociacion.value;
+  els.circuitoAsociacion.innerHTML = statusData.asociaciones
+    .map(
+      (a) => `<option value="${escapeAttr(a.id)}">${escapeHtml(a.siglas ? `${a.siglas} — ${a.nombre}` : a.nombre)}</option>`
+    )
+    .join("");
+  if (current && statusData.asociaciones.some((a) => a.id === current)) {
+    els.circuitoAsociacion.value = current;
+  }
+}
+
+function renderCircuitosTree() {
+  if (!els.circuitosTree) return;
+  const grupos = circuitosPorAsociacion(statusData);
+  if (!grupos.length) {
+    els.circuitosTree.innerHTML = `<li class="tree-empty">Sin asociaciones. Crea la primera con <strong>+ Nueva asociación</strong>.</li>`;
+    return;
+  }
+  els.circuitosTree.innerHTML = grupos
+    .map((g) => {
+      const a = g.asociacion;
+      const nombreCorto = a.siglas || a.nombre || "";
+      const circuitos = g.circuitos
+        .map((c) => {
+          const esPrincipal = c.id === statusData.circuitoDefault;
+          return `<li class="tree-circuito">
+            <div class="tree-circuito-info">
+              <span class="tree-circuito-name">${escapeHtml(c.nombre)}</span>
+              ${esPrincipal ? `<span class="pill pill-accent">Principal</span>` : ""}
+              <span class="meta">Temporada ${escapeHtml(c.temporada)} · ${c.eventos ?? 0} ${(c.eventos ?? 0) === 1 ? "evento" : "eventos"}</span>
+            </div>
+            <div class="ev-actions">
+              ${esPrincipal ? "" : `<button type="button" class="btn-ghost btn-sm" data-circuito-principal="${escapeAttr(c.id)}">Hacer principal</button>`}
+              <button type="button" class="btn-ghost btn-sm" data-circuito-edit="${escapeAttr(c.id)}">Editar</button>
+              <button type="button" class="btn-ghost btn-sm is-danger" data-circuito-remove="${escapeAttr(c.id)}">Eliminar</button>
+            </div>
+          </li>`;
+        })
+        .join("");
+      const actions = a.id
+        ? `<div class="ev-actions">
+            <button type="button" class="btn-secondary btn-sm" data-asociacion-edit="${escapeAttr(a.id)}">Editar</button>
+            <button type="button" class="btn-danger btn-sm" data-asociacion-remove="${escapeAttr(a.id)}">Eliminar</button>
+          </div>`
+        : "";
+      const subtitulo = [a.siglas ? a.nombre : "", a.id ? tipoAsociacionLabel(a.tipo) : "", a.estado]
+        .filter(Boolean)
+        .join(" · ");
+      const logo = a.logo
+        ? `<img class="tree-logo" src="${escapeAttr(logoUrl(a.logo))}" alt="" />`
+        : `<span class="tree-logo tree-logo-empty" aria-hidden="true">${escapeHtml(nombreCorto.slice(0, 2).toUpperCase())}</span>`;
+      return `<li class="tree-card">
+        <div class="tree-head">
+          <div class="tree-id">
+            ${logo}
+            <div class="tree-id-text">
+              <p class="tree-head-name">${escapeHtml(nombreCorto)}</p>
+              <p class="meta">${escapeHtml(subtitulo)}</p>
+            </div>
+          </div>
+          ${actions}
+        </div>
+        ${a.id ? `<dl class="tree-facts">
+          <div><dt>Hashtags</dt><dd>${a.hashtags ? escapeHtml(a.hashtags) : `<span class="muted">Sin hashtags</span>`}</dd></div>
+          <div><dt>Lazador en varias parejas</dt><dd>${a.lazadorRepetido === "sumar" ? "Suma completo" : "Regla FMR"}</dd></div>
+        </dl>
+        <div class="tree-portal">
+          <div class="tree-portal-status">
+            <span class="status-dot${a.portal ? " is-on" : ""}" aria-hidden="true"></span>
+            <span>Portal ${a.portal ? "<strong>con acceso</strong>" : "sin acceso"}</span>
+          </div>
+          <div class="ev-actions">
+            ${a.portal ? `<button type="button" class="btn-ghost btn-sm" data-portal-copy="${escapeAttr(a.id)}" title="${escapeAttr(portalUrl(a.id))}">Copiar liga</button>` : ""}
+            <a class="btn-ghost btn-sm" href="${escapeAttr(portalUrl(a.id, false))}" target="_blank" rel="noopener">Abrir portal</a>
+            <button type="button" class="btn-ghost btn-sm" data-portal-set="${escapeAttr(a.id)}">${a.portal ? "Nueva contraseña" : "Dar acceso"}</button>
+            ${a.portal ? `<button type="button" class="btn-ghost btn-sm is-danger" data-portal-remove="${escapeAttr(a.id)}">Quitar acceso</button>` : ""}
+          </div>
+        </div>` : ""}
+        <div class="tree-circuitos-head">
+          <span class="tree-section-label">Circuitos</span>
+          ${a.id ? `<button type="button" class="link-like" data-circuito-new="${escapeAttr(a.id)}">+ Agregar circuito</button>` : ""}
+        </div>
+        <ul class="tree-circuitos">${circuitos || `<li class="tree-empty">Sin circuitos todavía.</li>`}</ul>
+      </li>`;
+    })
+    .join("");
+
+  els.circuitosTree.querySelectorAll("[data-circuito-new]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      resetCircuitoForm();
+      els.circuitoAsociacion.value = btn.getAttribute("data-circuito-new");
+      openDialog(els.circuitoDialog, els.circuitoNombre);
+    });
+  });
+
+  const circuitoById = (id) => statusData.circuitos.find((c) => c.id === id);
+
+  els.circuitosTree.querySelectorAll("[data-circuito-principal]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const c = circuitoById(btn.getAttribute("data-circuito-principal"));
+      if (!c) return;
+      postConfig("/api/circuitos", { ...c, principal: true }, () => `${c.nombre} es ahora el circuito principal. Publica para el sitio.`);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-circuito-edit]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const c = circuitoById(btn.getAttribute("data-circuito-edit"));
+      if (!c) return;
+      resetCircuitoForm();
+      els.circuitoId.value = c.id;
+      els.circuitoAsociacion.value = c.asociacionId;
+      els.circuitoNombre.value = c.nombre;
+      els.circuitoTemporada.value = c.temporada;
+      els.circuitoPrincipal.checked = c.id === statusData.circuitoDefault;
+      els.circuitoFormTitle.textContent = `Editar ${c.nombre}`;
+      els.btnCircuitoSave.textContent = "Guardar cambios";
+      openDialog(els.circuitoDialog, els.circuitoNombre);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-circuito-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const c = circuitoById(btn.getAttribute("data-circuito-remove"));
+      if (!c || !confirm(`¿Eliminar el circuito "${c.nombre}"?`)) return;
+      postConfig("/api/circuitos/remove", { id: c.id }, () => `Circuito eliminado: ${c.nombre}. Publica para el sitio.`);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-asociacion-edit]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = statusData.asociaciones.find((x) => x.id === btn.getAttribute("data-asociacion-edit"));
+      if (!a) return;
+      resetAsociacionForm();
+      els.asociacionId.value = a.id;
+      els.asociacionSiglas.value = a.siglas;
+      els.asociacionNombre.value = a.nombre;
+      els.asociacionTipo.value = a.tipo;
+      els.asociacionEstado.value = a.estado || "";
+      els.asociacionHashtags.value = a.hashtags || "";
+      els.asociacionLazadorRepetido.value = a.lazadorRepetido || "fmr";
+      els.asociacionLogo.value = "";
+      els.asociacionLogoActual.hidden = !a.logo;
+      if (a.logo) els.asociacionLogoImg.src = logoUrl(a.logo);
+      els.asociacionFormTitle.textContent = `Editar ${a.siglas || a.nombre}`;
+      els.btnAsociacionSave.textContent = "Guardar cambios";
+      openDialog(els.asociacionDialog, els.asociacionNombre);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-asociacion-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = statusData.asociaciones.find((x) => x.id === btn.getAttribute("data-asociacion-remove"));
+      if (!a || !confirm(`¿Eliminar la asociación "${a.siglas || a.nombre}"?`)) return;
+      postConfig("/api/asociaciones/remove", { id: a.id }, () => `Asociación eliminada: ${a.siglas || a.nombre}.`);
+    });
+  });
+
+  const asociacionById = (id) => statusData.asociaciones.find((x) => x.id === id);
+
+  els.circuitosTree.querySelectorAll("[data-portal-set]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = asociacionById(btn.getAttribute("data-portal-set"));
+      if (a) darAccesoPortal(a);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-portal-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = portalUrl(btn.getAttribute("data-portal-copy"));
+      try {
+        await navigator.clipboard.writeText(url);
+        showBanner(`Liga copiada: ${url}`, false);
+      } catch {
+        prompt("Copia la liga del portal:", url);
+      }
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-portal-remove]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const a = asociacionById(btn.getAttribute("data-portal-remove"));
+      if (!a || !confirm(`¿Quitar el acceso al portal de ${a.siglas || a.nombre}? Su contraseña dejará de funcionar al publicar.`)) return;
+      postConfig("/api/asociaciones/portal/remove", { id: a.id }, () => `Acceso al portal quitado. Publica para aplicarlo.`);
+    });
+  });
 }
 
 function wireAliasesPanel() {
@@ -921,9 +1517,22 @@ async function onRemoveAlias(from) {
   }
 }
 
+let bannerTimer = 0;
+
 function showBanner(msg, isError) {
+  const dialog = document.querySelector("dialog[open]");
+  if (dialog && isError) {
+    setDialogMsg(dialog, msg);
+    return;
+  }
+  clearTimeout(bannerTimer);
   els.banner.hidden = !msg;
   els.banner.textContent = msg || "";
   els.banner.classList.toggle("is-error", Boolean(isError));
   els.banner.classList.toggle("is-ok", Boolean(msg && !isError));
+  if (msg && !isError && !msg.endsWith("…")) {
+    bannerTimer = setTimeout(() => {
+      els.banner.hidden = true;
+    }, 7000);
+  }
 }
