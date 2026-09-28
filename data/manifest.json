@@ -11,7 +11,12 @@
       "logo": "logos/aerch.jpg",
       "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro",
       "lazadorRepetido": "sumar",
-      "portal": null
+      "portal": {
+        "sal": "564dd3708cfb374292a25ed197a3fb5b",
+        "hash": "3ab0c21383a5bd1f75bdafa2f32a7bf0d8082084bf13dab200d6b27a6eaf7882",
+        "iteraciones": 210000,
+        "version": 2
+      }
     },
     {
       "id": "fmr",
