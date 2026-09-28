@@ -53,16 +53,27 @@ El selector de la barra superior cambia de asociación / temporada. Las URLs lle
 
 Búsqueda en la barra superior (también **Ctrl/⌘+K**). Los nombres enlazan a la ficha.
 
-**Imagen para redes:** en el ranking y en cada evento, el botón genera un PNG listo para Facebook / Instagram (post 4:5, cuadrado o historia 9:16) con el texto de la publicación y hashtags. En el celular, **Compartir** abre directo Instagram / Facebook / WhatsApp.
+## Tres niveles de acceso
+
+| Nivel | Dónde | Qué puede hacer |
+|-------|-------|-----------------|
+| **Público** (competidores) | `index.html` | Ver temporada, eventos y fichas |
+| **Asociación** | `portal.html#{asociacionId}` + contraseña | Tablero de su circuito (KPIs, participación por evento, disciplinas, líderes, más activos) e **imágenes para redes**. No publica nada |
+| **Super admin** | `admin.html` vía `publicar.bat` | Todo: eventos, circuitos, asociaciones, accesos al portal y publicar |
+
+**Acceso al portal:** en el admin, **Dar acceso** genera la contraseña (o usa la que escribas, mín. 10 caracteres) y te arma el mensaje con liga + contraseña para mandarlo. Solo se guarda el hash en `data/manifest.json`; se activa al publicar. **Nueva contraseña** invalida la anterior. Desde tu compu (`127.0.0.1`) puedes entrar a cualquier portal sin contraseña.
+
+**Imágenes para redes (portal):** clasificación de temporada (puntos, dinero o Vaquero Completo) o resultados de un evento; formato post 4:5, cuadrado o historia 9:16; **Top 3**, **Top 10** o **Todos**. Todos usa doble columna (~30 por imagen) y, si no caben, arma un carrusel con el mismo número de lugares por imagen. En el celular, **Compartir** manda todas las imágenes juntas a Instagram / Facebook / WhatsApp.
 
 ## Estructura
 
 ```
 admin.html                 ← consola local de publicación
+portal.html                ← portal de asociaciones (tablero + redes)
 publicar.bat
 index.html
-css/ styles + admin
-js/ app.js + admin.js + social-card.js
+css/ styles + admin + portal
+js/ app.js (público) + admin.js + portal.js + social-card.js + share-specs.js + portal-stats.js
 data/ manifest (asociaciones, circuitos, eventos) + circuitos/ (generado) + eventos/
 templates/evento-manual.xlsx
 scripts/publish-server.mjs

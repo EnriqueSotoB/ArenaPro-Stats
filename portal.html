@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal de asociaciones — ArenaPro Estadísticas</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#3f524f" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/portal.css" />
+</head>
+<body class="portal">
+  <header class="topbar">
+    <a class="brand" href="portal.html" aria-label="Portal ArenaPro Estadísticas">
+      <img src="assets/logo.svg" alt="" width="40" height="40" />
+      <span class="brand-text">
+        <span class="brand-name">ArenaPro</span>
+        <span class="brand-sub">Portal de asociaciones</span>
+      </span>
+    </a>
+    <div class="topbar-tools" id="portalTools" hidden>
+      <label class="circuit-picker">
+        <span class="visually-hidden">Circuito</span>
+        <select id="circuitoSelect" class="circuit-select"></select>
+      </label>
+      <nav class="nav" aria-label="Secciones">
+        <button type="button" class="nav-link is-active" data-tab="tablero">Tablero</button>
+        <button type="button" class="nav-link" data-tab="redes">Redes sociales</button>
+      </nav>
+      <button type="button" class="nav-link" id="btnSalir">Salir</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <p id="status" class="status" role="status"></p>
+
+    <!-- ACCESO -->
+    <section id="viewLogin" class="view login-view" hidden>
+      <form id="loginForm" class="panel login-card" autocomplete="on">
+        <img id="loginLogo" class="assoc-logo login-logo" alt="" hidden />
+        <p class="eyebrow">Portal de asociaciones</p>
+        <h1 id="loginTitle">Entrar</h1>
+        <p class="meta">Tablero de su circuito e imágenes para Facebook e Instagram.</p>
+        <label class="login-field" id="loginAsociacionField">
+          <span>Asociación</span>
+          <select id="loginAsociacion"></select>
+        </label>
+        <label class="login-field">
+          <span>Contraseña</span>
+          <input id="loginPassword" type="password" autocomplete="current-password" required />
+        </label>
+        <p id="loginError" class="login-error" role="alert" hidden></p>
+        <button type="submit" class="btn-share is-primary" id="btnEntrar">Entrar</button>
+        <button type="button" class="btn-share" id="btnEntrarLocal" hidden>Entrar como administrador (solo en tu compu)</button>
+      </form>
+    </section>
+
+    <!-- PORTAL -->
+    <section id="viewPortal" class="view" hidden>
+      <header class="page-head">
+        <div class="head-brand">
+          <img id="portalLogo" class="assoc-logo" alt="" hidden />
+          <div>
+            <p class="eyebrow" id="portalEyebrow">Asociación</p>
+            <h1 id="portalTitle">Circuito</h1>
+            <p id="portalMeta" class="meta"></p>
+          </div>
+        </div>
+        <a class="btn-share" id="linkPublico" href="./" target="_blank" rel="noopener">Ver sitio público</a>
+      </header>
+
+      <!-- TABLERO -->
+      <div id="tabTablero" class="portal-tab">
+        <div id="kpis" class="kpi-grid"></div>
+        <div class="chart-grid">
+          <section class="panel chart-panel chart-wide">
+            <h2 class="chart-title">Participación por evento</h2>
+            <p class="meta">Inscripciones por rodeo (una por disciplina) y competidores distintos.</p>
+            <div id="chartEventos"></div>
+          </section>
+          <section class="panel chart-panel">
+            <h2 class="chart-title">Competidores por disciplina</h2>
+            <div id="chartDisciplinas"></div>
+          </section>
+          <section class="panel chart-panel" id="panelDinero">
+            <h2 class="chart-title">Dinero repartido por evento</h2>
+            <div id="chartDinero"></div>
+          </section>
+          <section class="panel chart-panel chart-wide">
+            <h2 class="chart-title">Líderes por disciplina</h2>
+            <div id="tablaLideres"></div>
+          </section>
+          <section class="panel chart-panel chart-wide">
+            <h2 class="chart-title">Competidores más activos</h2>
+            <p class="meta">Los que más rodeos han corrido en la temporada.</p>
+            <div id="tablaActivos"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- REDES -->
+      <div id="tabRedes" class="portal-tab" hidden>
+        <div class="redes-layout">
+          <section class="panel redes-controls">
+            <div class="redes-group">
+              <span class="redes-label">¿Qué quieres publicar?</span>
+              <div class="metric-toggle" role="group" aria-label="Fuente">
+                <button type="button" class="metric-btn is-active" data-fuente="temporada">Clasificación de temporada</button>
+                <button type="button" class="metric-btn" data-fuente="evento">Resultados de un evento</button>
+              </div>
+            </div>
+
+            <div id="fuenteTemporada" class="redes-group">
+              <label class="login-field">
+                <span>Disciplina</span>
+                <select id="redesDisciplina"></select>
+              </label>
+              <div class="metric-toggle" role="group" aria-label="Métrica" id="redesMetrica">
+                <button type="button" class="metric-btn is-active" data-metrica="puntos">Puntos</button>
+                <button type="button" class="metric-btn" data-metrica="dinero">Dinero</button>
+              </div>
+            </div>
+
+            <div id="fuenteEvento" class="redes-group" hidden>
+              <label class="login-field">
+                <span>Evento</span>
+                <select id="redesEvento"></select>
+              </label>
+              <label class="login-field">
+                <span>Categoría</span>
+                <select id="redesCategoria"></select>
+              </label>
+            </div>
+
+            <div class="redes-group">
+              <span class="redes-label">Formato</span>
+              <div class="metric-toggle" role="group" aria-label="Formato">
+                <button type="button" class="metric-btn is-active" data-formato="post">Post 4:5</button>
+                <button type="button" class="metric-btn" data-formato="cuadrado">Cuadrado</button>
+                <button type="button" class="metric-btn" data-formato="historia">Historia</button>
+              </div>
+            </div>
+
+            <div class="redes-group">
+              <span class="redes-label">Cuántos lugares</span>
+              <div class="metric-toggle" role="group" aria-label="Cantidad">
+                <button type="button" class="metric-btn" data-top="top3">Top 3</button>
+                <button type="button" class="metric-btn is-active" data-top="top10">Top 10</button>
+                <button type="button" class="metric-btn" data-top="todos">Todos</button>
+              </div>
+            </div>
+
+            <label class="share-caption">
+              <span>Texto para la publicación</span>
+              <textarea id="redesCaption" rows="7"></textarea>
+            </label>
+            <div class="share-actions">
+              <button type="button" class="btn-share is-primary" id="redesCompartir" hidden>Compartir</button>
+              <button type="button" class="btn-share" id="redesDescargar">Descargar</button>
+              <button type="button" class="btn-share" id="redesCopiar">Copiar texto</button>
+            </div>
+            <p class="meta" id="redesHint"></p>
+          </section>
+
+          <section class="redes-preview-wrap">
+            <p class="redes-label" id="redesPreviewLabel">Vista previa</p>
+            <div id="redesPreview" class="redes-preview"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p id="footerText">ArenaPro Estadísticas · Portal de asociaciones</p>
+  </footer>
+
+  <script src="js/portal.js" type="module"></script>
+</body>
+</html>
