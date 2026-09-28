@@ -11,7 +11,16 @@ export const MANIFEST_VERSION = 2;
 /** Ids que chocan con secciones del router público (#temporada, #eventos, #competidor). */
 const RESERVED_IDS = new Set(["temporada", "eventos", "competidor"]);
 
-const TIPOS_ASOCIACION = new Set(["estatal", "federacion"]);
+/** "estatal" se conserva como valor de Asociación por compatibilidad con manifests existentes. */
+export const TIPOS_ASOCIACION = {
+  estatal: "Asociación",
+  federacion: "Federación",
+  promotora: "Promotora",
+};
+
+export function tipoAsociacionLabel(tipo) {
+  return TIPOS_ASOCIACION[tipo] || TIPOS_ASOCIACION.estatal;
+}
 
 /**
  * Lazador que sale en varias parejas del mismo lado en un evento (lazadas):
@@ -47,7 +56,7 @@ function normalizeAsociacion(a) {
     id: str(a?.id),
     siglas: str(a?.siglas),
     nombre: str(a?.nombre),
-    tipo: TIPOS_ASOCIACION.has(tipo) ? tipo : "estatal",
+    tipo: Object.hasOwn(TIPOS_ASOCIACION, tipo) ? tipo : "estatal",
     estado: str(a?.estado),
     logo: logoPath(a?.logo),
     hashtags: normalizeHashtags(a?.hashtags),

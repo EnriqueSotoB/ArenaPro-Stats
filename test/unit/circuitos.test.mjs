@@ -13,6 +13,7 @@ import {
   setAsociacionLogo,
   logoFileName,
   normalizeHashtags,
+  tipoAsociacionLabel,
 } from "../../scripts/lib/circuitos.mjs";
 
 const base = () =>
@@ -60,6 +61,16 @@ describe("asociaciones", () => {
     assert.equal(asociacion.id, "fmr");
     assert.equal(manifest.asociaciones.length, 2);
     assert.throws(() => upsertAsociacion(manifest, { siglas: "fmr", nombre: "Otra" }), /Ya existe/);
+  });
+
+  it("acepta asociación, federación y promotora; un tipo desconocido cae en asociación", () => {
+    const { asociacion } = upsertAsociacion(base(), { siglas: "PRS", nombre: "Promotora Rodeo Show", tipo: "promotora" });
+    assert.equal(asociacion.tipo, "promotora");
+    assert.equal(tipoAsociacionLabel("promotora"), "Promotora");
+    assert.equal(tipoAsociacionLabel("federacion"), "Federación");
+    const { asociacion: otra } = upsertAsociacion(base(), { siglas: "X", nombre: "X", tipo: "otro" });
+    assert.equal(otra.tipo, "estatal");
+    assert.equal(tipoAsociacionLabel(otra.tipo), "Asociación");
   });
 
   it("edita sin cambiar el id", () => {

@@ -23,7 +23,7 @@ import {
   peersWithSameSurname,
   spellingNearMatches,
 } from "../scripts/lib/alias-suggest.mjs";
-import { circuitosPorAsociacion, findCircuito } from "../scripts/lib/circuitos.mjs";
+import { circuitosPorAsociacion, findCircuito, tipoAsociacionLabel } from "../scripts/lib/circuitos.mjs";
 import { disciplinaKey } from "../scripts/lib/disciplinas.mjs";
 import { isTeamRopingBase, parseTeamRopingPair } from "../scripts/lib/team-roping.mjs";
 
@@ -1155,7 +1155,7 @@ function renderCircuitosTree() {
             <button type="button" class="btn-danger btn-sm" data-asociacion-remove="${escapeAttr(a.id)}">Eliminar</button>
           </div>`
         : "";
-      const subtitulo = [a.siglas ? a.nombre : "", a.tipo === "federacion" ? "Federación" : "Estatal", a.estado]
+      const subtitulo = [a.siglas ? a.nombre : "", a.id ? tipoAsociacionLabel(a.tipo) : "", a.estado]
         .filter(Boolean)
         .join(" · ");
       const logo = a.logo
@@ -1182,6 +1182,7 @@ function renderCircuitosTree() {
             <span>Portal ${a.portal ? "<strong>con acceso</strong>" : "sin acceso"}</span>
           </div>
           <div class="ev-actions">
+            ${a.portal ? `<button type="button" class="btn-ghost btn-sm" data-portal-copy="${escapeAttr(a.id)}" title="${escapeAttr(portalUrl(a.id))}">Copiar liga</button>` : ""}
             <a class="btn-ghost btn-sm" href="${escapeAttr(portalUrl(a.id, false))}" target="_blank" rel="noopener">Abrir portal</a>
             <button type="button" class="btn-ghost btn-sm" data-portal-set="${escapeAttr(a.id)}">${a.portal ? "Nueva contraseña" : "Dar acceso"}</button>
             ${a.portal ? `<button type="button" class="btn-ghost btn-sm is-danger" data-portal-remove="${escapeAttr(a.id)}">Quitar acceso</button>` : ""}
@@ -1273,6 +1274,18 @@ function renderCircuitosTree() {
     btn.addEventListener("click", () => {
       const a = asociacionById(btn.getAttribute("data-portal-set"));
       if (a) darAccesoPortal(a);
+    });
+  });
+
+  els.circuitosTree.querySelectorAll("[data-portal-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = portalUrl(btn.getAttribute("data-portal-copy"));
+      try {
+        await navigator.clipboard.writeText(url);
+        showBanner(`Liga copiada: ${url}`, false);
+      } catch {
+        prompt("Copia la liga del portal:", url);
+      }
     });
   });
 
