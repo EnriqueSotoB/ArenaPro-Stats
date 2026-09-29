@@ -63,7 +63,7 @@
     {
       "id": "temporada-2026-2027",
       "asociacionId": "prorodeo",
-      "nombre": "Temporada 2026-2027",
+      "nombre": "Prorodeo 2026",
       "temporada": "2026-2027",
       "cutLine": null,
       "cutLineVisible": false,
@@ -122,8 +122,7 @@
       "sede": "Arena Complejo Avalos",
       "file": "eventos/2026-09-20-truckmania-fest-2026.json",
       "circuitos": [
-        "aerch-circuito-2027",
-        "fmr-tour-2027"
+        "temporada-2026-2027"
       ]
     }
   ]

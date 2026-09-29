@@ -5,7 +5,7 @@
   "eventoId": "local:27",
   "nombreEvento": "TRUCKMANIA FEST 2026",
   "fecha": "2026-09-20",
-  "temporada": "2027",
+  "temporada": "2026-2027",
   "sede": "Arena Complejo Avalos",
   "categorias": [
     {
@@ -1458,6 +1458,6 @@
       "local:303"
     ],
     "filas": [],
-    "editadoEn": "2026-09-22T22:22:00.134Z"
+    "editadoEn": "2026-09-29T01:16:16.058Z"
   }
 }
