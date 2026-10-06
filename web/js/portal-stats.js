@@ -4,6 +4,7 @@
  */
 
 import { disciplinaKey, disciplinaLabel } from "../lib/disciplinas.mjs";
+import { esDisciplinaPuntos, recorridosDeEntrada } from "../lib/marcas.mjs";
 
 /**
  * @param {any} temporada acumulado del circuito
@@ -203,31 +204,7 @@ export function calcularMovimientos(temporada) {
   };
 }
 
-const ES_PUNTOS = /Jineteos|Montura|Pretal/i;
-
-/** Recorridos individuales de una entrada de clasificación: `[{ ronda, valor }]`. */
-export function recorridosDeEntrada(e, esPuntos) {
-  const out = [];
-  for (const parte of String(e?.detalleVueltas || "").split("·")) {
-    const m = /^\s*([^:]+):\s*([\d.,]+)\s*(?:pts)?\s*$/.exec(parte);
-    if (!m) continue;
-    const valor = Number(m[2].replace(",", "."));
-    if (Number.isFinite(valor) && valor > 0) out.push({ ronda: m[1].trim(), valor });
-  }
-  if (!out.length) {
-    ["t1", "t2", "t3"].forEach((k, i) => {
-      const valor = Number(e?.[k]);
-      if (e?.[k] != null && e[k] !== "" && Number.isFinite(valor) && valor > 0) out.push({ ronda: `Ronda ${i + 1}`, valor });
-    });
-  }
-  if (!out.length) {
-    const valor = Number(esPuntos ? e?.puntos : e?.tiempoTotal);
-    if ((esPuntos ? e?.puntos : e?.tiempoTotal) != null && Number.isFinite(valor) && valor > 0) {
-      out.push({ ronda: "", valor });
-    }
-  }
-  return out;
-}
+export { recorridosDeEntrada };
 
 /** Eventos en orden de fecha (y id para desempatar el mismo día). */
 function ordenarEventos(eventos) {
@@ -253,7 +230,7 @@ function marcasPorDisciplina(eventos) {
       const tipo = cat.tipo || block.tipo || "";
       const id = disciplinaKey({ tipo, nombre: cat.nombre || block.nombre || "" });
       if (id === "_") continue;
-      const esPuntos = ES_PUNTOS.test(tipo) || ES_PUNTOS.test(id);
+      const esPuntos = esDisciplinaPuntos(tipo) || esDisciplinaPuntos(id);
       const lista = marcas.get(id) || [];
       marcas.set(id, lista);
       for (const e of block.entradas || []) {

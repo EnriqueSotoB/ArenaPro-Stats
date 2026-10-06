@@ -15,9 +15,11 @@ import {
   escapeHtml,
   escapeAttr,
   fmtNum,
+  fmtTime,
 } from "./event-model.js";
 import { getCutLine } from "../lib/cut-line.mjs";
 import { fmtMxn } from "../lib/money.mjs";
+import { resumenCompetidor } from "../lib/marcas.mjs";
 import {
   normalizeSearch,
   searchCompetidores,
@@ -739,11 +741,21 @@ function renderCompetidor(key) {
     .filter(Boolean)
     .join(" · ");
 
-  els.compStats.innerHTML = `
-    <div class="stat-pill"><span class="stat-label">Puntos</span><span class="stat-value">${fmtNum(comp.puntosTotales)}</span></div>
-    <div class="stat-pill"><span class="stat-label">Dinero</span><span class="stat-value">${escapeHtml(fmtMxn(comp.dineroTotal || 0))}</span></div>
-    <div class="stat-pill"><span class="stat-label">Eventos</span><span class="stat-value">${comp.eventos || 0}</span></div>
-  `;
+  const resumen = resumenCompetidor(comp, temporada?.competidores || []);
+  const pill = (label, value) =>
+    `<div class="stat-pill"><span class="stat-label">${escapeHtml(label)}</span><span class="stat-value">${escapeHtml(value)}</span></div>`;
+  els.compStats.innerHTML = [
+    pill("Puntos", fmtNum(comp.puntosTotales)),
+    pill("Dinero", fmtMxn(comp.dineroTotal || 0)),
+    pill("Eventos", String(comp.eventos || 0)),
+    ...(resumen.conMarcas
+      ? [
+          pill("Victorias", String(resumen.victorias)),
+          pill("Podios", String(resumen.podios)),
+          pill("Mejor lugar", resumen.mejorLugar ? `#${resumen.mejorLugar}` : "—"),
+        ]
+      : []),
+  ].join("");
 
   const discRows = (comp.disciplinas || [])
     .map((d) => {
@@ -758,17 +770,56 @@ function renderCompetidor(key) {
     })
     .join("");
 
+  const esPuntosDe = new Map(resumen.porDisciplina.map((d) => [d.disciplinaId, d.esPuntos]));
   const hist = (comp.historial || [])
-    .map(
-      (h) => `<tr>
+    .map((h) => {
+      const marca =
+        h.marca > 0 && h.limpio
+          ? escapeHtml(fmtMarcaPerfil(h.marca, esPuntosDe.get(h.disciplinaId)))
+          : `<span class="muted">—</span>`;
+      const detalle = h.detalle ? `<div class="row-sub">${escapeHtml(h.detalle)}</div>` : "";
+      return `<tr>
       <td><a class="athlete-link" href="#eventos/${encodeURIComponent(h.eventoId)}">${escapeHtml(h.eventoNombre || h.eventoId)}</a>
         <div class="row-sub">${escapeHtml([h.fecha, h.sede].filter(Boolean).join(" · "))}</div></td>
       <td>${escapeHtml(h.disciplinaNombre || h.disciplinaId)}</td>
+      ${resumen.conMarcas ? `<td class="num">${h.lugar ? `#${h.lugar}` : `<span class="muted">—</span>`}</td><td class="num">${marca}${detalle}</td>` : ""}
       <td class="num">${fmtNum(h.puntos)}</td>
       <td class="num">${Number(h.dinero) > 0 ? escapeHtml(fmtMxn(h.dinero)) : `<span class="muted">—</span>`}</td>
-    </tr>`
-    )
+    </tr>`;
+    })
     .join("");
+  const histCols = resumen.conMarcas ? 6 : 4;
+
+  const marcaCelda = (m, esPuntos, sub) =>
+    m
+      ? `${escapeHtml(fmtMarcaPerfil(m.valor, esPuntos))}<div class="row-sub">${escapeHtml(sub(m))}</div>`
+      : `<span class="muted">—</span>`;
+  const marcasRows = resumen.porDisciplina
+    .map((d) => {
+      const record = d.esRecord ? ` <span class="badge badge-record">Récord</span>` : "";
+      return `<tr>
+        <td>${escapeHtml(d.disciplinaNombre)}</td>
+        <td class="num">${marcaCelda(d.mejorRecorrido, d.esPuntos, (m) => [m.eventoNombre, m.ronda].filter(Boolean).join(" · "))}${record}</td>
+        <td class="num">${marcaCelda(d.mejorSuma, d.esPuntos, (m) => `${m.eventoNombre} · ${m.rondas} ${m.rondas === 1 ? "ronda" : "rondas"}`)}</td>
+        <td class="num">${d.promedio != null ? escapeHtml(fmtMarcaPerfil(d.promedio, d.esPuntos)) : `<span class="muted">—</span>`}</td>
+        <td class="num">${d.mejorLugar ? `#${d.mejorLugar}` : "—"}</td>
+        <td class="num">${d.victorias}</td>
+        <td class="num">${d.podios}</td>
+      </tr>`;
+    })
+    .join("");
+  const marcasBlock = resumen.conMarcas
+    ? `<section class="panel profile-block">
+      <h2 class="profile-block-title">Mejores marcas</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Disciplina</th><th class="num">Mejor recorrido</th><th class="num">Mejor rodeo</th><th class="num">Promedio</th><th class="num">Mejor lugar</th><th class="num">1º</th><th class="num">Podios</th></tr></thead>
+          <tbody>${marcasRows}</tbody>
+        </table>
+      </div>
+      <p class="cut-note">Tiempos en segundos; en jineteos, montura y pretal, calificación de los jueces. Mejor rodeo: la mejor suma de un rodeo sin NT, comparando rodeos con el mismo número de rondas. Promedio: por recorrido con tiempo.</p>
+    </section>`
+    : "";
 
   const moneyNote =
     !(comp.dineroTotal > 0)
@@ -785,12 +836,13 @@ function renderCompetidor(key) {
         </table>
       </div>
     </section>
+    ${marcasBlock}
     <section class="panel profile-block">
       <h2 class="profile-block-title">Historial de temporada</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Evento</th><th>Disciplina</th><th class="num">Puntos</th><th class="num">Dinero</th></tr></thead>
-          <tbody>${hist || `<tr><td colspan="4">Sin historial</td></tr>`}</tbody>
+          <thead><tr><th>Evento</th><th>Disciplina</th>${resumen.conMarcas ? `<th class="num">Lugar</th><th class="num">Marca</th>` : ""}<th class="num">Puntos</th><th class="num">Dinero</th></tr></thead>
+          <tbody>${hist || `<tr><td colspan="${histCols}">Sin historial</td></tr>`}</tbody>
         </table>
       </div>
       ${moneyNote}
@@ -926,6 +978,11 @@ function wireExpandableRows() {
 }
 
 /* —— Utils —— */
+
+function fmtMarcaPerfil(valor, esPuntos) {
+  if (esPuntos) return `${Number(valor).toFixed(1).replace(/\.0$/, "")} pts`;
+  return `${fmtTime(valor)} s`;
+}
 
 async function fetchJson(url) {
   const res = await fetch(url, { cache: "no-cache" });

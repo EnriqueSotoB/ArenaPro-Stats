@@ -228,6 +228,7 @@ Mantener alineación con Time / FMR. Claves conocidas hoy:
 - LazoDeBecerro, LazoEnFalso, AchatadaDeNovillos, AmarreDeChiva  
 - TeamRoping → se **parte** en Cabecero / Pialador (+ Master); etiquetas UI: Lazo por Parejas — Cabeceros / Pialadores  
 - CaballoConPretal, CaballoConMontura, JineteosDeToros, Polos  
+- CowboyProtection — categoría "Cowboy Protection"; se reconoce por el nombre aunque Time la mande con tipo `JineteosDeToros`; calificada por jueces  
 
 **Importante:** no usar `categoriaId` `local:N` como clave de temporada (cambia por evento). Usar `disciplinaKey(cat)` (`web/lib/disciplinas.mjs`, compartido por rebuild, admin y portal).
 

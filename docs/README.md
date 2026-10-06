@@ -16,6 +16,12 @@
 | [Contratos de datos](./producto/contratos-datos.md) | Formato de los archivos de Time, Excel, eventos y circuitos |
 | [Backlog v1.1](./producto/backlog-v1.1.md) | Pendientes acordados |
 
+## Legal
+
+| Documento | Para qué |
+|---|---|
+| [Contrato de prestación de servicios](./legal/contrato-prestacion-servicios.md) | Plantilla para firmar con cualquier asociación (condiciones de cada una en el Anexo A) |
+
 ## Ingeniería
 
 | Documento | Para qué |

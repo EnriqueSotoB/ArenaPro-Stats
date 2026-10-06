@@ -5,7 +5,7 @@
  * Solo escucha en 127.0.0.1 — no exponer a la red.
  */
 import http from "node:http";
-import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, unlinkSync, readdirSync } from "node:fs";
 import { dirname, join, extname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -17,6 +17,7 @@ import { eventoConNombresMayusculas } from "../web/lib/nombres.mjs";
 import { normalizeText } from "../web/lib/disciplinas.mjs";
 import { sincronizarConRemoto } from "./lib/git-sync.mjs";
 import { archivoParaRuta } from "./lib/rutas.mjs";
+import { asociacionDeRuta, destinoPortal, rutasOcupadas } from "./lib/ligas-portal.mjs";
 import {
   aplicarStatsEdits,
   buildDefaultEdits,
@@ -829,6 +830,13 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (method === "GET") {
+      const ocupadas = rutasOcupadas([...readdirSync(join(ROOT, "web")), "admin", "admin.html", "api", "data", "templates"]);
+      const liga = asociacionDeRuta(loadManifest(), url.pathname, ocupadas, { todas: true });
+      if (liga) {
+        res.writeHead(302, { Location: destinoPortal(liga.id), "Cache-Control": "no-store" });
+        res.end();
+        return;
+      }
       serveStatic(req, res, url.pathname);
       return;
     }

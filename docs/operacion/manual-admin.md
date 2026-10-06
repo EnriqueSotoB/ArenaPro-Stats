@@ -31,7 +31,7 @@ Para problemas y alertas, ver el [runbook](./runbook.md).
 Reglas de la plantilla (también vienen en la hoja **Cómo llenar**):
 
 - **Lugar** = puesto final (1, 2, 3…). Si no clasificó, deja Lugar vacío y pon NT o NP en el tiempo.
-- **Tiempos:** Ronda 1–3 y Total. **Jineteos, Montura, Pretal:** solo Calificación.
+- **Tiempos:** Ronda 1–3 y Total. **Jineteos, Cowboy Protection, Montura, Pretal:** solo Calificación.
 - **Lazo por Parejas:** una fila = Cabecero + Pialador. El dinero se reparte 50/50 solo.
 - **Nombres:** escríbelos como quieras; se publican en MAYÚSCULAS.
 - **Notas internas:** para uso de los jueces; **no se publican**.

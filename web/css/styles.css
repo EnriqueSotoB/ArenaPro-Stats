@@ -956,6 +956,11 @@ td .row-sub {
   color: var(--dark);
 }
 
+.badge-record {
+  background: var(--ochre);
+  color: var(--dark);
+}
+
 .badge-out {
   background: var(--sand);
   color: var(--textsub);

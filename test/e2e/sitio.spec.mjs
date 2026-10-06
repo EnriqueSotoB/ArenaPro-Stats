@@ -114,6 +114,16 @@ test.describe("sitio público", () => {
     expect(errores).toEqual([]);
   });
 
+  for (const a of manifest.asociaciones.filter((x) => x.portal?.version === 2)) {
+    test(`la liga corta /${a.id} abre el portal de ${a.siglas || a.id}`, async ({ page }) => {
+      for (const ruta of [`/${a.id}`, `/${a.id.toUpperCase()}`]) {
+        await page.goto(ruta);
+        await expect(page).toHaveURL(new RegExp(`/portal\\.html#${a.id}$`));
+        await expect(page.locator("#loginTitle")).toHaveText(`Portal ${a.siglas || a.nombre}`);
+      }
+    });
+  }
+
   test("el portal genera la imagen para redes", async ({ page }) => {
     const errores = vigilarErrores(page);
     await page.goto("/portal.html");

@@ -32,6 +32,15 @@ describe("disciplinaKey", () => {
     assert.equal(disciplinaKey({ nombre: "Jineteos de Toros" }), "JineteosDeToros");
     assert.equal(disciplinaKey({ nombre: "Lazo por Parejas" }), "TeamRoping");
   });
+
+  it("Cowboy Protection es su propia disciplina aunque venga con tipo Jineteos", () => {
+    const nombre = "Cowboy Protection";
+    assert.equal(disciplinaKey({ tipo: "JineteosDeToros", nombre }), "CowboyProtection");
+    assert.equal(disciplinaKey({ nombre }), "CowboyProtection");
+    assert.equal(disciplinaKey({ tipo: "CowboyProtection", nombre }), "CowboyProtection");
+    assert.equal(disciplinaKey({ tipo: "JineteosDeToros", nombre: "Jineteo de Toros" }), "JineteosDeToros");
+    assert.equal(disciplinaLabel("CowboyProtection"), "Cowboy Protection");
+  });
 });
 
 describe("disciplinaLabel", () => {

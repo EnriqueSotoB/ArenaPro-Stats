@@ -129,6 +129,7 @@ export function pushCompetidorEvento(accum, item, entry) {
     disciplinaNombre: item.disciplinaNombre,
     puntos: Number(item.puntos) || 0,
     dinero: Number(item.dinero) || 0,
+    ...(item.marcas || {}),
   });
 }
 

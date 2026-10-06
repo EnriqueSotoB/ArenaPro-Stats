@@ -27,7 +27,9 @@ import {
   shareCaption,
   fmtFecha,
   publicUrl,
+  slugArchivo,
 } from "./share-specs.js";
+import { toCsv, filasClasificacion, filasVaqueroCompleto } from "../lib/csv-tablas.mjs";
 import { calcularTablero, calcularMovimientos, calcularRecords, calcularRecordsNuevos } from "./portal-stats.js";
 
 const SESSION_PREFIX = "arenapro-portal:";
@@ -58,6 +60,9 @@ const els = {
   tabTablero: $("tabTablero"),
   tabRedes: $("tabRedes"),
   kpis: $("kpis"),
+  panelCsv: $("panelCsv"),
+  csvTabla: $("csvTabla"),
+  btnCsv: $("btnCsv"),
   movimientos: $("movimientos"),
   movimientosMeta: $("movimientosMeta"),
   movPicker: $("movPicker"),
@@ -306,6 +311,7 @@ function salir() {
 
 function wirePortal() {
   els.btnSalir.addEventListener("click", salir);
+  els.btnCsv.addEventListener("click", descargarCsv);
   els.circuitoSelect.addEventListener("change", () => usarCircuito(els.circuitoSelect.value));
   els.movDisciplina.addEventListener("change", () => {
     mov.disciplina = els.movDisciplina.value;
@@ -395,6 +401,8 @@ function renderTablero() {
     kpi("Dinero repartido", fmtMxn(k.dinero), k.dinero ? "" : "Sin montos capturados"),
   ].join("");
 
+  llenarSelectCsv();
+
   if (!t.porEvento.length) {
     const vacio = `<p class="empty-state">Este circuito aún no tiene eventos publicados.</p>`;
     els.movimientos.innerHTML = vacio;
@@ -440,6 +448,50 @@ function renderTablero() {
     ]),
     [true, false, true, true, true, true]
   );
+}
+
+const CSV_TODAS = "__todas";
+
+function llenarSelectCsv() {
+  const discs = disciplinasDeTemporada(temporada);
+  els.panelCsv.hidden = !discs.length;
+  const opciones = [
+    { id: CSV_TODAS, nombre: "Todas las disciplinas" },
+    ...discs,
+    ...((temporada?.allAround || []).length ? [{ id: ALL_AROUND_ID, nombre: "Vaquero Completo" }] : []),
+  ];
+  const previa = els.csvTabla.value;
+  els.csvTabla.innerHTML = opciones
+    .map((d) => `<option value="${escapeAttr(d.id)}">${escapeHtml(d.nombre)}${d.competidores ? ` (${d.competidores})` : ""}</option>`)
+    .join("");
+  els.csvTabla.value = opciones.some((d) => d.id === previa) ? previa : CSV_TODAS;
+}
+
+function descargarCsv() {
+  const circuito = findCircuito(manifest, circuitoId);
+  const sel = els.csvTabla.value;
+  let filas;
+  let nombre;
+  if (sel === ALL_AROUND_ID) {
+    filas = filasVaqueroCompleto(temporada);
+    nombre = "vaquero-completo";
+  } else {
+    const disciplinaId = sel === CSV_TODAS ? "" : sel;
+    filas = filasClasificacion(temporada, eventosDeCircuito(manifest, circuitoId), disciplinaId);
+    nombre = disciplinaId
+      ? disciplinasDeTemporada(temporada).find((d) => d.id === disciplinaId)?.nombre || disciplinaId
+      : "todas-las-disciplinas";
+  }
+  const fecha = String(temporada?.actualizadoEn || "").slice(0, 10);
+  const archivo = [slugArchivo(circuito?.nombre || circuitoId), slugArchivo(nombre), fecha].filter(Boolean).join("-");
+  const url = URL.createObjectURL(new Blob([toCsv(filas)], { type: "text/csv;charset=utf-8" }));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${archivo}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
 function nombresHtml(nombres, max = 3) {

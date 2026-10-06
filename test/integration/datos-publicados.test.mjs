@@ -4,12 +4,14 @@
  */
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeManifest, circuitoDataFile, eventosDeCircuito } from "../../web/lib/circuitos.mjs";
 import { problemasDePublicacion } from "../../tools/lib/integridad.mjs";
 import { validateEvento } from "../../tools/lib/validate-evento.mjs";
+import { asociacionesConLiga, rutasOcupadas } from "../../tools/lib/ligas-portal.mjs";
+import { normalizePortal } from "../../web/lib/portal-auth.mjs";
 
 const dataDir = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "data");
 const readJson = (rel) => JSON.parse(readFileSync(join(dataDir, rel), "utf8"));
@@ -44,6 +46,14 @@ describe("datos publicados en data/", () => {
       for (const s of readJson(circuitoDataFile(c.id)).standings) {
         assert.equal(s.nombre, s.nombre.toLocaleUpperCase("es-MX"), `${c.nombre}: ${s.nombre}`);
       }
+    }
+  });
+
+  it("cada asociación con portal tiene su liga corta (su id no choca con el sitio)", () => {
+    const ocupadas = rutasOcupadas(readdirSync(join(dataDir, "..", "web")).concat("data"));
+    const conLiga = new Set(asociacionesConLiga(manifest, ocupadas).map((a) => a.id));
+    for (const a of manifest.asociaciones.filter((x) => normalizePortal(x.portal))) {
+      assert.ok(conLiga.has(a.id), `${a.siglas || a.nombre}: el id "${a.id}" choca con una ruta del sitio`);
     }
   });
 });

@@ -53,6 +53,7 @@ describe("columnas por disciplina", () => {
 
   it("puntos solo calificación, sin rondas", () => {
     assert.equal(sheetKind("JineteosDeToros"), "puntos");
+    assert.equal(sheetKind("CowboyProtection"), "puntos");
     const keys = columnsForKind("puntos").map((c) => c.key);
     assert.ok(keys.includes("calif"));
     assert.ok(!keys.includes("r1"));
@@ -143,6 +144,13 @@ describe("excel-evento", () => {
     jineteos.getCell(7, 6).value = 3000;
     jineteos.getCell(7, 7).value = 88;
 
+    const cowboy = wb.getWorksheet("Cowboy Protection");
+    cowboy.getCell(7, 2).value = 1;
+    cowboy.getCell(7, 3).value = "Torero Uno";
+    cowboy.getCell(7, 5).value = 30;
+    cowboy.getCell(7, 6).value = 1500;
+    cowboy.getCell(7, 7).value = 79;
+
     await wb.xlsx.writeFile(xlsxPath);
     filledBuffer = readFileSync(xlsxPath);
   });
@@ -185,6 +193,12 @@ describe("excel-evento", () => {
     assert.ok(jin);
     assert.equal(jin.entradas[0].puntos, 88);
     assert.equal(jin.entradas[0].t1, null);
+
+    const cowboy = evento.clasificacion.find((c) => c.tipo === "CowboyProtection");
+    assert.ok(cowboy);
+    assert.equal(cowboy.entradas[0].nombre, "TORERO UNO");
+    assert.equal(cowboy.entradas[0].puntos, 79);
+    assert.equal(disciplinaKey({ tipo: cowboy.tipo, nombre: cowboy.nombre }), "CowboyProtection");
 
     const v = validateEvento(evento);
     assert.equal(v.ok, true);

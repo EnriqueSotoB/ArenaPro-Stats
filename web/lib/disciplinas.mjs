@@ -7,7 +7,11 @@
  *   "Master" / "Masters" / "Master Barriles" (tipo Barriles)         → Barriles Master
  *   "TeamRoping" / "Abierta" / "Lazo por Parejas"                   → Lazo por Parejas
  *   "Masters" / "Lazo por Parejas Master" / "Team Roping Masters"   → Lazo por Parejas Master
+ *   "Cowboy Protection" (aunque Time mande tipo Jineteos)           → Cowboy Protection
  */
+
+/** Disciplinas calificadas por jueces (más es mejor); el resto es por tiempo. */
+export const DISCIPLINAS_CALIFICADAS = /Jineteos|Montura|Pretal|CowboyProtection/i;
 
 /** Etiquetas de circuito (alineadas a Time / FMR). */
 const DISCIPLINA_LABEL = {
@@ -26,6 +30,7 @@ const DISCIPLINA_LABEL = {
   CaballoConPretal: "Caballo con Pretal",
   CaballoConMontura: "Caballo con Montura",
   JineteosDeToros: "Jineteos de Toros",
+  CowboyProtection: "Cowboy Protection",
   Polos: "Polos",
 };
 
@@ -62,6 +67,8 @@ export function disciplinaKey(cat = {}) {
   const isMaster = /\bmasters?\b/.test(nom);
 
   if (!tipo) tipo = inferTipoFromNombre(nom);
+  // Si Time la manda con tipo Jineteos, solo el nombre la distingue.
+  if (/cowboy\s*protection/.test(nom)) return "CowboyProtection";
 
   // Enum ya viene como Masters
   if (tipo === "TeamRopingMasters") return "TeamRopingMasters";

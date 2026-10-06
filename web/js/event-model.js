@@ -3,6 +3,7 @@
 import { fmtMxn } from "../lib/money.mjs";
 import { toPuntosCircuito } from "../lib/points.mjs";
 import { eventoConNombresMayusculas } from "../lib/nombres.mjs";
+import { DISCIPLINAS_CALIFICADAS } from "../lib/disciplinas.mjs";
 
 export function normalizeEvento(raw, fallbackName = "") {
   const meta = raw.meta || {};
@@ -56,6 +57,7 @@ const DISCIPLINA_POR_TIPO = {
   CaballoConPretal: "Caballo con Pretal",
   CaballoConMontura: "Caballo con Montura",
   JineteosDeToros: "Jineteo de Toros",
+  CowboyProtection: "Cowboy Protection",
   Polos: "Polos",
 };
 
@@ -207,7 +209,7 @@ function rankingFromResultadosLegacy(rows, cat) {
 }
 
 function isPuntosTipo(tipo) {
-  return !!(tipo && /Jineteos|Montura|Pretal/i.test(tipo));
+  return !!(tipo && DISCIPLINAS_CALIFICADAS.test(tipo));
 }
 
 export function renderPodiumHtml(items) {
