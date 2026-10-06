@@ -44,7 +44,7 @@
         <img id="loginLogo" class="assoc-logo login-logo" alt="" hidden />
         <p class="eyebrow">Portal de asociaciones</p>
         <h1 id="loginTitle">Entrar</h1>
-        <p class="meta">Tablero de su circuito e imágenes para Facebook e Instagram.</p>
+        <p class="meta">Tablero de su circuito, tablas para Excel e imágenes para Facebook e Instagram.</p>
         <label class="login-field" id="loginAsociacionField">
           <span>Asociación</span>
           <select id="loginAsociacion"></select>
@@ -77,6 +77,21 @@
       <!-- TABLERO -->
       <div id="tabTablero" class="portal-tab">
         <div id="kpis" class="kpi-grid"></div>
+        <section class="panel chart-panel csv-panel" id="panelCsv">
+          <div class="mov-head">
+            <div>
+              <h2 class="chart-title">Descargar tablas para Excel</h2>
+              <p class="meta">Archivo CSV que abre en Excel o Google Sheets: lugar, puntos, dinero y los puntos de cada rodeo del circuito.</p>
+            </div>
+            <div class="csv-actions">
+              <label class="login-field">
+                <span>Tabla</span>
+                <select id="csvTabla"></select>
+              </label>
+              <button type="button" class="btn-share is-primary" id="btnCsv">Descargar CSV</button>
+            </div>
+          </div>
+        </section>
         <div class="chart-grid">
           <section class="panel chart-panel chart-wide">
             <div class="mov-head">

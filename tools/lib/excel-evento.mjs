@@ -6,6 +6,7 @@ import ExcelJS from "exceljs";
 import { toMontoEntero } from "../../web/lib/money.mjs";
 import { toPuntosCircuito } from "../../web/lib/points.mjs";
 import { nombreMayusculas } from "../../web/lib/nombres.mjs";
+import { DISCIPLINAS_CALIFICADAS } from "../../web/lib/disciplinas.mjs";
 
 /**
  * @type {Array<{ sheet: string, tipo: string, defaultRondas: number, aliases?: string[] }>}
@@ -34,6 +35,7 @@ export const DISCIPLINA_SHEETS = [
   { sheet: "Caballo con Pretal", tipo: "CaballoConPretal", defaultRondas: 1 },
   { sheet: "Caballo con Montura", tipo: "CaballoConMontura", defaultRondas: 1 },
   { sheet: "Jineteos de Toros", tipo: "JineteosDeToros", defaultRondas: 1 },
+  { sheet: "Cowboy Protection", tipo: "CowboyProtection", defaultRondas: 1 },
   { sheet: "Polos", tipo: "Polos", defaultRondas: 1 },
 ];
 
@@ -44,7 +46,7 @@ export const DISCIPLINA_SHEETS = [
  * @returns {SheetKind}
  */
 export function sheetKind(tipo) {
-  if (/Jineteos|Montura|Pretal/i.test(tipo)) return "puntos";
+  if (DISCIPLINAS_CALIFICADAS.test(tipo)) return "puntos";
   if (/^TeamRoping/i.test(tipo)) return "teamRoping";
   return "tiempo";
 }
@@ -435,7 +437,7 @@ function addComoLlenarSheet(wb) {
     ],
     [
       "4. Columnas según disciplina",
-      "Tiempos: Ronda 1–3 + Total. Jineteos/Montura/Pretal: solo Calificación. Lazo por Parejas: Cabecero + Pialador (sin Rol).",
+      "Tiempos: Ronda 1–3 + Total. Jineteos/Cowboy Protection/Montura/Pretal: solo Calificación. Lazo por Parejas: Cabecero + Pialador (sin Rol).",
     ],
     [
       "5. NT / NP en tiempos",

@@ -40,6 +40,7 @@ import {
 } from "../web/lib/circuitos.mjs";
 import { disciplinaKey, disciplinaLabel, normalizeText } from "../web/lib/disciplinas.mjs";
 import { eventoConNombresMayusculas } from "../web/lib/nombres.mjs";
+import { combinarMarcas, esDisciplinaPuntos, marcasDeEntrada } from "../web/lib/marcas.mjs";
 
 export { disciplinaKey, disciplinaLabel };
 
@@ -164,6 +165,7 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {
 
         const pts = toPuntosCircuito(row.puntosCircuito);
         const dinero = toMontoEntero(row.montoGanado);
+        const marcas = desdeClasif ? marcasDeEntrada(row, esDisciplinaPuntos(discId)) : null;
         const eventKey = `${compKey}::${discId}`;
         const prev = seen.get(eventKey);
         if (!prev) {
@@ -177,8 +179,10 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {
             puntos: pts,
             dinero,
             parejas: desdeClasif && ROLES_LAZO.has(discId) ? [pts] : null,
+            marcas,
           });
         } else {
+          prev.marcas = combinarMarcas(prev.marcas, marcas);
           if (prev.parejas) {
             prev.parejas.push(pts);
             prev.puntos = puntosLazadorRepetido(prev.parejas, reglaLazador);

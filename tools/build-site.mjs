@@ -9,6 +9,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { DATA_SOLO_INTERNA, eventoParaPublico } from "./lib/publico.mjs";
+import { asociacionesConLiga, paginaLigaPortal, rutasOcupadas } from "./lib/ligas-portal.mjs";
+import { normalizeManifest } from "../web/lib/circuitos.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "_site");
@@ -36,6 +38,13 @@ for (const f of readdirSync(eventosDir).filter((n) => n.endsWith(".json"))) {
   writeFileSync(file, `${JSON.stringify(eventoParaPublico(evento), null, 2)}\n`);
 }
 
+const manifest = normalizeManifest(JSON.parse(readFileSync(join(root, "data", "manifest.json"), "utf8")));
+const ligas = asociacionesConLiga(manifest, rutasOcupadas(readdirSync(out)));
+for (const a of ligas) {
+  mkdirSync(join(out, a.id), { recursive: true });
+  writeFileSync(join(out, a.id, "index.html"), paginaLigaPortal(a));
+}
+
 const v = version();
 for (const rel of readdirSync(out).filter((n) => n.endsWith(".html"))) {
   const file = join(out, rel);
@@ -47,3 +56,4 @@ for (const rel of readdirSync(out).filter((n) => n.endsWith(".html"))) {
 }
 
 console.log(`Sitio público listo en _site/ (versión ${v}).`);
+if (ligas.length) console.log(`Ligas del portal: ${ligas.map((a) => `/${a.id}`).join(", ")}`);

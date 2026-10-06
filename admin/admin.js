@@ -1006,7 +1006,7 @@ function wireCircuitosPanel() {
 
 function portalUrl(asociacionId, publico = true) {
   const base = publico ? statusData.pagesUrl || "https://estadisticas.arenapro.mx/" : "/";
-  return `${base}portal.html#${encodeURIComponent(asociacionId)}`;
+  return `${base}${encodeURIComponent(asociacionId)}`;
 }
 
 async function darAccesoPortal(a) {

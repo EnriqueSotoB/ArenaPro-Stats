@@ -8,6 +8,13 @@
   <meta name="theme-color" content="#3f524f" />
   <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <script>
+    // GitHub Pages distingue mayúsculas: /AERCH no encuentra la liga /aerch del portal.
+    (function () {
+      var p = location.pathname;
+      if (/^\/[^/]+\/?$/.test(p) && p !== p.toLowerCase()) location.replace(p.toLowerCase() + location.search + location.hash);
+    })();
+  </script>
 </head>
 <body>
   <header class="topbar">

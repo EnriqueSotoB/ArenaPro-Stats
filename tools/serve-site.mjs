@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Sirve _site/ como lo hace GitHub Pages (404.html para rutas inexistentes).
+ * Sirve _site/ como lo hace GitHub Pages (carpeta sin diagonal → redirect a "carpeta/",
+ * 404.html para rutas inexistentes).
  * Uso: node tools/serve-site.mjs [puerto]   — lo usan las pruebas E2E.
  */
 import http from "node:http";
@@ -38,6 +39,11 @@ http
     if (rel.endsWith("/")) rel += "index.html";
     const file = normalize(join(site, rel));
     const dentro = file === site || file.startsWith(site + sep);
+    if (dentro && existsSync(join(file, "index.html")) && statSync(file).isDirectory()) {
+      res.writeHead(301, { Location: `${rel}/` });
+      res.end();
+      return;
+    }
     if (dentro && existsSync(file) && statSync(file).isFile()) {
       res.writeHead(200, { "Content-Type": TIPOS[extname(file)] || "application/octet-stream" });
       res.end(readFileSync(file));

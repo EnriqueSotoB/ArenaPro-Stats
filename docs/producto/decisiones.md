@@ -114,7 +114,21 @@ Flujo: automático por defecto, humano en el loop cuando haga falta.
 
 ---
 
-## 8. Preguntas abiertas (no bloquean Sprint 0–1)
+## 8. Ficha del competidor y descargas del portal
+
+| Tema | Decisión |
+|------|----------|
+| Marcas en la ficha | Victorias, podios, mejor lugar y, por disciplina: mejor recorrido, mejor rodeo, promedio por recorrido. Salen de `clasificacion` (lugar, `detalleVueltas`); el rebuild las guarda en `historial` |
+| Mejor rodeo | Mejor suma de un rodeo **sin NT/NP** (el total de Time trae tiempo de castigo por NT). Solo compara rodeos con el número de rondas más común del competidor en esa disciplina |
+| Jineteos, Cowboy Protection, montura, pretal | La marca es la calificación de los jueces: más alta es mejor |
+| Cowboy Protection | Disciplina propia (tabla y récords aparte de Jineteos de Toros). Se reconoce por el nombre de la categoría aunque Time la mande con tipo Jineteos |
+| Récord | Su mejor recorrido iguala al mejor del circuito en la disciplina |
+| Lazador en varias parejas | Lugar de su mejor pareja; todos sus recorridos cuentan para mejor recorrido y promedio |
+| CSV del portal | Clasificación por puntos (mismo orden que el sitio) con puntos por rodeo en columnas; Vaquero Completo con dinero por disciplina. Coma y punto decimal (Excel es-MX), UTF-8 con BOM |
+
+---
+
+## 9. Preguntas abiertas (no bloquean Sprint 0–1)
 
 1. Línea de corte: ¿global o por disciplina? ¿número exacto?
 2. ~~Confirmación organizadores: ¿dinero LP 50/50?~~ → **Confirmado 50/50 cabecero/pialador** (2026-09-25)

@@ -273,6 +273,30 @@
   text-overflow: ellipsis;
 }
 
+.csv-panel {
+  margin-bottom: 1rem;
+}
+
+.csv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex: 1 1 320px;
+  max-width: 480px;
+}
+
+.csv-actions .login-field {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.csv-actions select {
+  width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+
 .rank-card {
   max-width: 820px;
   margin-top: 0.75rem;
