@@ -5,7 +5,7 @@
   "asociacionNombre": "Promotora de Rodeos",
   "temporada": "2026-2027",
   "titulo": "Prorodeo 2026",
-  "actualizadoEn": "2026-09-29T01:17:33.615Z",
+  "actualizadoEn": "2026-10-06T19:42:26.569Z",
   "eventosContados": 1,
   "standings": [
     {
@@ -544,7 +544,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 92,
-          "dinero": 3348
+          "dinero": 3348,
+          "lugar": 2,
+          "marca": 20.757,
+          "recorridos": [
+            20.757
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 20.757"
         }
       ]
     },
@@ -574,7 +584,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -604,7 +620,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -634,7 +660,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -664,7 +700,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 102,
-          "dinero": 6750
+          "dinero": 6750,
+          "lugar": 1,
+          "marca": 5.87,
+          "recorridos": [
+            5.87
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 5.870"
         }
       ]
     },
@@ -694,7 +740,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -724,7 +776,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 92,
-          "dinero": 4500
+          "dinero": 4500,
+          "lugar": 2,
+          "marca": 15.11,
+          "recorridos": [
+            15.11
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 15.110"
         }
       ]
     },
@@ -754,7 +816,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 92,
-          "dinero": 4500
+          "dinero": 4500,
+          "lugar": 2,
+          "marca": 15.11,
+          "recorridos": [
+            15.11
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 15.110"
         }
       ]
     },
@@ -784,7 +856,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -814,7 +892,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -844,7 +928,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -874,7 +968,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -904,7 +1008,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 0,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NP"
         }
       ]
     },
@@ -934,7 +1044,17 @@
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 92,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 2,
+          "marca": 63,
+          "recorridos": [
+            63
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 63"
         }
       ]
     },
@@ -964,7 +1084,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -994,7 +1120,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1024,7 +1156,17 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 92,
-          "dinero": 4572
+          "dinero": 4572,
+          "lugar": 2,
+          "marca": 78,
+          "recorridos": [
+            78
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 78"
         }
       ]
     },
@@ -1054,7 +1196,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 6,
+          "marca": 21.918,
+          "recorridos": [
+            21.918
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 21.918"
         }
       ]
     },
@@ -1084,7 +1236,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1114,7 +1276,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 82,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 3,
+          "marca": 22.74,
+          "recorridos": [
+            22.74
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 22.740"
         }
       ]
     },
@@ -1144,7 +1316,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 82,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 3,
+          "marca": 22.74,
+          "recorridos": [
+            22.74
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 22.740"
         }
       ]
     },
@@ -1174,7 +1356,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1204,7 +1396,13 @@
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1234,7 +1432,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 102,
-          "dinero": 5022
+          "dinero": 5022,
+          "lugar": 1,
+          "marca": 20.668,
+          "recorridos": [
+            20.668
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 20.668"
         }
       ]
     },
@@ -1264,7 +1472,17 @@
           "disciplinaId": "TeamRopingHeader",
           "disciplinaNombre": "Lazo por Parejas — Cabeceros",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1294,7 +1512,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 18.5,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 60,
+          "recorridos": [
+            60
+          ],
+          "rondas": [
+            ""
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1324,7 +1552,17 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 102,
-          "dinero": 6858
+          "dinero": 6858,
+          "lugar": 1,
+          "marca": 80,
+          "recorridos": [
+            80
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 80"
         }
       ]
     },
@@ -1354,7 +1592,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 72,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 4,
+          "marca": 21.4,
+          "recorridos": [
+            21.4
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 21.400"
         }
       ]
     },
@@ -1384,7 +1632,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1414,7 +1668,17 @@
           "disciplinaId": "TeamRopingHeeler",
           "disciplinaNombre": "Lazo por Parejas — Pialadores",
           "puntos": 102,
-          "dinero": 6750
+          "dinero": 6750,
+          "lugar": 1,
+          "marca": 5.87,
+          "recorridos": [
+            5.87
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 5.870"
         }
       ]
     },
@@ -1444,7 +1708,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 62,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 5,
+          "marca": 21.763,
+          "recorridos": [
+            21.763
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 21.763"
         }
       ]
     },
@@ -1474,7 +1748,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1504,7 +1784,13 @@
           "disciplinaId": "JineteosDeToros",
           "disciplinaNombre": "Jineteos de Toros",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1534,7 +1820,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 8,
+          "marca": 24.153,
+          "recorridos": [
+            24.153
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 24.153"
         }
       ]
     },
@@ -1564,7 +1860,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 82,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 3,
+          "marca": 20.811,
+          "recorridos": [
+            20.811
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 20.811"
         }
       ]
     },
@@ -1594,7 +1900,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 7,
+          "marca": 22.745,
+          "recorridos": [
+            22.745
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 22.745"
         }
       ]
     },
@@ -1624,7 +1940,13 @@
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 1,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": null,
+          "marca": null,
+          "recorridos": [],
+          "rondas": [],
+          "limpio": false,
+          "detalle": "Rodeo: NT"
         }
       ]
     },
@@ -1654,7 +1976,17 @@
           "disciplinaId": "Barriles",
           "disciplinaNombre": "Barriles",
           "puntos": 2,
-          "dinero": 0
+          "dinero": 0,
+          "lugar": 9,
+          "marca": 24.412,
+          "recorridos": [
+            24.412
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 24.412"
         }
       ]
     },
@@ -1684,7 +2016,17 @@
           "disciplinaId": "CaballoConMontura",
           "disciplinaNombre": "Caballo con Montura",
           "puntos": 102,
-          "dinero": 5760
+          "dinero": 5760,
+          "lugar": 1,
+          "marca": 70,
+          "recorridos": [
+            70
+          ],
+          "rondas": [
+            "Rodeo"
+          ],
+          "limpio": true,
+          "detalle": "Rodeo: 70"
         }
       ]
     }
