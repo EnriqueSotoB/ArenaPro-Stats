@@ -656,14 +656,14 @@ async function publish() {
   runTests();
 
   git(["add", "--", "data"]);
-  const staged = git(["diff", "--cached", "--name-only"]);
+  const staged = git(["diff", "--cached", "--name-only", "--", "data"]);
   if (!staged) {
     return { ok: true, published: false, message: "Nada que publicar." };
   }
 
   const msg = "stats: actualizar estadísticas";
   try {
-    git(["commit", "-m", msg]);
+    git(["commit", "-m", msg, "--", "data"]);
   } catch (e) {
     const stderr = String(e.stderr || e.message || e);
     if (/nothing to commit/i.test(stderr)) {
