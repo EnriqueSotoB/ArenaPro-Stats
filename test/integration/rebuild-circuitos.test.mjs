@@ -86,4 +86,24 @@ describe("rebuildTemporada por circuito", () => {
     assert.equal(existsSync(join(root, "data", "circuitos", "borrado.json")), false);
     assert.equal(existsSync(join(root, "data", "temporada.json")), false);
   });
+
+  it("sin dinero visible el acumulado no trae montos y el Vaquero Completo va por puntos", () => {
+    const manifestPath = join(root, "data", "manifest.json");
+    const m = JSON.parse(readFileSync(manifestPath, "utf8"));
+    m.asociaciones[1].mostrarDinero = false;
+    writeFileSync(manifestPath, JSON.stringify(m), "utf8");
+    rebuildTemporada(root);
+
+    const leer = (id) => JSON.parse(readFileSync(join(root, "data", "circuitos", `${id}.json`), "utf8"));
+    const fmr = leer("fmr-tour-2027");
+    assert.equal(fmr.mostrarDinero, false);
+    assert.equal(fmr.vaqueroCompleto, "puntos");
+    assert.ok(fmr.standings.length);
+    assert.doesNotMatch(JSON.stringify(fmr), /dinero"|dineroTotal/);
+
+    const aerch = leer("aerch-circuito-2027");
+    assert.equal(aerch.mostrarDinero, true);
+    assert.equal(aerch.vaqueroCompleto, "dinero");
+    assert.ok(aerch.standings.every((s) => "dineroTotal" in s));
+  });
 });

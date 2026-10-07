@@ -93,6 +93,8 @@ const els = {
   asociacionEstado: document.getElementById("asociacionEstado"),
   asociacionHashtags: document.getElementById("asociacionHashtags"),
   asociacionLazadorRepetido: document.getElementById("asociacionLazadorRepetido"),
+  asociacionMostrarDinero: document.getElementById("asociacionMostrarDinero"),
+  asociacionVaqueroCompleto: document.getElementById("asociacionVaqueroCompleto"),
   asociacionLogo: document.getElementById("asociacionLogo"),
   asociacionLogoActual: document.getElementById("asociacionLogoActual"),
   asociacionLogoImg: document.getElementById("asociacionLogoImg"),
@@ -101,6 +103,15 @@ const els = {
   portalCredencialTexto: document.getElementById("portalCredencialTexto"),
   btnPortalCopiar: document.getElementById("btnPortalCopiar"),
   btnPortalCerrar: document.getElementById("btnPortalCerrar"),
+  portalDialog: document.getElementById("portalDialog"),
+  portalForm: document.getElementById("portalForm"),
+  portalFormTitle: document.getElementById("portalFormTitle"),
+  portalAsociacionId: document.getElementById("portalAsociacionId"),
+  portalPassword: document.getElementById("portalPassword"),
+  portalPasswordHint: document.getElementById("portalPasswordHint"),
+  portalMostrarDinero: document.getElementById("portalMostrarDinero"),
+  portalVaqueroCompleto: document.getElementById("portalVaqueroCompleto"),
+  btnPortalSave: document.getElementById("btnPortalSave"),
   btnAsociacionSave: document.getElementById("btnAsociacionSave"),
   btnIngest: document.getElementById("btnIngest"),
   btnCancelEdit: document.getElementById("btnCancelEdit"),
@@ -928,6 +939,13 @@ function renderCircuitosPick() {
 function wireCircuitosPanel() {
   wireDialog(els.circuitoDialog, resetCircuitoForm);
   wireDialog(els.asociacionDialog, resetAsociacionForm);
+  wireDialog(els.portalDialog, () => els.portalForm?.reset());
+  for (const [chk, sel] of [
+    [els.asociacionMostrarDinero, els.asociacionVaqueroCompleto],
+    [els.portalMostrarDinero, els.portalVaqueroCompleto],
+  ]) {
+    chk?.addEventListener("change", () => syncReglasDinero(chk, sel));
+  }
   els.btnNuevoCircuito?.addEventListener("click", () => {
     if (!statusData.asociaciones.length) {
       showBanner("Primero crea una asociación.", true);
@@ -970,6 +988,8 @@ function wireCircuitosPanel() {
         estado: els.asociacionEstado.value,
         hashtags: els.asociacionHashtags.value,
         lazadorRepetido: els.asociacionLazadorRepetido.value,
+        mostrarDinero: els.asociacionMostrarDinero.checked,
+        vaqueroCompleto: els.asociacionVaqueroCompleto.value,
       }, (body) => `Asociación guardada: ${body.asociacion?.siglas}. Publica para el sitio.`);
       if (!saved) return;
       const file = els.asociacionLogo.files?.[0];
@@ -988,6 +1008,28 @@ function wireCircuitosPanel() {
     if (!id || !confirm("¿Quitar el logo de esta asociación?")) return;
     const ok = await postConfig("/api/asociaciones/logo/remove", { id }, () => "Logo quitado. Publica para el sitio.");
     if (ok) els.asociacionLogoActual.hidden = true;
+  });
+
+  els.portalForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const a = statusData.asociaciones.find((x) => x.id === els.portalAsociacionId.value);
+    if (!a) return;
+    setDialogMsg(els.portalDialog, "");
+    els.btnPortalSave.disabled = true;
+    const body = await postConfig(
+      "/api/asociaciones/portal",
+      {
+        id: a.id,
+        password: els.portalPassword.value,
+        mostrarDinero: els.portalMostrarDinero.checked,
+        vaqueroCompleto: els.portalVaqueroCompleto.value,
+      },
+      () => `Acceso al portal listo para ${a.siglas || a.nombre}. Publica para activarlo.`
+    );
+    els.btnPortalSave.disabled = false;
+    if (!body?.password) return;
+    els.portalDialog.close();
+    mostrarCredencialPortal(a, body.password);
   });
 
   els.btnPortalCopiar?.addEventListener("click", async () => {
@@ -1009,24 +1051,37 @@ function portalUrl(asociacionId, publico = true) {
   return `${base}${encodeURIComponent(asociacionId)}`;
 }
 
-async function darAccesoPortal(a) {
-  const nueva = prompt(
-    `Contraseña del portal de ${a.siglas || a.nombre}.\n\nDéjalo vacío para generar una segura, o escribe una de al menos 14 caracteres.` +
-      (a.portal ? "\n\nLa contraseña anterior dejará de funcionar." : ""),
-    ""
-  );
-  if (nueva === null) return;
-  const body = await postConfig(
-    "/api/asociaciones/portal",
-    { id: a.id, password: nueva },
-    () => `Acceso al portal listo para ${a.siglas || a.nombre}. Publica para activarlo.`
-  );
-  if (!body?.password) return;
+/** Sin dinero visible el Vaquero Completo solo puede ir por puntos. */
+function syncReglasDinero(chk, select) {
+  const porDinero = select.querySelector('option[value="dinero"]');
+  if (porDinero) porDinero.disabled = !chk.checked;
+  if (!chk.checked) select.value = "puntos";
+}
+
+function setReglasDinero(chk, select, a) {
+  chk.checked = a?.mostrarDinero !== false;
+  select.value = a?.vaqueroCompleto || "dinero";
+  syncReglasDinero(chk, select);
+}
+
+function darAccesoPortal(a) {
+  els.portalForm.reset();
+  els.portalAsociacionId.value = a.id;
+  els.portalFormTitle.textContent = `${a.portal ? "Nueva contraseña" : "Dar acceso"} · ${a.siglas || a.nombre}`;
+  els.portalPasswordHint.textContent =
+    "Déjala vacía para generar una segura, o escribe una de al menos 14 caracteres." +
+    (a.portal ? " La contraseña anterior dejará de funcionar." : "");
+  els.btnPortalSave.textContent = a.portal ? "Cambiar contraseña" : "Dar acceso";
+  setReglasDinero(els.portalMostrarDinero, els.portalVaqueroCompleto, a);
+  openDialog(els.portalDialog, els.portalPassword);
+}
+
+function mostrarCredencialPortal(a, password) {
   els.portalCredencialTexto.value = [
     `Portal ${a.siglas || a.nombre} — ArenaPro Estadísticas`,
     "",
     `Liga: ${portalUrl(a.id)}`,
-    `Contraseña: ${body.password}`,
+    `Contraseña: ${password}`,
     "",
     "Ahí ven el tablero de su circuito y generan las imágenes para Facebook e Instagram.",
   ].join("\n");
@@ -1095,6 +1150,7 @@ function resetAsociacionForm() {
   els.asociacionFormTitle.textContent = "Nueva asociación";
   els.btnAsociacionSave.textContent = "Crear asociación";
   els.asociacionLogoActual.hidden = true;
+  setReglasDinero(els.asociacionMostrarDinero, els.asociacionVaqueroCompleto, null);
 }
 
 /** Cierra con la ✕, Cancelar, Esc o clic fuera; al cerrar deja el formulario limpio. */
@@ -1211,6 +1267,8 @@ function renderCircuitosTree() {
         ${a.id ? `<dl class="tree-facts">
           <div><dt>Hashtags</dt><dd>${a.hashtags ? escapeHtml(a.hashtags) : `<span class="muted">Sin hashtags</span>`}</dd></div>
           <div><dt>Lazador en varias parejas</dt><dd>${a.lazadorRepetido === "sumar" ? "Suma completo" : "Regla FMR"}</dd></div>
+          <div><dt>Dinero ganado</dt><dd>${a.mostrarDinero === false ? "Oculto" : "Visible"}</dd></div>
+          <div><dt>Vaquero Completo</dt><dd>${a.vaqueroCompleto === "puntos" ? "Por puntos" : "Por dinero"}</dd></div>
         </dl>
         <div class="tree-portal">
           <div class="tree-portal-status">
@@ -1287,6 +1345,7 @@ function renderCircuitosTree() {
       els.asociacionEstado.value = a.estado || "";
       els.asociacionHashtags.value = a.hashtags || "";
       els.asociacionLazadorRepetido.value = a.lazadorRepetido || "fmr";
+      setReglasDinero(els.asociacionMostrarDinero, els.asociacionVaqueroCompleto, a);
       els.asociacionLogo.value = "";
       els.asociacionLogoActual.hidden = !a.logo;
       if (a.logo) els.asociacionLogoImg.src = logoUrl(a.logo);

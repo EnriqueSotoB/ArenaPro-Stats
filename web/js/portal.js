@@ -4,12 +4,13 @@
  */
 
 import { normalizeEvento, categoriesWithResults, escapeHtml, escapeAttr, fmtNum } from "./event-model.js";
-import { fmtMxn } from "../lib/money.mjs";
+import { fmtMxn, sinMontos } from "../lib/money.mjs";
 import {
   normalizeManifest,
   findAsociacion,
   findCircuito,
   eventosDeCircuito,
+  eventoMuestraDinero,
   circuitoDataFile,
 } from "../lib/circuitos.mjs";
 import { llavePortal, verificarLlave, normalizePortal } from "../lib/portal-auth.mjs";
@@ -61,6 +62,7 @@ const els = {
   tabRedes: $("tabRedes"),
   kpis: $("kpis"),
   panelCsv: $("panelCsv"),
+  csvDescripcion: $("csvDescripcion"),
   csvTabla: $("csvTabla"),
   btnCsv: $("btnCsv"),
   movimientos: $("movimientos"),
@@ -365,6 +367,7 @@ async function usarCircuito(id) {
     circuitoCache.set(circuitoId, payload || { circuitoId, temporada: circuito.temporada, eventosContados: 0, standings: [], allAround: [], competidores: [] });
   }
   temporada = circuitoCache.get(circuitoId);
+  if (!muestraDinero()) redes.metrica = "puntos";
   setStatus("");
 
   els.portalTitle.textContent = circuito.nombre;
@@ -384,10 +387,16 @@ async function usarCircuito(id) {
 
 /* —— Tablero —— */
 
+/** La asociación puede no publicar el dinero ganado. */
+function muestraDinero() {
+  return temporada?.mostrarDinero !== false;
+}
+
 function renderTablero() {
   const eventos = eventosDeCircuito(manifest, circuitoId);
   const t = calcularTablero(temporada, eventos);
   const k = t.kpis;
+  const conDinero = muestraDinero();
   const kpi = (label, value, sub = "") => `<div class="kpi">
       <span class="kpi-label">${escapeHtml(label)}</span>
       <span class="kpi-value">${escapeHtml(value)}</span>
@@ -398,9 +407,12 @@ function renderTablero() {
     kpi("Competidores", fmtNum(k.competidores), `${k.pctRecurrentes}% corrió 2+ eventos`),
     kpi("Inscripciones", fmtNum(k.participaciones), k.eventos ? `${fmtNum(Math.round(k.participaciones / k.eventos))} por evento` : ""),
     kpi("Disciplinas", fmtNum(k.disciplinas)),
-    kpi("Dinero repartido", fmtMxn(k.dinero), k.dinero ? "" : "Sin montos capturados"),
+    ...(conDinero ? [kpi("Dinero repartido", fmtMxn(k.dinero), k.dinero ? "" : "Sin montos capturados")] : []),
   ].join("");
 
+  els.csvDescripcion.textContent = `Archivo CSV que abre en Excel o Google Sheets: lugar, puntos${
+    conDinero ? ", dinero" : ""
+  } y los puntos de cada rodeo del circuito.`;
   llenarSelectCsv();
 
   if (!t.porEvento.length) {
@@ -419,10 +431,10 @@ function renderTablero() {
   els.chartDisciplinas.innerHTML = barrasHtml(
     t.porDisciplina.map((d) => ({ label: d.nombre, value: d.competidores, text: fmtNum(d.competidores) }))
   );
-  const conDinero = t.porEvento.filter((e) => e.dinero > 0);
-  els.panelDinero.hidden = !conDinero.length;
+  const eventosConDinero = conDinero ? t.porEvento.filter((e) => e.dinero > 0) : [];
+  els.panelDinero.hidden = !eventosConDinero.length;
   els.chartDinero.innerHTML = barrasHtml(
-    conDinero.map((e) => ({ label: e.nombre, sub: fmtFecha(e.fecha), value: e.dinero, text: fmtMxn(e.dinero) }))
+    eventosConDinero.map((e) => ({ label: e.nombre, sub: fmtFecha(e.fecha), value: e.dinero, text: fmtMxn(e.dinero) }))
   );
 
   els.tablaLideres.innerHTML = tablaHtml(
@@ -437,14 +449,14 @@ function renderTablero() {
     [false, false, true, true, true]
   );
   els.tablaActivos.innerHTML = tablaHtml(
-    ["#", "Competidor", "Eventos", "Disciplinas", "Puntos", "Dinero"],
+    ["#", "Competidor", "Eventos", "Disciplinas", "Puntos", ...(conDinero ? ["Dinero"] : [])],
     t.masActivos.map((c, i) => [
       String(i + 1),
       escapeHtml(c.nombre),
       fmtNum(c.eventos),
       fmtNum(c.disciplinas),
       fmtNum(c.puntos),
-      c.dinero ? escapeHtml(fmtMxn(c.dinero)) : "—",
+      ...(conDinero ? [c.dinero ? escapeHtml(fmtMxn(c.dinero)) : "—"] : []),
     ]),
     [true, false, true, true, true, true]
   );
@@ -812,7 +824,8 @@ async function cargarEvento(eventoId) {
   const entry = (manifest.eventos || []).find((e) => e.id === eventoId);
   if (!entry) return null;
   if (!eventoCache.has(entry.file)) {
-    eventoCache.set(entry.file, normalizeEvento(await fetchJson(`data/${entry.file}`)));
+    const raw = await fetchJson(`data/${entry.file}`);
+    eventoCache.set(entry.file, normalizeEvento(eventoMuestraDinero(manifest, entry) ? raw : sinMontos(raw)));
   }
   return eventoCache.get(entry.file);
 }
@@ -859,7 +872,7 @@ function syncRedesControles() {
   els.fuenteMovimientos.hidden = redes.fuente !== "movimientos";
   els.fuenteRecords.hidden = redes.fuente !== "records";
   els.redesTop.hidden = redes.fuente === "records";
-  els.redesMetrica.hidden = redes.disciplina === ALL_AROUND_ID;
+  els.redesMetrica.hidden = redes.disciplina === ALL_AROUND_ID || !muestraDinero();
 }
 
 async function renderRedes({ nuevoTexto = false } = {}) {

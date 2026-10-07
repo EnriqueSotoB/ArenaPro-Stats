@@ -46,3 +46,17 @@ export function fmtMxn(n) {
   const digits = String(Math.abs(entero)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `${sign}$${digits}`;
 }
+
+/**
+ * Copia sin ningún campo monto* (montoGanado, montoEquipo, montoHeader…) a cualquier profundidad,
+ * statsEdits incluido. Para asociaciones que no publican el dinero ganado.
+ */
+export function sinMontos(valor) {
+  if (Array.isArray(valor)) return valor.map(sinMontos);
+  if (!valor || typeof valor !== "object") return valor;
+  return Object.fromEntries(
+    Object.entries(valor)
+      .filter(([k]) => !/^monto/i.test(k))
+      .map(([k, v]) => [k, sinMontos(v)])
+  );
+}

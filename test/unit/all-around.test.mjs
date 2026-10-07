@@ -50,7 +50,7 @@ describe("buildAllAround", () => {
     assert.equal(allAround.length, 1);
     assert.equal(allAround[0].nombre, "Duo Rider");
     assert.equal(allAround[0].dineroTotal, 28000);
-    assert.deepEqual(allAround[0].disciplinasConDinero, [
+    assert.deepEqual(allAround[0].disciplinas, [
       "Barriles",
       "LazoDeBecerro",
     ]);
@@ -75,7 +75,7 @@ describe("buildAllAround", () => {
     ]);
     assert.equal(allAround.length, 1);
     assert.equal(allAround[0].dineroTotal, 9000);
-    assert.equal(allAround[0].disciplinasConDinero.length, 2);
+    assert.equal(allAround[0].disciplinas.length, 2);
   });
 
   it("desempata por más disciplinas, luego mayor premio, luego nombre", () => {
@@ -160,5 +160,43 @@ describe("buildAllAround", () => {
     // Empate 10000: Yuri tiene 3 disciplinas → primero
     assert.equal(tied[0].nombre, "Yuri");
     assert.equal(tied[1].nombre, "Xena");
+  });
+
+  describe("por puntos", () => {
+    const fila = (key, disciplinaId, puntosTotales, dineroTotal = 0) => ({
+      competidorKey: key,
+      nombre: key.toUpperCase(),
+      disciplinaId,
+      disciplinaNombre: disciplinaId,
+      puntosTotales,
+      dineroTotal,
+    });
+
+    it("califica con puntos en 2+ disciplinas aunque no haya cobrado", () => {
+      const aa = buildAllAround(
+        [fila("ana", "Barriles", 40), fila("ana", "LazoDeBecerro", 25.5), fila("bea", "Barriles", 90)],
+        "puntos"
+      );
+      assert.equal(aa.length, 1);
+      assert.equal(aa[0].nombre, "ANA");
+      assert.equal(aa[0].puntosTotales, 65.5);
+      assert.deepEqual(aa[0].disciplinas, ["Barriles", "LazoDeBecerro"]);
+      assert.deepEqual(aa[0].detalle.map((d) => d.puntos), [40, 25.5]);
+    });
+
+    it("no cuenta disciplinas sin puntos y ordena por puntos, no por dinero", () => {
+      const aa = buildAllAround(
+        [
+          fila("ana", "Barriles", 50, 100),
+          fila("ana", "LazoDeBecerro", 50, 100),
+          fila("rico", "Barriles", 10, 90000),
+          fila("rico", "LazoDeBecerro", 10, 90000),
+          fila("cero", "Barriles", 80),
+          fila("cero", "LazoDeBecerro", 0, 5000),
+        ],
+        "puntos"
+      );
+      assert.deepEqual(aa.map((r) => r.nombre), ["ANA", "RICO"]);
+    });
   });
 });

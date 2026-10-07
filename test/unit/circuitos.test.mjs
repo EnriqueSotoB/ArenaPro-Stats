@@ -8,6 +8,7 @@ import {
   removeCircuito,
   validarCircuitosEvento,
   eventosDeCircuito,
+  eventoMuestraDinero,
   circuitosPorAsociacion,
   defaultCircuitoId,
   setAsociacionLogo,
@@ -107,6 +108,46 @@ describe("asociaciones", () => {
 
   it("no elimina una asociación con circuitos", () => {
     assert.throws(() => removeAsociacion(base(), "aerch"), /circuito/);
+  });
+
+  it("por omisión muestra dinero y el Vaquero Completo va por dinero", () => {
+    const a = base().asociaciones[0];
+    assert.equal(a.mostrarDinero, true);
+    assert.equal(a.vaqueroCompleto, "dinero");
+    const { asociacion } = upsertAsociacion(base(), { siglas: "X", nombre: "X", vaqueroCompleto: "raro" });
+    assert.equal(asociacion.vaqueroCompleto, "dinero");
+  });
+
+  it("elige Vaquero Completo por puntos y lo conserva si no se manda", () => {
+    const { manifest } = upsertAsociacion(base(), { id: "aerch", siglas: "AERCH", nombre: "AERCH", vaqueroCompleto: "puntos" });
+    assert.equal(manifest.asociaciones[0].vaqueroCompleto, "puntos");
+    assert.equal(manifest.asociaciones[0].mostrarDinero, true);
+    const { asociacion } = upsertAsociacion(manifest, { id: "aerch", siglas: "AERCH", nombre: "AERCH A.C." });
+    assert.equal(asociacion.vaqueroCompleto, "puntos");
+  });
+
+  it("sin dinero visible el Vaquero Completo queda por puntos", () => {
+    const { manifest, asociacion } = upsertAsociacion(base(), {
+      id: "aerch",
+      siglas: "AERCH",
+      nombre: "AERCH",
+      mostrarDinero: false,
+      vaqueroCompleto: "dinero",
+    });
+    assert.equal(asociacion.mostrarDinero, false);
+    assert.equal(asociacion.vaqueroCompleto, "puntos");
+    assert.equal(normalizeManifest(manifest).asociaciones[0].vaqueroCompleto, "puntos");
+    const nueva = upsertAsociacion(base(), { siglas: "PRS", nombre: "Promotora", mostrarDinero: false });
+    assert.equal(nueva.asociacion.vaqueroCompleto, "puntos");
+  });
+
+  it("un evento muestra dinero solo si todas sus asociaciones lo permiten", () => {
+    let m = upsertAsociacion(base(), { siglas: "PRS", nombre: "Promotora", mostrarDinero: false }).manifest;
+    m = upsertCircuito(m, { asociacionId: "prs", nombre: "PRS 2027", temporada: "2027" }).manifest;
+    const soloAerch = { circuitos: ["aerch-circuito-2027"] };
+    assert.equal(eventoMuestraDinero(m, soloAerch), true);
+    assert.equal(eventoMuestraDinero(m, { circuitos: ["prs-2027"] }), false);
+    assert.equal(eventoMuestraDinero(m, { circuitos: ["aerch-circuito-2027", "prs-2027"] }), false);
   });
 });
 

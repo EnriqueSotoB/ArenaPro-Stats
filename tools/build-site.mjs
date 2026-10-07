@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 import { DATA_SOLO_INTERNA, eventoParaPublico } from "./lib/publico.mjs";
 import { asociacionesConLiga, paginaLigaPortal, rutasOcupadas } from "./lib/ligas-portal.mjs";
-import { normalizeManifest } from "../web/lib/circuitos.mjs";
+import { eventoMuestraDinero, normalizeManifest } from "../web/lib/circuitos.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "_site");
@@ -30,15 +30,17 @@ cpSync(join(root, "web"), out, { recursive: true });
 cpSync(join(root, "data"), join(out, "data"), { recursive: true });
 writeFileSync(join(out, ".nojekyll"), "");
 
+const manifest = normalizeManifest(JSON.parse(readFileSync(join(root, "data", "manifest.json"), "utf8")));
+
 for (const rel of DATA_SOLO_INTERNA) rmSync(join(out, "data", rel), { force: true });
 const eventosDir = join(out, "data", "eventos");
 for (const f of readdirSync(eventosDir).filter((n) => n.endsWith(".json"))) {
   const file = join(eventosDir, f);
   const evento = JSON.parse(readFileSync(file, "utf8"));
-  writeFileSync(file, `${JSON.stringify(eventoParaPublico(evento), null, 2)}\n`);
+  const entry = manifest.eventos.find((e) => e.file === `eventos/${f}`);
+  const conDinero = !entry || eventoMuestraDinero(manifest, entry);
+  writeFileSync(file, `${JSON.stringify(eventoParaPublico(evento, { conDinero }), null, 2)}\n`);
 }
-
-const manifest = normalizeManifest(JSON.parse(readFileSync(join(root, "data", "manifest.json"), "utf8")));
 const ligas = asociacionesConLiga(manifest, rutasOcupadas(readdirSync(out)));
 for (const a of ligas) {
   mkdirSync(join(out, a.id), { recursive: true });

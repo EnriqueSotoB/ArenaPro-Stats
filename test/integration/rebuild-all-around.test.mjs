@@ -118,6 +118,6 @@ describe("rebuildTemporada allAround", () => {
     assert.equal(temporada.allAround.length, 1);
     assert.equal(temporada.allAround[0].nombre, "DUO RIDER");
     assert.equal(temporada.allAround[0].dineroTotal, 28000);
-    assert.equal(temporada.allAround[0].disciplinasConDinero.length, 2);
+    assert.equal(temporada.allAround[0].disciplinas.length, 2);
   });
 });

@@ -30,6 +30,20 @@ export function tipoAsociacionLabel(tipo) {
  */
 export const REGLAS_LAZADOR_REPETIDO = ["fmr", "sumar"];
 
+/**
+ * Cómo califica el Vaquero Completo de temporada (≥2 disciplinas):
+ * - "dinero": cobró en cada una; se ordena por dinero total.
+ * - "puntos": sumó puntos en cada una; se ordena por puntos totales.
+ */
+export const CRITERIOS_VAQUERO_COMPLETO = ["dinero", "puntos"];
+
+/** Sin dinero visible el Vaquero Completo no puede ir por dinero (lo revelaría). */
+function reglasDinero(mostrarDinero, vaqueroCompleto) {
+  const mostrar = mostrarDinero !== false;
+  const criterio = CRITERIOS_VAQUERO_COMPLETO.includes(str(vaqueroCompleto)) ? str(vaqueroCompleto) : "dinero";
+  return { mostrarDinero: mostrar, vaqueroCompleto: mostrar ? criterio : "puntos" };
+}
+
 function fail(message, statusCode = 400) {
   const err = new Error(message);
   err.statusCode = statusCode;
@@ -61,6 +75,7 @@ function normalizeAsociacion(a) {
     logo: logoPath(a?.logo),
     hashtags: normalizeHashtags(a?.hashtags),
     lazadorRepetido: REGLAS_LAZADOR_REPETIDO.includes(str(a?.lazadorRepetido)) ? str(a.lazadorRepetido) : "fmr",
+    ...reglasDinero(a?.mostrarDinero, a?.vaqueroCompleto),
     portal: normalizePortal(a?.portal),
   };
 }
@@ -158,6 +173,8 @@ export function normalizeManifest(raw) {
         logo: "",
         hashtags: "",
         lazadorRepetido: "fmr",
+        mostrarDinero: true,
+        vaqueroCompleto: "dinero",
         portal: null,
       },
     ],
@@ -195,6 +212,14 @@ export function defaultCircuitoId(manifest) {
 export function eventosDeCircuito(manifest, circuitoId) {
   const key = str(circuitoId);
   return (manifest?.eventos || []).filter((e) => (e.circuitos || []).includes(key));
+}
+
+/** Un evento muestra dinero solo si todas las asociaciones para las que cuenta lo permiten. */
+export function eventoMuestraDinero(manifest, entry) {
+  return (entry?.circuitos || []).every((id) => {
+    const circuito = findCircuito(manifest, id);
+    return findAsociacion(manifest, circuito?.asociacionId)?.mostrarDinero !== false;
+  });
 }
 
 /**
@@ -256,7 +281,11 @@ export function upsertAsociacion(manifest, input) {
     const logo = input?.logo === undefined ? prev.logo : data.logo;
     const hashtags = input?.hashtags === undefined ? prev.hashtags : data.hashtags;
     const lazadorRepetido = input?.lazadorRepetido === undefined ? prev.lazadorRepetido : data.lazadorRepetido;
-    const asociacion = { ...data, id: editId, logo, hashtags, lazadorRepetido, portal: prev.portal };
+    const dinero = reglasDinero(
+      input?.mostrarDinero === undefined ? prev.mostrarDinero : input.mostrarDinero,
+      input?.vaqueroCompleto === undefined ? prev.vaqueroCompleto : input.vaqueroCompleto
+    );
+    const asociacion = { ...data, id: editId, logo, hashtags, lazadorRepetido, ...dinero, portal: prev.portal };
     next.asociaciones[idx] = asociacion;
     return { manifest: next, asociacion };
   }
