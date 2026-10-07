@@ -7,3 +7,21 @@ node_modules/
 _site/
 test-results/
 playwright-report/
+
+# Documentación interna (contratos, operación, producto): solo local, el repo es público
+docs/
+
+# Secretos y configuración local
+.env
+.env.*
+.dev.vars*
+.wrangler/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Contratos firmados o documentos sueltos
+*.pdf
+*.docx
+*.doc

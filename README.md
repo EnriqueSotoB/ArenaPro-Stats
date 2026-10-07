@@ -5,7 +5,7 @@ Publicada en GitHub Pages; se alimenta con JSON de Time (**Exportar para Stats�
 
 Soporta varias **asociaciones** (AERCH, FMR…) y un **circuito por temporada** de cada una; un evento puede contar para varios circuitos (p. ej. FMR Tour-AERCH).
 
-Documentación: [`docs/README.md`](./docs/README.md). Para entrenar a quien publica: [manual del admin](./docs/operacion/manual-admin.md). Para problemas: [runbook](./docs/operacion/runbook.md).
+La documentación interna (`docs/`: manual del admin, runbook, contratos) vive solo en local y no se versiona.
 
 Diseño alineado a `ArenaPro-TimeManagement/docs/design/DESIGN_TOKENS.md`
 (paleta forest / ochre / sand / cream / dark + derivados; tipografía app Arial; barra `forest`).
@@ -81,7 +81,7 @@ tools/          ← servidor local, build, rebuild, monitor (no se publica)
   lib/          ← módulos solo de Node: Excel, git, validación, rutas
 templates/      ← plantilla Excel
 test/           ← unit/, integration/, e2e/, fixtures/
-docs/           ← operacion/, producto/, ingenieria/, historial/
+docs/           ← documentación interna (solo local, en .gitignore)
 publicar.bat    ← abre la consola
 ```
 
@@ -96,10 +96,10 @@ npm test            # unit + integración
 npm run test:e2e    # Playwright: sitio (escritorio y celular) + consola
 ```
 
-Cada push a `main` corre lint, tests y E2E antes de desplegar; si algo falla, el sitio no cambia. Reglas de ramas y PRs: [prácticas de ingeniería](./docs/ingenieria/practicas.md).
+Cada push a `main` corre lint, tests y E2E antes de desplegar; si algo falla, el sitio no cambia. Reglas de ramas y PRs: `docs/ingenieria/practicas.md` (local).
 
 ## Pages
 
 https://estadisticas.arenapro.mx/
 
-(DNS + custom domain: ver [`docs/ingenieria/dominio-pages.md`](./docs/ingenieria/dominio-pages.md))
+(DNS + custom domain: ver `docs/ingenieria/dominio-pages.md`, local)
