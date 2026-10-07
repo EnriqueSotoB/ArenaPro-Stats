@@ -226,6 +226,21 @@
               </select>
               <small class="config-hint">Cómo se cuentan sus puntos cuando lazó con varias parejas en un mismo evento.</small>
             </label>
+            <label class="config-check">
+              <input id="asociacionMostrarDinero" type="checkbox" checked />
+              <span>
+                <strong>Mostrar dinero ganado</strong>
+                <small>Desmárcalo si la asociación no quiere publicar los premios: el sitio y su portal solo muestran puntos.</small>
+              </span>
+            </label>
+            <label class="config-field">
+              <span>Vaquero Completo se calcula por</span>
+              <select id="asociacionVaqueroCompleto">
+                <option value="dinero">Dinero ganado en 2 o más disciplinas</option>
+                <option value="puntos">Puntos ganados en 2 o más disciplinas</option>
+              </select>
+              <small class="config-hint">Califica quien ganó en al menos 2 disciplinas y se ordena por el total. Sin dinero visible, va por puntos.</small>
+            </label>
             <div class="config-field">
               <span>Logo</span>
               <div class="logo-picker">
@@ -242,6 +257,46 @@
           <footer class="dialog-foot">
             <button type="button" class="btn-secondary" data-dialog-close>Cancelar</button>
             <button type="submit" class="btn-primary" id="btnAsociacionSave">Crear asociación</button>
+          </footer>
+        </form>
+      </dialog>
+
+      <dialog id="portalDialog" class="admin-dialog" aria-labelledby="portalFormTitle">
+        <form id="portalForm" class="dialog-form" autocomplete="off">
+          <header class="dialog-head">
+            <div>
+              <p class="dialog-eyebrow">Acceso al portal</p>
+              <h3 class="dialog-title" id="portalFormTitle">Dar acceso</h3>
+            </div>
+            <button type="button" class="dialog-close" data-dialog-close aria-label="Cerrar">&times;</button>
+          </header>
+          <div class="dialog-body">
+            <input type="hidden" id="portalAsociacionId" />
+            <label class="config-field">
+              <span>Contraseña</span>
+              <input id="portalPassword" type="text" minlength="14" maxlength="200" placeholder="Vacía = generar una segura" spellcheck="false" autocomplete="off" />
+              <small class="config-hint" id="portalPasswordHint">Déjala vacía para generar una segura, o escribe una de al menos 14 caracteres.</small>
+            </label>
+            <label class="config-check">
+              <input id="portalMostrarDinero" type="checkbox" checked />
+              <span>
+                <strong>Mostrar dinero ganado</strong>
+                <small>Desmárcalo si la asociación no quiere publicar los premios: el sitio y su portal solo muestran puntos.</small>
+              </span>
+            </label>
+            <label class="config-field">
+              <span>Vaquero Completo se calcula por</span>
+              <select id="portalVaqueroCompleto">
+                <option value="dinero">Dinero ganado en 2 o más disciplinas</option>
+                <option value="puntos">Puntos ganados en 2 o más disciplinas</option>
+              </select>
+              <small class="config-hint">Califica quien ganó en al menos 2 disciplinas y se ordena por el total. Sin dinero visible, va por puntos.</small>
+            </label>
+          </div>
+          <p class="dialog-msg" role="alert" hidden></p>
+          <footer class="dialog-foot">
+            <button type="button" class="btn-secondary" data-dialog-close>Cancelar</button>
+            <button type="submit" class="btn-primary" id="btnPortalSave">Dar acceso</button>
           </footer>
         </form>
       </dialog>

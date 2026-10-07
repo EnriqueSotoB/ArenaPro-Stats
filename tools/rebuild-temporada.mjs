@@ -124,7 +124,7 @@ export function puntosLazadorRepetido(puntos, regla = "fmr") {
  * @param {object[]} eventos entradas del manifest
  * @param {(entry: object) => object} loadEvento
  * @param {Map<string, string>} aliasMap
- * @param {{ lazadorRepetido?: "fmr"|"sumar" }} [reglas] de la asociación del circuito
+ * @param {{ lazadorRepetido?: "fmr"|"sumar", vaqueroCompleto?: "dinero"|"puntos" }} [reglas] de la asociación del circuito
  */
 export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {}) {
   const reglaLazador = reglas.lazadorRepetido || "fmr";
@@ -248,8 +248,29 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {
 
   return {
     standings: standingsList,
-    allAround: buildAllAround(standingsList),
+    allAround: buildAllAround(standingsList, reglas.vaqueroCompleto),
     competidores: finalizeCompetidores(competidorAccum, standingsList),
+  };
+}
+
+const sinCampo = (campo) => (o) => {
+  const { [campo]: _quitado, ...resto } = o;
+  return resto;
+};
+
+/** Acumulado sin montos, para asociaciones que no publican el dinero ganado. */
+export function acumuladoSinDinero({ standings, allAround, competidores }) {
+  return {
+    standings: standings.map(sinCampo("dineroTotal")),
+    allAround: allAround.map((r) => ({
+      ...sinCampo("dineroTotal")(r),
+      detalle: r.detalle.map(sinCampo("dinero")),
+    })),
+    competidores: competidores.map((c) => ({
+      ...sinCampo("dineroTotal")(c),
+      disciplinas: c.disciplinas.map(sinCampo("dineroTotal")),
+      historial: c.historial.map(sinCampo("dinero")),
+    })),
   };
 }
 
@@ -291,8 +312,11 @@ export function rebuildTemporada(root = defaultRoot) {
     const eventos = eventosDeCircuito(manifest, circuito.id);
     const asociacion = findAsociacion(manifest, circuito.asociacionId);
     const aliasMap = buildAliasMap(aliasesParaAsociacion(aliasesDoc, circuito.asociacionId));
+    const mostrarDinero = asociacion?.mostrarDinero !== false;
+    const vaqueroCompleto = mostrarDinero ? asociacion?.vaqueroCompleto || "dinero" : "puntos";
     const acumulado = buildCircuitoStandings(eventos, loadEvento, aliasMap, {
       lazadorRepetido: asociacion?.lazadorRepetido,
+      vaqueroCompleto,
     });
     const payload = {
       circuitoId: circuito.id,
@@ -303,7 +327,9 @@ export function rebuildTemporada(root = defaultRoot) {
       titulo: circuito.nombre,
       actualizadoEn,
       eventosContados: eventos.length,
-      ...acumulado,
+      mostrarDinero,
+      vaqueroCompleto,
+      ...(mostrarDinero ? acumulado : acumuladoSinDinero(acumulado)),
     };
     const outPath = join(dataDir, circuitoDataFile(circuito.id));
     writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");

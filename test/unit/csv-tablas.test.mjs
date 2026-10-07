@@ -24,7 +24,7 @@ const temporada = {
       competidorKey: "a",
       nombre: "ANA",
       dineroTotal: 6000,
-      disciplinasConDinero: ["Barriles", "LazoEnFalso"],
+      disciplinas: ["Barriles", "LazoEnFalso"],
       detalle: [
         { disciplinaId: "Barriles", disciplinaNombre: "Barriles", dinero: 5000 },
         { disciplinaId: "LazoEnFalso", disciplinaNombre: "Lazo en Falso", dinero: 1000 },
@@ -53,6 +53,17 @@ describe("csv-tablas", () => {
       ["Barriles", 2, "ANA"],
       ["Lazo en Falso", 1, "ANA"],
     ]);
+  });
+
+  it("sin dinero visible la clasificación no lleva columna de dinero", () => {
+    const filas = filasClasificacion({ ...temporada, mostrarDinero: false }, [], "Barriles");
+    assert.ok(!filas[0].includes("Dinero (MXN)"));
+    assert.equal(filas[1].length, filas[0].length);
+  });
+
+  it("Vaquero Completo por puntos", () => {
+    const filas = filasVaqueroCompleto({ ...temporada, vaqueroCompleto: "puntos" });
+    assert.deepEqual(filas[0], ["Lugar", "Competidor", "Disciplinas con puntos", "Puntos totales", "Barriles (pts)", "Lazo en Falso (pts)"]);
   });
 
   it("Vaquero Completo con dinero por disciplina", () => {

@@ -604,13 +604,23 @@ function removeLogo(asociacionId) {
   return { ok: true, asociacion };
 }
 
-/** Sin password en el body se genera una; se devuelve una sola vez (el manifest solo guarda el hash). */
-async function setPortalPassword({ id, password } = {}) {
+/**
+ * Sin password en el body se genera una; se devuelve una sola vez (el manifest solo guarda el hash).
+ * Si trae mostrarDinero / vaqueroCompleto, también los guarda en la asociación y regenera.
+ */
+async function setPortalPassword({ id, password, mostrarDinero, vaqueroCompleto } = {}) {
   const plano = String(password ?? "").trim() || generarPassword();
   const acceso = await crearAccesoPortal(plano);
-  const { manifest, asociacion } = setAsociacionPortal(loadManifest(), id, acceso);
-  saveManifest(manifest);
-  return { ok: true, asociacion, password: plano };
+  let manifest = loadManifest();
+  const conReglas = mostrarDinero !== undefined || vaqueroCompleto !== undefined;
+  const prev = findAsociacion(manifest, id);
+  if (conReglas && prev) {
+    manifest = upsertAsociacion(manifest, { ...prev, mostrarDinero, vaqueroCompleto }).manifest;
+  }
+  const result = setAsociacionPortal(manifest, id, acceso);
+  saveManifest(result.manifest);
+  if (conReglas && prev) runRebuild();
+  return { ok: true, asociacion: result.asociacion, password: plano };
 }
 
 function removePortalPassword({ id } = {}) {
@@ -646,14 +656,14 @@ async function publish() {
   runTests();
 
   git(["add", "--", "data"]);
-  const staged = git(["diff", "--cached", "--name-only"]);
+  const staged = git(["diff", "--cached", "--name-only", "--", "data"]);
   if (!staged) {
     return { ok: true, published: false, message: "Nada que publicar." };
   }
 
   const msg = "stats: actualizar estadísticas";
   try {
-    git(["commit", "-m", msg]);
+    git(["commit", "-m", msg, "--", "data"]);
   } catch (e) {
     const stderr = String(e.stderr || e.message || e);
     if (/nothing to commit/i.test(stderr)) {

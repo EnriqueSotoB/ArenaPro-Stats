@@ -61,6 +61,7 @@ export function filasClasificacion(temporada, eventos = [], disciplinaId = "") {
   }
 
   const conEquipo = standings.some((s) => String(s.equipo || "").trim());
+  const conDinero = temporada?.mostrarDinero !== false;
   const encabezados = [
     "Disciplina",
     "Lugar",
@@ -68,7 +69,7 @@ export function filasClasificacion(temporada, eventos = [], disciplinaId = "") {
     ...(conEquipo ? ["Equipo"] : []),
     "Eventos",
     "Puntos",
-    "Dinero (MXN)",
+    ...(conDinero ? ["Dinero (MXN)"] : []),
     ...evs.map((e) => (e.fecha ? `${e.nombre || e.id} (${e.fecha})` : e.nombre || e.id)),
   ];
 
@@ -93,7 +94,7 @@ export function filasClasificacion(temporada, eventos = [], disciplinaId = "") {
         ...(conEquipo ? [s.equipo || ""] : []),
         Number(s.eventos) || 0,
         Number(s.puntosTotales) || 0,
-        Number(s.dineroTotal) || 0,
+        ...(conDinero ? [Number(s.dineroTotal) || 0] : []),
         ...evs.map((e) => puntosEvento.get(`${s.competidorKey}::${id}::${e.id}`) ?? null),
       ]);
     });
@@ -101,22 +102,28 @@ export function filasClasificacion(temporada, eventos = [], disciplinaId = "") {
   return filas;
 }
 
-/** Vaquero Completo: dinero total y lo que ganó en cada disciplina. */
+/** Vaquero Completo: total y lo que ganó en cada disciplina, en dinero o en puntos según la asociación. */
 export function filasVaqueroCompleto(temporada) {
   const rows = temporada?.allAround || [];
+  const porPuntos = temporada?.vaqueroCompleto === "puntos";
   const discs = new Map();
   for (const r of rows) {
     for (const d of r.detalle || []) discs.set(d.disciplinaId, d.disciplinaNombre || d.disciplinaId);
   }
   const ids = [...discs.keys()].sort((a, b) => String(discs.get(a)).localeCompare(String(discs.get(b)), "es"));
-  const filas = [["Lugar", "Competidor", "Disciplinas con dinero", "Dinero total (MXN)", ...ids.map((id) => `${discs.get(id)} (MXN)`)]];
+  const encabezados = porPuntos
+    ? ["Lugar", "Competidor", "Disciplinas con puntos", "Puntos totales", ...ids.map((id) => `${discs.get(id)} (pts)`)]
+    : ["Lugar", "Competidor", "Disciplinas con dinero", "Dinero total (MXN)", ...ids.map((id) => `${discs.get(id)} (MXN)`)];
+  const filas = [encabezados];
   rows.forEach((r, i) => {
-    const porDisc = new Map((r.detalle || []).map((d) => [d.disciplinaId, Number(d.dinero) || 0]));
+    const porDisc = new Map(
+      (r.detalle || []).map((d) => [d.disciplinaId, Number(porPuntos ? d.puntos : d.dinero) || 0])
+    );
     filas.push([
       i + 1,
       r.nombre || "",
-      (r.disciplinasConDinero || []).length,
-      Number(r.dineroTotal) || 0,
+      (r.disciplinas || []).length,
+      Number(porPuntos ? r.puntosTotales : r.dineroTotal) || 0,
       ...ids.map((id) => porDisc.get(id) ?? null),
     ]);
   });

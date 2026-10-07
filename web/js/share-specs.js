@@ -61,27 +61,30 @@ export function disciplinasDeTemporada(temporada) {
 
 /**
  * Clasificación de temporada de una disciplina (o Vaquero Completo con ALL_AROUND_ID).
+ * Si la asociación no publica dinero, siempre va por puntos.
  * @param {"puntos"|"dinero"} metric
  */
 export function specTemporada(temporada, disciplinaId, metric = "puntos") {
   const circuitoId = temporada?.circuitoId || "";
   if (disciplinaId === ALL_AROUND_ID) {
     const rows = temporada?.allAround || [];
+    const porPuntos = temporada?.vaqueroCompleto === "puntos";
     return {
       titulo: "Vaquero Completo",
-      subtitulo: `Dinero ganado en 2+ disciplinas · ${rows.length} clasificados`,
+      subtitulo: `${porPuntos ? "Puntos" : "Dinero"} ganado${porPuntos ? "s" : ""} en 2+ disciplinas · ${rows.length} clasificados`,
       filas: rows.map((r, i) => ({
         lugar: i + 1,
         nombre: r.nombre || "—",
-        detalle: `${(r.disciplinasConDinero || []).length} disciplinas`,
-        valor: fmtMxn(r.dineroTotal),
+        detalle: `${(r.disciplinas || []).length} disciplinas`,
+        valor: porPuntos ? `${fmtNum(r.puntosTotales)} pts` : fmtMxn(r.dineroTotal),
+        ...(porPuntos ? { valorCorto: fmtNum(r.puntosTotales) } : {}),
       })),
       hash: routeHash(circuitoId, "temporada", ALL_AROUND_ID),
       archivo: "vaquero-completo",
     };
   }
 
-  const dinero = metric === "dinero";
+  const dinero = metric === "dinero" && temporada?.mostrarDinero !== false;
   const valueOf = (r) => (dinero ? Number(r.dineroTotal) || 0 : Number(r.puntosTotales) || 0);
   const rows = (temporada?.standings || [])
     .filter((s) => disciplinaKey(s) === disciplinaId)
@@ -98,7 +101,7 @@ export function specTemporada(temporada, disciplinaId, metric = "puntos") {
       valorCorto: dinero ? fmtMxn(r.dineroTotal ?? 0) : fmtNum(r.puntosTotales),
     })),
     hash: routeHash(circuitoId, "temporada", disciplinaId),
-    archivo: `${disciplinaId}-${metric}`,
+    archivo: `${disciplinaId}-${dinero ? "dinero" : "puntos"}`,
   };
 }
 

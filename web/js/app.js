@@ -18,7 +18,7 @@ import {
   fmtTime,
 } from "./event-model.js";
 import { getCutLine } from "../lib/cut-line.mjs";
-import { fmtMxn } from "../lib/money.mjs";
+import { fmtMxn, sinMontos } from "../lib/money.mjs";
 import { resumenCompetidor } from "../lib/marcas.mjs";
 import {
   normalizeSearch,
@@ -30,6 +30,7 @@ import {
   findAsociacion,
   defaultCircuitoId,
   eventosDeCircuito,
+  eventoMuestraDinero,
   circuitosPorAsociacion,
   circuitoDataFile,
 } from "../lib/circuitos.mjs";
@@ -58,6 +59,9 @@ const els = {
   tempCards: document.getElementById("tempCards"),
   allAroundPanel: document.getElementById("allAroundPanel"),
   allAroundList: document.getElementById("allAroundList"),
+  allAroundSub: document.getElementById("allAroundSub"),
+  metodoDinero: document.getElementById("metodoDinero"),
+  metodoVaquero: document.getElementById("metodoVaquero"),
   rankTitle: document.getElementById("rankTitle"),
   rankMeta: document.getElementById("rankMeta"),
   rankPodium: document.getElementById("rankPodium"),
@@ -296,6 +300,7 @@ async function useCircuito(id) {
     circuitoCache.set(circuitoId, payload || emptyCircuitoPayload(circuito));
   }
   temporada = circuitoCache.get(circuitoId);
+  if (!muestraDinero()) metricMode = "puntos";
   if (els.circuitoSelect && els.circuitoSelect.value !== circuitoId) {
     els.circuitoSelect.value = circuitoId;
   }
@@ -340,6 +345,23 @@ function hideAllViews() {
   els.viewCompetidor.hidden = true;
   els.viewEventosList.hidden = true;
   els.viewEventoDetail.hidden = true;
+}
+
+/** La asociación del circuito puede no publicar el dinero ganado. */
+function muestraDinero() {
+  return temporada?.mostrarDinero !== false;
+}
+
+function vaqueroPorPuntos() {
+  return temporada?.vaqueroCompleto === "puntos";
+}
+
+function fmtVaquero(puntos, dinero) {
+  return vaqueroPorPuntos() ? `${fmtNum(puntos)} pts` : fmtMxn(dinero);
+}
+
+function vaqueroRegla() {
+  return vaqueroPorPuntos() ? "Puntos ganados en 2 o más disciplinas" : "Dinero ganado en 2 o más disciplinas";
 }
 
 function metricValue(row) {
@@ -469,6 +491,13 @@ function renderTemporadaHub() {
     .filter(Boolean)
     .join(" · ");
 
+  if (els.hubMetricPuntos) els.hubMetricPuntos.parentElement.hidden = !muestraDinero();
+  if (els.metodoDinero) els.metodoDinero.hidden = !muestraDinero();
+  if (els.metodoVaquero) {
+    els.metodoVaquero.textContent = vaqueroPorPuntos()
+      ? "suma los puntos de quienes ganaron puntos en 2 o más disciplinas."
+      : "suma el dinero de quienes ganaron premio en 2 o más disciplinas.";
+  }
   renderAllAroundHub();
 
   if (!data?.standings?.length) {
@@ -519,12 +548,15 @@ function renderTemporadaHub() {
 function renderAllAroundHub() {
   const rows = temporada?.allAround || [];
   if (!els.allAroundPanel || !els.allAroundList) return;
+  if (els.allAroundSub) els.allAroundSub.textContent = vaqueroRegla();
 
   // Vacío: mensaje suave (no ocultar del todo en hub)
   if (!rows.length) {
     els.allAroundPanel.hidden = false;
     els.allAroundPanel.classList.add("is-empty");
-    els.allAroundList.innerHTML = `<p class="empty-state">Aún nadie califica: hace falta dinero en 2+ disciplinas. Cuando los eventos traigan montos, el Vaquero Completo aparece aquí.</p>`;
+    els.allAroundList.innerHTML = vaqueroPorPuntos()
+      ? `<p class="empty-state">Aún nadie califica: hacen falta puntos en 2+ disciplinas. Cuando alguien sume en dos disciplinas, el Vaquero Completo aparece aquí.</p>`
+      : `<p class="empty-state">Aún nadie califica: hace falta dinero en 2+ disciplinas. Cuando los eventos traigan montos, el Vaquero Completo aparece aquí.</p>`;
     return;
   }
 
@@ -536,7 +568,7 @@ function renderAllAroundHub() {
       (r, i) => `<li>
       <span class="place">${i + 1}</span>
       <span class="name">${athleteNameHtml(r.nombre || "—", r.competidorKey)}</span>
-      <span class="pts">${escapeHtml(fmtMxn(r.dineroTotal))}</span>
+      <span class="pts">${escapeHtml(fmtVaquero(r.puntosTotales, r.dineroTotal))}</span>
     </li>`
     )
     .join("");
@@ -563,17 +595,20 @@ function renderAllAroundRanking() {
   const rows = temporada?.allAround || [];
   if (els.rankMetricPuntos) els.rankMetricPuntos.parentElement.hidden = true;
   els.rankTitle.textContent = "Vaquero Completo";
+  const porPuntos = vaqueroPorPuntos();
   els.rankMeta.textContent = [
     temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
     `${rows.length} clasificados`,
-    "Cobro en ≥2 disciplinas",
+    porPuntos ? "Puntos en ≥2 disciplinas" : "Cobro en ≥2 disciplinas",
   ]
     .filter(Boolean)
     .join(" · ");
 
   if (!rows.length) {
     els.rankPodium.innerHTML = "";
-    els.rankTable.innerHTML = `<p class="empty-state">Nadie califica aún a Vaquero Completo (se requiere dinero en 2+ disciplinas). Completa montos en Time o Excel y vuelve a publicar.</p>`;
+    els.rankTable.innerHTML = porPuntos
+      ? `<p class="empty-state">Nadie califica aún a Vaquero Completo (se requieren puntos en 2+ disciplinas).</p>`
+      : `<p class="empty-state">Nadie califica aún a Vaquero Completo (se requiere dinero en 2+ disciplinas). Completa montos en Time o Excel y vuelve a publicar.</p>`;
     return;
   }
 
@@ -582,21 +617,21 @@ function renderAllAroundRanking() {
       place: i + 1,
       name: r.nombre || "—",
       competidorKey: r.competidorKey,
-      sub: `${(r.disciplinasConDinero || []).length} disciplinas`,
-      value: fmtMxn(r.dineroTotal),
+      sub: `${(r.disciplinas || []).length} disciplinas`,
+      value: fmtVaquero(r.puntosTotales, r.dineroTotal),
     }))
   );
 
   const body = rows
     .map((r, i) => {
       const discs = (r.detalle || [])
-        .map((d) => `${d.disciplinaNombre || d.disciplinaId}: ${fmtMxn(d.dinero)}`)
+        .map((d) => `${d.disciplinaNombre || d.disciplinaId}: ${fmtVaquero(d.puntos, d.dinero)}`)
         .join(" · ");
       return `<tr>
         <td class="num">${i + 1}</td>
         <td>${athleteNameHtml(r.nombre || "—", r.competidorKey)}<div class="row-sub">${escapeHtml(discs)}</div></td>
-        <td class="num">${(r.disciplinasConDinero || []).length}</td>
-        <td class="num">${escapeHtml(fmtMxn(r.dineroTotal))}</td>
+        <td class="num">${(r.disciplinas || []).length}</td>
+        <td class="num">${escapeHtml(fmtVaquero(r.puntosTotales, r.dineroTotal))}</td>
       </tr>`;
     })
     .join("");
@@ -609,18 +644,22 @@ function renderAllAroundRanking() {
             <th class="num">#</th>
             <th>Competidor</th>
             <th class="num">Disc.</th>
-            <th class="num">Dinero</th>
+            <th class="num">${porPuntos ? "Puntos" : "Dinero"}</th>
           </tr>
         </thead>
         <tbody>${body}</tbody>
       </table>
     </div>
-    <p class="cut-note">Vaquero Completo de temporada: suma del dinero ganado solo en disciplinas con cobro. Cabecero y Pialador cuentan como disciplinas distintas.</p>`;
+    <p class="cut-note">Vaquero Completo de temporada: ${
+      porPuntos
+        ? "suma de los puntos ganados solo en disciplinas donde sumó puntos"
+        : "suma del dinero ganado solo en disciplinas con cobro"
+    }. Cabecero y Pialador cuentan como disciplinas distintas.</p>`;
 }
 
 function renderTemporadaRanking(catId) {
   if (els.rankMetricPuntos?.parentElement) {
-    els.rankMetricPuntos.parentElement.hidden = catId === ALL_AROUND_ID;
+    els.rankMetricPuntos.parentElement.hidden = catId === ALL_AROUND_ID || !muestraDinero();
   }
   if (catId === ALL_AROUND_ID) {
     renderAllAroundRanking();
@@ -742,11 +781,12 @@ function renderCompetidor(key) {
     .join(" · ");
 
   const resumen = resumenCompetidor(comp, temporada?.competidores || []);
+  const conDinero = muestraDinero();
   const pill = (label, value) =>
     `<div class="stat-pill"><span class="stat-label">${escapeHtml(label)}</span><span class="stat-value">${escapeHtml(value)}</span></div>`;
   els.compStats.innerHTML = [
     pill("Puntos", fmtNum(comp.puntosTotales)),
-    pill("Dinero", fmtMxn(comp.dineroTotal || 0)),
+    ...(conDinero ? [pill("Dinero", fmtMxn(comp.dineroTotal || 0))] : []),
     pill("Eventos", String(comp.eventos || 0)),
     ...(resumen.conMarcas
       ? [
@@ -764,7 +804,7 @@ function renderCompetidor(key) {
         <td><a class="athlete-link" href="#temporada/${encodeURIComponent(d.disciplinaId)}">${escapeHtml(d.disciplinaNombre)}</a></td>
         <td class="num">${place != null ? `#${place}` : "—"}</td>
         <td class="num">${fmtNum(d.puntosTotales)}</td>
-        <td class="num">${escapeHtml(fmtMxn(d.dineroTotal || 0))}</td>
+        ${conDinero ? `<td class="num">${escapeHtml(fmtMxn(d.dineroTotal || 0))}</td>` : ""}
         <td class="num">${d.eventos ?? "—"}</td>
       </tr>`;
     })
@@ -784,11 +824,11 @@ function renderCompetidor(key) {
       <td>${escapeHtml(h.disciplinaNombre || h.disciplinaId)}</td>
       ${resumen.conMarcas ? `<td class="num">${h.lugar ? `#${h.lugar}` : `<span class="muted">—</span>`}</td><td class="num">${marca}${detalle}</td>` : ""}
       <td class="num">${fmtNum(h.puntos)}</td>
-      <td class="num">${Number(h.dinero) > 0 ? escapeHtml(fmtMxn(h.dinero)) : `<span class="muted">—</span>`}</td>
+      ${conDinero ? `<td class="num">${Number(h.dinero) > 0 ? escapeHtml(fmtMxn(h.dinero)) : `<span class="muted">—</span>`}</td>` : ""}
     </tr>`;
     })
     .join("");
-  const histCols = resumen.conMarcas ? 6 : 4;
+  const histCols = (resumen.conMarcas ? 5 : 3) + (conDinero ? 1 : 0);
 
   const marcaCelda = (m, esPuntos, sub) =>
     m
@@ -822,17 +862,18 @@ function renderCompetidor(key) {
     : "";
 
   const moneyNote =
-    !(comp.dineroTotal > 0)
+    conDinero && !(comp.dineroTotal > 0)
       ? `<p class="cut-note">Sin montos registrados aún en los eventos publicados. Los puntos sí cuentan para el ranking de temporada.</p>`
       : "";
+  const thDinero = conDinero ? `<th class="num">Dinero</th>` : "";
 
   els.compBody.innerHTML = `
     <section class="panel profile-block">
       <h2 class="profile-block-title">Por disciplina</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Disciplina</th><th class="num">Lugar</th><th class="num">Puntos</th><th class="num">Dinero</th><th class="num">Eventos</th></tr></thead>
-          <tbody>${discRows || `<tr><td colspan="5">Sin disciplinas</td></tr>`}</tbody>
+          <thead><tr><th>Disciplina</th><th class="num">Lugar</th><th class="num">Puntos</th>${thDinero}<th class="num">Eventos</th></tr></thead>
+          <tbody>${discRows || `<tr><td colspan="${conDinero ? 5 : 4}">Sin disciplinas</td></tr>`}</tbody>
         </table>
       </div>
     </section>
@@ -841,7 +882,7 @@ function renderCompetidor(key) {
       <h2 class="profile-block-title">Historial de temporada</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Evento</th><th>Disciplina</th>${resumen.conMarcas ? `<th class="num">Lugar</th><th class="num">Marca</th>` : ""}<th class="num">Puntos</th><th class="num">Dinero</th></tr></thead>
+          <thead><tr><th>Evento</th><th>Disciplina</th>${resumen.conMarcas ? `<th class="num">Lugar</th><th class="num">Marca</th>` : ""}<th class="num">Puntos</th>${thDinero}</tr></thead>
           <tbody>${hist || `<tr><td colspan="${histCols}">Sin historial</td></tr>`}</tbody>
         </table>
       </div>
@@ -893,7 +934,7 @@ async function showEvento(eventoId) {
     }
     if (!eventoCache.has(entry.file)) {
       const raw = await fetchJson(`data/${entry.file}`);
-      eventoCache.set(entry.file, normalizeEvento(raw));
+      eventoCache.set(entry.file, normalizeEvento(eventoMuestraDinero(manifest, entry) ? raw : sinMontos(raw)));
     }
     const evento = eventoCache.get(entry.file);
     evento.circuitos = entry.circuitos || [];
