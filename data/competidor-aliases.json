@@ -1,4 +1,10 @@
 {
   "version": 1,
-  "aliases": []
+  "aliases": [
+    {
+      "from": "name:marcos nunez",
+      "to": "name:marco nunez",
+      "asociacionId": "aerch"
+    }
+  ]
 }

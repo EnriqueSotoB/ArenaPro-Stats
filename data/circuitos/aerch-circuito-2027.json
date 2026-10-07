@@ -5,7 +5,7 @@
   "asociacionNombre": "Asociación Estatal de Rodeo de Chihuahua",
   "temporada": "2027",
   "titulo": "AERCH Circuito 2027",
-  "actualizadoEn": "2026-10-06T19:42:26.569Z",
+  "actualizadoEn": "2026-10-07T01:42:14.854Z",
   "eventosContados": 4,
   "standings": [
     {
@@ -880,6 +880,19 @@
       "eventos": 1
     },
     {
+      "competidorKey": "name:marco nunez",
+      "competidorId": "local:1018",
+      "nombre": "MARCO NUNEZ",
+      "equipo": "",
+      "disciplinaId": "CaballoConPretal",
+      "disciplinaNombre": "Caballo con Pretal",
+      "categoriaId": "CaballoConPretal",
+      "categoriaNombre": "Caballo con Pretal",
+      "puntosTotales": 296,
+      "dineroTotal": 0,
+      "eventos": 3
+    },
+    {
       "competidorKey": "name:lane gonzalez",
       "competidorId": "local:585",
       "nombre": "LANE GONZALEZ",
@@ -893,19 +906,6 @@
       "eventos": 4
     },
     {
-      "competidorKey": "name:marcos nunez",
-      "competidorId": "local:1018",
-      "nombre": "MARCOS NUNEZ",
-      "equipo": "",
-      "disciplinaId": "CaballoConPretal",
-      "disciplinaNombre": "Caballo con Pretal",
-      "categoriaId": "CaballoConPretal",
-      "categoriaNombre": "Caballo con Pretal",
-      "puntosTotales": 194,
-      "dineroTotal": 0,
-      "eventos": 2
-    },
-    {
       "competidorKey": "name:hector gonzalez",
       "competidorId": "local:586",
       "nombre": "HECTOR GONZALEZ",
@@ -917,19 +917,6 @@
       "puntosTotales": 186,
       "dineroTotal": 0,
       "eventos": 4
-    },
-    {
-      "competidorKey": "name:marco nunez",
-      "competidorId": "local:1077",
-      "nombre": "MARCO NUNEZ",
-      "equipo": "",
-      "disciplinaId": "CaballoConPretal",
-      "disciplinaNombre": "Caballo con Pretal",
-      "categoriaId": "CaballoConPretal",
-      "categoriaNombre": "Caballo con Pretal",
-      "puntosTotales": 102,
-      "dineroTotal": 0,
-      "eventos": 1
     },
     {
       "competidorKey": "name:jesus gomez",
@@ -14504,19 +14491,19 @@
     },
     {
       "competidorKey": "name:marco nunez",
-      "competidorId": "local:1077",
+      "competidorId": "local:1018",
       "nombre": "MARCO NUNEZ",
       "equipo": "",
-      "puntosTotales": 102,
+      "puntosTotales": 296,
       "dineroTotal": 0,
-      "eventos": 1,
+      "eventos": 3,
       "disciplinas": [
         {
           "disciplinaId": "CaballoConPretal",
           "disciplinaNombre": "Caballo con Pretal",
-          "puntosTotales": 102,
+          "puntosTotales": 296,
           "dineroTotal": 0,
-          "eventos": 1
+          "eventos": 3
         }
       ],
       "historial": [
@@ -14539,27 +14526,7 @@
           ],
           "limpio": true,
           "detalle": "Rodeo: 67"
-        }
-      ]
-    },
-    {
-      "competidorKey": "name:marcos nunez",
-      "competidorId": "local:1018",
-      "nombre": "MARCOS NUNEZ",
-      "equipo": "",
-      "puntosTotales": 194,
-      "dineroTotal": 0,
-      "eventos": 2,
-      "disciplinas": [
-        {
-          "disciplinaId": "CaballoConPretal",
-          "disciplinaNombre": "Caballo con Pretal",
-          "puntosTotales": 194,
-          "dineroTotal": 0,
-          "eventos": 2
-        }
-      ],
-      "historial": [
+        },
         {
           "eventoId": "local:19",
           "eventoNombre": "RODEO ZOOTECNIA 2026",
