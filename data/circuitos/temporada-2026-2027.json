@@ -5,8 +5,10 @@
   "asociacionNombre": "Promotora de Rodeos",
   "temporada": "2026-2027",
   "titulo": "Prorodeo 2026",
-  "actualizadoEn": "2026-10-07T01:42:14.854Z",
+  "actualizadoEn": "2026-10-07T23:01:38.618Z",
   "eventosContados": 1,
+  "mostrarDinero": true,
+  "vaqueroCompleto": "dinero",
   "standings": [
     {
       "competidorKey": "name:julia meraz",

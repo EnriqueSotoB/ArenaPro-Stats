@@ -5,8 +5,10 @@
   "asociacionNombre": "Asociación Estatal de Rodeo de Chihuahua",
   "temporada": "2027",
   "titulo": "AERCH Circuito 2027",
-  "actualizadoEn": "2026-10-07T01:42:14.854Z",
+  "actualizadoEn": "2026-10-07T23:01:38.618Z",
   "eventosContados": 4,
+  "mostrarDinero": true,
+  "vaqueroCompleto": "dinero",
   "standings": [
     {
       "competidorKey": "name:chale ochoa",
