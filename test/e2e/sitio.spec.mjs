@@ -55,6 +55,15 @@ test.describe("sitio público", () => {
     expect(errores).toEqual([]);
   });
 
+  test("la temporada y el ranking no muestran textos en inglés", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("#tempCards .cat-card").first()).toBeVisible();
+    await expect(page.locator("#viewTemporadaHub")).not.toContainText(/ranked|Bubble|Cut #/);
+    await page.locator(".cat-card-cta").first().click();
+    await expect(page.locator("#rankTable tbody tr").first()).toBeVisible();
+    await expect(page.locator("#viewTemporadaRanking")).not.toContainText(/ranked|Bubble|Cut #/);
+  });
+
   test("busca un competidor y abre su ficha con nombre en mayúsculas", async ({ page }) => {
     const errores = vigilarErrores(page);
     await page.goto("/");

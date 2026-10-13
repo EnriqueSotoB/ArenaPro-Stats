@@ -71,7 +71,7 @@ export function specTemporada(temporada, disciplinaId, metric = "puntos") {
     const porPuntos = temporada?.vaqueroCompleto === "puntos";
     return {
       titulo: "Vaquero Completo",
-      subtitulo: `${porPuntos ? "Puntos" : "Dinero"} ganado${porPuntos ? "s" : ""} en 2+ disciplinas · ${rows.length} clasificados`,
+      subtitulo: `${porPuntos ? "Puntos" : "Dinero"} ganado${porPuntos ? "s" : ""} en 2 o más disciplinas · ${rows.length} clasificados`,
       filas: rows.map((r, i) => ({
         lugar: i + 1,
         nombre: r.nombre || "—",
