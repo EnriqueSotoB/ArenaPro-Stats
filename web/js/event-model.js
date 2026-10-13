@@ -255,7 +255,7 @@ export function formatResultadoValor(r) {
     return `${fmtNum(r.puntosCalif)} pts`;
   }
   if (r.sumaTiempos != null || r.tiempoTotal != null) return fmtTime(r.sumaTiempos ?? r.tiempoTotal);
-  if (r.noTime) return "No Time";
+  if (r.noTime) return "Sin tiempo";
   return "—";
 }
 
@@ -283,8 +283,8 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
       let mark = "";
       if (r.tieneNp || (r.sinPosicion && /\bNP\b/.test(r.detalleVueltas || "")))
         mark = ` <span class="badge badge-nt">NP</span>`;
-      else if (r.noTime) mark = ` <span class="badge badge-nt">No Time</span>`;
-      else if (r.tieneNtParcial) mark = ` <span class="badge badge-nt">NT en vuelta</span>`;
+      else if (r.noTime) mark = ` <span class="badge badge-nt">Sin tiempo</span>`;
+      else if (r.tieneNtParcial) mark = ` <span class="badge badge-nt">Sin tiempo en una vuelta</span>`;
       const sub = r.detalleVueltas
         ? `<div class="row-sub">${escapeHtml(r.detalleVueltas)}</div>`
         : "";
@@ -309,8 +309,8 @@ export function renderEventoRankingTableHtml(ranking, expandedRows = new Set()) 
     .join("");
 
   const note = desdeTime
-    ? "Clasificación final de Time (mismo orden que Resultados → Final). Toca una fila para más detalle."
-    : "Paquete sin clasificación de Time: orden aproximado. Reexporta desde Time para el orden oficial.";
+    ? "Clasificación oficial del rodeo. Toca una fila para ver el detalle por vuelta."
+    : "Orden calculado con los tiempos registrados; puede variar respecto a la clasificación oficial.";
 
   return `<div class="table-wrap">
     <table>

@@ -532,7 +532,7 @@ function renderTemporadaHub() {
       return `<article class="cat-card" style="--card-i:${cardIdx}">
       <div class="cat-card-head">
         <h2 class="cat-card-title">${escapeHtml(nombre)}</h2>
-        <span class="cat-card-count">${sorted.length} ranked</span>
+        <span class="cat-card-count">${sorted.length} competidores</span>
       </div>
       <ol class="cat-card-list">${list}</ol>
       <button type="button" class="cat-card-cta" data-cat="${escapeAttr(catId)}">Ver ranking completo →</button>
@@ -555,8 +555,8 @@ function renderAllAroundHub() {
     els.allAroundPanel.hidden = false;
     els.allAroundPanel.classList.add("is-empty");
     els.allAroundList.innerHTML = vaqueroPorPuntos()
-      ? `<p class="empty-state">Aún nadie califica: hacen falta puntos en 2+ disciplinas. Cuando alguien sume en dos disciplinas, el Vaquero Completo aparece aquí.</p>`
-      : `<p class="empty-state">Aún nadie califica: hace falta dinero en 2+ disciplinas. Cuando los eventos traigan montos, el Vaquero Completo aparece aquí.</p>`;
+      ? `<p class="empty-state">Aún nadie califica: hacen falta puntos en 2 o más disciplinas. Cuando alguien sume en dos disciplinas, el Vaquero Completo aparece aquí.</p>`
+      : `<p class="empty-state">Aún nadie califica: hace falta dinero ganado en 2 o más disciplinas. Cuando alguien cobre en dos disciplinas, el Vaquero Completo aparece aquí.</p>`;
     return;
   }
 
@@ -599,7 +599,7 @@ function renderAllAroundRanking() {
   els.rankMeta.textContent = [
     temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
     `${rows.length} clasificados`,
-    porPuntos ? "Puntos en ≥2 disciplinas" : "Cobro en ≥2 disciplinas",
+    porPuntos ? "Puntos en 2 o más disciplinas" : "Cobro en 2 o más disciplinas",
   ]
     .filter(Boolean)
     .join(" · ");
@@ -607,8 +607,8 @@ function renderAllAroundRanking() {
   if (!rows.length) {
     els.rankPodium.innerHTML = "";
     els.rankTable.innerHTML = porPuntos
-      ? `<p class="empty-state">Nadie califica aún a Vaquero Completo (se requieren puntos en 2+ disciplinas).</p>`
-      : `<p class="empty-state">Nadie califica aún a Vaquero Completo (se requiere dinero en 2+ disciplinas). Completa montos en Time o Excel y vuelve a publicar.</p>`;
+      ? `<p class="empty-state">Aún nadie califica: hacen falta puntos en 2 o más disciplinas. Cuando alguien sume en dos disciplinas, aparecerá aquí.</p>`
+      : `<p class="empty-state">Aún nadie califica: hace falta dinero ganado en 2 o más disciplinas. Cuando alguien cobre en dos disciplinas, aparecerá aquí.</p>`;
     return;
   }
 
@@ -689,7 +689,7 @@ function renderTemporadaRanking(catId) {
     temporada?.temporada ? `Temporada ${temporada.temporada}` : "",
     `${rows.length} competidores`,
     metricMode === "dinero" ? "Por dinero ganado" : "Por puntos",
-    cut ? `Cut #${cut}` : "",
+    cut ? `Corte: lugar ${cut}` : "",
   ]
     .filter(Boolean)
     .join(" · ");
@@ -714,7 +714,7 @@ function renderTemporadaRanking(catId) {
         cut && lugar <= cut
           ? `<span class="badge badge-cut">Clasifica</span>`
           : cut && lugar === cut + 1
-            ? `<span class="badge badge-out">Bubble</span>`
+            ? `<span class="badge badge-out">Primero fuera</span>`
             : "";
       const deltaDisplay =
         lugar === 1
