@@ -11,6 +11,8 @@
       "logo": "logos/aerch.jpg",
       "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro",
       "lazadorRepetido": "sumar",
+      "mostrarDinero": true,
+      "vaqueroCompleto": "dinero",
       "portal": {
         "sal": "8517f75996d78697572d87f38c043ae3",
         "hash": "7880825275f78753418ad632478a922bf66a3416084e4b139482088790f7ffa5",
@@ -27,6 +29,8 @@
       "logo": "logos/fmr.png",
       "hashtags": "#FMR #Rodeo #ArenaPro",
       "lazadorRepetido": "fmr",
+      "mostrarDinero": true,
+      "vaqueroCompleto": "dinero",
       "portal": null
     },
     {
@@ -38,6 +42,8 @@
       "logo": "logos/prorodeo.png",
       "hashtags": "#ProRodeo #Chihuahua #RodeoProfesional",
       "lazadorRepetido": "fmr",
+      "mostrarDinero": true,
+      "vaqueroCompleto": "dinero",
       "portal": null
     }
   ],
@@ -65,6 +71,15 @@
       "asociacionId": "prorodeo",
       "nombre": "Prorodeo 2026",
       "temporada": "2026-2027",
+      "cutLine": null,
+      "cutLineVisible": false,
+      "cutLinePorDisciplina": {}
+    },
+    {
+      "id": "aerch-circuito-2028",
+      "asociacionId": "aerch",
+      "nombre": "AERCH CIRCUITO 2028",
+      "temporada": "2028",
       "cutLine": null,
       "cutLineVisible": false,
       "cutLinePorDisciplina": {}
