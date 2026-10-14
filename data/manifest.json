@@ -74,15 +74,6 @@
       "cutLine": null,
       "cutLineVisible": false,
       "cutLinePorDisciplina": {}
-    },
-    {
-      "id": "aerch-circuito-2028",
-      "asociacionId": "aerch",
-      "nombre": "AERCH CIRCUITO 2028",
-      "temporada": "2028",
-      "cutLine": null,
-      "cutLineVisible": false,
-      "cutLinePorDisciplina": {}
     }
   ],
   "eventos": [
