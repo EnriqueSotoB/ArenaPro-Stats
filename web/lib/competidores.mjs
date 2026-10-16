@@ -1,6 +1,8 @@
 /**
  * Índice de competidores para búsqueda + ficha (historial por evento).
  */
+import { toMontoEntero } from "./money.mjs";
+
 
 /**
  * @param {Map<string, {
@@ -41,12 +43,12 @@ export function finalizeCompetidores(accum, standingsList = []) {
       cur.competidorId = s.competidorId;
     }
     cur.puntosTotales += Number(s.puntosTotales) || 0;
-    cur.dineroTotal += Number(s.dineroTotal) || 0;
+    cur.dineroTotal = toMontoEntero(cur.dineroTotal + (Number(s.dineroTotal) || 0));
     cur.disciplinas.push({
       disciplinaId: s.disciplinaId,
       disciplinaNombre: s.disciplinaNombre || s.disciplinaId,
       puntosTotales: Number(s.puntosTotales) || 0,
-      dineroTotal: Number(s.dineroTotal) || 0,
+      dineroTotal: toMontoEntero(s.dineroTotal),
       eventos: Number(s.eventos) || 0,
     });
   }
@@ -128,7 +130,7 @@ export function pushCompetidorEvento(accum, item, entry) {
     disciplinaId: item.disciplinaId,
     disciplinaNombre: item.disciplinaNombre,
     puntos: Number(item.puntos) || 0,
-    dinero: Number(item.dinero) || 0,
+    dinero: toMontoEntero(item.dinero),
     ...(item.marcas || {}),
   });
 }

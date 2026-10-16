@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 2,
+  "exportedAt": "2026-10-16T23:13:20.524Z",
+  "source": "fmr-pdf",
+  "eventoId": "fmr2026:duck-fest",
+  "nombreEvento": "DUCK FEST",
+  "fecha": "2026-05-02",
+  "sede": "",
+  "temporada": "2026",
+  "categorias": [
+    {
+      "id": "cat-pretal",
+      "nombre": "Caballo con Pretal",
+      "tipo": "CaballoConPretal",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-becerro",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-montura",
+      "nombre": "Caballo con Montura",
+      "tipo": "CaballoConMontura",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-tr",
+      "nombre": "Lazo por Parejas",
+      "tipo": "TeamRoping",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-barriles",
+      "nombre": "Barriles",
+      "tipo": "Barriles",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-toros",
+      "nombre": "Jineteos de Toros",
+      "tipo": "JineteosDeToros",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-achatada",
+      "nombre": "Achatada de Novillos",
+      "tipo": "AchatadaDeNovillos",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-falso",
+      "nombre": "Lazo en Falso",
+      "tipo": "LazoEnFalso",
+      "numeroRondas": 1
+    }
+  ],
+  "resultados": [],
+  "clasificacion": [
+    {
+      "categoriaId": "cat-pretal",
+      "nombre": "Caballo con Pretal",
+      "tipo": "CaballoConPretal",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "JONATHAN ESTRADA",
+          "puntosCircuito": 0,
+          "montoGanado": 9450
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-becerro",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "ROBERTO CHAPA",
+          "puntosCircuito": 0,
+          "montoGanado": 11340
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "MIGUEL MORALES",
+          "puntosCircuito": 0,
+          "montoGanado": 4860
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-montura",
+      "nombre": "Caballo con Montura",
+      "tipo": "CaballoConMontura",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "DIEGO GOMEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 7290
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "EMMANUEL AGUIRRE",
+          "puntosCircuito": 0,
+          "montoGanado": 4860
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-tr",
+      "nombre": "Lazo por Parejas",
+      "tipo": "TeamRoping",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "JAIME MARTINEZ JR",
+          "puntosCircuito": 0,
+          "montoGanado": 14580,
+          "rol": "header"
+        },
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "ROBERTO CHAPA FLORES",
+          "puntosCircuito": 0,
+          "montoGanado": 14580,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "MIGUEL RODRÍGUEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 4860,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "OMAR GUERRERO",
+          "puntosCircuito": 0,
+          "montoGanado": 4860,
+          "rol": "header"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "JUAN CARDENAS",
+          "puntosCircuito": 0,
+          "montoGanado": 4320,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "NORBERTO ROSALES",
+          "puntosCircuito": 0,
+          "montoGanado": 4320,
+          "rol": "header"
+        },
+        {
+          "lugar": 7,
+          "competidorId": null,
+          "nombre": "ANTONIO HINOJOSA",
+          "puntosCircuito": 0,
+          "montoGanado": 3240,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 7,
+          "competidorId": null,
+          "nombre": "NOE GARCIA",
+          "puntosCircuito": 0,
+          "montoGanado": 3240,
+          "rol": "header"
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-barriles",
+      "nombre": "Barriles",
+      "tipo": "Barriles",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "ALEJANDRA GONZALEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 8694
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "MELISSA QUIROGA",
+          "puntosCircuito": 0,
+          "montoGanado": 7038
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "ALEXIA GARCIA",
+          "puntosCircuito": 0,
+          "montoGanado": 2484
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "NASYERI YEVERINO",
+          "puntosCircuito": 0,
+          "montoGanado": 2484
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-toros",
+      "nombre": "Jineteos de Toros",
+      "tipo": "JineteosDeToros",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "FRANCISCO GARCIA",
+          "puntosCircuito": 0,
+          "montoGanado": 15750
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-achatada",
+      "nombre": "Achatada de Novillos",
+      "tipo": "AchatadaDeNovillos",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "ALONSO GALINDO",
+          "puntosCircuito": 0,
+          "montoGanado": 10800
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-falso",
+      "nombre": "Lazo en Falso",
+      "tipo": "LazoEnFalso",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "NAHOMI JIMENEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 7560
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "VALERIA ORTIZ",
+          "puntosCircuito": 0,
+          "montoGanado": 3240
+        }
+      ]
+    }
+  ]
+}

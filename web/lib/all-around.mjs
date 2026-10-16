@@ -4,6 +4,8 @@
  * - "dinero": cobró (dineroTotal > 0) en cada una; se ordena por dinero total.
  * - "puntos": sumó puntos (puntosTotales > 0) en cada una; se ordena por puntos totales.
  */
+import { toMontoEntero } from "./money.mjs";
+
 
 /**
  * @param {Array<{
@@ -77,7 +79,7 @@ export function buildAllAround(standings = [], criterio = "dinero") {
       competidorId: cur.competidorId,
       nombre: cur.nombre,
       puntosTotales: detalle.reduce((sum, d) => sum + d.puntos, 0),
-      dineroTotal: detalle.reduce((sum, d) => sum + d.dinero, 0),
+      dineroTotal: detalle.reduce((sum, d) => toMontoEntero(sum + d.dinero), 0),
       disciplinas: detalle.map((d) => d.disciplinaId),
       detalle,
     });

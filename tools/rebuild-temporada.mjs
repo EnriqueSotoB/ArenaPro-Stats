@@ -186,7 +186,7 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {
           if (prev.parejas) {
             prev.parejas.push(pts);
             prev.puntos = puntosLazadorRepetido(prev.parejas, reglaLazador);
-            prev.dinero += dinero;
+            prev.dinero = toMontoEntero(prev.dinero + dinero);
           } else {
             prev.puntos = Math.max(prev.puntos, pts);
             prev.dinero = Math.max(prev.dinero, dinero);
@@ -218,7 +218,7 @@ export function buildCircuitoStandings(eventos, loadEvento, aliasMap, reglas = {
         eventos: 0,
       };
       cur.puntosTotales += item.puntos;
-      cur.dineroTotal += item.dinero;
+      cur.dineroTotal = toMontoEntero(cur.dineroTotal + item.dinero);
       cur.eventos += 1;
       cur.nombre = item.nombre || cur.nombre;
       cur.equipo = item.equipo || cur.equipo;

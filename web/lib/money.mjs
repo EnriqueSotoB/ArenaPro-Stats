@@ -1,50 +1,71 @@
 /**
- * Dinero MXN entero. Split Lazo por Parejas — ver docs/producto/decisiones.md.
+ * Dinero MXN (permite decimales). Split Lazo por Parejas — ver docs/producto/decisiones.md.
  * Confirmado 50/50 cabecero / pialador. Si cambia la regla, ajustar TEAM_ROPING_MONEY_SPLIT / splitMoneyMxn.
  */
 
 /** Proporción al cabecero (pialador recibe el resto). Confirmado 50/50. */
 export const TEAM_ROPING_MONEY_SPLIT = 0.5;
 
+/** Decimales máximos que conserva el pipeline (PDF FMR usa hasta 1). */
+const MONTO_DECIMALES = 1;
+
 /**
  * @param {unknown} value
- * @returns {number} entero ≥ 0
+ * @returns {number} monto ≥ 0 (hasta 1 decimal)
  */
 export function toMontoEntero(value) {
   if (value == null || value === "") return 0;
   const n = Number(value);
   if (!Number.isFinite(n) || n < 0) return 0;
-  return Math.trunc(n);
+  const factor = 10 ** MONTO_DECIMALES;
+  return Math.round(n * factor) / factor;
+}
+
+/** True si el monto ya está normalizado a ≤1 decimal (o no es número). */
+export function esMontoMxn(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return false;
+  return Math.abs(n - toMontoEntero(Math.abs(n))) < 1e-9;
 }
 
 /**
- * Parte un monto de equipo en cabecero/pialador (enteros que suman `total`).
- * Con monto impar: piso al cabecero, resto al pialador (ej. 10001 → 5000 / 5001).
+ * Parte un monto de equipo en cabecero/pialador (suman `total`).
+ * Con total impar en décimas: piso al cabecero, resto al pialador.
  * Claves `header`/`heeler` = cabecero/pialador (contrato interno / Time).
  * @param {unknown} total
  * @returns {{ header: number, heeler: number }}
  */
 export function splitMoneyMxn(total) {
   const n = toMontoEntero(total);
-  const header = Math.floor(n * TEAM_ROPING_MONEY_SPLIT);
-  const heeler = n - header;
-  return { header, heeler };
+  // Enteros: mismo criterio histórico (piso al cabecero).
+  if (Number.isInteger(n)) {
+    const header = Math.floor(n * TEAM_ROPING_MONEY_SPLIT);
+    return { header, heeler: n - header };
+  }
+  const factor = 10 ** MONTO_DECIMALES;
+  const units = Math.round(n * factor);
+  const headerUnits = Math.floor(units * TEAM_ROPING_MONEY_SPLIT);
+  return { header: headerUnits / factor, heeler: (units - headerUnits) / factor };
 }
 
 /**
- * Formato público MXN sin decimales.
+ * Formato público MXN; muestra 1 decimal solo si no es entero.
  * Separador de miles fijo `,` (independiente de ICU/locale del runtime).
  * @param {unknown} n
- * @returns {string} p.ej. `$12,500` o `—`
+ * @returns {string} p.ej. `$12,500` / `$12,278.9` o `—`
  */
 export function fmtMxn(n) {
   if (n == null || n === "") return "—";
   const x = Number(n);
   if (!Number.isFinite(x)) return "—";
-  const entero = Math.trunc(x);
-  const sign = entero < 0 ? "-" : "";
-  const digits = String(Math.abs(entero)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return `${sign}$${digits}`;
+  const rounded = toMontoEntero(Math.abs(x));
+  const sign = x < 0 ? "-" : "";
+  const isInt = Number.isInteger(rounded);
+  const [wholePart, fracPart] = isInt
+    ? [String(Math.trunc(rounded)), null]
+    : rounded.toFixed(MONTO_DECIMALES).split(".");
+  const digits = wholePart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return fracPart == null ? `${sign}$${digits}` : `${sign}$${digits}.${fracPart}`;
 }
 
 /**

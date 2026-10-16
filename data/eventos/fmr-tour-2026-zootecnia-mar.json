@@ -1,0 +1,394 @@
+{
+  "schemaVersion": 2,
+  "exportedAt": "2026-10-16T23:13:20.524Z",
+  "source": "fmr-pdf",
+  "eventoId": "fmr2026:zootecnia-mar",
+  "nombreEvento": "ZOOTECNIA (MAR)",
+  "fecha": "2026-03-22",
+  "sede": "",
+  "temporada": "2026",
+  "categorias": [
+    {
+      "id": "cat-pretal",
+      "nombre": "Caballo con Pretal",
+      "tipo": "CaballoConPretal",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-becerro",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-montura",
+      "nombre": "Caballo con Montura",
+      "tipo": "CaballoConMontura",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-tr",
+      "nombre": "Lazo por Parejas",
+      "tipo": "TeamRoping",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-barriles",
+      "nombre": "Barriles",
+      "tipo": "Barriles",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-toros",
+      "nombre": "Jineteos de Toros",
+      "tipo": "JineteosDeToros",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-achatada",
+      "nombre": "Achatada de Novillos",
+      "tipo": "AchatadaDeNovillos",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-falso",
+      "nombre": "Lazo en Falso",
+      "tipo": "LazoEnFalso",
+      "numeroRondas": 1
+    }
+  ],
+  "resultados": [],
+  "clasificacion": [
+    {
+      "categoriaId": "cat-pretal",
+      "nombre": "Caballo con Pretal",
+      "tipo": "CaballoConPretal",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "HÉCTOR GONZALEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 9540
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-becerro",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "MIGUEL DE LA TORRE",
+          "puntosCircuito": 0,
+          "montoGanado": 12375
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "ALVARO DE LA TORRE JR.",
+          "puntosCircuito": 0,
+          "montoGanado": 1485
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-montura",
+      "nombre": "Caballo con Montura",
+      "tipo": "CaballoConMontura",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "DAVID DOMINGUEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 7614
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "YAEL RAMIREZ",
+          "puntosCircuito": 0,
+          "montoGanado": 5076
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-tr",
+      "nombre": "Lazo por Parejas",
+      "tipo": "TeamRoping",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "JOSE GUTIERREZ",
+          "puntosCircuito": 0,
+          "montoGanado": 19728,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "SERVANDO GUTIERREZ",
+          "puntosCircuito": 0,
+          "montoGanado": 19728,
+          "rol": "header"
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "SANTIAGO LUEVANO",
+          "puntosCircuito": 0,
+          "montoGanado": 11837,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 4,
+          "competidorId": null,
+          "nombre": "EDGAR PANDO",
+          "puntosCircuito": 0,
+          "montoGanado": 11836.8,
+          "rol": "header"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "ALEJANDRO TORRES",
+          "puntosCircuito": 0,
+          "montoGanado": 4438.8,
+          "rol": "header"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "JOSE RODRIGUEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 4438.8,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 7,
+          "competidorId": null,
+          "nombre": "ALFREDO PIÑÓN",
+          "puntosCircuito": 0,
+          "montoGanado": 3945.6,
+          "rol": "header"
+        },
+        {
+          "lugar": 7,
+          "competidorId": null,
+          "nombre": "PABLO CARDENAS",
+          "puntosCircuito": 0,
+          "montoGanado": 3945.6,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 9,
+          "competidorId": null,
+          "nombre": "EDUARDO CALDERON F",
+          "puntosCircuito": 0,
+          "montoGanado": 2959.2,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 9,
+          "competidorId": null,
+          "nombre": "JAVIER SEPULVEDA",
+          "puntosCircuito": 0,
+          "montoGanado": 2959.2,
+          "rol": "header"
+        },
+        {
+          "lugar": 9,
+          "competidorId": null,
+          "nombre": "PEDRO WIEBE",
+          "puntosCircuito": 0,
+          "montoGanado": 2959.2,
+          "rol": "header"
+        },
+        {
+          "lugar": 9,
+          "competidorId": null,
+          "nombre": "UVALDO SANDOVAL",
+          "puntosCircuito": 0,
+          "montoGanado": 2959.2,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 13,
+          "competidorId": null,
+          "nombre": "IRVING ORTEGA",
+          "puntosCircuito": 0,
+          "montoGanado": 1972.8,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 13,
+          "competidorId": null,
+          "nombre": "LUIS LOYA",
+          "puntosCircuito": 0,
+          "montoGanado": 1972.8,
+          "rol": "header"
+        },
+        {
+          "lugar": 15,
+          "competidorId": null,
+          "nombre": "ALONSO GRAJEDA",
+          "puntosCircuito": 0,
+          "montoGanado": 1479.6,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 15,
+          "competidorId": null,
+          "nombre": "JOSÉ LUIS GONZALEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 1479.6,
+          "rol": "header"
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-barriles",
+      "nombre": "Barriles",
+      "tipo": "Barriles",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "DIANA LAURA PANDO",
+          "puntosCircuito": 0,
+          "montoGanado": 13500
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "ANDREA GONZALEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 8100
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "MONICA FLORES",
+          "puntosCircuito": 0,
+          "montoGanado": 5737.5
+        },
+        {
+          "lugar": 4,
+          "competidorId": null,
+          "nombre": "ANNIE VALERIA TREJO",
+          "puntosCircuito": 0,
+          "montoGanado": 2025
+        },
+        {
+          "lugar": 4,
+          "competidorId": null,
+          "nombre": "JHOSAYRA ARELLANO",
+          "puntosCircuito": 0,
+          "montoGanado": 2025
+        },
+        {
+          "lugar": 6,
+          "competidorId": null,
+          "nombre": "FLORENCIA HERNÁNDEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 1350
+        },
+        {
+          "lugar": 7,
+          "competidorId": null,
+          "nombre": "PAULINA OCHOA",
+          "puntosCircuito": 0,
+          "montoGanado": 1012.5
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-toros",
+      "nombre": "Jineteos de Toros",
+      "tipo": "JineteosDeToros",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "VICTOR OLIVAS",
+          "puntosCircuito": 0,
+          "montoGanado": 10638
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "JESÚS RUIZ",
+          "puntosCircuito": 0,
+          "montoGanado": 7092
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-achatada",
+      "nombre": "Achatada de Novillos",
+      "tipo": "AchatadaDeNovillos",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "CHALE OCHOA",
+          "puntosCircuito": 0,
+          "montoGanado": 9788.5
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "ÁLVARO VILLALBA",
+          "puntosCircuito": 0,
+          "montoGanado": 5535
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "CARLOS TOLEDO",
+          "puntosCircuito": 0,
+          "montoGanado": 2583
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-falso",
+      "nombre": "Lazo en Falso",
+      "tipo": "LazoEnFalso",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "ANYIE CHAVEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 3402
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "PAULINA CHAIREZ",
+          "puntosCircuito": 0,
+          "montoGanado": 2268
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "MONICA FLORES",
+          "puntosCircuito": 0,
+          "montoGanado": 1458
+        },
+        {
+          "lugar": 4,
+          "competidorId": null,
+          "nombre": "MARLENE SALDIVAR",
+          "puntosCircuito": 0,
+          "montoGanado": 972
+        }
+      ]
+    }
+  ]
+}
