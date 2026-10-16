@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 2,
+  "exportedAt": "2026-10-16T23:13:20.524Z",
+  "source": "fmr-pdf",
+  "eventoId": "fmr2026:san-marcos",
+  "nombreEvento": "SAN MARCOS",
+  "fecha": "2026-05-05",
+  "sede": "",
+  "temporada": "2026",
+  "categorias": [
+    {
+      "id": "cat-pretal",
+      "nombre": "Caballo con Pretal",
+      "tipo": "CaballoConPretal",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-becerro",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-montura",
+      "nombre": "Caballo con Montura",
+      "tipo": "CaballoConMontura",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-tr",
+      "nombre": "Lazo por Parejas",
+      "tipo": "TeamRoping",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-barriles",
+      "nombre": "Barriles",
+      "tipo": "Barriles",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-toros",
+      "nombre": "Jineteos de Toros",
+      "tipo": "JineteosDeToros",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-achatada",
+      "nombre": "Achatada de Novillos",
+      "tipo": "AchatadaDeNovillos",
+      "numeroRondas": 1
+    },
+    {
+      "id": "cat-falso",
+      "nombre": "Lazo en Falso",
+      "tipo": "LazoEnFalso",
+      "numeroRondas": 1
+    }
+  ],
+  "resultados": [],
+  "clasificacion": [
+    {
+      "categoriaId": "cat-pretal",
+      "nombre": "Caballo con Pretal",
+      "tipo": "CaballoConPretal",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "JONATHAN ESTRADA",
+          "puntosCircuito": 0,
+          "montoGanado": 21150
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-becerro",
+      "nombre": "Lazo de Becerro",
+      "tipo": "LazoDeBecerro",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "RAUL BASURTO",
+          "puntosCircuito": 0,
+          "montoGanado": 11880
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "ALONSO GALINDO",
+          "puntosCircuito": 0,
+          "montoGanado": 8910
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "MANUEL BAEZA",
+          "puntosCircuito": 0,
+          "montoGanado": 8910
+        },
+        {
+          "lugar": 4,
+          "competidorId": null,
+          "nombre": "SERGIO RIVERA",
+          "puntosCircuito": 0,
+          "montoGanado": 7678.8
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-montura",
+      "nombre": "Caballo con Montura",
+      "tipo": "CaballoConMontura",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "YAEL RAMIREZ",
+          "puntosCircuito": 0,
+          "montoGanado": 13446
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "DAVID DOMINGUEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 8964
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-tr",
+      "nombre": "Lazo por Parejas",
+      "tipo": "TeamRoping",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "ALEJANDRO TORRES",
+          "puntosCircuito": 0,
+          "montoGanado": 17841.6,
+          "rol": "header"
+        },
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "JOSE RODRIGUEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 17841.6,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "POLO CHRETIN",
+          "puntosCircuito": 0,
+          "montoGanado": 14443.2,
+          "rol": "header"
+        },
+        {
+          "lugar": 3,
+          "competidorId": null,
+          "nombre": "RAUL BASURTO",
+          "puntosCircuito": 0,
+          "montoGanado": 14443.2,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "EDGAR PANDO",
+          "puntosCircuito": 0,
+          "montoGanado": 5097.6,
+          "rol": "header"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "JOSE MANUEL GONZALEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 5097.6,
+          "rol": "heeler"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "JOSE MANUEL GONZALEZ",
+          "puntosCircuito": 0,
+          "montoGanado": 5097.6,
+          "rol": "header"
+        },
+        {
+          "lugar": 5,
+          "competidorId": null,
+          "nombre": "SANTIAGO LUEVANO",
+          "puntosCircuito": 0,
+          "montoGanado": 5097.6,
+          "rol": "heeler"
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-barriles",
+      "nombre": "Barriles",
+      "tipo": "Barriles",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "LUISA HERRERA",
+          "puntosCircuito": 0,
+          "montoGanado": 17010
+        },
+        {
+          "lugar": 2,
+          "competidorId": null,
+          "nombre": "DIANA LAURA PANDO",
+          "puntosCircuito": 0,
+          "montoGanado": 7290
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-toros",
+      "nombre": "Jineteos de Toros",
+      "tipo": "JineteosDeToros",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "RICARDO ESTRADA",
+          "puntosCircuito": 0,
+          "montoGanado": 19062
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-achatada",
+      "nombre": "Achatada de Novillos",
+      "tipo": "AchatadaDeNovillos",
+      "entradas": [
+        {
+          "lugar": 1,
+          "competidorId": null,
+          "nombre": "SERGIO URRUTIA",
+          "puntosCircuito": 0,
+          "montoGanado": 21600
+        }
+      ]
+    },
+    {
+      "categoriaId": "cat-falso",
+      "nombre": "Lazo en Falso",
+      "tipo": "LazoEnFalso",
+      "entradas": []
+    }
+  ]
+}

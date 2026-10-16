@@ -11,6 +11,8 @@
       "logo": "logos/aerch.jpg",
       "hashtags": "#AERCH #Rodeo #RodeoChihuahua #ArenaPro",
       "lazadorRepetido": "sumar",
+      "mostrarDinero": true,
+      "vaqueroCompleto": "dinero",
       "portal": {
         "sal": "8517f75996d78697572d87f38c043ae3",
         "hash": "7880825275f78753418ad632478a922bf66a3416084e4b139482088790f7ffa5",
@@ -27,6 +29,8 @@
       "logo": "logos/fmr.png",
       "hashtags": "#FMR #Rodeo #ArenaPro",
       "lazadorRepetido": "fmr",
+      "mostrarDinero": true,
+      "vaqueroCompleto": "dinero",
       "portal": null
     },
     {
@@ -38,6 +42,8 @@
       "logo": "logos/prorodeo.png",
       "hashtags": "#ProRodeo #Chihuahua #RodeoProfesional",
       "lazadorRepetido": "fmr",
+      "mostrarDinero": true,
+      "vaqueroCompleto": "dinero",
       "portal": null
     }
   ],
@@ -65,6 +71,15 @@
       "asociacionId": "prorodeo",
       "nombre": "Prorodeo 2026",
       "temporada": "2026-2027",
+      "cutLine": null,
+      "cutLineVisible": false,
+      "cutLinePorDisciplina": {}
+    },
+    {
+      "id": "fmr-tour-2026",
+      "asociacionId": "fmr",
+      "nombre": "FMR Tour 2026",
+      "temporada": "2026",
       "cutLine": null,
       "cutLineVisible": false,
       "cutLinePorDisciplina": {}
@@ -123,6 +138,196 @@
       "file": "eventos/2026-09-20-truckmania-fest-2026.json",
       "circuitos": [
         "temporada-2026-2027"
+      ]
+    },
+    {
+      "id": "fmr2026:fest-saltillo",
+      "nombre": "FEST.SALTILLO",
+      "fecha": "2025-10-18",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-fest-saltillo.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:agrofest",
+      "nombre": "AGROFEST",
+      "fecha": "2026-03-01",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-agrofest.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:30-aniv",
+      "nombre": "30 ANIV",
+      "fecha": "2026-03-07",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-30-aniv.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:zootecnia-mar",
+      "nombre": "ZOOTECNIA (MAR)",
+      "fecha": "2026-03-22",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-zootecnia-mar.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:primavera",
+      "nombre": "PRIMAVERA",
+      "fecha": "2026-04-12",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-primavera.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:garret-parral",
+      "nombre": "GARRET PARRAL",
+      "fecha": "2026-04-19",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-garret-parral.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:seminario-ch",
+      "nombre": "SEMINARIO CH",
+      "fecha": "2026-05-03",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-seminario-ch.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:duck-fest",
+      "nombre": "DUCK FEST",
+      "fecha": "2026-05-02",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-duck-fest.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:san-marcos",
+      "nombre": "SAN MARCOS",
+      "fecha": "2026-05-05",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-san-marcos.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:int-santa-rita",
+      "nombre": "INT. SANTA RITA",
+      "fecha": "2026-05-23",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-int-santa-rita.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:expoganson1",
+      "nombre": "EXPOGANSON1",
+      "fecha": "2026-04-25",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-expoganson1.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:expoganson2",
+      "nombre": "EXPOGANSON2",
+      "fecha": "2026-05-01",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-expoganson2.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:expoganson3",
+      "nombre": "EXPOGANSON3",
+      "fecha": "2026-05-09",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-expoganson3.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:expoganson4",
+      "nombre": "EXPOGANSON4",
+      "fecha": "2026-05-15",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-expoganson4.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:jimenez",
+      "nombre": "JIMENEZ",
+      "fecha": "2026-08-02",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-jimenez.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:noreste",
+      "nombre": "NORESTE",
+      "fecha": "2026-08-28",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-noreste.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:country-fest",
+      "nombre": "COUNTRY FEST",
+      "fecha": "2026-08-15",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-country-fest.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:zootecnia-ago",
+      "nombre": "ZOOTECNIA (AGO)",
+      "fecha": "2026-08-30",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-zootecnia-ago.json",
+      "circuitos": [
+        "fmr-tour-2026"
+      ]
+    },
+    {
+      "id": "fmr2026:camargo",
+      "nombre": "CAMARGO",
+      "fecha": "2026-09-06",
+      "sede": "",
+      "file": "eventos/fmr-tour-2026-camargo.json",
+      "circuitos": [
+        "fmr-tour-2026"
       ]
     }
   ]

@@ -1,4 +1,5 @@
 import { disciplinaKey } from "../../web/lib/disciplinas.mjs";
+import { esMontoMxn } from "../../web/lib/money.mjs";
 
 /**
  * Valida un export Time antes de ingest.
@@ -52,7 +53,7 @@ export function validateEvento(evento) {
     }
     if (moneyCheck.montoNoEntero > 0) {
       warnings.push(
-        `${moneyCheck.montoNoEntero} monto(s) no son enteros MXN.`
+        `${moneyCheck.montoNoEntero} monto(s) tienen más de 1 decimal MXN.`
       );
     }
   } else if (moneyCheck.entradasConClasificacion > 0 && moneyCheck.sinMonto === moneyCheck.entradasConClasificacion) {
@@ -83,8 +84,7 @@ function analyzeMoneyFields(evento) {
         sinMonto += 1;
         continue;
       }
-      const n = Number(ent.montoGanado);
-      if (!Number.isFinite(n) || !Number.isInteger(n)) {
+      if (!esMontoMxn(ent.montoGanado)) {
         montoNoEntero += 1;
       }
     }

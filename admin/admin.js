@@ -436,7 +436,7 @@ function clientWarnings(evento) {
         continue;
       }
       const n = Number(ent.montoGanado);
-      if (!Number.isFinite(n) || !Number.isInteger(n)) noEntero += 1;
+      if (!Number.isFinite(n) || Math.abs(n * 10 - Math.round(n * 10)) > 1e-6) noEntero += 1;
     }
   }
   if (Number.isFinite(schema) && schema >= 2) {
@@ -450,7 +450,7 @@ function clientWarnings(evento) {
       );
     }
     if (noEntero > 0) {
-      warnings.push(`${noEntero} monto(s) no son enteros MXN.`);
+      warnings.push(`${noEntero} monto(s) tienen más de 1 decimal MXN.`);
     }
   } else if (entradas > 0 && sinMonto === entradas) {
     warnings.push(

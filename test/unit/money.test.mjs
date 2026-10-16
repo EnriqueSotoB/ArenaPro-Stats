@@ -8,22 +8,26 @@ import {
 } from "../../web/lib/money.mjs";
 
 describe("toMontoEntero", () => {
-  it("normaliza a entero ≥ 0", () => {
+  it("normaliza a monto ≥ 0 conservando 1 decimal", () => {
     assert.equal(toMontoEntero(null), 0);
     assert.equal(toMontoEntero(""), 0);
-    assert.equal(toMontoEntero(12.9), 12);
+    assert.equal(toMontoEntero(12.9), 12.9);
+    assert.equal(toMontoEntero(12.94), 12.9);
+    assert.equal(toMontoEntero(12.95), 13);
     assert.equal(toMontoEntero(-5), 0);
     assert.equal(toMontoEntero("8000"), 8000);
+    assert.equal(toMontoEntero("62278.9"), 62278.9);
   });
 });
 
 describe("fmtMxn", () => {
-  it("formatea montos MXN sin decimales", () => {
+  it("formatea montos MXN con decimal solo si aplica", () => {
     assert.equal(fmtMxn(12500), "$12,500");
     assert.equal(fmtMxn(0), "$0");
     assert.equal(fmtMxn(null), "—");
     assert.equal(fmtMxn(""), "—");
-    assert.equal(fmtMxn(12.9), "$12");
+    assert.equal(fmtMxn(12.9), "$12.9");
+    assert.equal(fmtMxn(62278.9), "$62,278.9");
   });
 });
 
@@ -45,5 +49,11 @@ describe("splitMoneyMxn", () => {
 
   it("parte 1 peso", () => {
     assert.deepEqual(splitMoneyMxn(1), { header: 0, heeler: 1 });
+  });
+
+  it("parte décimas", () => {
+    const s = splitMoneyMxn(100.5);
+    assert.deepEqual(s, { header: 50.2, heeler: 50.3 });
+    assert.equal(s.header + s.heeler, 100.5);
   });
 });

@@ -1,0 +1,2867 @@
+{
+  "fuente": "https://federacionmexicanaderodeo.org/wp/wp-content/uploads/2026/09/Estadistica-y-Resultados-OCT-FMR-Tour-2026.xlsx.pdf",
+  "titulo": "FMR Tour 2026 — Estadística por Dinero (OCT)",
+  "actualizadoEn": "2026-09-15",
+  "eventos": [
+    {
+      "id": "fest-saltillo",
+      "nombre": "Fest.Saltillo",
+      "fecha": "2025-10-18"
+    },
+    {
+      "id": "agrofest",
+      "nombre": "Agrofest",
+      "fecha": "2026-03-01"
+    },
+    {
+      "id": "30-aniv",
+      "nombre": "30 Aniv",
+      "fecha": "2026-03-07"
+    },
+    {
+      "id": "zootecnia-mar",
+      "nombre": "Zootecnia (mar)",
+      "fecha": "2026-03-22"
+    },
+    {
+      "id": "primavera",
+      "nombre": "Primavera",
+      "fecha": "2026-04-12"
+    },
+    {
+      "id": "garret-parral",
+      "nombre": "Garret Parral",
+      "fecha": "2026-04-19"
+    },
+    {
+      "id": "seminario-ch",
+      "nombre": "Seminario CH",
+      "fecha": "2026-05-03"
+    },
+    {
+      "id": "duck-fest",
+      "nombre": "DUCK FEST",
+      "fecha": "2026-05-02"
+    },
+    {
+      "id": "san-marcos",
+      "nombre": "SAN MARCOS",
+      "fecha": "2026-05-05"
+    },
+    {
+      "id": "int-santa-rita",
+      "nombre": "INT. SANTA RITA",
+      "fecha": "2026-05-23"
+    },
+    {
+      "id": "expoganson1",
+      "nombre": "ExpoGanSon1",
+      "fecha": "2026-04-25"
+    },
+    {
+      "id": "expoganson2",
+      "nombre": "ExpoGanSon2",
+      "fecha": "2026-05-01"
+    },
+    {
+      "id": "expoganson3",
+      "nombre": "ExpoGanSon3",
+      "fecha": "2026-05-09"
+    },
+    {
+      "id": "expoganson4",
+      "nombre": "ExpoGanSon4",
+      "fecha": "2026-05-15"
+    },
+    {
+      "id": "jimenez",
+      "nombre": "Jimenez",
+      "fecha": "2026-08-02"
+    },
+    {
+      "id": "noreste",
+      "nombre": "Noreste",
+      "fecha": "2026-08-28"
+    },
+    {
+      "id": "country-fest",
+      "nombre": "Country Fest",
+      "fecha": "2026-08-15"
+    },
+    {
+      "id": "zootecnia-ago",
+      "nombre": "Zootecnia (ago)",
+      "fecha": "2026-08-30"
+    },
+    {
+      "id": "camargo",
+      "nombre": "Camargo",
+      "fecha": "2026-09-06"
+    }
+  ],
+  "disciplinas": [
+    {
+      "id": "CaballoConPretal",
+      "nombre": "Caballo con Pretal",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "HÉCTOR GONZALEZ",
+          "suma": 72164.0,
+          "sumaPdf": 72164.0,
+          "porEvento": {
+            "30-aniv": 2754.0,
+            "zootecnia-mar": 9540.0,
+            "expoganson1": 21600.0,
+            "expoganson2": 21600.0,
+            "expoganson3": 6500.0,
+            "zootecnia-ago": 10170.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "MARCOS NUÑEZ",
+          "suma": 63302.0,
+          "sumaPdf": 63302.0,
+          "porEvento": {
+            "fest-saltillo": 10850.0,
+            "30-aniv": 3672.0,
+            "primavera": 7290.0,
+            "garret-parral": 11880.0,
+            "int-santa-rita": 7560.0,
+            "country-fest": 11250.0,
+            "camargo": 10800.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "JONATHAN ESTRADA",
+          "suma": 56350.0,
+          "sumaPdf": 56350.0,
+          "porEvento": {
+            "fest-saltillo": 16300.0,
+            "duck-fest": 9450.0,
+            "san-marcos": 21150.0,
+            "noreste": 9450.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "LANE GONZALEZ",
+          "suma": 43124.0,
+          "sumaPdf": 43124.0,
+          "porEvento": {
+            "30-aniv": 2754.0,
+            "expoganson3": 15100.0,
+            "expoganson4": 15100.0,
+            "jimenez": 10170.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "KELLY TIMBERMAN (USA)",
+          "suma": 27200.0,
+          "sumaPdf": 27200.0,
+          "porEvento": {
+            "fest-saltillo": 27200.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "EDWIN ALANIS",
+          "suma": 11910.0,
+          "sumaPdf": 11910.0,
+          "porEvento": {
+            "agrofest": 450.0,
+            "30-aniv": 4140.0,
+            "primavera": 2280.0,
+            "int-santa-rita": 5040.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "FRANCISCO ESTRADA",
+          "suma": 6500.0,
+          "sumaPdf": 6500.0,
+          "porEvento": {
+            "expoganson4": 6500.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "LazoDeBecerro",
+      "nombre": "Lazo de Becerro",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "MIGUEL DE LA TORRE",
+          "suma": 62278.9,
+          "sumaPdf": 62278.9,
+          "porEvento": {
+            "30-aniv": 13460.0,
+            "zootecnia-mar": 12375.0,
+            "primavera": 10516.5,
+            "int-santa-rita": 1706.4,
+            "expoganson2": 4750.0,
+            "expoganson4": 8050.0,
+            "jimenez": 2997.0,
+            "camargo": 8424.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "ALVARO DE LA TORRE JR.",
+          "suma": 57664.0,
+          "sumaPdf": 57664.0,
+          "porEvento": {
+            "fest-saltillo": 5350.0,
+            "30-aniv": 8262.0,
+            "zootecnia-mar": 1485.0,
+            "expoganson1": 5500.0,
+            "expoganson2": 17850.0,
+            "expoganson3": 8050.0,
+            "expoganson4": 5200.0,
+            "zootecnia-ago": 2808.0,
+            "camargo": 3159.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "SERGIO RIVERA",
+          "suma": 40310.8,
+          "sumaPdf": 40310.8,
+          "porEvento": {
+            "fest-saltillo": 15100.0,
+            "seminario-ch": 11880.0,
+            "san-marcos": 7678.8,
+            "country-fest": 3780.0,
+            "zootecnia-ago": 1872.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "ALVARO DE LA TORRE",
+          "suma": 29832.5,
+          "sumaPdf": 29832.5,
+          "porEvento": {
+            "primavera": 8464.5,
+            "expoganson2": 3550.0,
+            "expoganson3": 5200.0,
+            "expoganson4": 10350.0,
+            "country-fest": 2268.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "JAIME PORRAS",
+          "suma": 29335.1,
+          "sumaPdf": 29335.1,
+          "porEvento": {
+            "30-aniv": 1485.0,
+            "primavera": 4360.5,
+            "seminario-ch": 2376.0,
+            "int-santa-rita": 12513.6,
+            "expoganson1": 8600.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "IRVING ORTEGA",
+          "suma": 27736.0,
+          "sumaPdf": 27736.0,
+          "porEvento": {
+            "30-aniv": 4284.0,
+            "expoganson3": 15550.0,
+            "country-fest": 5796.0,
+            "zootecnia-ago": 2106.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "PABLO ROBLES",
+          "suma": 27600.0,
+          "sumaPdf": 27600.0,
+          "porEvento": {
+            "fest-saltillo": 27600.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "MIGUEL MORALES",
+          "suma": 25046.0,
+          "sumaPdf": 25046.0,
+          "porEvento": {
+            "fest-saltillo": 8900.0,
+            "agrofest": 3726.0,
+            "duck-fest": 4860.0,
+            "noreste": 7560.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "DANIEL MORALES",
+          "suma": 18836.0,
+          "sumaPdf": 18836.0,
+          "porEvento": {
+            "fest-saltillo": 8900.0,
+            "agrofest": 9936.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "ROBERTO CHAPA",
+          "suma": 17460.0,
+          "sumaPdf": 17460.0,
+          "porEvento": {
+            "duck-fest": 11340.0,
+            "noreste": 6120.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "EDUARDO CALDERON JR",
+          "suma": 17068.5,
+          "sumaPdf": 17068.5,
+          "porEvento": {
+            "30-aniv": 5197.5,
+            "country-fest": 7308.0,
+            "zootecnia-ago": 1404.0,
+            "camargo": 3159.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "GERARDO REIMER",
+          "suma": 16992.0,
+          "sumaPdf": 16992.0,
+          "porEvento": {
+            "30-aniv": 4590.0,
+            "zootecnia-ago": 9594.0,
+            "camargo": 2808.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "JOSÉ LUIS PORRAS",
+          "suma": 16241.4,
+          "sumaPdf": 16241.4,
+          "porEvento": {
+            "seminario-ch": 5544.0,
+            "int-santa-rita": 1706.4,
+            "jimenez": 8991.0
+          }
+        },
+        {
+          "lugar": 14,
+          "nombre": "SERVANDO GUTIERREZ JR.",
+          "suma": 16200.0,
+          "sumaPdf": 16200.0,
+          "porEvento": {
+            "expoganson1": 11000.0,
+            "expoganson4": 5200.0
+          }
+        },
+        {
+          "lugar": 15,
+          "nombre": "MARGIL DE LA GARZA",
+          "suma": 12388.0,
+          "sumaPdf": 12388.0,
+          "porEvento": {
+            "fest-saltillo": 5350.0,
+            "agrofest": 7038.0
+          }
+        },
+        {
+          "lugar": 16,
+          "nombre": "RAUL BASURTO",
+          "suma": 11880.0,
+          "sumaPdf": 11880.0,
+          "porEvento": {
+            "san-marcos": 11880.0
+          }
+        },
+        {
+          "lugar": 17,
+          "nombre": "MANUEL BAEZA",
+          "suma": 11218.5,
+          "sumaPdf": 11218.5,
+          "porEvento": {
+            "primavera": 2308.5,
+            "san-marcos": 8910.0
+          }
+        },
+        {
+          "lugar": 18,
+          "nombre": "JORGE MEDINA",
+          "suma": 9475.2,
+          "sumaPdf": 9475.2,
+          "porEvento": {
+            "int-santa-rita": 2275.2,
+            "jimenez": 2664.0,
+            "country-fest": 4536.0
+          }
+        },
+        {
+          "lugar": 19,
+          "nombre": "ALONSO GALINDO",
+          "suma": 8910.0,
+          "sumaPdf": 8910.0,
+          "porEvento": {
+            "san-marcos": 8910.0
+          }
+        },
+        {
+          "lugar": 20,
+          "nombre": "LUIS BAEZA",
+          "suma": 5500.0,
+          "sumaPdf": 5500.0,
+          "porEvento": {
+            "expoganson1": 5500.0
+          }
+        },
+        {
+          "lugar": 21,
+          "nombre": "OSWALDO HERNÁNDEZ",
+          "suma": 5022.0,
+          "sumaPdf": 5022.0,
+          "porEvento": {
+            "country-fest": 1512.0,
+            "zootecnia-ago": 3510.0
+          }
+        },
+        {
+          "lugar": 22,
+          "nombre": "VICTOR HUGO BAÑUELOS",
+          "suma": 4207.5,
+          "sumaPdf": 4207.5,
+          "porEvento": {
+            "30-aniv": 4207.5
+          }
+        },
+        {
+          "lugar": 23,
+          "nombre": "PABLO SANDOVAL",
+          "suma": 3550.0,
+          "sumaPdf": 3550.0,
+          "porEvento": {
+            "expoganson2": 3550.0
+          }
+        },
+        {
+          "lugar": 24,
+          "nombre": "TOMAS JIMENEZ",
+          "suma": 2559.6,
+          "sumaPdf": 2559.6,
+          "porEvento": {
+            "int-santa-rita": 2559.6
+          }
+        },
+        {
+          "lugar": 25,
+          "nombre": "EMMANUEL CHAVARRIA",
+          "suma": 2160.0,
+          "sumaPdf": 2160.0,
+          "porEvento": {
+            "noreste": 2160.0
+          }
+        },
+        {
+          "lugar": 26,
+          "nombre": "FRANCISCO SIMENTAL",
+          "suma": 1998.0,
+          "sumaPdf": 1998.0,
+          "porEvento": {
+            "jimenez": 1998.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "CaballoConMontura",
+      "nombre": "Caballo con Montura",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "YAEL RAMIREZ",
+          "suma": 90313.0,
+          "sumaPdf": 90313.0,
+          "porEvento": {
+            "30-aniv": 3610.0,
+            "zootecnia-mar": 5076.0,
+            "primavera": 13320.0,
+            "garret-parral": 5328.0,
+            "san-marcos": 13446.0,
+            "int-santa-rita": 13320.0,
+            "expoganson1": 6800.0,
+            "expoganson3": 2800.0,
+            "jimenez": 11403.0,
+            "country-fest": 7920.0,
+            "camargo": 7290.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "DAVID DOMINGUEZ",
+          "suma": 60571.0,
+          "sumaPdf": 60571.0,
+          "porEvento": {
+            "30-aniv": 1593.0,
+            "zootecnia-mar": 7614.0,
+            "san-marcos": 8964.0,
+            "expoganson1": 14600.0,
+            "expoganson2": 19800.0,
+            "expoganson3": 8000.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "JOSE MEDINA",
+          "suma": 50508.0,
+          "sumaPdf": 50508.0,
+          "porEvento": {
+            "30-aniv": 5416.0,
+            "garret-parral": 7992.0,
+            "expoganson1": 2900.0,
+            "expoganson3": 12600.0,
+            "expoganson4": 21600.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "BLAIN PENGELLY (CAN)",
+          "suma": 27200.0,
+          "sumaPdf": 27200.0,
+          "porEvento": {
+            "fest-saltillo": 27200.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "VALENTIN RODRÍGUEZ",
+          "suma": 20520.0,
+          "sumaPdf": 20520.0,
+          "porEvento": {
+            "30-aniv": 5580.0,
+            "seminario-ch": 10800.0,
+            "camargo": 4140.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "SEBASTIAN RUIZ",
+          "suma": 17910.0,
+          "sumaPdf": 17910.0,
+          "porEvento": {
+            "country-fest": 5850.0,
+            "zootecnia-ago": 12060.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "REID GUSTAFSON (CAN)",
+          "suma": 16300.0,
+          "sumaPdf": 16300.0,
+          "porEvento": {
+            "fest-saltillo": 16300.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "EMILIANO FALCON",
+          "suma": 14300.0,
+          "sumaPdf": 14300.0,
+          "porEvento": {
+            "agrofest": 6480.0,
+            "noreste": 7820.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "JACE ANGUS",
+          "suma": 10850.0,
+          "sumaPdf": 10850.0,
+          "porEvento": {
+            "fest-saltillo": 10850.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "DIEGO GOMEZ",
+          "suma": 7290.0,
+          "sumaPdf": 7290.0,
+          "porEvento": {
+            "duck-fest": 7290.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "GAEL MATA",
+          "suma": 5220.0,
+          "sumaPdf": 5220.0,
+          "porEvento": {
+            "noreste": 5220.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "EMMANUEL AGUIRRE",
+          "suma": 4860.0,
+          "sumaPdf": 4860.0,
+          "porEvento": {
+            "duck-fest": 4860.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "JESÚS GUTIERREZ",
+          "suma": 4320.0,
+          "sumaPdf": 4320.0,
+          "porEvento": {
+            "agrofest": 4320.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "TeamRoping",
+      "nombre": "Lazo por Parejas — Pialadores",
+      "rol": "heeler",
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "MIGUEL DE LA TORRE",
+          "suma": 94888.2,
+          "sumaPdf": 94888.2,
+          "porEvento": {
+            "fest-saltillo": 29625.0,
+            "30-aniv": 7398.0,
+            "primavera": 10113.3,
+            "int-santa-rita": 8312.9,
+            "expoganson1": 4237.5,
+            "expoganson3": 7450.0,
+            "country-fest": 13608.0,
+            "zootecnia-ago": 10039.5,
+            "camargo": 4104.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "JOSE GUTIERREZ",
+          "suma": 90837.3,
+          "sumaPdf": 90837.3,
+          "porEvento": {
+            "30-aniv": 7398.0,
+            "zootecnia-mar": 19728.0,
+            "primavera": 20226.6,
+            "int-santa-rita": 3836.7,
+            "expoganson1": 12012.5,
+            "expoganson2": 6200.0,
+            "expoganson3": 3725.0,
+            "expoganson4": 1200.0,
+            "jimenez": 3942.0,
+            "zootecnia-ago": 12568.5
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "JOSE RODRIGUEZ",
+          "suma": 76491.0,
+          "sumaPdf": 76491.0,
+          "porEvento": {
+            "zootecnia-mar": 4438.8,
+            "seminario-ch": 16963.2,
+            "san-marcos": 17841.6,
+            "int-santa-rita": 7673.4,
+            "country-fest": 16128.0,
+            "zootecnia-ago": 5238.0,
+            "camargo": 8208.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "ALVARO DE LA TORRE JR",
+          "suma": 43114.0,
+          "sumaPdf": 43114.1,
+          "porEvento": {
+            "fest-saltillo": 1800.0,
+            "30-aniv": 3699.0,
+            "primavera": 14277.6,
+            "int-santa-rita": 7033.9,
+            "expoganson4": 3600.0,
+            "zootecnia-ago": 6547.5,
+            "camargo": 6156.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "SANTIAGO LUEVANO",
+          "suma": 31452.6,
+          "sumaPdf": 31452.4,
+          "porEvento": {
+            "fest-saltillo": 7750.0,
+            "zootecnia-mar": 11837.0,
+            "san-marcos": 5097.6,
+            "zootecnia-ago": 2664.0,
+            "camargo": 4104.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "FRANCISCO DE LA TORRE",
+          "suma": 30942.0,
+          "sumaPdf": 30942.0,
+          "porEvento": {
+            "seminario-ch": 4377.6,
+            "int-santa-rita": 14067.9,
+            "country-fest": 8568.0,
+            "zootecnia-ago": 3928.5
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "UVALDO SANDOVAL",
+          "suma": 28164.2,
+          "sumaPdf": 28163.7,
+          "porEvento": {
+            "30-aniv": 15413.0,
+            "zootecnia-mar": 2959.2,
+            "jimenez": 5256.0,
+            "country-fest": 4536.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "FRANCISCO ARIAS",
+          "suma": 26750.0,
+          "sumaPdf": 26750.0,
+          "porEvento": {
+            "expoganson1": 7425.0,
+            "expoganson2": 9300.0,
+            "expoganson4": 10025.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "PABLO CARDENAS",
+          "suma": 25924.5,
+          "sumaPdf": 25924.5,
+          "porEvento": {
+            "30-aniv": 6781.5,
+            "zootecnia-mar": 3945.6,
+            "primavera": 3569.4,
+            "camargo": 11628.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "ROLANDO DEL CAMPO",
+          "suma": 25457.0,
+          "sumaPdf": 25457.0,
+          "porEvento": {
+            "fest-saltillo": 23675.0,
+            "noreste": 1782.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "DANIEL BAEZA",
+          "suma": 21925.0,
+          "sumaPdf": 21925.0,
+          "porEvento": {
+            "fest-saltillo": 4403.0,
+            "expoganson3": 3725.0,
+            "jimenez": 13797.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "ROBERTO CHAPA FLORES",
+          "suma": 21906.0,
+          "sumaPdf": 21906.0,
+          "porEvento": {
+            "agrofest": 5544.0,
+            "duck-fest": 14580.0,
+            "noreste": 1782.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "MIGUEL RODRÍGUEZ",
+          "suma": 17928.0,
+          "sumaPdf": 17928.0,
+          "porEvento": {
+            "duck-fest": 4860.0,
+            "noreste": 13068.0
+          }
+        },
+        {
+          "lugar": 14,
+          "nombre": "JOSÉ LUIS PERAZA",
+          "suma": 17650.0,
+          "sumaPdf": 17650.0,
+          "porEvento": {
+            "expoganson3": 12850.0,
+            "expoganson4": 4800.0
+          }
+        },
+        {
+          "lugar": 15,
+          "nombre": "LALITO MARQUEZ",
+          "suma": 17078.0,
+          "sumaPdf": 17078.0,
+          "porEvento": {
+            "primavera": 9518.0,
+            "country-fest": 7560.0
+          }
+        },
+        {
+          "lugar": 16,
+          "nombre": "ERNESTO GALINDO",
+          "suma": 16599.0,
+          "sumaPdf": 16599.0,
+          "porEvento": {
+            "fest-saltillo": 13575.0,
+            "agrofest": 3024.0
+          }
+        },
+        {
+          "lugar": 17,
+          "nombre": "HUMBERTO RIOS",
+          "suma": 15140.3,
+          "sumaPdf": 15140.3,
+          "porEvento": {
+            "30-aniv": 5548.5,
+            "int-santa-rita": 9591.8
+          }
+        },
+        {
+          "lugar": 18,
+          "nombre": "FERNANDO GONZALEZ",
+          "suma": 14774.4,
+          "sumaPdf": 14774.4,
+          "porEvento": {
+            "seminario-ch": 14774.4
+          }
+        },
+        {
+          "lugar": 19,
+          "nombre": "RAUL BASURTO",
+          "suma": 14443.2,
+          "sumaPdf": 14443.2,
+          "porEvento": {
+            "san-marcos": 14443.2
+          }
+        },
+        {
+          "lugar": 20,
+          "nombre": "EDUARDO CALDERON JR",
+          "suma": 13964.4,
+          "sumaPdf": 13964.4,
+          "porEvento": {
+            "30-aniv": 7398.0,
+            "seminario-ch": 6566.4
+          }
+        },
+        {
+          "lugar": 21,
+          "nombre": "ISAAC LOPEZ",
+          "suma": 13225.0,
+          "sumaPdf": 13225.0,
+          "porEvento": {
+            "expoganson2": 11975.0,
+            "expoganson3": 1250.0
+          }
+        },
+        {
+          "lugar": 22,
+          "nombre": "ROBERTO ROSALES",
+          "suma": 11000.0,
+          "sumaPdf": 11000.0,
+          "porEvento": {
+            "fest-saltillo": 11000.0
+          }
+        },
+        {
+          "lugar": 23,
+          "nombre": "ARMANDO MURRIETA",
+          "suma": 10450.0,
+          "sumaPdf": 10450.0,
+          "porEvento": {
+            "expoganson2": 2325.0,
+            "expoganson3": 3300.0,
+            "expoganson4": 4825.0
+          }
+        },
+        {
+          "lugar": 24,
+          "nombre": "IRVING ORTEGA",
+          "suma": 9661.3,
+          "sumaPdf": 9661.3,
+          "porEvento": {
+            "30-aniv": 1849.5,
+            "zootecnia-mar": 1972.8,
+            "expoganson1": 3175.0,
+            "zootecnia-ago": 2664.0
+          }
+        },
+        {
+          "lugar": 25,
+          "nombre": "DANIEL MORALES",
+          "suma": 9648.0,
+          "sumaPdf": 9648.0,
+          "porEvento": {
+            "fest-saltillo": 6975.0,
+            "noreste": 2673.0
+          }
+        },
+        {
+          "lugar": 26,
+          "nombre": "LUIS RICO",
+          "suma": 9576.0,
+          "sumaPdf": 9576.0,
+          "porEvento": {
+            "agrofest": 9576.0
+          }
+        },
+        {
+          "lugar": 27,
+          "nombre": "JAIME MORENO",
+          "suma": 8225.0,
+          "sumaPdf": 8225.0,
+          "porEvento": {
+            "expoganson1": 3550.0,
+            "expoganson2": 3475.0,
+            "expoganson4": 1200.0
+          }
+        },
+        {
+          "lugar": 28,
+          "nombre": "REFUGIO HUERTA",
+          "suma": 8025.0,
+          "sumaPdf": 8025.0,
+          "porEvento": {
+            "noreste": 8025.0
+          }
+        },
+        {
+          "lugar": 29,
+          "nombre": "OTHON RIOS",
+          "suma": 7673.4,
+          "sumaPdf": 7673.4,
+          "porEvento": {
+            "int-santa-rita": 7673.4
+          }
+        },
+        {
+          "lugar": 30,
+          "nombre": "ARMANDO BARRERA",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "agrofest": 6048.0
+          }
+        },
+        {
+          "lugar": 30,
+          "nombre": "EDGAR VIELMA M",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "agrofest": 6048.0
+          }
+        },
+        {
+          "lugar": 30,
+          "nombre": "MIGUEL MORALES",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "agrofest": 6048.0
+          }
+        },
+        {
+          "lugar": 33,
+          "nombre": "JAIME ACHONDO",
+          "suma": 5913.0,
+          "sumaPdf": 5913.0,
+          "porEvento": {
+            "jimenez": 5913.0
+          }
+        },
+        {
+          "lugar": 34,
+          "nombre": "ANTONIO CHAPA",
+          "suma": 5800.0,
+          "sumaPdf": 5800.0,
+          "porEvento": {
+            "fest-saltillo": 5800.0
+          }
+        },
+        {
+          "lugar": 35,
+          "nombre": "GAEL SIGALA",
+          "suma": 5755.1,
+          "sumaPdf": 5755.1,
+          "porEvento": {
+            "int-santa-rita": 5755.1
+          }
+        },
+        {
+          "lugar": 36,
+          "nombre": "JOSE MANUEL GONZALEZ",
+          "suma": 5097.6,
+          "sumaPdf": 5097.6,
+          "porEvento": {
+            "san-marcos": 5097.6
+          }
+        },
+        {
+          "lugar": 37,
+          "nombre": "SANTIAGO PORTELA",
+          "suma": 4975.0,
+          "sumaPdf": 4975.0,
+          "porEvento": {
+            "expoganson3": 4975.0
+          }
+        },
+        {
+          "lugar": 38,
+          "nombre": "MANUEL BAEZA",
+          "suma": 4924.8,
+          "sumaPdf": 4924.8,
+          "porEvento": {
+            "seminario-ch": 4924.8
+          }
+        },
+        {
+          "lugar": 39,
+          "nombre": "JUAN ROBLES",
+          "suma": 4800.0,
+          "sumaPdf": 4800.0,
+          "porEvento": {
+            "expoganson4": 4800.0
+          }
+        },
+        {
+          "lugar": 40,
+          "nombre": "JUAN PABLO RODRÍGUEZ",
+          "suma": 4536.0,
+          "sumaPdf": 4536.0,
+          "porEvento": {
+            "agrofest": 4536.0
+          }
+        },
+        {
+          "lugar": 40,
+          "nombre": "RAMÓN FLORES",
+          "suma": 4536.0,
+          "sumaPdf": 4536.0,
+          "porEvento": {
+            "agrofest": 4536.0
+          }
+        },
+        {
+          "lugar": 42,
+          "nombre": "GUILLERMO GARCIA",
+          "suma": 4386.0,
+          "sumaPdf": 4386.0,
+          "porEvento": {
+            "agrofest": 2016.0,
+            "noreste": 2370.0
+          }
+        },
+        {
+          "lugar": 43,
+          "nombre": "JUAN CARDENAS",
+          "suma": 4320.0,
+          "sumaPdf": 4320.0,
+          "porEvento": {
+            "duck-fest": 4320.0
+          }
+        },
+        {
+          "lugar": 44,
+          "nombre": "LEONEL HERNÁNDEZ",
+          "suma": 4250.0,
+          "sumaPdf": 4250.0,
+          "porEvento": {
+            "expoganson1": 1050.0,
+            "expoganson4": 3200.0
+          }
+        },
+        {
+          "lugar": 45,
+          "nombre": "IVAN CARRANZA",
+          "suma": 3875.0,
+          "sumaPdf": 3875.0,
+          "porEvento": {
+            "expoganson1": 3875.0
+          }
+        },
+        {
+          "lugar": 46,
+          "nombre": "ÁLVARO ESTAVILLO",
+          "suma": 3699.0,
+          "sumaPdf": 3699.0,
+          "porEvento": {
+            "30-aniv": 3699.0
+          }
+        },
+        {
+          "lugar": 47,
+          "nombre": "ALONSO GRAJEDA",
+          "suma": 3668.4,
+          "sumaPdf": 3668.4,
+          "porEvento": {
+            "zootecnia-mar": 1479.6,
+            "seminario-ch": 2188.8
+          }
+        },
+        {
+          "lugar": 48,
+          "nombre": "LUIS MONROY",
+          "suma": 3637.5,
+          "sumaPdf": 3637.5,
+          "porEvento": {
+            "expoganson2": 1162.5,
+            "expoganson3": 2475.0
+          }
+        },
+        {
+          "lugar": 49,
+          "nombre": "ALEJANDRO LOYA",
+          "suma": 3283.2,
+          "sumaPdf": 3283.2,
+          "porEvento": {
+            "seminario-ch": 3283.2
+          }
+        },
+        {
+          "lugar": 50,
+          "nombre": "ANTONIO HINOJOSA",
+          "suma": 3240.0,
+          "sumaPdf": 3240.0,
+          "porEvento": {
+            "duck-fest": 3240.0
+          }
+        },
+        {
+          "lugar": 51,
+          "nombre": "AARON PERALTA",
+          "suma": 3100.0,
+          "sumaPdf": 3100.0,
+          "porEvento": {
+            "expoganson2": 3100.0
+          }
+        },
+        {
+          "lugar": 52,
+          "nombre": "JESÚS SAENZ",
+          "suma": 3024.0,
+          "sumaPdf": 3024.0,
+          "porEvento": {
+            "agrofest": 3024.0
+          }
+        },
+        {
+          "lugar": 53,
+          "nombre": "EDUARDO CALDERON F",
+          "suma": 2959.2,
+          "sumaPdf": 2959.2,
+          "porEvento": {
+            "zootecnia-mar": 2959.2
+          }
+        },
+        {
+          "lugar": 54,
+          "nombre": "JESÚS SANDOVAL",
+          "suma": 2466.0,
+          "sumaPdf": 2466.0,
+          "porEvento": {
+            "30-aniv": 2466.0
+          }
+        },
+        {
+          "lugar": 55,
+          "nombre": "PABLO SALOMON",
+          "suma": 2400.0,
+          "sumaPdf": 2400.0,
+          "porEvento": {
+            "expoganson4": 2400.0
+          }
+        },
+        {
+          "lugar": 55,
+          "nombre": "DANIEL SANCHEZ",
+          "suma": 2400.0,
+          "sumaPdf": 2400.0,
+          "porEvento": {
+            "expoganson4": 2400.0
+          }
+        },
+        {
+          "lugar": 57,
+          "nombre": "FERNANDO PEREZ",
+          "suma": 1784.7,
+          "sumaPdf": 1784.7,
+          "porEvento": {
+            "primavera": 1784.7
+          }
+        },
+        {
+          "lugar": 58,
+          "nombre": "SALVADOR MARTINEZ",
+          "suma": 1650.0,
+          "sumaPdf": 1650.0,
+          "porEvento": {
+            "expoganson3": 1650.0
+          }
+        },
+        {
+          "lugar": 59,
+          "nombre": "JAIME PORRAS",
+          "suma": 1641.6,
+          "sumaPdf": 1641.6,
+          "porEvento": {
+            "seminario-ch": 1641.6
+          }
+        },
+        {
+          "lugar": 60,
+          "nombre": "JOSE LOPEZ",
+          "suma": 1600.0,
+          "sumaPdf": 1600.0,
+          "porEvento": {
+            "expoganson4": 1600.0
+          }
+        },
+        {
+          "lugar": 61,
+          "nombre": "BERNARDO MORENO JR",
+          "suma": 1162.5,
+          "sumaPdf": 1162.5,
+          "porEvento": {
+            "expoganson2": 1162.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "TeamRoping",
+      "nombre": "Lazo por Parejas — Cabeceros",
+      "rol": "header",
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "SERVANDO GUTIERREZ",
+          "suma": 90837.3,
+          "sumaPdf": 90837.3,
+          "porEvento": {
+            "30-aniv": 7398.0,
+            "zootecnia-mar": 19728.0,
+            "primavera": 20226.6,
+            "int-santa-rita": 3836.7,
+            "expoganson1": 12012.5,
+            "expoganson2": 6200.0,
+            "expoganson3": 3725.0,
+            "expoganson4": 1200.0,
+            "jimenez": 3942.0,
+            "zootecnia-ago": 12568.5
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "ALEJANDRO TORRES",
+          "suma": 80894.0,
+          "sumaPdf": 80894.0,
+          "porEvento": {
+            "fest-saltillo": 4403.0,
+            "zootecnia-mar": 4438.8,
+            "seminario-ch": 16963.2,
+            "san-marcos": 17841.6,
+            "int-santa-rita": 7673.4,
+            "country-fest": 16128.0,
+            "zootecnia-ago": 5238.0,
+            "camargo": 8208.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "FERNANDO GAN",
+          "suma": 61025.7,
+          "sumaPdf": 61025.7,
+          "porEvento": {
+            "30-aniv": 7398.0,
+            "primavera": 10113.3,
+            "int-santa-rita": 8312.9,
+            "expoganson3": 7450.0,
+            "country-fest": 13608.0,
+            "zootecnia-ago": 10039.5,
+            "camargo": 4104.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "ALVARO DE LA TORRE",
+          "suma": 37714.1,
+          "sumaPdf": 37714.1,
+          "porEvento": {
+            "30-aniv": 3699.0,
+            "primavera": 14277.6,
+            "int-santa-rita": 7034.0,
+            "zootecnia-ago": 6547.5,
+            "camargo": 6156.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "LUIS BAEZA",
+          "suma": 37587.5,
+          "sumaPdf": 37587.5,
+          "porEvento": {
+            "fest-saltillo": 29625.0,
+            "expoganson1": 4237.5,
+            "expoganson3": 3725.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "EDGAR PANDO",
+          "suma": 36708.4,
+          "sumaPdf": 36708.4,
+          "porEvento": {
+            "fest-saltillo": 7750.0,
+            "zootecnia-mar": 11836.8,
+            "san-marcos": 5097.6,
+            "jimenez": 5256.0,
+            "zootecnia-ago": 2664.0,
+            "camargo": 4104.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "JAVIER SEPULVEDA",
+          "suma": 36704.7,
+          "sumaPdf": 36704.7,
+          "porEvento": {
+            "30-aniv": 15412.5,
+            "zootecnia-mar": 2959.2,
+            "jimenez": 13797.0,
+            "country-fest": 4536.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "FRANCISCO DE LA TORRE JR",
+          "suma": 32742.0,
+          "sumaPdf": 32742.0,
+          "porEvento": {
+            "fest-saltillo": 1800.0,
+            "seminario-ch": 4377.6,
+            "int-santa-rita": 14067.9,
+            "country-fest": 8568.0,
+            "zootecnia-ago": 3928.5
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "ALFREDO PIÑÓN",
+          "suma": 29529.9,
+          "sumaPdf": 29529.9,
+          "porEvento": {
+            "30-aniv": 6781.5,
+            "zootecnia-mar": 3945.6,
+            "primavera": 3569.4,
+            "int-santa-rita": 7673.4,
+            "country-fest": 7560.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "OMAR GUERRERO",
+          "suma": 28535.0,
+          "sumaPdf": 28535.0,
+          "porEvento": {
+            "fest-saltillo": 23675.0,
+            "duck-fest": 4860.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "JOEL LOPEZ",
+          "suma": 26750.0,
+          "sumaPdf": 26750.0,
+          "porEvento": {
+            "expoganson1": 7425.0,
+            "expoganson2": 9300.0,
+            "expoganson4": 10025.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "MIGUEL SALOMON",
+          "suma": 17650.0,
+          "sumaPdf": 17650.0,
+          "porEvento": {
+            "expoganson3": 12850.0,
+            "expoganson4": 4800.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "ALBERTO RIOS",
+          "suma": 15140.3,
+          "sumaPdf": 15140.3,
+          "porEvento": {
+            "30-aniv": 5548.5,
+            "int-santa-rita": 9591.8
+          }
+        },
+        {
+          "lugar": 14,
+          "nombre": "JAVIER SOLIS",
+          "suma": 14774.4,
+          "sumaPdf": 14774.4,
+          "porEvento": {
+            "seminario-ch": 14774.4
+          }
+        },
+        {
+          "lugar": 15,
+          "nombre": "JAIME MARTINEZ JR",
+          "suma": 14580.0,
+          "sumaPdf": 14580.0,
+          "porEvento": {
+            "duck-fest": 14580.0
+          }
+        },
+        {
+          "lugar": 16,
+          "nombre": "POLO CHRETIN",
+          "suma": 14443.2,
+          "sumaPdf": 14443.2,
+          "porEvento": {
+            "san-marcos": 14443.2
+          }
+        },
+        {
+          "lugar": 17,
+          "nombre": "FABRICIO VISCONTI",
+          "suma": 13964.4,
+          "sumaPdf": 13964.4,
+          "porEvento": {
+            "30-aniv": 7398.0,
+            "seminario-ch": 6566.4
+          }
+        },
+        {
+          "lugar": 18,
+          "nombre": "ARMANDO BARRERA",
+          "suma": 13575.0,
+          "sumaPdf": 13575.0,
+          "porEvento": {
+            "fest-saltillo": 13575.0
+          }
+        },
+        {
+          "lugar": 19,
+          "nombre": "FERNANDO MIRANDA",
+          "suma": 13225.0,
+          "sumaPdf": 13225.0,
+          "porEvento": {
+            "expoganson2": 11975.0,
+            "expoganson3": 1250.0
+          }
+        },
+        {
+          "lugar": 20,
+          "nombre": "JOSE CORTEZ",
+          "suma": 13068.0,
+          "sumaPdf": 13068.0,
+          "porEvento": {
+            "noreste": 13068.0
+          }
+        },
+        {
+          "lugar": 21,
+          "nombre": "ADRIAN FERREIRO",
+          "suma": 11668.1,
+          "sumaPdf": 11668.1,
+          "porEvento": {
+            "int-santa-rita": 5755.1,
+            "jimenez": 5913.0
+          }
+        },
+        {
+          "lugar": 22,
+          "nombre": "UBALDO SANDOVAL",
+          "suma": 11628.0,
+          "sumaPdf": 11628.0,
+          "porEvento": {
+            "camargo": 11628.0
+          }
+        },
+        {
+          "lugar": 23,
+          "nombre": "MARGIL DE LA GARZA",
+          "suma": 11000.0,
+          "sumaPdf": 11000.0,
+          "porEvento": {
+            "fest-saltillo": 11000.0
+          }
+        },
+        {
+          "lugar": 24,
+          "nombre": "CHRISTIAN CISNEROS",
+          "suma": 10450.0,
+          "sumaPdf": 10450.0,
+          "porEvento": {
+            "expoganson2": 2325.0,
+            "expoganson3": 3300.0,
+            "expoganson4": 4825.0
+          }
+        },
+        {
+          "lugar": 25,
+          "nombre": "LUIS LOYA",
+          "suma": 9661.3,
+          "sumaPdf": 9661.3,
+          "porEvento": {
+            "30-aniv": 1849.5,
+            "zootecnia-mar": 1972.8,
+            "expoganson1": 3175.0,
+            "zootecnia-ago": 2664.0
+          }
+        },
+        {
+          "lugar": 26,
+          "nombre": "MIGUEL MORALES",
+          "suma": 9648.0,
+          "sumaPdf": 9648.0,
+          "porEvento": {
+            "fest-saltillo": 6975.0,
+            "noreste": 2673.0
+          }
+        },
+        {
+          "lugar": 27,
+          "nombre": "GILBERTO RUIZ",
+          "suma": 9576.0,
+          "sumaPdf": 9576.0,
+          "porEvento": {
+            "agrofest": 9576.0
+          }
+        },
+        {
+          "lugar": 28,
+          "nombre": "CARLOS FLORES",
+          "suma": 9518.0,
+          "sumaPdf": 9518.0,
+          "porEvento": {
+            "primavera": 9518.0
+          }
+        },
+        {
+          "lugar": 29,
+          "nombre": "DIEGO CARRANZA",
+          "suma": 8225.0,
+          "sumaPdf": 8225.0,
+          "porEvento": {
+            "expoganson1": 3550.0,
+            "expoganson2": 3475.0,
+            "expoganson4": 1200.0
+          }
+        },
+        {
+          "lugar": 30,
+          "nombre": "JUAN MARTINEZ",
+          "suma": 8025.0,
+          "sumaPdf": 8025.0,
+          "porEvento": {
+            "noreste": 8025.0
+          }
+        },
+        {
+          "lugar": 31,
+          "nombre": "JAIME MARTINEZ",
+          "suma": 7326.0,
+          "sumaPdf": 7326.0,
+          "porEvento": {
+            "agrofest": 5544.0,
+            "noreste": 1782.0
+          }
+        },
+        {
+          "lugar": 32,
+          "nombre": "DANIEL MORALES",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "agrofest": 6048.0
+          }
+        },
+        {
+          "lugar": 32,
+          "nombre": "HÉCTOR VAZQUEZ",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "agrofest": 6048.0
+          }
+        },
+        {
+          "lugar": 32,
+          "nombre": "MARCO HERNÁNDEZ M",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "agrofest": 6048.0
+          }
+        },
+        {
+          "lugar": 35,
+          "nombre": "GILBERTO QUIROGA",
+          "suma": 5800.0,
+          "sumaPdf": 5800.0,
+          "porEvento": {
+            "fest-saltillo": 5800.0
+          }
+        },
+        {
+          "lugar": 36,
+          "nombre": "VALERIANO ROBLES",
+          "suma": 5394.0,
+          "sumaPdf": 5394.0,
+          "porEvento": {
+            "agrofest": 3024.0,
+            "noreste": 2370.0
+          }
+        },
+        {
+          "lugar": 37,
+          "nombre": "JOSE MANUEL GONZALEZ",
+          "suma": 5097.6,
+          "sumaPdf": 5097.6,
+          "porEvento": {
+            "san-marcos": 5097.6
+          }
+        },
+        {
+          "lugar": 38,
+          "nombre": "JOSE PORTELA",
+          "suma": 4975.0,
+          "sumaPdf": 4975.0,
+          "porEvento": {
+            "expoganson3": 4975.0
+          }
+        },
+        {
+          "lugar": 39,
+          "nombre": "JERONIMO VENEGAS",
+          "suma": 4924.8,
+          "sumaPdf": 4924.8,
+          "porEvento": {
+            "seminario-ch": 4924.8
+          }
+        },
+        {
+          "lugar": 40,
+          "nombre": "OCTAVIO ROBLES JR",
+          "suma": 4800.0,
+          "sumaPdf": 4800.0,
+          "porEvento": {
+            "expoganson4": 4800.0
+          }
+        },
+        {
+          "lugar": 41,
+          "nombre": "ALBERTO SANCHEZ",
+          "suma": 4536.0,
+          "sumaPdf": 4536.0,
+          "porEvento": {
+            "agrofest": 4536.0
+          }
+        },
+        {
+          "lugar": 41,
+          "nombre": "OSCAR VILLARREAL",
+          "suma": 4536.0,
+          "sumaPdf": 4536.0,
+          "porEvento": {
+            "agrofest": 4536.0
+          }
+        },
+        {
+          "lugar": 43,
+          "nombre": "NORBERTO ROSALES",
+          "suma": 4320.0,
+          "sumaPdf": 4320.0,
+          "porEvento": {
+            "duck-fest": 4320.0
+          }
+        },
+        {
+          "lugar": 44,
+          "nombre": "OCTAVIO ROBLES SR",
+          "suma": 4150.0,
+          "sumaPdf": 4150.0,
+          "porEvento": {
+            "expoganson1": 1050.0,
+            "expoganson2": 3100.0
+          }
+        },
+        {
+          "lugar": 45,
+          "nombre": "BERNARDO MORENO SR",
+          "suma": 3875.0,
+          "sumaPdf": 3875.0,
+          "porEvento": {
+            "expoganson1": 3875.0
+          }
+        },
+        {
+          "lugar": 46,
+          "nombre": "MARCO MINJAREZ",
+          "suma": 3699.0,
+          "sumaPdf": 3699.0,
+          "porEvento": {
+            "30-aniv": 3699.0
+          }
+        },
+        {
+          "lugar": 47,
+          "nombre": "JOSÉ LUIS GONZALEZ",
+          "suma": 3668.4,
+          "sumaPdf": 3668.4,
+          "porEvento": {
+            "zootecnia-mar": 1479.6,
+            "seminario-ch": 2188.8
+          }
+        },
+        {
+          "lugar": 48,
+          "nombre": "RICARDO ROMERO",
+          "suma": 3637.5,
+          "sumaPdf": 3637.5,
+          "porEvento": {
+            "expoganson2": 1162.5,
+            "expoganson3": 2475.0
+          }
+        },
+        {
+          "lugar": 49,
+          "nombre": "JOHANNA ACOSTA",
+          "suma": 3600.0,
+          "sumaPdf": 3600.0,
+          "porEvento": {
+            "expoganson4": 3600.0
+          }
+        },
+        {
+          "lugar": 50,
+          "nombre": "SERGIO RIVERA",
+          "suma": 3283.2,
+          "sumaPdf": 3283.2,
+          "porEvento": {
+            "seminario-ch": 3283.2
+          }
+        },
+        {
+          "lugar": 51,
+          "nombre": "NOE GARCIA",
+          "suma": 3240.0,
+          "sumaPdf": 3240.0,
+          "porEvento": {
+            "duck-fest": 3240.0
+          }
+        },
+        {
+          "lugar": 52,
+          "nombre": "ALFREDO LOPEZ",
+          "suma": 3200.0,
+          "sumaPdf": 3200.0,
+          "porEvento": {
+            "expoganson4": 3200.0
+          }
+        },
+        {
+          "lugar": 53,
+          "nombre": "FRANCISCO AGUIRRE",
+          "suma": 3024.0,
+          "sumaPdf": 3024.0,
+          "porEvento": {
+            "agrofest": 3024.0
+          }
+        },
+        {
+          "lugar": 54,
+          "nombre": "PEDRO WIEBE",
+          "suma": 2959.2,
+          "sumaPdf": 2959.2,
+          "porEvento": {
+            "zootecnia-mar": 2959.2
+          }
+        },
+        {
+          "lugar": 55,
+          "nombre": "CARLOS BAÑUELAS",
+          "suma": 2466.0,
+          "sumaPdf": 2466.0,
+          "porEvento": {
+            "30-aniv": 2466.0
+          }
+        },
+        {
+          "lugar": 56,
+          "nombre": "SALVADOR MARTINEZ",
+          "suma": 2400.0,
+          "sumaPdf": 2400.0,
+          "porEvento": {
+            "expoganson4": 2400.0
+          }
+        },
+        {
+          "lugar": 56,
+          "nombre": "ALFONSO RODRÍGUEZ",
+          "suma": 2400.0,
+          "sumaPdf": 2400.0,
+          "porEvento": {
+            "expoganson4": 2400.0
+          }
+        },
+        {
+          "lugar": 58,
+          "nombre": "JORGE CANALES",
+          "suma": 2016.0,
+          "sumaPdf": 2016.0,
+          "porEvento": {
+            "agrofest": 2016.0
+          }
+        },
+        {
+          "lugar": 59,
+          "nombre": "EMMANUEL BAÑUELOS",
+          "suma": 1784.7,
+          "sumaPdf": 1784.7,
+          "porEvento": {
+            "primavera": 1784.7
+          }
+        },
+        {
+          "lugar": 60,
+          "nombre": "HÉCTOR CHAPA",
+          "suma": 1782.0,
+          "sumaPdf": 1782.0,
+          "porEvento": {
+            "noreste": 1782.0
+          }
+        },
+        {
+          "lugar": 61,
+          "nombre": "PABLO SALOMON",
+          "suma": 1650.0,
+          "sumaPdf": 1650.0,
+          "porEvento": {
+            "expoganson3": 1650.0
+          }
+        },
+        {
+          "lugar": 62,
+          "nombre": "JOSÉ LUIS PORRAS",
+          "suma": 1641.6,
+          "sumaPdf": 1641.6,
+          "porEvento": {
+            "seminario-ch": 1641.6
+          }
+        },
+        {
+          "lugar": 63,
+          "nombre": "LUIS ARMENDARIZ",
+          "suma": 1600.0,
+          "sumaPdf": 1600.0,
+          "porEvento": {
+            "expoganson4": 1600.0
+          }
+        },
+        {
+          "lugar": 64,
+          "nombre": "SERGIO CARRANZA",
+          "suma": 1162.5,
+          "sumaPdf": 1162.5,
+          "porEvento": {
+            "expoganson2": 1162.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "Barriles",
+      "nombre": "Barriles",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "ANA LAURA MORENO",
+          "suma": 67550.0,
+          "sumaPdf": 67550.0,
+          "porEvento": {
+            "expoganson1": 13000.0,
+            "expoganson2": 18900.0,
+            "expoganson3": 19400.0,
+            "expoganson4": 16250.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "ANDREA GONZALEZ",
+          "suma": 59162.5,
+          "sumaPdf": 59163.0,
+          "porEvento": {
+            "zootecnia-mar": 8100.0,
+            "seminario-ch": 7120.8,
+            "int-santa-rita": 12607.2,
+            "expoganson1": 13600.0,
+            "country-fest": 13680.0,
+            "camargo": 4054.5
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "LUISA HERRERA",
+          "suma": 55376.8,
+          "sumaPdf": 55377.0,
+          "porEvento": {
+            "fest-saltillo": 29500.0,
+            "30-aniv": 3142.8,
+            "san-marcos": 17010.0,
+            "camargo": 5724.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "DANIELA MARTINEZ",
+          "suma": 41759.6,
+          "sumaPdf": 41760.0,
+          "porEvento": {
+            "seminario-ch": 6501.6,
+            "int-santa-rita": 4820.0,
+            "jimenez": 4252.5,
+            "country-fest": 4788.0,
+            "zootecnia-ago": 13050.0,
+            "camargo": 8347.5
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "MONICA FLORES",
+          "suma": 31647.9,
+          "sumaPdf": 31648.0,
+          "porEvento": {
+            "fest-saltillo": 13000.0,
+            "zootecnia-mar": 5737.5,
+            "int-santa-rita": 1112.4,
+            "jimenez": 8221.0,
+            "camargo": 3577.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "NASYERI YEVERINO",
+          "suma": 30524.0,
+          "sumaPdf": 30524.0,
+          "porEvento": {
+            "duck-fest": 2484.0,
+            "expoganson2": 5300.0,
+            "expoganson3": 5400.0,
+            "expoganson4": 3300.0,
+            "noreste": 14040.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "PAULINA OCHOA",
+          "suma": 29229.3,
+          "sumaPdf": 29229.0,
+          "porEvento": {
+            "30-aniv": 17460.0,
+            "zootecnia-mar": 1012.5,
+            "seminario-ch": 1857.6,
+            "int-santa-rita": 8899.2
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "DIANA LAURA PANDO",
+          "suma": 26325.0,
+          "sumaPdf": 26325.0,
+          "porEvento": {
+            "zootecnia-mar": 13500.0,
+            "san-marcos": 7290.0,
+            "jimenez": 3969.0,
+            "zootecnia-ago": 1566.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "DIANA THOMPSON",
+          "suma": 25472.0,
+          "sumaPdf": 25472.0,
+          "porEvento": {
+            "fest-saltillo": 16400.0,
+            "agrofest": 9072.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "PERY PRADO",
+          "suma": 25363.8,
+          "sumaPdf": 25364.0,
+          "porEvento": {
+            "30-aniv": 2095.2,
+            "int-santa-rita": 6303.6,
+            "jimenez": 5103.0,
+            "country-fest": 8208.0,
+            "zootecnia-ago": 3654.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "PAMELA JIMENEZ",
+          "suma": 23692.9,
+          "sumaPdf": 23693.0,
+          "porEvento": {
+            "30-aniv": 2793.6,
+            "int-santa-rita": 2224.8,
+            "jimenez": 4252.5,
+            "country-fest": 4446.0,
+            "zootecnia-ago": 7830.0,
+            "camargo": 2146.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "MARIA FERNANDA BELTRAN",
+          "suma": 23600.0,
+          "sumaPdf": 23600.0,
+          "porEvento": {
+            "expoganson1": 5800.0,
+            "expoganson2": 11300.0,
+            "expoganson3": 3500.0,
+            "expoganson4": 3000.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "ALEJANDRA GONZALEZ",
+          "suma": 15246.0,
+          "sumaPdf": 15246.0,
+          "porEvento": {
+            "duck-fest": 8694.0,
+            "noreste": 6552.0
+          }
+        },
+        {
+          "lugar": 14,
+          "nombre": "SUSY DE ALBA",
+          "suma": 14500.0,
+          "sumaPdf": 14500.0,
+          "porEvento": {
+            "fest-saltillo": 14500.0
+          }
+        },
+        {
+          "lugar": 15,
+          "nombre": "CAMILA RODRÍGUEZ",
+          "suma": 14450.0,
+          "sumaPdf": 14450.0,
+          "porEvento": {
+            "expoganson3": 2300.0,
+            "expoganson4": 12150.0
+          }
+        },
+        {
+          "lugar": 16,
+          "nombre": "DIANA LAURA FRANCO",
+          "suma": 14350.0,
+          "sumaPdf": 14350.0,
+          "porEvento": {
+            "fest-saltillo": 14350.0
+          }
+        },
+        {
+          "lugar": 17,
+          "nombre": "FLORENCIA HERNÁNDEZ",
+          "suma": 11502.0,
+          "sumaPdf": 11502.0,
+          "porEvento": {
+            "zootecnia-mar": 1350.0,
+            "expoganson3": 8100.0,
+            "country-fest": 2052.0
+          }
+        },
+        {
+          "lugar": 18,
+          "nombre": "ANDREA ACHAVAL",
+          "suma": 10836.0,
+          "sumaPdf": 10836.0,
+          "porEvento": {
+            "seminario-ch": 10836.0
+          }
+        },
+        {
+          "lugar": 19,
+          "nombre": "MELISSA QUIROGA",
+          "suma": 7038.0,
+          "sumaPdf": 7038.0,
+          "porEvento": {
+            "duck-fest": 7038.0
+          }
+        },
+        {
+          "lugar": 20,
+          "nombre": "DIANA ORTEGA",
+          "suma": 6804.0,
+          "sumaPdf": 6804.0,
+          "porEvento": {
+            "agrofest": 6804.0
+          }
+        },
+        {
+          "lugar": 21,
+          "nombre": "ANNIE VALERIA TREJO",
+          "suma": 6669.0,
+          "sumaPdf": 6669.0,
+          "porEvento": {
+            "zootecnia-mar": 2025.0,
+            "seminario-ch": 4644.0
+          }
+        },
+        {
+          "lugar": 22,
+          "nombre": "ALEJANDRA SOTO",
+          "suma": 6285.6,
+          "sumaPdf": 6286.0,
+          "porEvento": {
+            "30-aniv": 6285.6
+          }
+        },
+        {
+          "lugar": 23,
+          "nombre": "ANDREA DELGADO",
+          "suma": 5508.0,
+          "sumaPdf": 5508.0,
+          "porEvento": {
+            "agrofest": 5508.0
+          }
+        },
+        {
+          "lugar": 24,
+          "nombre": "MELISSA ARMENDARIZ",
+          "suma": 4500.0,
+          "sumaPdf": 4500.0,
+          "porEvento": {
+            "expoganson2": 2300.0,
+            "expoganson4": 2200.0
+          }
+        },
+        {
+          "lugar": 25,
+          "nombre": "BIBIANA REYES",
+          "suma": 3888.0,
+          "sumaPdf": 3888.0,
+          "porEvento": {
+            "agrofest": 3888.0
+          }
+        },
+        {
+          "lugar": 25,
+          "nombre": "IRMA CORPUS",
+          "suma": 3888.0,
+          "sumaPdf": 3888.0,
+          "porEvento": {
+            "agrofest": 3888.0
+          }
+        },
+        {
+          "lugar": 27,
+          "nombre": "PAULINA LOYA",
+          "suma": 3142.8,
+          "sumaPdf": 3143.0,
+          "porEvento": {
+            "30-aniv": 3142.8
+          }
+        },
+        {
+          "lugar": 28,
+          "nombre": "CRISTINA FLORES",
+          "suma": 2808.0,
+          "sumaPdf": 2808.0,
+          "porEvento": {
+            "noreste": 2808.0
+          }
+        },
+        {
+          "lugar": 29,
+          "nombre": "LUISA MATA",
+          "suma": 2696.0,
+          "sumaPdf": 2696.0,
+          "porEvento": {
+            "fest-saltillo": 1400.0,
+            "agrofest": 1296.0
+          }
+        },
+        {
+          "lugar": 30,
+          "nombre": "ALEXIA GARCIA",
+          "suma": 2484.0,
+          "sumaPdf": 2484.0,
+          "porEvento": {
+            "duck-fest": 2484.0
+          }
+        },
+        {
+          "lugar": 31,
+          "nombre": "JHOSAYRA ARELLANO",
+          "suma": 2025.0,
+          "sumaPdf": 2025.0,
+          "porEvento": {
+            "zootecnia-mar": 2025.0
+          }
+        },
+        {
+          "lugar": 32,
+          "nombre": "ADRIANA FLORES",
+          "suma": 1400.0,
+          "sumaPdf": 1400.0,
+          "porEvento": {
+            "fest-saltillo": 1400.0
+          }
+        },
+        {
+          "lugar": 32,
+          "nombre": "MARIANA RODRÍGUEZ (CR)",
+          "suma": 1400.0,
+          "sumaPdf": 1400.0,
+          "porEvento": {
+            "fest-saltillo": 1400.0
+          }
+        },
+        {
+          "lugar": 34,
+          "nombre": "MARCELA OCHOA",
+          "suma": 1112.4,
+          "sumaPdf": 1112.0,
+          "porEvento": {
+            "int-santa-rita": 1112.4
+          }
+        },
+        {
+          "lugar": 35,
+          "nombre": "ANETTE PALACIOS",
+          "suma": 1026.0,
+          "sumaPdf": 1026.0,
+          "porEvento": {
+            "country-fest": 1026.0
+          }
+        },
+        {
+          "lugar": 36,
+          "nombre": "REGINA FLORES",
+          "suma": 972.0,
+          "sumaPdf": 972.0,
+          "porEvento": {
+            "agrofest": 972.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "JineteosDeToros",
+      "nombre": "Jineteos de Toros",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "RICARDO ESTRADA",
+          "suma": 91662.0,
+          "sumaPdf": 91662.0,
+          "porEvento": {
+            "primavera": 18990.0,
+            "san-marcos": 19062.0,
+            "int-santa-rita": 15660.0,
+            "expoganson1": 11700.0,
+            "expoganson2": 9800.0,
+            "expoganson3": 4300.0,
+            "expoganson4": 12150.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "OCTAVIO TORRES",
+          "suma": 83144.0,
+          "sumaPdf": 83144.0,
+          "porEvento": {
+            "fest-saltillo": 83144.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "ANTONIO VEGA",
+          "suma": 60474.0,
+          "sumaPdf": 60474.0,
+          "porEvento": {
+            "fest-saltillo": 60474.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "WILLIAM DE SOUZA",
+          "suma": 42804.0,
+          "sumaPdf": 42804.0,
+          "porEvento": {
+            "fest-saltillo": 42804.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "DANIEL ARANTES",
+          "suma": 29234.0,
+          "sumaPdf": 29234.0,
+          "porEvento": {
+            "fest-saltillo": 29234.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "ÁLVARO ALVAREZ",
+          "suma": 24194.0,
+          "sumaPdf": 24194.0,
+          "porEvento": {
+            "fest-saltillo": 24194.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "VICTOR OLIVAS",
+          "suma": 22738.0,
+          "sumaPdf": 22738.0,
+          "porEvento": {
+            "zootecnia-mar": 10638.0,
+            "expoganson2": 12100.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "ARMANDO RODRÍGUEZ",
+          "suma": 21941.0,
+          "sumaPdf": 21941.0,
+          "porEvento": {
+            "garret-parral": 13991.0,
+            "expoganson1": 4500.0,
+            "expoganson2": 3450.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "JAVIER RUIZ",
+          "suma": 20250.0,
+          "sumaPdf": 20250.0,
+          "porEvento": {
+            "expoganson4": 20250.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "FRANCISCO GARCIA",
+          "suma": 19250.0,
+          "sumaPdf": 19250.0,
+          "porEvento": {
+            "fest-saltillo": 3500.0,
+            "duck-fest": 15750.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "ALDO ACOSTA",
+          "suma": 16740.0,
+          "sumaPdf": 16740.0,
+          "porEvento": {
+            "country-fest": 16740.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "LUCIO MORALES",
+          "suma": 16150.0,
+          "sumaPdf": 16150.0,
+          "porEvento": {
+            "expoganson1": 3350.0,
+            "expoganson3": 12800.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "ÁLVARO MONTEZ",
+          "suma": 15610.5,
+          "sumaPdf": 15611.0,
+          "porEvento": {
+            "30-aniv": 13140.0,
+            "garret-parral": 2470.5
+          }
+        },
+        {
+          "lugar": 14,
+          "nombre": "OSWALDO DOMINGUEZ",
+          "suma": 13680.0,
+          "sumaPdf": 13680.0,
+          "porEvento": {
+            "seminario-ch": 13680.0
+          }
+        },
+        {
+          "lugar": 15,
+          "nombre": "ALEXIS MARQUEZ",
+          "suma": 10440.0,
+          "sumaPdf": 10440.0,
+          "porEvento": {
+            "int-santa-rita": 10440.0
+          }
+        },
+        {
+          "lugar": 16,
+          "nombre": "CARLOS CERECERO",
+          "suma": 9675.0,
+          "sumaPdf": 9675.0,
+          "porEvento": {
+            "fest-saltillo": 9675.0
+          }
+        },
+        {
+          "lugar": 17,
+          "nombre": "MARIO VERDUGO",
+          "suma": 9200.0,
+          "sumaPdf": 9200.0,
+          "porEvento": {
+            "expoganson3": 9200.0
+          }
+        },
+        {
+          "lugar": 18,
+          "nombre": "SAÚL ZAMBRANO",
+          "suma": 8550.0,
+          "sumaPdf": 8550.0,
+          "porEvento": {
+            "fest-saltillo": 8550.0
+          }
+        },
+        {
+          "lugar": 19,
+          "nombre": "ISAAC RAMIREZ",
+          "suma": 8450.0,
+          "sumaPdf": 8450.0,
+          "porEvento": {
+            "expoganson1": 5000.0,
+            "expoganson2": 3450.0
+          }
+        },
+        {
+          "lugar": 20,
+          "nombre": "JULIAN MANRIQUEZ",
+          "suma": 8100.0,
+          "sumaPdf": 8100.0,
+          "porEvento": {
+            "expoganson4": 8100.0
+          }
+        },
+        {
+          "lugar": 21,
+          "nombre": "JESÚS RUIZ",
+          "suma": 7092.0,
+          "sumaPdf": 7092.0,
+          "porEvento": {
+            "zootecnia-mar": 7092.0
+          }
+        },
+        {
+          "lugar": 22,
+          "nombre": "GAEL VALDES",
+          "suma": 5805.0,
+          "sumaPdf": 5805.0,
+          "porEvento": {
+            "fest-saltillo": 5805.0
+          }
+        },
+        {
+          "lugar": 23,
+          "nombre": "GAMAIEL SALAZAR",
+          "suma": 4300.0,
+          "sumaPdf": 4300.0,
+          "porEvento": {
+            "expoganson3": 4300.0
+          }
+        },
+        {
+          "lugar": 24,
+          "nombre": "ROBERTO SAUCEDO",
+          "suma": 3870.0,
+          "sumaPdf": 3870.0,
+          "porEvento": {
+            "fest-saltillo": 3870.0
+          }
+        },
+        {
+          "lugar": 25,
+          "nombre": "ÁLVARO GONZALEZ",
+          "suma": 3350.0,
+          "sumaPdf": 3350.0,
+          "porEvento": {
+            "expoganson1": 3350.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "AchatadaDeNovillos",
+      "nombre": "Achatada de Novillos",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "SERGIO URRUTIA",
+          "suma": 86270.8,
+          "sumaPdf": 86270.8,
+          "porEvento": {
+            "fest-saltillo": 8950.0,
+            "30-aniv": 7182.0,
+            "primavera": 8820.0,
+            "seminario-ch": 9324.0,
+            "san-marcos": 21600.0,
+            "int-santa-rita": 11692.8,
+            "jimenez": 11970.0,
+            "zootecnia-ago": 6732.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "CHALE OCHOA",
+          "suma": 85801.3,
+          "sumaPdf": 85801.3,
+          "porEvento": {
+            "fest-saltillo": 26250.0,
+            "30-aniv": 9450.0,
+            "zootecnia-mar": 9788.5,
+            "seminario-ch": 6966.0,
+            "int-santa-rita": 7516.8,
+            "country-fest": 9072.0,
+            "zootecnia-ago": 5508.0,
+            "camargo": 11250.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "EMMANUEL CHAVARRIA",
+          "suma": 24280.0,
+          "sumaPdf": 24280.0,
+          "porEvento": {
+            "fest-saltillo": 16090.0,
+            "noreste": 8190.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "ALONSO GALINDO",
+          "suma": 19140.0,
+          "sumaPdf": 19140.0,
+          "porEvento": {
+            "fest-saltillo": 8340.0,
+            "duck-fest": 10800.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "FERNANDO HERRERA",
+          "suma": 13338.0,
+          "sumaPdf": 13338.0,
+          "porEvento": {
+            "primavera": 3150.0,
+            "country-fest": 7128.0,
+            "zootecnia-ago": 3060.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "ÁLVARO VILLALBA",
+          "suma": 9315.0,
+          "sumaPdf": 9315.0,
+          "porEvento": {
+            "zootecnia-mar": 5535.0,
+            "jimenez": 3780.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "ALEJANDRO GRAJEDA",
+          "suma": 6048.0,
+          "sumaPdf": 6048.0,
+          "porEvento": {
+            "30-aniv": 2268.0,
+            "primavera": 3780.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "CARLOS TOLEDO",
+          "suma": 2583.0,
+          "sumaPdf": 2583.0,
+          "porEvento": {
+            "zootecnia-mar": 2583.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "EDSON VIEYRA",
+          "suma": 1670.4,
+          "sumaPdf": 1670.4,
+          "porEvento": {
+            "int-santa-rita": 1670.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "LazoEnFalso",
+      "nombre": "Lazo en Falso",
+      "rol": null,
+      "competidores": [
+        {
+          "lugar": 1,
+          "nombre": "PAULINA RODRIGUEZ",
+          "suma": 21420.0,
+          "sumaPdf": 21420.0,
+          "porEvento": {
+            "30-aniv": 2754.0,
+            "primavera": 3060.0,
+            "seminario-ch": 5400.0,
+            "int-santa-rita": 2457.0,
+            "zootecnia-ago": 4104.0,
+            "camargo": 3645.0
+          }
+        },
+        {
+          "lugar": 2,
+          "nombre": "JOHANNA ACOSTA",
+          "suma": 11000.0,
+          "sumaPdf": 11000.0,
+          "porEvento": {
+            "expoganson1": 2200.0,
+            "expoganson3": 3350.0,
+            "expoganson4": 5450.0
+          }
+        },
+        {
+          "lugar": 3,
+          "nombre": "MARIA FERNANDA BELTRAN",
+          "suma": 10250.0,
+          "sumaPdf": 10250.0,
+          "porEvento": {
+            "expoganson1": 800.0,
+            "expoganson2": 6600.0,
+            "expoganson3": 2850.0
+          }
+        },
+        {
+          "lugar": 4,
+          "nombre": "DIANA DE LA TORRE",
+          "suma": 10170.0,
+          "sumaPdf": 10170.0,
+          "porEvento": {
+            "primavera": 4320.0,
+            "int-santa-rita": 5850.0
+          }
+        },
+        {
+          "lugar": 5,
+          "nombre": "PAULINA LOYA",
+          "suma": 9072.0,
+          "sumaPdf": 9072.0,
+          "porEvento": {
+            "30-aniv": 4374.0,
+            "zootecnia-ago": 2916.0,
+            "camargo": 1782.0
+          }
+        },
+        {
+          "lugar": 6,
+          "nombre": "NAHOMI JIMENEZ",
+          "suma": 7560.0,
+          "sumaPdf": 7560.0,
+          "porEvento": {
+            "duck-fest": 7560.0
+          }
+        },
+        {
+          "lugar": 7,
+          "nombre": "CAMILA RODRÍGUEZ",
+          "suma": 7050.0,
+          "sumaPdf": 7050.0,
+          "porEvento": {
+            "expoganson1": 1550.0,
+            "expoganson2": 800.0,
+            "expoganson3": 4700.0
+          }
+        },
+        {
+          "lugar": 8,
+          "nombre": "LIZETH MINJAREZ",
+          "suma": 5544.0,
+          "sumaPdf": 5544.0,
+          "porEvento": {
+            "seminario-ch": 3600.0,
+            "int-santa-rita": 1053.0,
+            "camargo": 891.0
+          }
+        },
+        {
+          "lugar": 9,
+          "nombre": "MARILYN MONROY",
+          "suma": 5350.0,
+          "sumaPdf": 5350.0,
+          "porEvento": {
+            "expoganson1": 4600.0,
+            "expoganson3": 750.0
+          }
+        },
+        {
+          "lugar": 10,
+          "nombre": "ANYIE CHAVEZ",
+          "suma": 5022.0,
+          "sumaPdf": 5022.0,
+          "porEvento": {
+            "zootecnia-mar": 3402.0,
+            "primavera": 1620.0
+          }
+        },
+        {
+          "lugar": 11,
+          "nombre": "CAMILA GONZALEZ",
+          "suma": 5000.0,
+          "sumaPdf": 5000.0,
+          "porEvento": {
+            "expoganson1": 2000.0,
+            "expoganson2": 3000.0
+          }
+        },
+        {
+          "lugar": 12,
+          "nombre": "NARELL GAMEZ",
+          "suma": 4100.0,
+          "sumaPdf": 4100.0,
+          "porEvento": {
+            "expoganson4": 4100.0
+          }
+        },
+        {
+          "lugar": 13,
+          "nombre": "ANA LIA FLORES",
+          "suma": 3780.0,
+          "sumaPdf": 3780.0,
+          "porEvento": {
+            "int-santa-rita": 702.0,
+            "zootecnia-ago": 2484.0,
+            "camargo": 594.0
+          }
+        },
+        {
+          "lugar": 14,
+          "nombre": "VALERIA ORTIZ",
+          "suma": 3240.0,
+          "sumaPdf": 3240.0,
+          "porEvento": {
+            "duck-fest": 3240.0
+          }
+        },
+        {
+          "lugar": 15,
+          "nombre": "SELENE ITURRALDE",
+          "suma": 2979.0,
+          "sumaPdf": 2979.0,
+          "porEvento": {
+            "int-santa-rita": 702.0,
+            "camargo": 2277.0
+          }
+        },
+        {
+          "lugar": 16,
+          "nombre": "DARIANEE ROMO",
+          "suma": 2850.0,
+          "sumaPdf": 2850.0,
+          "porEvento": {
+            "expoganson4": 2850.0
+          }
+        },
+        {
+          "lugar": 17,
+          "nombre": "MELISSA ARMENDARIZ",
+          "suma": 2750.0,
+          "sumaPdf": 2750.0,
+          "porEvento": {
+            "expoganson2": 2750.0
+          }
+        },
+        {
+          "lugar": 18,
+          "nombre": "MARLENE SALDIVAR",
+          "suma": 2556.0,
+          "sumaPdf": 2556.0,
+          "porEvento": {
+            "zootecnia-mar": 972.0,
+            "int-santa-rita": 936.0,
+            "zootecnia-ago": 648.0
+          }
+        },
+        {
+          "lugar": 19,
+          "nombre": "PAULINA CHAIREZ",
+          "suma": 2268.0,
+          "sumaPdf": 2268.0,
+          "porEvento": {
+            "zootecnia-mar": 2268.0
+          }
+        },
+        {
+          "lugar": 20,
+          "nombre": "MONICA FLORES",
+          "suma": 2106.0,
+          "sumaPdf": 2106.0,
+          "porEvento": {
+            "zootecnia-mar": 1458.0,
+            "zootecnia-ago": 648.0
+          }
+        },
+        {
+          "lugar": 21,
+          "nombre": "ANGIE CHAVEZ",
+          "suma": 2000.0,
+          "sumaPdf": 2000.0,
+          "porEvento": {
+            "expoganson1": 2000.0
+          }
+        },
+        {
+          "lugar": 22,
+          "nombre": "MARIA JOSE ROMERO",
+          "suma": 1863.0,
+          "sumaPdf": 1863.0,
+          "porEvento": {
+            "30-aniv": 972.0,
+            "camargo": 891.0
+          }
+        }
+      ]
+    }
+  ]
+}

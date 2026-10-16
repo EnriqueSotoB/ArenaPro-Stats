@@ -70,19 +70,19 @@ describe("validateEvento", () => {
     assert.ok(r.warnings.some((w) => /montoGanado/i.test(w)));
   });
 
-  it("avisa montos no enteros en schema 2", () => {
+  it("avisa montos con más de 1 decimal en schema 2", () => {
     const r = validateEvento(
       baseEvento({
         schemaVersion: 2,
         clasificacion: [
           {
             categoriaId: "local:c1",
-            entradas: [{ nombre: "A", montoGanado: 10.5 }],
+            entradas: [{ nombre: "A", montoGanado: 10.55 }],
           },
         ],
       })
     );
     assert.equal(r.ok, true);
-    assert.ok(r.warnings.some((w) => /enteros/i.test(w)));
+    assert.ok(r.warnings.some((w) => /decimal/i.test(w)));
   });
 });
