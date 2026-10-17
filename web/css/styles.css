@@ -160,6 +160,71 @@ body {
   color: var(--dark);
 }
 
+/* Topbar más compacta en celular */
+@media (max-width: 640px) {
+  .topbar {
+    gap: 0.4rem 0.65rem;
+    padding: 0.45rem 0.7rem 0.5rem;
+  }
+
+  .brand {
+    gap: 0.45rem;
+  }
+
+  .brand img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+  }
+
+  .brand-sub {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+  }
+
+  .topbar-tools {
+    flex: 1 1 100%;
+    margin-left: 0;
+    gap: 0.35rem 0.45rem;
+  }
+
+  .circuit-picker {
+    flex: 1 1 calc(52% - 0.25rem);
+    min-width: 0;
+  }
+
+  .circuit-select {
+    width: 100%;
+    max-width: none;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .search {
+    flex: 1 1 calc(48% - 0.25rem);
+    width: auto;
+    min-width: 0;
+  }
+
+  .search-input {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .nav {
+    flex: 1 1 100%;
+  }
+
+  .nav-link {
+    flex: 1;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.55rem;
+  }
+}
+
 /* —— Circuit picker —— */
 
 .circuit-picker[hidden] {
@@ -634,30 +699,43 @@ body {
   outline-offset: 2px;
 }
 
-/* —— Podium —— */
+/* —— Podium (broadcast western, marca clara) —— */
 
 .podium {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
+  gap: 0.65rem;
   margin-bottom: 1rem;
 }
 
 @media (min-width: 640px) {
   .podium {
     grid-template-columns: repeat(3, 1fr);
+    align-items: end;
+    gap: 0.75rem;
   }
 
-  .podium-card:nth-child(1) {
-    order: 2;
+  /* Orden 1 · 2 · 3 de izquierda a derecha, con escalón descendente */
+  .podium-card.is-first {
+    padding-top: 1.55rem;
+    padding-bottom: 1.15rem;
+    min-height: 8.25rem;
   }
 
-  .podium-card:nth-child(2) {
-    order: 1;
+  .podium-card.is-second {
+    padding-top: 1.05rem;
+    padding-bottom: 0.95rem;
+    min-height: 7rem;
   }
 
-  .podium-card:nth-child(3) {
-    order: 3;
+  .podium-card.is-third {
+    padding-top: 0.75rem;
+    padding-bottom: 0.85rem;
+    min-height: 6.15rem;
+  }
+
+  .podium-card.is-first .podium-rank {
+    font-size: clamp(2.75rem, 5.2vw, 3.5rem);
   }
 }
 
@@ -666,50 +744,509 @@ body {
 }
 
 .podium-card {
-  background: color-mix(in srgb, #fff 94%, var(--cream));
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: center;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--cream) 70%, #fff), #fff);
   border: 1px solid var(--border);
-  border-radius: 0.55rem;
-  padding: 1rem;
-  text-align: center;
+  border-left: 4px solid var(--forest);
+  border-radius: 0.2rem;
+  padding: 0.85rem 1rem;
+  text-align: left;
   animation: podium-in 0.45s var(--ease-out) both;
   animation-delay: calc(var(--podium-i, 0) * 70ms);
 }
 
 .podium-card.is-first {
-  border-color: var(--ochre);
-  border-width: 2px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--ochre) 12%, #fff), #fff);
+  border-left-color: var(--ochre);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--ochre) 16%, #fff), #fff);
+  box-shadow: 0 10px 24px -16px color-mix(in srgb, var(--ochre) 55%, transparent);
+}
+
+.podium-card.is-second {
+  border-left-color: var(--forest);
+}
+
+.podium-card.is-third {
+  border-left-color: color-mix(in srgb, var(--ochre) 55%, var(--border));
+}
+
+.podium-rank {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--forest);
+  font-variant-numeric: tabular-nums;
+  min-width: 1.6ch;
+  text-align: center;
+}
+
+.podium-card.is-first .podium-rank {
+  color: var(--ochre-text);
+}
+
+.podium-body {
+  min-width: 0;
 }
 
 .podium-place {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--olive);
+}
+
+.podium-name {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--forest);
+  line-height: 1.15;
+}
+
+.podium-name .athlete-link {
+  border-bottom-width: 2px;
+}
+
+.podium-sub {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  color: var(--textsub);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.podium-value {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ochre-text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* —— Hub temporada: scoreboard + mini-standings (broadcast western, claro) —— */
+
+.hub-view {
+  --hub-rule: color-mix(in srgb, var(--ochre) 72%, var(--border));
+}
+
+.hub-head {
+  margin-bottom: 1.15rem;
+  padding: 1rem 1.1rem 1.15rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--sand) 55%, #fff) 0%,
+      color-mix(in srgb, var(--cream) 80%, #fff) 48%,
+      #fff 100%
+    ),
+    repeating-linear-gradient(
+      -18deg,
+      transparent,
+      transparent 11px,
+      color-mix(in srgb, var(--forest) 4%, transparent) 11px,
+      color-mix(in srgb, var(--forest) 4%, transparent) 12px
+    );
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--ochre);
+  border-left: 5px solid var(--forest);
+  border-radius: 0.15rem;
+}
+
+.hub-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+}
+
+.hub-head h1 {
+  font-size: clamp(1.85rem, 4vw, 2.55rem);
+  letter-spacing: -0.03em;
+}
+
+.hub-meta {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--olive);
+}
+
+.hub-head .metric-toggle {
+  margin-top: 0;
+  border-radius: 0.15rem;
+}
+
+.hub-head .assoc-logo {
+  border-radius: 0.15rem;
+  box-shadow: none;
+  border-color: var(--border);
+  background: #fff;
+}
+
+.hub-featured {
+  margin-bottom: 1.15rem;
+  padding: 1rem 1.1rem 1.1rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--ochre);
+  border-radius: 0.15rem;
+  box-shadow: 0 12px 28px -22px color-mix(in srgb, var(--ochre) 50%, transparent);
+}
+
+.hub-featured .all-around-head {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 2px solid var(--hub-rule);
+}
+
+.hub-featured .all-around-head .eyebrow {
+  margin-bottom: 0.2rem;
+}
+
+.hub-featured .all-around-head h2 {
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  color: var(--forest);
+}
+
+.hub-featured.is-empty {
+  box-shadow: none;
+  border-left-color: var(--border);
+}
+
+.hub-featured-note {
+  margin: 0.55rem 0 0;
+  font-size: 0.82rem;
+}
+
+.hub-disciplines {
+  margin-bottom: 1.25rem;
+}
+
+.hub-disciplines-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--hub-rule);
+}
+
+.hub-section-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+}
+
+.hub-card-grid {
+  gap: 0.75rem;
+}
+
+.hub-view .cat-card,
+.hub-discipline {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--forest);
+  border-radius: 0.15rem;
+  padding: 0.85rem 0.95rem 0.95rem;
+  box-shadow: none;
+  transition: border-color 0.18s var(--ease-out), background 0.18s var(--ease-out);
+}
+
+.hub-view .cat-card:hover,
+.hub-discipline:hover {
+  border-color: var(--forest);
+  border-left-color: var(--ochre);
+  transform: none;
+  box-shadow: 0 10px 22px -18px color-mix(in srgb, var(--forest) 35%, transparent);
+  background: color-mix(in srgb, var(--cream) 55%, #fff);
+}
+
+.hub-view .cat-card-head {
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+}
+
+.hub-view .cat-card-title {
+  font-size: 1.05rem;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+}
+
+.hub-view .cat-card-count {
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--olive);
 }
 
-.podium-name {
-  margin: 0.35rem 0 0;
+.hub-standings-preview {
+  gap: 0.15rem;
+}
+
+.hub-standings-preview li {
+  grid-template-columns: 1.75rem 1fr auto;
+  gap: 0.45rem;
+  padding: 0.28rem 0.2rem;
+  font-size: 0.9rem;
+  border-radius: 0.1rem;
+}
+
+.hub-standings-preview li.is-leader {
+  background: color-mix(in srgb, var(--ochre) 12%, #fff);
+}
+
+.hub-standings-preview .place {
   font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hub-standings-preview li.is-leader .place,
+.hub-standings-preview li.is-leader .pts {
+  color: var(--ochre-text);
+}
+
+.hub-standings-preview .pts {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.hub-view .cat-card-cta {
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  width: 100%;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hub-metodologia {
+  margin-top: 0.5rem;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--sand) 28%, #fff);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  border-left: 3px solid var(--forest);
+  border-radius: 0.15rem;
+  box-shadow: none;
+}
+
+.hub-metodologia h2 {
+  letter-spacing: -0.01em;
+}
+
+/* —— Ranking view: standings board (broadcast western, claro) —— */
+
+.ranking-view {
+  --rank-rule: color-mix(in srgb, var(--ochre) 72%, var(--border));
+}
+
+.ranking-head {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.1rem 1.15rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--sand) 55%, #fff) 0%,
+      color-mix(in srgb, var(--cream) 80%, #fff) 48%,
+      #fff 100%
+    ),
+    repeating-linear-gradient(
+      -18deg,
+      transparent,
+      transparent 11px,
+      color-mix(in srgb, var(--forest) 4%, transparent) 11px,
+      color-mix(in srgb, var(--forest) 4%, transparent) 12px
+    );
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--ochre);
+  border-left: 5px solid var(--forest);
+  border-radius: 0.15rem;
+}
+
+.ranking-head .btn-back {
+  margin-bottom: 0.75rem;
+  border-radius: 0.15rem;
+}
+
+.ranking-eyebrow {
+  color: var(--ochre-text);
+}
+
+.ranking-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+}
+
+.ranking-head h1 {
+  font-size: clamp(1.85rem, 4vw, 2.55rem);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.ranking-meta {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--olive);
+}
+
+.ranking-head .metric-toggle {
+  margin-top: 0;
+  border-radius: 0.15rem;
+}
+
+.ranking-head .metric-btn {
+  border-radius: 0;
+}
+
+.ranking-board {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ranking-view .podium-leaders {
+  margin-bottom: 0;
+  padding: 0.15rem 0 0.35rem;
+  border-bottom: 2px solid var(--rank-rule);
+}
+
+.ranking-view .ranking-head h1 {
   color: var(--forest);
 }
 
-.podium-sub {
-  margin: 0.25rem 0 0;
-  font-size: 0.875rem;
-  color: var(--textsub);
+.ranking-standings {
+  min-width: 0;
 }
 
-.podium-value {
-  margin: 0.5rem 0 0;
-  font-size: 1.25rem;
-  font-weight: 700;
+.ranking-standings .empty-state {
+  padding: 1.25rem 1rem;
+  background: color-mix(in srgb, var(--cream) 70%, #fff);
+  border: 1px dashed var(--border);
+  border-radius: 0.15rem;
+  color: var(--olive);
+}
+
+.standings-wrap {
+  border: 1px solid var(--border);
+  border-radius: 0.15rem;
+  background: #fff;
+  box-shadow: 0 12px 28px -22px color-mix(in srgb, var(--forest) 45%, transparent);
+}
+
+.standings-table {
+  font-size: 0.9rem;
+}
+
+.standings-table thead th {
+  padding: 0.55rem 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--forest);
+  color: var(--cream);
+  border-bottom: 2px solid var(--ochre);
+}
+
+.standings-table tbody td {
+  padding: 0.48rem 0.7rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 45%, transparent);
+  vertical-align: middle;
+}
+
+.standings-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--sand) 42%, #fff);
+}
+
+.standings-table tbody tr:nth-child(odd) {
+  background: #fff;
+}
+
+.standings-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--ochre) 10%, #fff);
+}
+
+.standings-place {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--forest);
+  letter-spacing: -0.02em;
+}
+
+.standings-value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: var(--forest);
+  letter-spacing: -0.015em;
+}
+
+.standings-table tbody tr.is-podium td:first-child {
+  box-shadow: inset 3px 0 0 var(--forest);
+}
+
+.standings-table tbody tr.is-leader td:first-child {
+  box-shadow: inset 3px 0 0 var(--ochre);
+}
+
+.standings-table tbody tr.is-leader {
+  background: color-mix(in srgb, var(--ochre) 12%, #fff);
+}
+
+.standings-table tbody tr.is-leader .standings-place,
+.standings-table tbody tr.is-leader .standings-value {
   color: var(--ochre-text);
-  font-variant-numeric: tabular-nums;
+}
+
+.standings-table tbody tr.is-cut-line td {
+  border-bottom: 3px solid var(--ochre);
+}
+
+.ranking-standings .cut-note {
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.75rem;
+  background: color-mix(in srgb, var(--sand) 35%, #fff);
+  border-left: 3px solid var(--ochre);
+  border-radius: 0.1rem;
+  color: var(--olive);
+}
+
+.ranking-standings .badge {
+  border-radius: 0.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
 }
 
 /* —— Profile —— */

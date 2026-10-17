@@ -217,11 +217,17 @@ export function renderPodiumHtml(items) {
   return items
     .map((item, idx) => {
       const nameHtml = athleteNameHtml(item.name, item.competidorKey);
-      return `<article class="podium-card${idx === 0 ? " is-first" : ""}" style="--podium-i:${idx}">
-      <p class="podium-place">#${item.place}</p>
-      <p class="podium-name">${nameHtml}</p>
-      <p class="podium-sub">${escapeHtml(item.sub || "—")}</p>
-      <p class="podium-value">${escapeHtml(item.value)}</p>
+      const place = item.place ?? idx + 1;
+      const placeClass =
+        idx === 0 ? " is-first" : idx === 1 ? " is-second" : idx === 2 ? " is-third" : "";
+      return `<article class="podium-card${placeClass}" data-place="${place}" style="--podium-i:${idx}">
+      <span class="podium-rank" aria-hidden="true">${place}</span>
+      <div class="podium-body">
+        <p class="podium-place">Lugar ${place}</p>
+        <p class="podium-name">${nameHtml}</p>
+        <p class="podium-sub">${escapeHtml(item.sub || "—")}</p>
+        <p class="podium-value">${escapeHtml(item.value)}</p>
+      </div>
     </article>`;
     })
     .join("");

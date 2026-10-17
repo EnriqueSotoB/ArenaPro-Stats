@@ -521,7 +521,7 @@ function renderTemporadaHub() {
       const top = sorted.slice(0, TOP_CARD);
       const list = top
         .map(
-          (r, i) => `<li>
+          (r, i) => `<li class="${i === 0 ? "is-leader" : i < 3 ? "is-podium" : ""}">
         <span class="place">${i + 1}</span>
         <span class="name">${athleteNameHtml(r.nombre || r.competidorId || "—", r.competidorKey)}</span>
         <span class="pts">${escapeHtml(formatMetric(r))}</span>
@@ -529,12 +529,12 @@ function renderTemporadaHub() {
         )
         .join("");
 
-      return `<article class="cat-card" style="--card-i:${cardIdx}">
+      return `<article class="cat-card hub-discipline" style="--card-i:${cardIdx}">
       <div class="cat-card-head">
         <h2 class="cat-card-title">${escapeHtml(nombre)}</h2>
         <span class="cat-card-count">${sorted.length} competidores</span>
       </div>
-      <ol class="cat-card-list">${list}</ol>
+      <ol class="cat-card-list hub-standings-preview">${list}</ol>
       <button type="button" class="cat-card-cta" data-cat="${escapeAttr(catId)}">Ver ranking completo →</button>
     </article>`;
     });
@@ -565,7 +565,7 @@ function renderAllAroundHub() {
   const top = rows.slice(0, TOP_CARD);
   const list = top
     .map(
-      (r, i) => `<li>
+      (r, i) => `<li class="${i === 0 ? "is-leader" : i < 3 ? "is-podium" : ""}">
       <span class="place">${i + 1}</span>
       <span class="name">${athleteNameHtml(r.nombre || "—", r.competidorKey)}</span>
       <span class="pts">${escapeHtml(fmtVaquero(r.puntosTotales, r.dineroTotal))}</span>
@@ -573,14 +573,14 @@ function renderAllAroundHub() {
     )
     .join("");
   const discNote = top[0]
-    ? `<p class="meta">${escapeHtml(
+    ? `<p class="meta hub-featured-note">${escapeHtml(
         (top[0].detalle || [])
           .map((d) => d.disciplinaNombre || d.disciplinaId)
           .join(" · ")
       )}</p>`
     : "";
   els.allAroundList.innerHTML = `
-    <ol class="cat-card-list">${list}</ol>
+    <ol class="cat-card-list hub-standings-preview">${list}</ol>
     ${discNote}
     <button type="button" class="cat-card-cta all-around-cta" id="btnAllAround">Ver clasificación Vaquero Completo →</button>
   `;
@@ -624,21 +624,24 @@ function renderAllAroundRanking() {
 
   const body = rows
     .map((r, i) => {
+      const lugar = i + 1;
       const discs = (r.detalle || [])
         .map((d) => `${d.disciplinaNombre || d.disciplinaId}: ${fmtVaquero(d.puntos, d.dinero)}`)
         .join(" · ");
-      return `<tr>
-        <td class="num">${i + 1}</td>
+      const rowClass =
+        lugar === 1 ? " is-leader is-podium" : lugar <= 3 ? " is-podium" : "";
+      return `<tr class="${rowClass.trim()}">
+        <td class="num standings-place">${lugar}</td>
         <td>${athleteNameHtml(r.nombre || "—", r.competidorKey)}<div class="row-sub">${escapeHtml(discs)}</div></td>
         <td class="num">${(r.disciplinas || []).length}</td>
-        <td class="num">${escapeHtml(fmtVaquero(r.puntosTotales, r.dineroTotal))}</td>
+        <td class="num standings-value">${escapeHtml(fmtVaquero(r.puntosTotales, r.dineroTotal))}</td>
       </tr>`;
     })
     .join("");
 
   els.rankTable.innerHTML = `
-    <div class="table-wrap">
-      <table>
+    <div class="table-wrap standings-wrap">
+      <table class="standings-table">
         <thead>
           <tr>
             <th class="num">#</th>
@@ -709,7 +712,10 @@ function renderTemporadaRanking(catId) {
     .map((r, i) => {
       const lugar = i + 1;
       const delta = leaderVal - metricValue(r);
-      const cutClass = cut && lugar === cut ? " is-cut-line" : "";
+      const rowMods = [];
+      if (lugar === 1) rowMods.push("is-leader", "is-podium");
+      else if (lugar <= 3) rowMods.push("is-podium");
+      if (cut && lugar === cut) rowMods.push("is-cut-line");
       const badge =
         cut && lugar <= cut
           ? `<span class="badge badge-cut">Clasifica</span>`
@@ -722,12 +728,12 @@ function renderTemporadaRanking(catId) {
           : metricMode === "dinero"
             ? `−${fmtMxn(delta)}`
             : `−${fmtNum(delta)}`;
-      return `<tr class="${cutClass}">
-        <td class="num">${lugar}</td>
+      return `<tr class="${rowMods.join(" ")}">
+        <td class="num standings-place">${lugar}</td>
         <td>${athleteNameHtml(r.nombre || r.competidorId || "—", r.competidorKey)} ${badge}</td>
         <td>${escapeHtml(r.equipo || "—")}</td>
         <td class="num">${r.eventos ?? "—"}</td>
-        <td class="num">${escapeHtml(formatMetric(r))}</td>
+        <td class="num standings-value">${escapeHtml(formatMetric(r))}</td>
         <td class="num delta">${deltaDisplay}</td>
       </tr>`;
     })
@@ -739,8 +745,8 @@ function renderTemporadaRanking(catId) {
       : "";
 
   els.rankTable.innerHTML = `
-    <div class="table-wrap">
-      <table>
+    <div class="table-wrap standings-wrap">
+      <table class="standings-table">
         <thead>
           <tr>
             <th class="num">#</th>
